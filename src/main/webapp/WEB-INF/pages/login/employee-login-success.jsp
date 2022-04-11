@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+登入成功
+<a href="${pageContext.request.contextPath}/course/show/all">課程列表</a>
 </body>
 </html>

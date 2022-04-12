@@ -53,6 +53,14 @@ public class ProductBean implements Serializable {
 	@Column(name = "imgUrl")
 	private String imgUrl;
 	
+	private String imgUrl_A;
+	
+	private String imgUrl_B;
+	
+	private String imgUrl_C;
+	
+	private String imgUrl_D;
+	
 	@Column(name = "productDiscription")
 	private String productDiscription;
 
@@ -113,7 +121,8 @@ public class ProductBean implements Serializable {
 	}
 
 	public ProductBean(String productName, Integer product_id, String price, String supplier, String color, String size,String productDiscription,
-			String weight, byte[] img,String imgUrl, String createdAt, String modifiedAt, Integer subcategory_id, Integer stock_id) {
+			String weight, byte[] img,String imgUrl, String createdAt, String modifiedAt, Integer subcategory_id, Integer stock_id,
+			String imgUrl_A,String imgUrl_B,String imgUrl_C,String imgUrl_D) {
 
 		this.color = color;
 		this.createdAt = createdAt;
@@ -127,7 +136,43 @@ public class ProductBean implements Serializable {
 		this.weight = weight;
 		this.size = size;
 		this.productDiscription = productDiscription;
+		this.imgUrl_A = imgUrl_A;
+		this.imgUrl_B = imgUrl_B;
+		this.imgUrl_C = imgUrl_C;
+		this.imgUrl_D = imgUrl_D;
 
+	}
+
+	public String getImgUrl_A() {
+		return imgUrl_A;
+	}
+
+	public void setImgUrl_A(String imgUrl_A) {
+		this.imgUrl_A = imgUrl_A;
+	}
+
+	public String getImgUrl_B() {
+		return imgUrl_B;
+	}
+
+	public void setImgUrl_B(String imgUrl_B) {
+		this.imgUrl_B = imgUrl_B;
+	}
+
+	public String getImgUrl_C() {
+		return imgUrl_C;
+	}
+
+	public void setImgUrl_C(String imgUrl_C) {
+		this.imgUrl_C = imgUrl_C;
+	}
+
+	public String getImgUrl_D() {
+		return imgUrl_D;
+	}
+
+	public void setImgUrl_D(String imgUrl_D) {
+		this.imgUrl_D = imgUrl_D;
 	}
 
 	public String getPrice() {

@@ -33,10 +33,10 @@
 }
 
 button {
-	width: 1px;
-	height: 1px;
-	border-radius: 500px;
-
+	width: 15px;
+	height: 15px;
+	border-radius: 150%;
+	margin: 0 3px;
 }
 
 .red {
@@ -70,9 +70,9 @@ button {
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item"><a class="nav-link" href="index.html">主頁</a></li>
 							<li class="nav-item submenu dropdown active"><a
-								href="FrontpageSeperate	"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">購物中心</a>
+								href="FrontpageSeperate	" class="nav-link dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">購物中心</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item active"><a class="nav-link"
 										href="FrontpageSeperate	">前往商城</a></li>
@@ -100,6 +100,7 @@ button {
 				</div>
 			</nav>
 		</div>
+		<!--================================== 搜尋=============================================== -->
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form class="d-flex justify-content-between">
@@ -110,6 +111,7 @@ button {
 				</form>
 			</div>
 		</div>
+		<!-- ===================================================================================== -->
 	</header>
 	<!-- End Header Area -->
 
@@ -118,13 +120,13 @@ button {
 	<section class="banner-area organic-breadcrumb">
 
 
-
+												<!-- photo size 1280 * 533 -->
 		<div class="window" align='Center'>
 			<div class="images" id="images">
 				<img id="img1" src="${contextRoot}/img/Nice_eCommerce_banner.png">
-				<img id="img1" src="${contextRoot}/img/1.jpg">
-				<img id="img1" src="${contextRoot}/img/2.jpg">	
-			 	<img id="img1" src="${contextRoot}/img/3.jpg">
+				<img id="img1" src="${contextRoot}/img/1.jpg"> <img id="img1"
+					src="${contextRoot}/img/2.jpg"> <img id="img1"
+					src="${contextRoot}/img/3.jpg">
 			</div>
 
 			<span id="buttons">

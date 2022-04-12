@@ -140,21 +140,19 @@
 
 										<div class="d-flex justify-content-center">
 											<figure>
-												<img
-													src="${contextRoot}/ProductTempImg/4d2c70e3-a600-402e-acf8-fe7fd5e5a99d.jpg">
+													<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
 											</figure>
 
 											<figure>
-												<img
-													src="${contextRoot}/ProductTempImg/b363a6ba-1f25-4b71-8659-954ca0fddf3f.jpg">
+													<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
 											</figure>
 
 											<figure>
-												<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}">
+													<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
 											</figure>
 
 											<figure>
-												<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}">
+													<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}">
 											</figure>
 
 										</div>

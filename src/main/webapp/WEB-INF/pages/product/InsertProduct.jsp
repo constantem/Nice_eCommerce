@@ -89,6 +89,17 @@
 #svg {
 	color: #2894FF;
 }
+
+.imgTag{
+	margin-right:400px;
+	color: #2894FF;
+
+}
+#img{
+	margin-top: 10px;
+}
+
+
 </style>
 
 <body>
@@ -210,7 +221,12 @@
 						<div class="field">
 							<label class="label">商品照片</label>
 							<div class="control">
+							<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp 商品主圖</span>
 								<input id="img" name="img" class="input" type="file" value="">
+								<input id="img" name="imgUrl_A" class="input" type="file" value="">
+								<input id="img" name="imgUrl_B" class="input" type="file" value="">
+								<input id="img" name="imgUrl_C" class="input" type="file" value="">
+								<input id="img" name="imgUrl_D" class="input" type="file" value="">
 							</div>
 						</div>
 
@@ -377,7 +393,14 @@
 
 	<script type="text/javascript">
 		document.getElementById("btn1").addEventListener("click", function() {
-			swal("上架成功!", "upload product", "success");
+			
+			Swal.fire({
+
+				  icon: 'success',
+				  title: '新增成功',
+				  showConfirmButton: false,
+				  timer: 2500
+				})
 		});
 	</script>
 
@@ -508,6 +531,7 @@
 	</noscript>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="sweetalert2.all.min.js"></script>
 
 	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->

@@ -2,7 +2,9 @@ package tw.nicesport.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +18,44 @@ import tw.nicesport.service.MemberService;
 public class MemberController {
 
 	@Autowired
-	private MemberService messageService;
+	private MemberService MemberService;
 
+	@GetMapping("/")
+	public String welcomIndex() {
+		return "member/index";
+	}
+	
+	@GetMapping("/form")
+	public String memberForm(Model model) {
+		model.addAttribute("member",new Member());
+		return "member/form";
+	}
+	
+//	//方法1
+//	@RequestMapping("/foo")
+//	public String m1(Model model) {
+//		model.addAttribute("hello", "hello");
+//		model.addAttribute("hello2","Hello");
+//		return "jsp1";
+//	}
+//	
+//	//方法2
+//	@RequestMapping("/foo")
+//	public ModelAndView m1(ModelAndView mav) {
+//		mav.getModel().put("hello", "Hello");
+//		mav.getModel().put("hello2", "Hello2");
+//		mav.setViewName("jsp1");
+//		return mav;
+//	}
+	
 	@RequestMapping("/add")
-	public ModelAndView addMember(ModelAndView mav, @ModelAttribute(name = "Member") Member msg,
-			BindingResult br) {
+	public ModelAndView addMember(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
+		
+		System.out.println("firstname->"+member.getFirstname());
 
-		if (!br.hasErrors()) {
-			messageService.insert(msg);
-			Member newMem = new Member();
-			mav.getModel().put("Member", newMem);
-		}
+		MemberService.insert(member);
 
-		Member latestMem = MemberService.getLastest();
-		mav.getModel().put("lastMember", latestMem);
-		mav.setViewName("addMember");
+		mav.setViewName("member/insertSuccess");
 
 		return mav;
 	}

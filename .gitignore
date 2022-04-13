@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 忽略所有 .class 檔
+*.class
+**/src/main/java/*.class

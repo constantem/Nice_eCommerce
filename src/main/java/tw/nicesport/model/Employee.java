@@ -110,6 +110,7 @@ public class Employee {
 
 	public void setEmployee_id(Integer employeeid) {
 		this.employeeid = employeeid;
+
 	}
 
 	public String getFirstName() {
@@ -181,6 +182,7 @@ public class Employee {
 	}
 
 	public void setHireDate(Date hireDate) {
+
 		this.hireDate = hireDate;
 	}
 

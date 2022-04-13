@@ -1,17 +1,20 @@
 package tw.nicesport.model;
 
-<<<<<<< HEAD
-=======
 import java.util.HashSet;
 import java.util.Set;
-
->>>>>>> master
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +26,11 @@ public class Member {
 	@Column(name="member_id")
 	private Integer id;
 	
+	@NotBlank(message="帳號不可空白")
 	@Column(name="username")
 	private String username;
 	
+	@NotBlank(message="密碼不可空白")
 	@Column(name="password")
 	private String password;
 	
@@ -55,59 +60,7 @@ public class Member {
 //	
 //	@Column(name="modifiedAt")
 //	private String modifiedat;
-=======
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
 
-import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity @Table
-@Component
-public class Member {
-
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column
-	private Integer member_id;
-	
-	@NotBlank(message="帳號不可空白")
-	@Column
-	private String username;
-	
-	@NotBlank(message="密碼不可空白")
-	@Column
-	private String password;
-	
-	@Column
-	private String firstName;
-	
-	@Column
-	private String lastName;
-	
-	@Column
-	private String birthDate;
-	
-	@Column
-	private String gender;
-	
-	@Column
-	private String phone;
-	
-	@Column
-	private String email;
-	
-	@Column
-	private String address;
-	
-	@Column @Transient
-	private String createdAt;
-	
-	@Column
-	private String modifiedAt;
-	
 	// 以上為欄位, 以下為其他 entity
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
@@ -115,28 +68,18 @@ public class Member {
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 
 	// 建構子
->>>>>>> master
 	
 	public Member() {
 	}
 
-<<<<<<< HEAD
+	// getter, setter
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
-=======
-	// getter, setter
-	
-	public Integer getMember_id() {
-		return member_id;
-	}
-
-	public void setMember_id(Integer member_id) {
-		this.member_id = member_id;
->>>>>>> master
+		this.id = id;	
 	}
 
 	public String getUsername() {
@@ -155,7 +98,6 @@ public class Member {
 		this.password = password;
 	}
 
-<<<<<<< HEAD
 	public String getFirstname() {
 		return firstname;
 	}
@@ -178,30 +120,6 @@ public class Member {
 
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
-=======
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
->>>>>>> master
 	}
 
 	public String getGender() {
@@ -236,7 +154,6 @@ public class Member {
 		this.address = address;
 	}
 
-<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
@@ -244,22 +161,21 @@ public class Member {
 				+ ", email=" + email + ", address=" + address + "]";
 	}
 
-=======
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getModifiedAt() {
-		return modifiedAt;
-	}
-
-	public void setModifiedAt(String modifiedAt) {
-		this.modifiedAt = modifiedAt;
-	}
+//	public String getCreatedAt() {
+//		return createdAt;
+//	}
+//
+//	public void setCreatedAt(String createdAt) {
+//		this.createdAt = createdAt;
+//	}
+//
+//	public String getModifiedAt() {
+//		return modifiedAt;
+//	}
+//
+//	public void setModifiedAt(String modifiedAt) {
+//		this.modifiedAt = modifiedAt;
+//	}
 
 	// 對側 entity 的 getter, setter
 	
@@ -270,7 +186,4 @@ public class Member {
 	public void setCourseBookingSet(Set<CourseBooking> courseBookingSet) {
 		this.courseBookingSet = courseBookingSet;
 	}
-	
-	
->>>>>>> master
 }

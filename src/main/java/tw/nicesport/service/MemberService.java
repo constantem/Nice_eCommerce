@@ -30,7 +30,7 @@ public class MemberService {
 		if (option.isPresent()) {
 			return option.get();
 		}
-		return null;
+		return 	memberDao.findById(id).get();
 	}
 
 	public List<Member> findAllMember() {
@@ -42,6 +42,10 @@ public class MemberService {
 		Page<Member> page = memberDao.findAll(pgb);
 
 		return page;
+	}
+	
+	public void deleteById(Integer id){
+		memberDao.deleteById(id);
 	}
 
 	public static Member getLastest() {

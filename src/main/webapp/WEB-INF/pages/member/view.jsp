@@ -11,11 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-member form
-<form:form action="${contextRoot}/member/add" modelAttribute="member">
-姓:<form:input path="firstname"/><p>
-名:<form:input path="lastname"/><p>
-<form:button value="Send">申請</form:button>
-</form:form>
+member view
+<form:form action="${contextRoot}/member/select" modelAttribute="member" />
+會員編號:<form:input path="id"/><p>
+<form:button value="Send">查詢</form:button>
 </body>
 </html>

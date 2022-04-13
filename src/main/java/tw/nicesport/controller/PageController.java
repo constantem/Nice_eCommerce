@@ -1,5 +1,6 @@
 package tw.nicesport.controller;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class PageController {
 //		用messageService的findById()方法去資料庫找id
 		OrdersBean order = OrderService.findById(id);
 		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
+		
 		model.addAttribute("OrderDetailSet", orderDetails);
 
 		return "/order/viewOrderDetail";

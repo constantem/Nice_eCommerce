@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IndexController {
+public class FakeIndexController {
 
-	@RequestMapping("/")
+	@RequestMapping("/course")
 	public String showHomePage() {
-		return "home";
+		return "course/home";
 	}
 }

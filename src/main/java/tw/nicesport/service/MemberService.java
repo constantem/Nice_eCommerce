@@ -20,7 +20,6 @@ public class MemberService {
 	private MemberRepository memberDao;
 
 	public void insert(Member member) {
-		System.out.println("dao, member->" + member.getFirstname());
 		memberDao.save(member);
 	}
 

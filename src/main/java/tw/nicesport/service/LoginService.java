@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import tw.nicesport.model.Employee;
 import tw.nicesport.model.EmployeeRepository;
+import tw.nicesport.model.LoginERepository;
 import tw.nicesport.model.Member;
 import tw.nicesport.model.MemberRepository;
 
@@ -18,7 +19,7 @@ public class LoginService {
 	private MemberRepository memberDao;
 	
 	@Autowired
-	private EmployeeRepository employeeDao;
+	private LoginERepository employeeDao;
 	
 	public boolean checkMemberLogin(Member memberInput) {
 		Member memberResult = memberDao.findByUsernameAndPassword(memberInput.getUsername(),memberInput.getPassword());
@@ -31,7 +32,7 @@ public class LoginService {
 	}
 	
 	public boolean checkEmployeeLogin(Employee employeeInput) {
-		Employee employeeResult = employeeDao.findByEmployeeIdAndPassword(employeeInput.getEmployeeId(),employeeInput.getPassword());
+		Employee employeeResult = employeeDao.findByIdAndPassword(employeeInput.getEmployee_id(),employeeInput.getPassword());
 		
 		if(employeeResult!=null) { 
 			return true;

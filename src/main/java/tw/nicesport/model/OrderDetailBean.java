@@ -21,21 +21,21 @@ public class  OrderDetailBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "orderDetail_id")
-	private int orderDetail_id;
+	private Integer orderDetail_id;
 	// 訂單編號, 外來鍵, 關聯 Orders table (訂單table) 的主鍵
 	@Transient  //不給值的話 這個空值不會被存入資料庫
 	@Column(name = "order_id")
-	private int order_id;
+	private Integer order_id;
 	// 商品編號, 外來鍵, 關聯 Product table (商品table) 的主鍵
 	@Transient 
 	@Column(name = "product_id")
-	private int product_id;
+	private Integer product_id;
 	// 數量
 	@Column(name = "quantity")
-	private int quantity;
+	private Integer quantity;
 	// 實價
 	@Column(name = "realPrice")
-	private int realPrice;
+	private Integer realPrice;
 	// 建立日期
 	@Column(name = "createdAt")
 	private String createdAt;
@@ -59,43 +59,43 @@ public class  OrderDetailBean implements Serializable {
 	}
 	// GetSet
 
-	public int getOrderDetail_id() {
+	public Integer getOrderDetail_id() {
 		return orderDetail_id;
 	}
 
-	public void setOrderDetail_id(int orderDetail_id) {
+	public void setOrderDetail_id(Integer orderDetail_id) {
 		this.orderDetail_id = orderDetail_id;
 	}
 
-	public int getOrder_id() {
+	public Integer getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
 	}
 
-	public int getProduct_id() {
+	public Integer getProduct_id() {
 		return product_id;
 	}
 
-	public void setProduct_id(int product_id) {
+	public void setProduct_id(Integer product_id) {
 		this.product_id = product_id;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public int getRealPrice() {
+	public Integer getRealPrice() {
 		return realPrice;
 	}
 
-	public void setRealPrice(int realPrice) {
+	public void setRealPrice(Integer realPrice) {
 		this.realPrice = realPrice;
 	}
 
@@ -130,5 +130,11 @@ public class  OrderDetailBean implements Serializable {
 	public void setProductBean(ProductBean productBean) {
 		this.productBean = productBean;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 
 }

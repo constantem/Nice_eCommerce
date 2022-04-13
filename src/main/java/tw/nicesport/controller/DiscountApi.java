@@ -87,29 +87,29 @@ public class DiscountApi {
 	
 	//HQL方法
 	//對到DiscountRepository
-	@GetMapping(value="discount/findByName")
-	public List<Discount> findByName(@RequestParam String name){
-		return dao.findDiscountByName(name);
-	}
+//	@GetMapping(value="discount/findByName")
+//	public List<Discount> findByName(@RequestParam String name){
+//		return dao.findDiscountByName(name);
+//	}
 	
 	//下原生SQL指令
-	@GetMapping(value="discount/findByName2")
-	public List<Discount> findByName2(@RequestParam String name){
-		return dao.findDiscountByName2(name);
-	}
+//	@GetMapping(value="discount/findByName2")
+//	public List<Discount> findByName2(@RequestParam String name){
+//		return dao.findDiscountByName2(name);
+//	}
 	
-	@GetMapping(value="discount/delete/{id}")
-	public boolean deleteDiscount(@PathVariable Integer id) {
-		dao.deleteDiscountById(id);
-		return true;
-	}
+//	@GetMapping(value="discount/delete/{id}")
+//	public boolean deleteDiscount(@PathVariable Integer id) {
+//		dao.deleteDiscountById(id);
+//		return true;
+//	}
 	
 	//對照DiscountRepository
 	//因為還很新，正式開發不建議使用
 	//其他方法參考講義P.102
-	@GetMapping(value="discount/conditionPrice/{conditionPrice}")
-	public List<Discount> findByConditionPrice(@PathVariable Integer conditionPrice){
-		return dao.findByConditionPriceOrderById(conditionPrice);
-	}
+//	@GetMapping(value="discount/conditionPrice/{conditionPrice}")
+//	public List<Discount> findByConditionPrice(@PathVariable Integer conditionPrice){
+//		return dao.findByConditionPriceOrderById(conditionPrice);
+//	}
 	
 }

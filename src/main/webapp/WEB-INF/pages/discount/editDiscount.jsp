@@ -4,8 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
-
-<jsp:include page="test.jsp" />
+>
 <!DOCTYPE html>
 <html>
 <head>

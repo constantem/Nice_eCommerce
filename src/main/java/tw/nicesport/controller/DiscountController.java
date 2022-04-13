@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.Discount;
-import tw.nicesport.model.WorkMessages;
 import tw.nicesport.service.DiscountService;
 
 @Controller
@@ -18,9 +17,9 @@ public class DiscountController {
 	@Autowired
 	private DiscountService discountService;
 	
-	@GetMapping("/")
+	@GetMapping("/discount")
 	public String welcomIndex() {
-		return "index";
+		return "discount/index";
 	}
 	
 	@GetMapping("/discount/form")

@@ -16,7 +16,7 @@ public class EmpPageController {
 	@Autowired
 	private EmployeeService empService;
 
-	@GetMapping("/")
+	@GetMapping("/employee")
 	public String welcomIndex() {
 		return "employee/index";
 	}

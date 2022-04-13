@@ -16,12 +16,12 @@ import tw.nicesport.model.OrdersBean;
 import tw.nicesport.service.WorkOrderService;
 //管分頁的連線的物件
 @Controller
-public class PageController {
+public class WorkOrderController {
 	
 	@Autowired
 	private WorkOrderService OrderService;
 	
-	@GetMapping("/")
+	@GetMapping("/order")
 	public String welcomIndex() {
 		return "order/index";
 	}

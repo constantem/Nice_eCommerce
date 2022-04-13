@@ -31,6 +31,7 @@ public class Employee {
 
 	@Column(name = "lastName")
 	private String lastName;// 姓
+	
 	@Column(name = "password")
 	private String password;// 密碼
 

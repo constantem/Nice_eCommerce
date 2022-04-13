@@ -21,47 +21,63 @@ import javax.persistence.Table;
 @Table(name="Member")
 public class Member {
 
+	// 對應欄位
+	// 會員編號, 主鍵
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="member_id")
-	private Integer id;
+	private Integer member_id;
 	
-	@NotBlank(message="帳號不可空白")
+	// 帳號
+//	@NotBlank(message="帳號不可空白")
 	@Column(name="username")
 	private String username;
 	
-	@NotBlank(message="密碼不可空白")
+	// 密碼
+//	@NotBlank(message="密碼不可空白")
 	@Column(name="password")
 	private String password;
 	
+	// 名
 	@Column(name="firstName")
 	private String firstname;
 	
+	// 姓
 	@Column(name="lastName")
 	private String lastname;
 	
+	// 生日, YYYY-MM-DD
 	@Column(name="birthDate")
 	private String birthdate;
 	
+	// 性別
 	@Column(name="gender")
 	private String gender;
 	
+	// 電話
 	@Column(name="phone")
 	private String phone;
 	
+	// 電子信箱
 	@Column(name="email")
 	private String email;
 	
+	// 住址
 	@Column(name="address")
 	private String address;
 	
+	// 建立日期
 //	@Column(name="createAt")
 //	private String createat;
 //	
+	// 修改日期
 //	@Column(name="modifiedAt")
 //	private String modifiedat;
 
-	// 以上為欄位, 以下為其他 entity
+	// 關聯 table
+	
+	@OneToMany(mappedBy = "memberBean")
+	private Set<OrdersBean> ordersBeanSet = new HashSet<OrdersBean>();
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
@@ -74,12 +90,12 @@ public class Member {
 
 	// getter, setter
 	
-	public Integer getId() {
-		return id;
+	public Integer getMember_id() {
+		return member_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;	
+	public void setMember_id(Integer member_id) {
+		this.member_id = member_id;
 	}
 
 	public String getUsername() {
@@ -156,7 +172,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
+		return "Member [member_id=" + member_id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", birthdate=" + birthdate + ", gender=" + gender + ", phone=" + phone
 				+ ", email=" + email + ", address=" + address + "]";
 	}
@@ -177,7 +193,7 @@ public class Member {
 //		this.modifiedAt = modifiedAt;
 //	}
 
-	// 對側 entity 的 getter, setter
+	// 關聯 table 的 getter, setter
 	
 	public Set<CourseBooking> getCourseBookingSet() {
 		return courseBookingSet;
@@ -186,4 +202,13 @@ public class Member {
 	public void setCourseBookingSet(Set<CourseBooking> courseBookingSet) {
 		this.courseBookingSet = courseBookingSet;
 	}
+
+	public Set<OrdersBean> getOrdersBeanSet() {
+		return ordersBeanSet;
+	}
+
+	public void setOrdersBeanSet(Set<OrdersBean> ordersBeanSet) {
+		this.ordersBeanSet = ordersBeanSet;
+	}
+
 }

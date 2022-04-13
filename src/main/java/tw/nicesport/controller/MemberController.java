@@ -59,8 +59,6 @@ public class MemberController {
 	@RequestMapping("/add")
 	public ModelAndView addMember(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
 
-		System.out.println("firstname->" + member.getFirstname());
-
 		MemberService.insert(member);
 
 		mav.setViewName("member/insertSuccess");

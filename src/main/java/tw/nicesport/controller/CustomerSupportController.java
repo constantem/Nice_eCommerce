@@ -19,9 +19,9 @@ public class CustomerSupportController {
 	@Autowired
 	private CustomerService csService;
 	
-	@GetMapping("/")
+	@GetMapping("/message")
 	public String welcomeIndex() {
-		return "index";
+		return "customerSupport/index";
 	}
 	
 	@GetMapping("/message/selectOne")
@@ -30,7 +30,7 @@ public class CustomerSupportController {
 		CustomerBean lastMag = csService.getLastest();
 		m.getModel().put("lastMag", lastMag);
 //		m.addObject("lastMag", lastMag);
-		m.setViewName("cutomerSupport/selectOne");
+		m.setViewName("customerSupport/selectOne");
 		return m;
 	}
 	
@@ -38,7 +38,7 @@ public class CustomerSupportController {
 	public ModelAndView selectAllPage(ModelAndView m1) {
 		List<CustomerBean> allCus = csService.findAllCustomer();
 		m1.getModel().put("allCus", allCus);
-		m1.setViewName("cutomerSupport/selectAll");
+		m1.setViewName("customerSupport/selectAll");
 		return m1;
 		
 	}
@@ -56,7 +56,7 @@ public class CustomerSupportController {
 		CustomerBean cs = new CustomerBean();
 		
 		m1.getModel().put("CustomerBean",cs ); // java bean 塞進 model
-		m1.setViewName("cutomerSupport/form"); // ModelAndView 裡規定去哪個 jsp
+		m1.setViewName("customerSupport/form"); // ModelAndView 裡規定去哪個 jsp
 		return m1;
 	}
 	
@@ -73,20 +73,20 @@ public class CustomerSupportController {
 		ModelAndView m1 = new ModelAndView();
 		CustomerBean csResult = csService.findById(csb.getId());
 		m1.getModel().put("csResult",csResult);
-		m1.setViewName("cutomerSupport/selectOne");//重導到controller的方法
+		m1.setViewName("customerSupport/selectOne");//重導到controller的方法
 		return m1;
 	}
 	
 	//導去修改畫面
 	@PostMapping("/message/edit")
 	public ModelAndView editPage(ModelAndView m2) {
-		m2.setViewName("cutomerSupport/edit");
+		m2.setViewName("customerSupport/edit");
 		return m2;
 	}
 	
 	@PostMapping("/message/delete")
 	public ModelAndView deletePage(ModelAndView m3) {
-		m3.setViewName("cutomerSupport/delete");
+		m3.setViewName("customerSupport/delete");
 		return m3;
 	}
 	

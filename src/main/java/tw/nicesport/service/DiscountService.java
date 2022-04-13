@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.nicesport.model.Discount;
 import tw.nicesport.model.DiscountRepository;
-import tw.nicesport.model.WorkMessages;
-import tw.nicesport.model.WorkMessagesRepository;
 
 @Service
 @Transactional

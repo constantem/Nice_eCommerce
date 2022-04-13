@@ -13,7 +13,7 @@
 <body>
 member view
 <form:form action="${contextRoot}/member/select" modelAttribute="member" />
-會員編號:<form:input path="id"/><p>
+會員編號:<form:input path="member_id"/><p>
 <form:button value="Send">查詢</form:button>
 </body>
 </html>

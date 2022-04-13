@@ -80,7 +80,7 @@ public class LoginController {
 		
 		if(employeeExists) {
 			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("loginOK", employee.getEmployeeId());
+			httpSession.setAttribute("loginOK", employee.getEmployee_id());
 			return "login/employee-login-success";
 		} else {
 			model.addAttribute("error", Map.of("notexist", "查無此帳號"));

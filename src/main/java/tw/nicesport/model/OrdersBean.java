@@ -21,11 +21,11 @@ public class OrdersBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private int order_id; 
+	private Integer order_id; 
 	// 會員編號 外來鍵, 關聯 Member table (會員table) 的主鍵
 	@Transient
 	@Column(name = "member_id")
-	private int member_id;
+	private Integer member_id;
 	// 下單日期
 	@Column(name = "orderDate")
 	private String orderDate;
@@ -34,12 +34,12 @@ public class OrdersBean {
 	private String shippingDate;
 	// 運費
 	@Column(name = "shippingFee")
-	private int shippingFee;
+	private Integer shippingFee;
 	// 所使用的優惠券的編號
 //	private int discount_id;
 	// 最終總價
 	@Column(name = "totalPrice")
-	private int totalPrice;
+	private Integer totalPrice;
 	// 收貨人姓名
 	@Column(name = "shipName")
 	private String shipName;
@@ -71,25 +71,26 @@ public class OrdersBean {
 	// 多方不用連動
 	@ManyToOne
 	@JoinColumn(name = "member_id")
-	private MemberBean memberBean;
+	private Member memberBean;
 
 	// 建構子
 	public OrdersBean() {
 	}
 	// GetSet
-	public int getOrder_id() {
+
+	public Integer getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
 	}
 
-	public int getMember_id() {
+	public Integer getMember_id() {
 		return member_id;
 	}
 
-	public void setMember_id(int member_id) {
+	public void setMember_id(Integer member_id) {
 		this.member_id = member_id;
 	}
 
@@ -109,19 +110,19 @@ public class OrdersBean {
 		this.shippingDate = shippingDate;
 	}
 
-	public int getShippingFee() {
+	public Integer getShippingFee() {
 		return shippingFee;
 	}
 
-	public void setShippingFee(int shippingFee) {
+	public void setShippingFee(Integer shippingFee) {
 		this.shippingFee = shippingFee;
 	}
 
-	public int getTotalPrice() {
+	public Integer getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -189,21 +190,21 @@ public class OrdersBean {
 		this.modifiedAt = modifiedAt;
 	}
 
-
 	public Set<OrderDetailBean> getOrderDetail() {
 		return orderDetail;
 	}
+
 	public void setOrderDetail(Set<OrderDetailBean> orderDetail) {
 		this.orderDetail = orderDetail;
 	}
-	public MemberBean getMemberBean() {
+
+	public Member getMemberBean() {
 		return memberBean;
 	}
 
-	public void setMemberBean(MemberBean memberBean) {
+	public void setMemberBean(Member memberBean) {
 		this.memberBean = memberBean;
 	}
-
 
 
 }

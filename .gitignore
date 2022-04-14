@@ -34,4 +34,5 @@ build/
 
 # 忽略所有 .class 檔
 *.class
+**/.class
 **/src/main/java/*.class

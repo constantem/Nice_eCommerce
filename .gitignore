@@ -32,7 +32,17 @@ build/
 ### VS Code ###
 .vscode/
 
-# 忽略所有 .class 檔
+### .class ###
 *.class
 **/.class
 **/src/main/java/*.class
+
+### MAC ###
+.DS_Store
+
+### VS Code ###
+.vscode/
+
+### IntelliJ IDEA 補 ###
+.mvn
+mvnw*

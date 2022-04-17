@@ -33,14 +33,16 @@
 }
 
 button {
-	width: 15px;
-	height: 15px;
+	width:12px;
+	height: 12px;
 	border-radius: 150%;
 	margin: 0 3px;
+	border:none;
 }
 
 .red {
-	background: #EAC100;
+	background:	#84C1FF;
+
 }
 </style>
 
@@ -76,8 +78,6 @@ button {
 								<ul class="dropdown-menu">
 									<li class="nav-item active"><a class="nav-link"
 										href="FrontpageSeperate	">前往商城</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="singleProductFrontpage.controller">產品詳細資訊</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="checkout.html">結帳</a></li>
 									<li class="nav-item"><a class="nav-link" href="cart.html">購物車</a></li>

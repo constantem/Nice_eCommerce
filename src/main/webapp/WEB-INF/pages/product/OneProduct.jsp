@@ -19,6 +19,12 @@
 	rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.css" rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <!--------------------------------------------------------------------------- -->
 
 
@@ -72,6 +78,15 @@
 .card-header-title {
 	font-size: 120%;
 }
+
+figure {
+	width: 20%;
+	border: 4px transparent;
+	margin: 4px;
+	width: 120px;
+	height: 120px;
+	float: right;
+}
 </style>
 
 <body>
@@ -116,20 +131,33 @@
 			</header>
 
 			<div class="card-content">
-				<div class="image mx-auto">
-					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}" alt="picture"
-						id="productImg">
-				</div>
-
 				<label class="label">商品圖片</label>
+				<div class="image mx-auto">
+					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}"
+						alt="picture" id="productImg">
+					<figure>
+						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
+					</figure>
 
+					<figure>
+						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
+					</figure>
 
+					<figure>
+						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
+					</figure>
+
+					<figure>
+						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_D}">
+					</figure>
+
+				</div>
 			</div>
-			<hr>
+
 			<form action="editProduct" method="post"
 				enctype="multipart/form-data">
 				<div class="field">
-					<label class="label">商品編號</label>
+					<!-- 					<label class="label">商品編號</label> -->
 					<div class="control">
 						<input name="product_id" type="text" readonly
 							value="${product_id}" class="input is-static">
@@ -141,6 +169,14 @@
 					<div class="control">
 						<input id="imgFile" name="imgFile" class="input" type="file"
 							value="">
+						<!-- 						<input id="imgFile1" name="imgFile1" class="input" type="file" -->
+						<!-- 							value=""> -->
+						<!-- 						<input id="imgFile2" name="imgFile2" class="input" type="file" -->
+						<!-- 							value=""> -->
+						<!-- 						<input id="imgFile3" name="imgFile3" class="input" type="file" -->
+						<!-- 							value=""> -->
+						<!-- 						<input id="imgFile4" name="imgFile4" class="input" type="file" -->
+						<!-- 							value=""> -->
 
 					</div>
 				</div>
@@ -148,6 +184,15 @@
 				<input id="img" type="hidden" name="img" class="input" type="text"
 					value="${pdVal.img}"> <input id="imgUrl" type="hidden"
 					name="imgUrl" class="input" type="text" value="${pdVal.imgUrl}">
+
+				<input id="imgUrl_A" type="hidden" name="imgUrl_A" class="input"
+					type="text" value="${pdVal.imgUrl_A}"> <input id="imgUrl_B"
+					type="hidden" name="imgUrl_B" class="input" type="text"
+					value="${pdVal.imgUrl_B}"> <input id="imgUrl_C"
+					type="hidden" name="imgUrl_C" class="input" type="text"
+					value="${pdVal.imgUrl_C}"> <input id="imgUrl_D"
+					type="hidden" name="imgUrl_D" class="input" type="text"
+					value="${pdVal.imgUrl_D}">
 
 				<div class="field">
 					<label class="label">商品名稱</label>
@@ -161,7 +206,7 @@
 					<label class="label">商品類別</label>
 					<div class="select">
 						<select id="subcategorySelect" name="subcategory_id">
-
+							<option type="hidden" value="${pdVal.subCategory.subcategory_id}">${pdVal.subCategory.name}</option>
 						</select>
 					</div>
 				</div>
@@ -225,10 +270,10 @@
 
 
 				<div class="field">
-					<label class="label">新增時間</label>
+					<label class="label">修改時間 </label>
 					<div class="control">
-						<input disabled type="text" name="createdAt"
-							value="${pdVal.createdAt}" class="input is-static">
+						<input id="modifiedAt" name="modifiedAt" class="input" type="text"
+							value="">
 					</div>
 				</div>
 

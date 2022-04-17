@@ -14,9 +14,16 @@
 
 <!----------------------------- CSS------------------------------------------ -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
-<link href="${contextRoot}/resources/backstage/css/main.css" rel="stylesheet" />
+<link href="${contextRoot}/resources/backstage/css/main.css"
+	rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.css" rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <!--------------------------------------------------------------------------- -->
 
 
@@ -90,16 +97,19 @@
 	color: #2894FF;
 }
 
-.imgTag{
-	margin-right:400px;
+.imgTag {
+	margin-right: 400px;
 	color: #2894FF;
-
 }
-#img{
+
+#img {
 	margin-top: 10px;
 }
 
-
+#img1 {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
 </style>
 
 <body>
@@ -115,11 +125,11 @@
 	<div id="app">
 
 
-			<!-- 上方導覽列 -->
-		<jsp:include  page="TopBar.jsp"/>
+		<!-- 上方導覽列 -->
+		<jsp:include page="TopBar.jsp" />
 
 		<!-- 左側導覽列 -->
-		<jsp:include page="LeftBar.jsp"/>
+		<jsp:include page="LeftBar.jsp" />
 
 
 
@@ -221,12 +231,15 @@
 						<div class="field">
 							<label class="label">商品照片</label>
 							<div class="control">
-							<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp 商品主圖</span>
-								<input id="img" name="img" class="input" type="file" value="">
-								<input id="img" name="imgUrl_A" class="input" type="file" value="">
-								<input id="img" name="imgUrl_B" class="input" type="file" value="">
-								<input id="img" name="imgUrl_C" class="input" type="file" value="">
-								<input id="img" name="imgUrl_D" class="input" type="file" value="">
+								<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp
+									商品主圖</span> <input id="img1" name="img" class="input" type="file"
+									value="">
+								<hr>
+								<input id="img" name="imgUrl_A" class="input" type="file"
+									value=""> <input id="img" name="imgUrl_B" class="input"
+									type="file" value=""> <input id="img" name="imgUrl_C"
+									class="input" type="file" value=""> <input id="img"
+									name="imgUrl_D" class="input" type="file" value="">
 							</div>
 						</div>
 
@@ -296,18 +309,15 @@
 						class="ui-widget ui-widget-content ui-corner-all">
 						<i class="bi bi-plus-circle-dotted"></i>&nbsp 輸入欲新增子類別名稱:
 					</p>
-					
-					
+
+
 					<div class="select">
 						<select id="categorySelect" name="category_id">
 						</select>
 					</div>
-					
-					<br>
-					<br>
 
-					<input id="createSubcategory" name="name" class="input" type="text"
-						value="">
+					<br> <br> <input id="createSubcategory" name="name"
+						class="input" type="text" value="">
 				</div>
 			</form>
 			<!--========================== addSubCategory Dialog==========================  -->
@@ -393,14 +403,14 @@
 
 	<script type="text/javascript">
 		document.getElementById("btn1").addEventListener("click", function() {
-			
+
 			Swal.fire({
 
-				  icon: 'success',
-				  title: '新增成功',
-				  showConfirmButton: false,
-				  timer: 2500
-				})
+				icon : 'success',
+				title : '新增成功',
+				showConfirmButton : false,
+				timer : 2500
+			})
 		});
 	</script>
 
@@ -415,7 +425,7 @@
 		function addSubCat() {
 			requestAllCategory();
 			$("#addSubCategory").dialog(
-					
+
 					{
 						height : 300,
 						width : 300,
@@ -424,11 +434,10 @@
 						minWidth : 200,
 						buttons : {
 							"新增" : function() {
-								
+
 								var subCategoryName = $("#createSubcategory")
 										.val();
-								
-								
+
 								$.ajax({
 									url : $("#contextRoot").val()
 											+ "/insertSubCategory.controller",

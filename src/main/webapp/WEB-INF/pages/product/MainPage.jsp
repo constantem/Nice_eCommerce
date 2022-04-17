@@ -6,13 +6,20 @@
 <html lang="en" class="">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MainPage</title>
 
 <!----------------------------- CSS------------------------------------------ -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
-<link href="${contextRoot}/resources/backstage/css/main.css" rel="stylesheet" />
+<link href="${contextRoot}/resources/backstage/css/main.css"
+	rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <!--------------------------------------------------------------------------- -->
 
 
@@ -25,7 +32,7 @@
 
 
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon1-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
 <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6" />
 <link rel="stylesheet"
@@ -55,10 +62,10 @@
 
 
 		<!-- 上方導覽列 -->
-		<jsp:include  page="TopBar.jsp"/>
+		<jsp:include page="TopBar.jsp" />
 
 		<!-- 左側導覽列 -->
-		<jsp:include page="LeftBar.jsp"/>
+		<jsp:include page="LeftBar.jsp" />
 
 
 
@@ -126,7 +133,7 @@
 
 
 	<!-- Scripts below are for demo only -->
-	
+
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>

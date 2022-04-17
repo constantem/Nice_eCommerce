@@ -27,6 +27,20 @@ public class ProductService {
 	@Autowired
 	private ProductRepository pRes;
 	
+	public List<ProductBean> findByPriceBetween(String startPrice, String endPrice){
+		return pRes.findByPriceBetween( startPrice, endPrice);
+	}
+	
+	public List<ProductBean> findByColor(String color){
+		return pRes.findByColor(color);
+	}
+	
+	
+	public List<ProductBean> findByProductNameLike(String brand){
+		String searchContent = "%"+ brand +"%";
+		return pRes.findByProductNameLike(searchContent);
+	}
+	
 	
 	public List<ProductBean> selectAll() {
 		return pDao.selectAll();

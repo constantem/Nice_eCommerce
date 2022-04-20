@@ -22,6 +22,7 @@ public class CategoryDao {
 		Session session = sessionFactory.openSession();
 		Query<CategoryBean> query = session.createQuery("from CategoryBean", CategoryBean.class);
 
+		session.close();
 		return query.list();
 
 	}
@@ -32,6 +33,8 @@ public class CategoryDao {
 		if(catBean!=null) {
 			session.save(catBean);
 		}
+		
+		session.close();
 		return catBean;
 	}
 	

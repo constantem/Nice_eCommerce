@@ -87,6 +87,27 @@ figure {
 	height: 120px;
 	float: right;
 }
+
+#imgFile{
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+#imgFile1 {
+	margin-top: 10px;
+}
+#imgFile2 {
+	margin-top: 10px;
+}
+#imgFile3 {
+	margin-top: 10px;
+}
+#imgFile4 {
+	margin-top: 10px;
+}
+.imgTag {
+	margin-right: 400px;
+	color: #2894FF;
+}
 </style>
 
 <body>
@@ -133,8 +154,10 @@ figure {
 			<div class="card-content">
 				<label class="label">商品圖片</label>
 				<div class="image mx-auto">
+				
 					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}"
 						alt="picture" id="productImg">
+						
 					<figure>
 						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
 					</figure>
@@ -167,32 +190,31 @@ figure {
 				<div class="field">
 					<label class="label">變更商品照片</label>
 					<div class="control">
-						<input id="imgFile" name="imgFile" class="input" type="file"
-							value="">
-						<!-- 						<input id="imgFile1" name="imgFile1" class="input" type="file" -->
-						<!-- 							value=""> -->
-						<!-- 						<input id="imgFile2" name="imgFile2" class="input" type="file" -->
-						<!-- 							value=""> -->
-						<!-- 						<input id="imgFile3" name="imgFile3" class="input" type="file" -->
-						<!-- 							value=""> -->
-						<!-- 						<input id="imgFile4" name="imgFile4" class="input" type="file" -->
-						<!-- 							value=""> -->
+					
+						<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp 商品主圖</span> 
+						<input id="imgFile" name="imgFile" class="input" type="file" value="">
+						
+						<hr>
+	
+						<input id="imgFile1" name="imgFile1" class="input" type="file"
+													value="">
+						<input id="imgFile2" name="imgFile2" class="input" type="file"
+													value="">
+						<input id="imgFile3" name="imgFile3" class="input" type="file"
+													value="">
+						<input id="imgFile4" name="imgFile4" class="input" type="file"
+													value="">
 
 					</div>
 				</div>
 				<!-- 為保留原圖片 -->
-				<input id="img" type="hidden" name="img" class="input" type="text"
-					value="${pdVal.img}"> <input id="imgUrl" type="hidden"
-					name="imgUrl" class="input" type="text" value="${pdVal.imgUrl}">
-
-				<input id="imgUrl_A" type="hidden" name="imgUrl_A" class="input"
-					type="text" value="${pdVal.imgUrl_A}"> <input id="imgUrl_B"
-					type="hidden" name="imgUrl_B" class="input" type="text"
-					value="${pdVal.imgUrl_B}"> <input id="imgUrl_C"
-					type="hidden" name="imgUrl_C" class="input" type="text"
-					value="${pdVal.imgUrl_C}"> <input id="imgUrl_D"
-					type="hidden" name="imgUrl_D" class="input" type="text"
-					value="${pdVal.imgUrl_D}">
+<%-- 				<input id="img" type="hidden" name="img" class="input" type="text" value="${pdVal.img}"> --%>
+					
+				<input id="imgUrl"  type="hidden" name="imgUrl" class="input" type="text" value="${pdVal.imgUrl}">
+				<input id="imgUrl_A" type="hidden" name="imgUrl_A" class="input" type="text" value="${pdVal.imgUrl_A}">
+				<input id="imgUrl_B" type="hidden" name="imgUrl_B" class="input" type="text"value="${pdVal.imgUrl_B}">
+				<input id="imgUrl_C"type="hidden" name="imgUrl_C" class="input" type="text" value="${pdVal.imgUrl_C}">
+				<input id="imgUrl_D"type="hidden" name="imgUrl_D" class="input" type="text" value="${pdVal.imgUrl_D}">
 
 				<div class="field">
 					<label class="label">商品名稱</label>
@@ -206,7 +228,7 @@ figure {
 					<label class="label">商品類別</label>
 					<div class="select">
 						<select id="subcategorySelect" name="subcategory_id">
-							<option type="hidden" value="${pdVal.subCategory.subcategory_id}">${pdVal.subCategory.name}</option>
+							<option type="" value="${pdVal.subCategory.subcategory_id}">${pdVal.subCategory.name}</option>
 						</select>
 					</div>
 				</div>
@@ -274,6 +296,8 @@ figure {
 					<div class="control">
 						<input id="modifiedAt" name="modifiedAt" class="input" type="text"
 							value="">
+						<input id="" name="createdAt" class="input"
+							type="hidden" value="">
 					</div>
 				</div>
 

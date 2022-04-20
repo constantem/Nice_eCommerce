@@ -1,6 +1,6 @@
 package tw.nicesport.service;
 
-import java.util.List;
+
 
 import javax.transaction.Transactional;
 
@@ -17,16 +17,19 @@ public class ProductAdsService {
 	@Autowired
 	private ProductAdsRepository pAdsRes;
 
-	public List<ProductAdsBean> findAll() {
-		return pAdsRes.findAll();
+	public ProductAdsBean findFirst() {
+		return pAdsRes.findFirstByOrderByIdDesc();
 	}
 
 	public void insert(ProductAdsBean prodAdsBean) {
+		pAdsRes.save(prodAdsBean);
+	}
+	
+	public void update(ProductAdsBean prodAdsBean) {
 		pAdsRes.save(prodAdsBean);
 	}
 
 	public void findById(Integer id) {
 		pAdsRes.findById(id);
 	}
-
 }

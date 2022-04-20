@@ -310,11 +310,10 @@
 						<i class="bi bi-plus-circle-dotted"></i>&nbsp 輸入欲新增子類別名稱:
 					</p>
 
-
-					<div class="select">
-						<select id="categorySelect" name="category_id">
-						</select>
-					</div>
+<!-- 					<div class="select"> -->
+<!-- 						<select  id="categorySelect" name="category_id"> -->
+<!-- 						</select> -->
+<!-- 					</div> -->
 
 					<br> <br> <input id="createSubcategory" name="name"
 						class="input" type="text" value="">
@@ -401,7 +400,7 @@
 	<!-- ================================================================================ -->
 
 
-	<script type="text/javascript">
+	<script>
 		document.getElementById("btn1").addEventListener("click", function() {
 
 			Swal.fire({
@@ -409,9 +408,12 @@
 				icon : 'success',
 				title : '新增成功',
 				showConfirmButton : false,
-				timer : 2500
+				closeOnConfirm: true,
+				timer : 2000
 			})
 		});
+		
+		
 	</script>
 
 
@@ -539,9 +541,9 @@
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
 	</noscript>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="sweetalert2.all.min.js"></script>
+<!-- 	<script src="sweetalert2.all.min.js"></script> -->
 
 	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 

@@ -22,6 +22,7 @@ public class SubCategoryDao {
 
 		Query<SubCategoryBean> query = session.createQuery("from SubCategoryBean", SubCategoryBean.class);
 
+		session.close();
 		return query.list();
 	}
 
@@ -30,6 +31,8 @@ public class SubCategoryDao {
 		if (subBean != null) {
 			session.save(subBean);
 		}
+		
+		session.close();
 		return subBean;
 	}
 

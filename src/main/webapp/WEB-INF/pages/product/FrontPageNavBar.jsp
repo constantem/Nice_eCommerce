@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
@@ -21,7 +27,20 @@
 	display: flex;
 }
 
+
 #img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
 	width: 800px;
 }
 
@@ -33,22 +52,25 @@
 }
 
 button {
-	width:12px;
+	width: 12px;
 	height: 12px;
 	border-radius: 150%;
 	margin: 0 3px;
-	border:none;
+	border: none;
 }
 
 .red {
-	background:	#84C1FF;
-
+	background: #84C1FF;
 }
 </style>
 
 
 
-<body id="category">
+<body>
+
+	<!-- 	為了讓body內也能使用contextRoot的值 -->
+	<input type="hidden" id="contextRoot"
+		value="${pageContext.request.contextPath}">
 
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -96,6 +118,13 @@ button {
 								</ul></li>
 							<li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
 						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item">
+								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</nav>
@@ -104,8 +133,7 @@ button {
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input"
-						placeholder="Search Here">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -116,18 +144,21 @@ button {
 	<!-- End Header Area -->
 
 
+
 	<!-- Start Banner Area -->
+
 	<section class="banner-area organic-breadcrumb">
 
-
-												<!-- photo size 1280 * 533 -->
+		<!-- photo size 1280 * 533 -->
 		<div class="window" align='Center'>
+		
 			<div class="images" id="images">
-				<img id="img1" src="${contextRoot}/img/Nice_eCommerce_banner.png">
-				<img id="img1" src="${contextRoot}/img/1.jpg"> <img id="img1"
-					src="${contextRoot}/img/2.jpg"> <img id="img1"
-					src="${contextRoot}/img/3.jpg">
+				<img id="img1" src="">
+				<img id="img2" src="">
+				<img id="img3" src="">
+				<img id="img4" src="">
 			</div>
+			
 
 			<span id="buttons">
 				<button></button>
@@ -135,14 +166,15 @@ button {
 				<button></button>
 				<button></button>
 			</span>
+			
 		</div>
 
-
-
-
 	</section>
+
 	<!-- End Banner Area -->
 
+
+	<!--=================================廣告輪播========================================== -->
 
 	<script>
 						var allButtons = $('#buttons > button');
@@ -181,6 +213,66 @@ button {
 								.removeClass('red');
 						}
 					</script>
+	<!--================================= 廣告輪播 ========================================== -->
+
+
+	<!-- =============================== 抓取圖片資料 =================================== -->
+	<script>
+
+		$(document).ready(function getAllPtoto(){
+			
+			$.ajax({
+				url:$("#contextRoot").val() +"/shopCenterProductAds.controller",
+				type:"post",
+				success:function(productAds){
+
+					$("#img1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_A);
+					$("#img2").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_B);
+					$("#img3").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_C);
+					$("#img4").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_D);
+
+				}
+			})
+		}
+	)
+	</script>
+	<!-- ================================================================================= -->
+
+
+
+
+
+
+
+
+<!-- ================================== js ==================================== -->
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+
+<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+
+<!-- =========================================================================== -->
+
+
+
+
+
+
+
+
 
 </body>
 </html>

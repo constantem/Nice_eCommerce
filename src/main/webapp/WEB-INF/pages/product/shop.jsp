@@ -93,7 +93,7 @@ button {
 	width: 40px;
 	height: 30px;
 	color: white;
-	margin-left: 8px;
+	margin-left: 44px;
 	border-radius: 5px;
 	border: none;
 }
@@ -210,7 +210,7 @@ button {
 						<form action="${contextRoot}/FrontpageSearchByKeyword">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="apple" name="brand" value="997"><label
+									type="radio" id="apple" name="brand" value="Nike"><label
 									for="apple">Nike<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="asus" name="brand" value="Addidas"><label
@@ -265,10 +265,9 @@ button {
 					<form
 						action="/Nice_eCommerce/FrontpageSeperateSortByPriceBetween?startPrice=${prod.startPrice}&endPrice=${prod.endPrice}">
 						<div class="common-filter">
-							<div class="head">價格</div>
-							<div class="price-range-area">
-								<div id="price-range"></div>
-								<span>價格範圍</span>
+							<div class="head">價格範圍</div>
+							<div class="">
+								<div id=""></div>
 								<div class="value-wrapper d-flex">
 
 									<span><i class="bi bi-currency-dollar"></i></span> <input
@@ -294,7 +293,7 @@ button {
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select id="sortPage" onchange="pageSort()">
+						<select id="sortPage">
 							<option value="1">按價格排序</option>
 							<option value="2">按上架時間排序</option>
 						</select>
@@ -584,31 +583,40 @@ button {
 	<!-- 	======================================================================= -->
 
 	<script>
-		function pageSort() {
-			var option = $("#sortPage option").val();
-			// document.getElementById("#sortPage").val();
 
-			if (option == 1) {
+		$("#sortPage").change(function(){
+
+			var option = $(this).val();
+			if(option===1){
 				$.ajax({
-					url : $("#contextRoot").val() + 'FrontpageSeperate1',
-					type : 'post',
-					success : function(page) {
-						return page;
-						console.log('success');
+					url:$("#contextRoot").val()+ 'FrontpageSeperate',
+					type:"Get",
+					success:function(result){
+						if(result){
+							alert(1)
+						}
 					}
 				})
-			} else if (option == 2) {
-				$.ajax({
-					url : $("#contextRoot").val()
-							+ 'FrontpageSeperateSortByCreatedAt',
-					type : 'post',
-					success : function() {
+			}else{
 
-						console.log('success');
+				$.ajax({
+					url:$("#contextRoot").val()+ 'FrontpageSeperateSortByCreatedAt',
+					type:"Get",
+					success:function(result){
+						if(result){
+							alert(2)
+						}
 					}
 				})
 			}
-		}
+		})
+
+
+
+
+
+
+
 	</script>
 
 
@@ -622,37 +630,24 @@ button {
 
 
 
-	<!-- 	======================================================================= -->
+	<!-- 	====================================== js ====================================== -->
 
 
-
-
-
-
-	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-		crossorigin="anonymous"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
-	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="js/gmaps.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 </body>
 
 

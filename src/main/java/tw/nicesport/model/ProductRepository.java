@@ -11,5 +11,7 @@ public interface ProductRepository extends JpaRepository<ProductBean, Integer> {
 	List<ProductBean> findByColor(String color);
 
 	List<ProductBean> findByProductNameLike(String productName);
+	
+	List<ProductBean>findTop6ByOrderByCreatedAtDesc();
 
 }

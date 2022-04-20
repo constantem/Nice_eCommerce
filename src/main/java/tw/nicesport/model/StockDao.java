@@ -21,6 +21,7 @@ public class StockDao {
 		Session session = sessionFactory.openSession();
 		Query<StockBean> query = session.createQuery("from StockBean", StockBean.class);
 
+		session.close();
 		return query.list();
 	}
 
@@ -30,6 +31,8 @@ public class StockDao {
 		if (stBean != null) {
 			session.save(stBean);
 		}
+		
+		session.close();
 		return stBean;
 	}
 

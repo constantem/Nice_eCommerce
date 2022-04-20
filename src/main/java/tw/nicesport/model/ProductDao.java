@@ -20,6 +20,8 @@ public class ProductDao {
 	public List<ProductBean> selectAll() {
 		Session session = sessionFactory.openSession();
 		Query<ProductBean> query = session.createQuery("from ProductBean", ProductBean.class);
+
+		session.close();
 		return query.list();
 	}
 
@@ -27,7 +29,10 @@ public class ProductDao {
 		Session session = sessionFactory.openSession();
 		if (prodBean != null) {
 			session.save(prodBean);
+			
 		}
+		
+		session.close();
 		return prodBean;
 	}
 
@@ -44,6 +49,8 @@ public class ProductDao {
 		pdBean.setWeight(p.getWeight());
 		return true;
 		}
+	
+		session.close();
 		return false;
 	}
 	
@@ -52,11 +59,14 @@ public class ProductDao {
 		Session session = sessionFactory.openSession();
 		ProductBean pdBean = session.get(ProductBean.class, product_id);
 		session.delete(pdBean);
+		session.close();
 	}
 	
 	
 	public ProductBean queryById(Integer product_id) {
 		Session session = sessionFactory.openSession();
+		
+		session.close();
 		return session.get(ProductBean.class, product_id);
 	}
 	

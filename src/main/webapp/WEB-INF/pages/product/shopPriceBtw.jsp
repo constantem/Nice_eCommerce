@@ -48,7 +48,8 @@
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css" />
 <link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /></head>
+	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+</head>
 
 
 
@@ -91,7 +92,7 @@ button {
 	width: 40px;
 	height: 30px;
 	color: white;
-	margin-left: 8px;
+	margin-left: 44px;
 	border-radius: 5px;
 	border: none;
 }
@@ -262,10 +263,9 @@ button {
 					<form
 						action="/Nice_eCommerce/FrontpageSeperateSortByPriceBetween?startPrice=${startPrice}&endPrice=${endPrice}">
 						<div class="common-filter">
-							<div class="head">價格</div>
-							<div class="price-range-area">
-								<div id="price-range"></div>
-								<span>價格範圍</span>
+							<div class="head">價格範圍</div>
+							<div class="">
+								<div id=""></div>
 								<div class="value-wrapper d-flex">
 
 									<span><i class="bi bi-currency-dollar"></i></span> <input
@@ -278,6 +278,7 @@ button {
 									<button id="btnPrice" type="submit" value="搜尋">
 										<i class="bi bi-search"></i>
 									</button>
+
 									<div id="upper-value"></div>
 								</div>
 							</div>
@@ -634,31 +635,22 @@ button {
 
 
 
-
-	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-		crossorigin="anonymous"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="js/gmaps.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 </body>
 
 

@@ -74,6 +74,10 @@ public class ProductService {
 		return pRes.findAll();
 	}
 	
+	public List<ProductBean> findTop6ByOrderByCreatedAtDesc() {
+		return pRes.findTop6ByOrderByCreatedAtDesc();
+	}
+	
 	
 	// JPA SortByprice
 	public Page<ProductBean> findByPage(Integer pageNumber) {

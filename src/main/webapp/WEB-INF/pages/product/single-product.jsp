@@ -50,8 +50,8 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /><!-- css main1  -->
 
-<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <style>
@@ -59,11 +59,19 @@
 	margin-left: 250px;
 }
 
-#btn {
+#btnComment {
 	border-radius: 5px;
 	width: 150px;
 	height: 40px;
 	justify-items: center;
+}
+
+#btnCreate{
+	border-radius: 5px;
+	width: 100px;
+	height: 40px;
+	justify-items: center;
+	margin-top: 30px;
 }
 
 #box {
@@ -122,14 +130,35 @@ figure img {
 	height: 100%;
 	object-fit: cover;
 }
+
+#prodComment{
+	margin-left: 15px;
+}
+#commentDate{
+	margin-left: 15px;
+}
+
+.relimg{
+	width: 70px;
+	height: 70px;
+}
+
+.commentDate{
+	margin-left: 320px;
+}
 </style>
 
 <body>
+
+	
 
 	<!-- 上方導覽列 -->
 	<%@include file="FrontPageNavBar.jsp"%>
 
 
+		<!-- 	為了讓body內也能使用contextRoot的值 -->
+		<input type="hidden" id="contextRoot"
+		value="${pageContext.request.contextPath}">
 
 
 
@@ -139,8 +168,10 @@ figure img {
 		<div class="container">
 			<div class="row s_product_inner">
 				<!-- ======================== 商品圖 ============================== -->
+				
 				<div class="col-lg-6">
-					<div class="s_Product_carousel">
+					<!-- class="s_Product_carousel" -->
+					<div class="">
 
 						<div id="" class="single-prd-item ">
 							<!-- 圖片尺寸 width="480" height="440" -->
@@ -290,11 +321,15 @@ figure img {
 					</div>
 				</div>
 
+						
+<!-- 		======================================== 評論商品 =================================================	 -->
+
 				<div class="tab-pane fade" id="contact" role="tabpanel"
 					aria-labelledby="contact-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="comment_list">
+							
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
@@ -311,40 +346,10 @@ figure img {
 										magna aliqua. Ut enim ad minim veniam, quis nostrud
 										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
 								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam, quis nostrud
-										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam, quis nostrud
-										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
 							</div>
 						</div>
+						
+						
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>新增評論</h4>
@@ -352,19 +357,19 @@ figure img {
 									method="post" id="contactForm" novalidate="novalidate">
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name"
+											<input type="text" class="form-control" id="name1" name="name"
 												placeholder="Your Full name">
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="email" class="form-control" id="email"
+											<input type="email" class="form-control" id="email1"
 												name="email" placeholder="Email Address">
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="number"
+											<input type="text" class="form-control" id="number1"
 												name="number" placeholder="Phone Number">
 										</div>
 									</div>
@@ -423,6 +428,8 @@ figure img {
 									</div>
 								</div>
 							</div>
+							
+							<!-- ================================第一筆評論============================== -->
 							<div class="review_list">
 								<div class="review_item">
 									<div class="media">
@@ -430,57 +437,76 @@ figure img {
 											<img src="img/product/review-1.png" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<!--評論人姓名-->
+											<h4 id="cusName1"></h4>
 											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam, quis nostrud
-										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+
+									<!--評論內容-->
+									<p id="prodComment1"></p>
+									<!--評論時間-->
+									<span class="commentDate" id="commentDate1"></span>
 								</div>
+							</div>
+							<!-- ================================第二筆評論============================== -->
+							<div class="review_list">
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
+											<img src="img/product/review-1.png" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<!--評論人姓名-->
+											<h4 id="cusName2"></h4>
 											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam, quis nostrud
-										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+
+									<!--評論內容-->
+									<p id="prodComment2"></p>
+									<!--評論時間-->
+									<span class="commentDate" id="commentDate2"></span>
 								</div>
+							</div>
+							<!-- ================================第三筆評論============================== -->
+							<div class="review_list">
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
+											<img src="img/product/review-1.png" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<!--評論人姓名-->	
+											<h4 id="cusName3"></h4>
 											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 												class="fa fa-star"></i>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam, quis nostrud
-										exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+
+									<!--評論內容-->
+									<p id="prodComment3"></p>
+									<!--評論時間-->
+									<span class="commentDate" id="commentDate3"></span>
 								</div>
 							</div>
 						</div>
+						
+						
+						
+						
+						
+<!-- 		======================================== 評論商品 ===========================================	 -->
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>評論商品</h4>
 								<p>您的評分:</p>
+								
 								<ul class="list">
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -488,42 +514,59 @@ figure img {
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
-								<form class="row contact_form" action="contact_process.php"
-									method="post" id="contactForm" novalidate="novalidate">
+								
+								
+								
+								<form class="row contact_form" action="${contextRoot}/insertComment"
+									method="get" id="contactForm" novalidate="novalidate">
+									
+									<input type="hidden" name="productId" value="${pdVal.product_id}">
+
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="text" class="form-control" id="name" name="name"
 												placeholder="姓名" onfocus="this.placeholder = ''"
-												onblur="this.placeholder = 'Your Full name'">
+												onblur="this.placeholder = '您的姓名'">
 										</div>
 									</div>
+									
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="email" class="form-control" id="email"
 												name="email" placeholder="Email"
 												onfocus="this.placeholder = ''"
-												onblur="this.placeholder = 'Email Address'">
+												onblur="this.placeholder = 'Email'">
 										</div>
 									</div>
+									
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="number"
-												name="number" placeholder="聯絡方式"
+											<input type="text" class="form-control" id="phone"
+												name="phone" placeholder="聯絡方式"
 												onfocus="this.placeholder = ''"
-												onblur="this.placeholder = 'Phone Number'">
+												onblur="this.placeholder = '聯絡方式'">
 										</div>
 									</div>
+									
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message"
+											<textarea class="form-control" name="productComment" id="productComment"
 												rows="1" placeholder="評論描述" onfocus="this.placeholder = ''"
-												onblur="this.placeholder = 'Review'"></textarea>
+												onblur="this.placeholder = '評論商品'"></textarea>
 										</div>
 									</div>
+									
+										<input id="" name="createdAt" class="input"
+											type="hidden" value="">
+									
 									<div class="col-md-12 text-center">
-										<button id="btn" type="submit" class="primary-btn">送出評論</button>
+										<button  id="btnComment" type="submit" class="primary-btn">送出評論</button>
 									</div>
 								</form>
+								<div class="col-md-12 text-center">
+									<button  id="btnCreate" type="submit" class="">一鍵輸入</button>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -534,30 +577,32 @@ figure img {
 	<!--================End Product Description Area =================-->
 
 
-
 	<!-- Start related-product Area -->
 	<section class="related-product-area section_gap_bottom">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-6 text-center">
 					<div class="section-title">
-						<h1>相關商品</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua.</p>
+						<h1>推薦商品</h1>
+						<p></p>
 					</div>
 				</div>
 			</div>
+			
+			
 			<div class="row" id="row">
 				<div class="col-lg-9">
 					<div class="row">
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r1.jpg" alt=""></a>
+								<a id="ref1" href="">
+								<!--商品照-->	
+								<img class="relimg" id="relImg1" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<!--品名-->
+									<a id="pdName1" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price1">$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
@@ -565,11 +610,13 @@ figure img {
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r2.jpg" alt=""></a>
+								<a id="ref2" href="#">
+								<img class="relimg" id="relImg2" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<!--商品照-->	
+									<a id="pdName2" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price2">$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
@@ -577,11 +624,12 @@ figure img {
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r3.jpg" alt=""></a>
+								<a id="ref3" href="#">
+								<img class="relimg" id="relImg3" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<a id="pdName3" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price3">$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
@@ -589,11 +637,12 @@ figure img {
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r5.jpg" alt=""></a>
+								<a id="ref4" href="#">
+								<img class="relimg" id="relImg4" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<a id="pdName4" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price4">$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
@@ -601,11 +650,12 @@ figure img {
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r6.jpg" alt=""></a>
+								<a id="ref5" href="#">
+								<img class="relimg" id="relImg5" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<a id="pdName5" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price5" >$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
@@ -613,54 +663,20 @@ figure img {
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r7.jpg" alt=""></a>
+								<a id="ref6" href="#">
+								<img class="relimg" id="relImg6" src="" alt=""></a>
 								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
+									<a id="pdName6" href="#" class="title">Black lace Heels</a>
 									<div class="price">
-										<h6>$189.00</h6>
+										<h6 id="price6">$189.00</h6>
 										<h6 class="l-through">$210.00</h6>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r9.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r10.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a href="#"><img src="img/r11.jpg" alt=""></a>
-								<div class="desc">
-									<a href="#" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
+
+					
 				<div class="col-lg-3">
 					<div class="ctg-right">
 						<a href="#" target="_blank"> <img
@@ -757,28 +773,24 @@ figure img {
 
 
 	<!-- ======================================================================================= -->
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-		crossorigin="anonymous"></script>
-	<script src="${contextRoot}/resources/frontstage/js/bootstrap.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
-	<script src="${contextRoot}/resources/frontstage/js/jquery-3.6.0.js"></script>
-	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="${contextRoot}/js/gmaps.min.js"></script>
-	<script src="${contextRoot}/js/main1.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.all.min.js"></script>
 
 
 
@@ -786,8 +798,7 @@ figure img {
 
 	<!-- ======================================================= -->
 
-	<script>
-
+				<script>
 						$("figure").mouseover(function () {
 							console.log($(this));
 							let pic = $(this).find("img").attr("src")
@@ -798,10 +809,11 @@ figure img {
 							$(this).addClass("active").siblings().removeClass("active")
 
 						})
-
 					</script>
 
-	<script>
+
+
+				<script>
 								
 							console.log($("#stockStatus").text());
 
@@ -823,7 +835,100 @@ figure img {
 							})
 	
 					</script>
+					
+					<script>
 
+							document.getElementById("btnComment").addEventListener("click", function() {
+								
+								Swal.fire({
+
+									icon : 'success',
+									title : '感謝您的評論',
+									showConfirmButton : false,
+									timer : 1500
+								})
+							});
+							
+					</script>
+
+
+
+
+					<script>
+
+						getAllComment();
+
+						function getAllComment(){
+							$.ajax({
+
+								url:$("#contextRoot").val() + "/findTopCommentById",
+								type:'post',
+								success:function(list){
+									$.each(list,function(index,pdComment){
+
+										if(index===3){
+											return false;
+										}
+
+										$("#cusName" + (index+1)).text(pdComment.customerFullName)
+										$("#prodComment"+ (index+1)).text(pdComment.productComment)
+										$("#commentDate"+ (index+1)).text(pdComment.createdAt)
+									})
+								}
+							})
+						}
+					</script>
+
+
+
+
+					<script>
+
+						getProduct();
+						function getProduct(){
+							$.ajax({
+
+								url:$("#contextRoot").val() + "/queryTopSixProduct.controller",
+								type:"post",
+								success:function(list){
+									
+									$.each(list,function(index,product){
+										if(index===6) {
+											return false;
+										}
+										$("#pdName"+(index+1)).text(product.productName);
+										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
+										$("#relImg"+(index+1)).attr("src", $("#contextRoot").val()+"/ProductTempImg/"+product.imgUrl)
+										$("#price"+(index+1)).text("NT$ " + product.price);
+										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
+										
+
+									})
+								}
+
+
+							})
+						}
+
+
+
+
+					</script>
+
+					<script>
+							$("#btnCreate").click(function(){
+							$("#name").val("Renee")
+							$("#phone").val("0911111111")
+							$("#email").val("Renee@gmail.com")
+							$("#productComment").text("五顆星商品 推薦給大家~~~")
+
+						})
+
+
+
+
+
+					</script>
 
 	<!-- ======================================================= -->
 

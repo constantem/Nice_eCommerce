@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -41,6 +42,7 @@ import tw.nicesport.service.ProductService;
 import tw.nicesport.model.StockBean;
 import tw.nicesport.model.StockRepository;
 import tw.nicesport.model.SubCategoryBean;
+import tw.nicesport.model.SubCategoryRepository;
 import tw.nicesport.service.StockService;
 import tw.nicesport.service.SubCategoryService;
 
@@ -51,10 +53,7 @@ public class ProductController {
 	private ProductService pService;
 
 	@Autowired
-	private ProductBean prodBean;
-
-	@Autowired
-	private StockBean stBean;
+	private SubCategoryRepository subCategoryRepositoryImpl;
 
 	@Autowired
 	private SubCategoryBean subBean;
@@ -70,9 +69,12 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService catService;
+	
+//	@Autowired
+//	private ServletContext servletContext;
 
 
-	// insert product 順序固定
+		//insert product 順序固定 Dao
 		@RequestMapping(path = "/insertProduct.controller", method = RequestMethod.POST)
 		public String insertAction(@RequestParam("productName") String productName,
 				@RequestParam("supplier") String supplier, @RequestParam("color") String color,
@@ -90,6 +92,8 @@ public class ProductController {
 
 			System.out.println(file.isEmpty());
 
+			ProductBean prodBean = new ProductBean();
+			
 			if (file.isEmpty()) {
 				prodBean.setImg(null);
 				prodBean.setImgUrl(null);
@@ -110,8 +114,12 @@ public class ProductController {
 				String suffixName2 = fileName2.substring(fileName2.lastIndexOf("."));
 				String suffixName3 = fileName3.substring(fileName3.lastIndexOf("."));
 				String suffixName4 = fileName4.substring(fileName4.lastIndexOf("."));
-
-				String filePath = "C:\\Nice_eCommerce_FinalProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
+				
+				
+				System.out.println("servletContext getRealPath===========>" + request.getServletContext().getRealPath("") + "\\ProductTempImg\\");
+				
+				String filePath = request.getServletContext().getRealPath("") + "\\ProductTempImg\\";
+				
 				fileName = UUID.randomUUID() + suffixName;
 				fileName1 = UUID.randomUUID() + suffixName1;
 				fileName2 = UUID.randomUUID() + suffixName2;
@@ -151,7 +159,9 @@ public class ProductController {
 				System.out.println(fileName);
 			}
 
-			subBean.setSubcategory_id(subcategory_id);
+			Optional<SubCategoryBean> subBeanOption = subCategoryRepositoryImpl.findById(subcategory_id);
+			SubCategoryBean subBean = subBeanOption.get();
+			StockBean stBean = new StockBean();
 			stBean.setQuantity(quantity);
 			stBean.setCreatedAt(creDate);
 			prodBean.setProductName(productName);
@@ -205,12 +215,22 @@ public class ProductController {
 			return "/product/insertSuccess";
 		}
 
+		//Jpa
 		@RequestMapping(path = "/queryProduct.controller", method = RequestMethod.POST)
 		@ResponseBody
 		public List<ProductBean> queryAllProduct() {
-			return pService.selectAll();
-
+			return pService.findAllProduct();
 		}
+		
+		
+		//尋找最後上架6筆商品for推薦商品
+		@RequestMapping(path = "/queryTopSixProduct.controller", method = RequestMethod.POST)
+		@ResponseBody
+		public List<ProductBean> queryTopSixProduct() {
+			return pService.findTop6ByOrderByCreatedAtDesc();
+		}
+		
+		
 
 		@RequestMapping(path = "/queryAllSubCategory.controller", method = RequestMethod.POST)
 		@ResponseBody
@@ -232,6 +252,99 @@ public class ProductController {
 			return "/product/OneProduct";
 		}
 
+		
+		@PostMapping("editProduct")
+		public ModelAndView editProduct(@RequestParam("subcategory_id")Integer subcategory_id,@RequestParam("modifiedAt") String modifiedAt,
+				@RequestParam("imgFile") MultipartFile file,
+				@RequestParam("imgFile1") MultipartFile file1,
+				@RequestParam("imgFile2") MultipartFile file2,
+				@RequestParam("imgFile3") MultipartFile file3,
+				@RequestParam("imgFile4") MultipartFile file4, ModelAndView mav,
+				@ModelAttribute ProductBean prodBean) throws IOException {
+			
+			Optional<SubCategoryBean> subBeanOption = subCategoryRepositoryImpl.findById(subcategory_id);
+			SubCategoryBean subBean = subBeanOption.get();
+			
+//			SubCategoryBean subBean = new SubCategoryBean();
+
+			mav.setViewName("/product/OneProduct");
+			
+			if(!file.isEmpty()) {
+				String fileName = saveFile(file);
+				prodBean.setImgUrl(fileName);
+			}
+			if(!file1.isEmpty()) {
+				String fileName1 = saveFile(file1);
+				prodBean.setImgUrl_A(fileName1);
+			}
+			
+			if(!file2.isEmpty()) {
+				String fileName2 = saveFile(file2);
+				prodBean.setImgUrl_B(fileName2);
+			}
+			
+			if(!file3.isEmpty()) {
+				String fileName3 = saveFile(file3);
+				prodBean.setImgUrl_C(fileName3);
+			}
+			
+			if(!file4.isEmpty()) {
+				String fileName4 = saveFile(file4);
+				prodBean.setImgUrl_D(fileName4);
+			}
+			
+			Date date = new Date();
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String modDate = sdFormat.format(date);
+			prodBean.setModifiedAt(modDate);
+			
+			Date date1 = new Date();
+			SimpleDateFormat sdFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String creDate = sdFormat1.format(date1);
+			
+			prodBean.setSubCategory(subBean);
+			prodBean.setCreatedAt(creDate);
+			
+
+			
+			pService.insert(prodBean);
+			mav.setViewName("redirect:/pageSeperate");
+
+			return mav;
+		}
+		
+		
+		
+		
+		//上傳圖片方法
+		private String saveFile(MultipartFile file){
+			
+			
+			String fileName = file.getOriginalFilename();
+			
+			String suffixName = fileName.substring(fileName.lastIndexOf(".")); 
+			
+			
+			String filePath = "C:\\Nice_eCommerce_FinalProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
+
+			fileName = UUID.randomUUID() + suffixName;
+			
+			File dest = new File(filePath + fileName);
+			
+			if (!dest.getParentFile().exists()) {
+				dest.getParentFile().mkdirs();
+
+			}
+			try {
+				file.transferTo(dest);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return fileName;
+		}
+
+		
 		// 商城商品頁
 		@GetMapping(value = "getOneProductShop{product_id}")
 		public String getOneProductShop(Model m, @PathVariable Integer product_id) {
@@ -242,82 +355,11 @@ public class ProductController {
 			return "/product/single-product";
 		}
 
-		@PostMapping("editProduct")
-		public ModelAndView editProduct(@RequestParam("modifiedAt") String modifiedAt,
-				@RequestParam("imgFile") MultipartFile file, ModelAndView mav,
-				@ModelAttribute(name = "pdVal") ProductBean prodBean) throws IOException {
-
-			mav.setViewName("/product/OneProduct");
-
-			if (!file.isEmpty()) {
-				prodBean.setImg(file.getBytes());
-				String fileName = file.getOriginalFilename(); // 文件名稱
-//				String fileName1 = file1.getOriginalFilename();
-//				String fileName2 = file2.getOriginalFilename();
-//				String fileName3 = file3.getOriginalFilename();
-//				String fileName4 = file4.getOriginalFilename();
-
-				String suffixName = fileName.substring(fileName.lastIndexOf(".")); // 後綴名
-//				String suffixName1 = fileName1.substring(fileName1.lastIndexOf(".")); 
-//				String suffixName2 = fileName2.substring(fileName2.lastIndexOf("."));
-//				String suffixName3 = fileName3.substring(fileName3.lastIndexOf("."));
-//				String suffixName4 = fileName4.substring(fileName4.lastIndexOf("."));
-				String filePath = "C:\\Nice_eCommerce_FinalProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
-
-				fileName = UUID.randomUUID() + suffixName;
-//				fileName1 = UUID.randomUUID() + suffixName1;
-//				fileName2 = UUID.randomUUID() + suffixName2;
-//				fileName3 = UUID.randomUUID() + suffixName3;
-//				fileName4 = UUID.randomUUID() + suffixName4;
-
-				File dest = new File(filePath + fileName);
-//				File dest1 = new File(filePath + fileName1);
-//				File dest2 = new File(filePath + fileName2);
-//				File dest3 = new File(filePath + fileName3);
-//				File dest4 = new File(filePath + fileName4);
-				if (!dest.getParentFile().exists()) {
-					dest.getParentFile().mkdirs();
-//					dest1.getParentFile().mkdirs();
-//					dest2.getParentFile().mkdirs();
-//					dest3.getParentFile().mkdirs();
-//					dest4.getParentFile().mkdirs();
-
-				}
-				try {
-					file.transferTo(dest);
-//					file1.transferTo(dest1);
-//					file2.transferTo(dest2);
-//					file3.transferTo(dest3);
-//					file4.transferTo(dest4);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				prodBean.setImgUrl(fileName);
-
-//				prodBean.setImgUrl_A(fileName1);
-//				prodBean.setImgUrl_B(fileName2);
-//				prodBean.setImgUrl_C(fileName3);
-//				prodBean.setImgUrl_D(fileName4);
-
-				System.out.println(filePath);
-				System.out.println(fileName);
-			}
-			Date date = new Date();
-			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String modDate = sdFormat.format(date);
-			prodBean.setModifiedAt(modDate);
-
-			pService.insert(prodBean);
-			mav.setViewName("redirect:pageSeperate");
-
-			return mav;
-		}
-
 		@GetMapping(value = "deleteOneProduct{product_id}")
 		public String deleteOneProduct(@PathVariable Integer product_id) {
 			pApi.delProductById(product_id);
-			return "/product/MainPage";
+//			return "/product/MainPage";
+			return "redirect:/pageSeperate";
 		}
 
 		@GetMapping(value = "/pageSeperate")
@@ -374,7 +416,7 @@ public class ProductController {
 		}
 		
 		// 前台模糊搜尋功能
-		@GetMapping(value="/FrontpageSearchByKeyword")
+		@RequestMapping(value="/FrontpageSearchByKeyword")
 		public ModelAndView searchProduct(ModelAndView mav,@RequestParam("brand") String brand) {
 			List<ProductBean> prod = pService.findByProductNameLike(brand);
 

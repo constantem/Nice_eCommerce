@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "OrderDetail")
 public class  OrderDetailBean implements Serializable {
@@ -25,7 +27,7 @@ public class  OrderDetailBean implements Serializable {
 	// 訂單編號, 外來鍵, 關聯 Orders table (訂單table) 的主鍵
 	@Transient  //不給值的話 這個空值不會被存入資料庫
 	@Column(name = "order_id")
-	private Integer order_id;
+	private Integer orderId;
 	// 商品編號, 外來鍵, 關聯 Product table (商品table) 的主鍵
 	@Transient 
 	@Column(name = "product_id")
@@ -67,12 +69,12 @@ public class  OrderDetailBean implements Serializable {
 		this.orderDetail_id = orderDetail_id;
 	}
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderid() {
+		return orderId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderid(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 	public Integer getProduct_id() {

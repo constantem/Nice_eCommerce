@@ -12,9 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import tw.nicesport.model.OrderDetailBean;
-import tw.nicesport.model.OrdersBean;
 import tw.nicesport.model.WorkOedersDetailRepository;
-import tw.nicesport.model.WorkOedersRepository;
 @Service
 public class WorkOrderdDetailService {
 
@@ -26,23 +24,37 @@ public class WorkOrderdDetailService {
 		workOrdersDetailDao.save(ordersBean);
 	}
 
-	//用id搜尋
-	public OrderDetailBean findById(Integer order_id) {
-		//Optional前面有  等等註解
-		Optional<OrderDetailBean> option = workOrdersDetailDao.findById(order_id);
-		// option.isPresent() 判斷是否有東西 
-		if (option.isPresent()) {
-			return option.get();
-		}
-		return null;
-	}
+	//用orderid搜尋
+//	public OrderDetailBean findById(Integer orderid) {
+//		//Optional前面有  等等註解
+//		Optional<OrderDetailBean> option = workOrdersDetailDao.findAllByOrderId(orderid);
+//		// option.isPresent() 判斷是否有東西 
+//		if (option.isPresent()) {
+//			return option.get();
+//		}
+//		return null;
+//	}
+	//用orderid搜尋
+//	public List<OrderDetailBean> findAllByOrderId(Integer orderId) {
+//		//Optional前面有  等等註解
+//		List<OrderDetailBean> option = workOrdersDetailDao.findAllByOrderId(orderId);
+//		// option.isPresent() 判斷是否有東西 
+////		if (option.isPresent()) {
+////			return option.get();
+////		}
+//		return option;
+//	}
 	//用ID刪除
 	public void deleteById(Integer order_id) {
 		workOrdersDetailDao.deleteById(order_id);
 	}
 	
 	
-	
+//	public List<OrderDetailBean> findByOrderId(Integer order_id) {
+//		return workOrdersDetailDao.findAllByOrderId(order_id);
+//		
+//		
+//	}
 	
 	
 	//搜尋全部
@@ -66,6 +78,8 @@ public class WorkOrderdDetailService {
 		
 		return page;
 	}
+	
+	
 	
 	//
 	

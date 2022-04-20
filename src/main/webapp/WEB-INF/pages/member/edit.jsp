@@ -30,8 +30,8 @@
 			<c:forEach items="${members}" var="member">
 				<tr>
 					<td>
-						<form:input type="text" name="member_id" value="${member.member_id}" disabled /></td>
-						<form:input type="hidden" path="member_id" value="${member.member_id}" />
+						<form:input type="text" name="member_id" value="${member.memberid}" disabled /></td>
+						<form:input type="hidden" path="member_id" value="${member.memberid}" />
 					<td>
 						<form:input type="text" name="username" value="${member.username}" disabled /></td>
 						<form:input type="hidden" path="username" value="${member.username}" />

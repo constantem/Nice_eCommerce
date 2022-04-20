@@ -112,8 +112,8 @@
 		         <label class="label">編號</label>
 		
 		         <div class="control">
-		         	${member.member_id}
-				<input type="hidden" name="member_id" value="${member.member_id}">
+		         	${member.memberid}
+				<input type="hidden" name="member_id" value="${member.memberid}">
 		         </div>
 		         <p class="help">
 		           

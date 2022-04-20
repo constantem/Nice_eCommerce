@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 上導覽列開始 -->
 <nav id="navbar-main" class="navbar is-fixed-top">
   <div class="navbar-brand">
@@ -85,6 +84,13 @@
         <span class="icon"><i class="mdi mdi-logout"></i></span>
         <span>Log out</span>
       </a>
+      <!-- 加插連前台按鈕 -->
+      <div class="navbar-item">
+        <a href="${contextRoot}/" class="button blue">
+          <span>前台</span>
+        </a>
+      </div>
+
     </div>
   </div>
 </nav>
@@ -109,25 +115,7 @@
     </ul>
     <p class="menu-label">分類</p>
     <ul class="menu-list">
-      <li class="--set-active-tables-html">
-        <a href="${contextRoot}/resources/backstage/tables.html">
-          <span class="icon"><i class="mdi mdi-table"></i></span>
-          <span class="menu-item-label">Tables(原模板內容)</span>
-        </a>
-      </li>
-      <li class="--set-active-forms-html">
-        <a href="${contextRoot}/resources/backstage/forms.html">
-          <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-          <span class="menu-item-label">Forms(原模板內容)</span>
-        </a>
-      </li>
-      <li>
-        <a href="${contextRoot}/resources/backstage/login.html">
-          <span class="icon"><i class="mdi mdi-lock"></i></span>
-          <span class="menu-item-label">Login(原模板內容)</span>
-        </a>
-      </li>     
-      
+         
       <!-- 下拉式選單1: 會員管理系統 -->
       <li>
         <a class="dropdown">

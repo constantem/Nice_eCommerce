@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -240,12 +242,17 @@
 									<td data-label="Created">
 										<div>
 											<small class="text-gray-500" title="Oct 25, 2021">
-												${course.createdAt}
+											<fmt:parseDate value="${course.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedCreatedAt"/>
+											<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy/MM/dd HH:mm:ss" var="formattedCreatedAt" />
+<%-- 											<javatime:format value="${course.createdAt}" pattern="yyyy/MM/dd HH:mm:ss" var="formattedCreatedAt" /> --%>
+												${formattedCreatedAt}建檔
 											</small>
 										</div>
 										<div>
 											<small class="text-gray-500" title="Oct 25, 2021">
-												${course.modifiedAt}
+											<fmt:parseDate type="both" value="${course.modifiedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedModifiedAt"/>
+											<fmt:formatDate type="both" value="${parsedModifiedAt}" var="formattedModifiedAt" pattern="yyyy/MM/dd HH:mm:ss"/>
+												編輯於${formattedModifiedAt}
 											</small>
 										</div>
 									</td>

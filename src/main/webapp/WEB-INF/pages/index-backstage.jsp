@@ -55,7 +55,7 @@
   <div id="app">
 
 	<!-- 插入上導覽列與左導覽列 -->
-	<jsp:directive.include file="/WEB-INF/pages/layout/nav-and-aside.jsp" />
+	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 	
     <section class="is-title-bar">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
@@ -98,7 +98,7 @@
 	<!-- 原核心內容的 section 結束 -->
 
 	<!-- 插入頁腳 -->
-	<jsp:directive.include file="/WEB-INF/pages/layout/footer.jsp" />
+	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
     <div id="sample-modal" class="modal">
       <div class="modal-background --jb-modal-close"></div>

@@ -8,13 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 	// 跳轉前台首頁用
-	@RequestMapping("/frontstage")
+	@RequestMapping("/")
 	public String showFrontstageHomePage() {
 		return "index";
 	}
 	
+	// 測試跳轉前台首頁用
+//	@RequestMapping("/")
+//	public String showFrontstageHomePage() {
+//		return "redirect:/resources/frontstage/index.html";
+//	}
+	
 	// 跳轉前台首頁用
-	@RequestMapping("/")
+	@RequestMapping("/backstage")
 	public String showBackstageHomePage() {
 		return "index-backstage";
 	}

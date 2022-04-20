@@ -1,5 +1,7 @@
 package tw.nicesport.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +20,12 @@ public class CustomerService {
 	private CustomerSupportDAO dao;
 	
 	//新增
-	public CustomerBean insert(CustomerBean forms) {
-		CustomerBean cs = dao.save(forms);
+	public CustomerBean insert(CustomerBean customerBean) {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+        String timeStamp = date.format(new Date());
+			customerBean.setCreatedAt(timeStamp);
+		
+		CustomerBean cs = dao.save(customerBean); //save方法會自動判斷資料有無相同id有就修改，沒有就新增
 		return cs;
 //		return DAO.save(forms); //簡化版，直接回傳帶參數的回傳值
 	}
@@ -39,6 +45,12 @@ public class CustomerService {
 		return dao.findAll();
 	}
 	
+	//模糊搜尋
+	public List<CustomerBean> findByServiceInfoLike(String findByServiceInfoLike) {
+		return dao.findByServiceInfoLike("%"+findByServiceInfoLike+"%");
+	}
+	
+	
 	//建構子
 	public CustomerService() {
 	}
@@ -49,14 +61,21 @@ public class CustomerService {
 	}
 	
 	//修改
-	public CustomerBean update(CustomerBean csb) {
-		return csb;
+	public CustomerBean editOne(CustomerBean customerBean) {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+        String timeStamp = date.format(new Date());
+			customerBean.setModifiedAt(timeStamp);
+			CustomerBean cs = dao.save(customerBean); //save方法會自動判斷資料有無相同id有就修改，沒有就新增
+			return cs;
+//		return DAO.save(forms); //簡化版，直接回傳帶參數的回傳值
 	}
 	
 	//取得最新資料，有排序方式
 	public CustomerBean getLastest() {
 		return dao.findFirstByOrderByIdDesc();
 	}
+
+
 
 	
 	

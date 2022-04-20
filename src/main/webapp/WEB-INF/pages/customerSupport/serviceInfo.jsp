@@ -24,11 +24,13 @@
 				<div class="card">
 					<div class="card-header">客服表單</div>
 					<div class="card-body">
-						<h1>查詢全部資料</h1> <form action="${contextRoot}/message/findByServiceInfoLike">
+						<h1>查詢特定資料</h1> <form action="${contextRoot}/message/findByServiceInfoLike">
 											特定問題查詢:<input type="text" name="findByServiceInfoLike">
 											<input type="submit" value="送出">
 											</form>
-											
+											<form action="${contextRoot}/message/selectAll">
+											<input type="submit" value="返回">
+											</form>
 						<table border="1">
 							<tr style="background-color: #a8fefa">
 								<th>Id

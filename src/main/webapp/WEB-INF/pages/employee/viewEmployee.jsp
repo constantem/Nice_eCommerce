@@ -1,29 +1,307 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-<jsp:include page="layout/default.jsp" />
+
+
+<!-- 這個檔案是給你給你複製貼上用的, 請創一個 jsp 檔, 將此檔全部內容複製貼在該 jsp 檔 -->
+
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en" class="">
+
 <head>
-<!-- <meta charset="UTF-8"> -->
-<meta charset=UTF-8>
-<title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我頁標題(未更改)</title>
+
+  <!-- Tailwind is included -->
+  <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
+  <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
+  <link rel="mask-icon" href="${contextRoot}/resources/backstage/safari-pinned-tab.svg" color="#00b4b6" />
+
+  <meta name="description" content="Admin One - free Tailwind dashboard">
+
+  <meta property="og:url" content="https://justboil.github.io/admin-one-tailwind/">
+  <meta property="og:site_name" content="JustBoil.me">
+  <meta property="og:title" content="Admin One HTML">
+  <meta property="og:description" content="Admin One - free Tailwind dashboard">
+  <meta property="og:image" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="960">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Admin One HTML">
+  <meta property="twitter:description" content="Admin One - free Tailwind dashboard">
+  <meta property="twitter:image:src" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
+  <meta property="twitter:image:width" content="1920">
+  <meta property="twitter:image:height" content="960">
+
+
+<!-- 自訂 link, script -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-130795909-1');
+  </script>
 
 </head>
+
 <body>
-<!-- 員工添加模態框 -->
+
+  <div id="app">
+
+	<!-- 插入上導覽列與左導覽列 -->
+	<jsp:directive.include file="/WEB-INF/pages/layout/nav-and-aside.jsp" />
+	
+	<!-- 章節層級 -->
+    <section class="is-title-bar">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <ul>
+          <li>Admin</li>
+          <li>Profile</li>
+        </ul>
+        <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
+          <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
+          <span>Premium Demo</span>
+        </a>
+      </div>
+    </section>
+
+	<!-- 核心內容標題 -->
+    <section class="is-hero-bar">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+          員工管理系統
+        </h1>
+        <button class="button light">Button</button>
+      </div>
+    </section>
+
+	<!-- 原核心內容的 section 開始 -->
+	<section class="section main-section">
+			<div class="card has-table">
+				<section class="section main-section">
+
+					<header class="card-header">
+						<p class="card-header-title">
+							<span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+							員工名單
+						</p>
+						<a href="#" class="card-header-icon"> <span class="icon"><i
+								class="mdi mdi-reload"></i></span>
+						</a>
+					</header>
+				</section>
+			</div>
+
+			<div class="col-md-4 col-md-offset-8">
+				
+				<button type="button" class="btn btn-primary btn-sm" id="emp_add_model_btn">新增</button>
+				<button type="button" class="btn btn-danger btn-sm" id="emp_delete_all_btn">刪除</button>	
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<!-- <table class="table table-hover" id="emps_table"> -->
+						<table id="noteTable" class="table table-hover table-sm">
+						<!-- <thead> -->
+							<thead class="thead-dark">
+							<tr>
+								<th><input type="checkbox" id="check_all" class="all">#</th>
+								<th>員工編號</th>
+								<th>姓名</th>
+								<th>性別</th>
+								<th>電話</th>
+								<th>電子信箱</th>
+								<th>住址</th>
+								<th>職稱</th>
+								<th>受雇起始日</th>
+								<th>建立日期</th>
+								<th>修改日期</th>
+								<th>權限</th>
+								<th>操作</th>
+			
+							</tr>
+						</thead>
+			
+						<tbody>
+			
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<ul class="pagination justify-content-center" style="margin:20px 0; cursor: pointer;">
+			</ul>
+	</section>
+	<!-- 原核心內容的 section 結束 -->
+
+	<!-- 插入頁腳 -->
+	<jsp:directive.include file="/WEB-INF/pages/layout/footer.jsp" />
+
+    <div id="sample-modal" class="modal">
+      <div class="modal-background --jb-modal-close"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Sample modal</p>
+        </header>
+        <section class="modal-card-body">
+          <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
+          <p>This is sample modal</p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button --jb-modal-close">Cancel</button>
+          <button class="button red --jb-modal-close">Confirm</button>
+        </footer>
+      </div>
+    </div>
+
+    <div id="sample-modal-2" class="modal">
+      <div class="modal-background --jb-modal-close"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Sample modal</p>
+        </header>
+        <section class="modal-card-body">
+          <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
+          <p>This is sample modal</p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button --jb-modal-close">Cancel</button>
+          <button class="button blue --jb-modal-close">Confirm</button>
+        </footer>
+      </div>
+    </div>
+
+<!-- 員工查詢模態框 -->
+	<!-- Modal -->
+	<div class="modal fade" id="empInquireModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		data-target="#empInquireModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">員工資料</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">	
+						<!-- <div class="modal-body">
+							<input id="images" type="hidden" name="images">
+							<p id="images" name="images"><img src="" width=200></p>
+						</div> -->
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓</label>
+							<div class="col-sm-10">
+								<input type="text" style="outline:none;" name="firstName" readonly class="form-control-static"
+									id="lastName_inquire_input">
+								<span class="help-block"></span>
+							</div>
+						</div>
+ 
+							
+						<div class="form-group">
+							<label class="col-sm-2 control-label">名</label>
+							<div class="col-sm-10">
+								<input type="text" style="outline:none;" name="firstName" readonly class="form-control-static"
+									id="firstName_inquire_input">
+								<span class="help-block"></span>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label class="col-sm-2 control-label">性別</label>
+							<div class="col-sm-10">
+								<label class="radio-inline">
+									<input type="radio" name="gender" readonly id="gender_inquire_input"
+										value="M" checked>男
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="gender" readonly id="gender_inquire_input"
+										value="F">女
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">電話</label>
+							<div class="col-sm-5">
+								<input type="text" style="outline:none;" name="phone" readonly class="form-control-static"
+									id="phone_inquire_input">
+								<span class="help-block"></span>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label class="col-sm-2 control-label">email</label>
+							<div class="col-sm-10">
+								<input type="text" style="outline:none;" name="email" readonly class="form-control-static"
+									id="email_inquire_input" placeholder="xxxxx@gmail.com">
+								<span class="help-block"></span>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label class="col-sm-2 control-label">地址</label>
+							<div class="col-sm-3">
+								<input class="form-control-static" style="outline:none;" name="address1"
+								readonly id="address1_inquire_select">				
+							</div>
+							<div class="col-sm-3">
+								<input class="form-control-static" style="outline:none;" name="address2"
+								readonly id="address2_inquire_select">	
+							</div>
+							<div class="col-sm-8">
+								<input type="text"style="outline:none;" name="address" readonly class="form-control-static"
+									id="address_inquire_input">
+								<span class="help-block"></span>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label class="col-sm-2 control-label">職稱</label>
+							<div class="col-sm-10">
+								<input type="text" style="outline:none;" name="jobTitle" readonly class="form-control-static"
+									id="jobTitle_inquire_input">
+								<span class="help-block"></span>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label class="col-sm-2 control-label">權限</label>
+							<div class="col-sm-10">
+								<label class="radio-inline">
+									<input name="permission" style="outline:none;" readonly class="form-control-static"
+										id="permission_inquire_input">
+									<span class="help-block"></span>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+			
+<!-- 自訂彈窗 -->
+<!-- 員工新增模態框 -->
 	<!-- Modal --> 
 	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-target="#empAddModal">
 	  <div class="modal-dialog" role="document">
@@ -34,10 +312,18 @@
 	      </div>
 	      <div class="modal-body">
 	        <form class="form-horizontal">
+				<div class="modal-body">
+				<input type="file" name="file" id="file">
+				<input id="img" type="hidden" name="img">
+				<p id="url"><img src="" width=200></p>
+				<input type="button" name="img" id="button" value="上傳">
+				</div>
+
+
 				<div class="form-group">
 					<label class="col-sm-2 control-label">密碼</label>
 					<div class="col-sm-10">
-					  <input type="text" name="password" class="form-control" id="password_add_input">
+					  <input required type="password" name="password" class="form-control" id="password_add_input">
 					  <span class="help-block"></span>
 					</div>
 				  </div>
@@ -73,7 +359,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">電話</label>
 			    <div class="col-sm-5">
-			      <input type="text" name="phone" class="form-control" id="phone_add_input"  >
+			      <input type="tel" name="phone" class="form-control" id="phone_add_input"  >
 			      <span class="help-block"></span>
 			    </div>
 			  </div>
@@ -81,7 +367,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">email</label>
 			    <div class="col-sm-10">
-			      <input type="text" name="email" class="form-control" id="email_add_input" placeholder="email@atguigu.com">
+			      <input type="email" name="email" class="form-control" id="email_add_input" placeholder="xxxxx@gmail.com">
 			      <span class="help-block"></span>
 			    </div>
 			  </div>
@@ -97,7 +383,7 @@
 						<select class="form-control" name="address2" id="address2_add_select">
 	
 						</select>
-						</div>
+						</div> 
 						<div class="col-xs-push-3">
 							<input type="text" name="address" class="form-control" id="address_add_input"  >
 							<span class="help-block"></span>
@@ -145,6 +431,7 @@
 	      </div>
 	      <div class="modal-body">
 	        <form class="form-horizontal">
+				  
 				<div class="form-group">
 					<label class="col-sm-2 control-label">密碼</label>
 					<div class="col-sm-10">
@@ -173,10 +460,10 @@
 			    <label class="col-sm-2 control-label">性別</label>
 			    <div class="col-sm-10">
 			      <label class="radio-inline">
-					  <input type="radio" name="gender" id="gender1_update_input" value="M" checked> 男
+					  <input type="radio" name="gender" id="gender1_update_input" value="M" checked>男
 				  </label>
 				  <label class="radio-inline">
-					  <input type="radio" name="gender" id="gender2_update_input" value="F"> 女
+					  <input type="radio" name="gender" id="gender2_update_input" value="F">女
 			      </label>
 			    </div>
 			  </div>
@@ -244,87 +531,30 @@
 	</div>
 
 
-<!-- <--==================================== --> 
-	<div class="container">
-		<div>
-			<div class="card has-table">
-				<header class="card-header">
-					<p class="card-header-title">
-						<span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-						Clients
-					</p>
-					<a href="#" class="card-header-icon"> <span class="icon"><i
-							class="mdi mdi-reload"></i></span>
-					</a>
-				</header>
-			</div>
 
-			<section class="is-hero-bar">
-				<div
-					class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-					<h1 class="title">員工管理系統</h1>
-					<button class="button light">Button</button>
-				</div>
-			</section>
-			<div class="card has-table">
-				<section class="section main-section">
+  </div>
 
-					<header class="card-header">
-						<p class="card-header-title">
-							<span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-							員工名單
-						</p>
-						<a href="#" class="card-header-icon"> <span class="icon"><i
-								class="mdi mdi-reload"></i></span>
-						</a>
-					</header>
-				</section>
-			</div>
+  <!-- Scripts below are for demo only -->
+  <script type="text/javascript" src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
-			<div class="col-md-4 col-md-offset-8">
-				
-				<button type="button" class="btn btn-primary btn-sm" id="emp_add_model_btn">新增</button>
-				<button type="button" class="btn btn-danger btn-sm">刪除</button>	
-			</div>
-			
-			<div class="row">
-				<div class="col-md-12">
-					<!-- <table class="table table-hover" id="emps_table"> -->
-						<table id="noteTable" class="table table-hover table-sm">
-						<!-- <thead> -->
-							<thead class="thead-dark">
-							<tr>
-								<th><input type="checkbox" class="all">#</th>
-								<th>員工編號</th>
-								<th>姓名</th>
-								<th>性別</th>
-								<th>電話</th>
-								<th>電子信箱</th>
-								<th>住址</th>
-								<th>職稱</th>
-								<th>受雇起始日</th>
-								<th>建立日期</th>
-								<th>修改日期</th>
-								<th>權限</th>
-								<th>操作</th>
-			
-							</tr>
-						</thead>
-			
-						<tbody>
-			
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<ul class="pagination justify-content-center" style="margin:20px 0; cursor: pointer;">
-			</ul>
-
-	</div>
-
-</div>
-	<script>
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '658339141622648');
+    fbq('track', 'PageView');
+  </script>
+  
+  <!-- 自訂 JS -->
+  <script>
 	
 var pageSize = 5;
 var totalElements;
@@ -399,7 +629,7 @@ function buildPagination(result) {
 		 totalElements = result.totalElements;
 		var numLinks = 10;
 		
-		// print 'previous' link only if not on page one
+
 		var first = '';
 		var prev = '';
 		if (pageNumber > 0) {
@@ -409,11 +639,10 @@ function buildPagination(result) {
 			prev = '<li class="page-item"><a class="page-link">‹ Prev</a></li>';
 		} else {
 			
-			prev = '<li  class="disable"><a >‹ Prev</a></li>'; // on the page one, don't show 'previous' link
-			first = '<li class="disable"><a >‹ First</a></li>'; // nor 'first page' link
+			prev = '<li  class="disable"><a >‹ Prev</a></li>'; 
+			first = '<li class="disable"><a >‹ First</a></li>';
 		}
 		
-		// print 'next' link only if not on the last page
 		var next = '';
 		var last = '';
 		if (pageNumber < totalPages) {
@@ -427,14 +656,8 @@ function buildPagination(result) {
 		}
 		
 		var start = pageNumber - (pageNumber % numLinks) + 1;
-		console.log("start:"+start)
-		console.log("pageNumber:"+pageNumber)
-		console.log("numLinks:"+numLinks)
 		var end = start + numLinks - 1;
-		console.log("end:"+end)
 		end = Math.min(totalPages, end);
-		console.log(Math.min(totalPages, end))
-		console.log("end1:"+end)
 		var pagingLink = '';
 		
 		for (var i = start; i <= end; i++) {
@@ -470,11 +693,12 @@ function fetchNotes(startPage) {
 	          $('#noteTable tbody').empty();
 	          // add table rows
 	          $.each(result.content, (idenx, value) => {
+				var gender = value.gender=='M'?'男':'女';
 	            let noteRow = '<tr>' +
-									'<td><input type="checkbox"></td>'+
+									'<td><input type="checkbox" class="check_item"></td>'+
 	      	  						'<td>' + value.employee_id + '</td>' +
 			                		'<td>' + value.lastName+value.firstName + '</td>' +
-									'<td>' + value.gender +'</td>' +
+									'<td>' + gender +'</td>' +
 									'<td>' + value.phone + '</td>' +
 									'<td>' + value.email + '</td>' +	
 									'<td>' + value.address + '</td>' +
@@ -483,9 +707,10 @@ function fetchNotes(startPage) {
 									'<td>'+ value.createdAt + '</td>' +
 									'<td>' + value.modifiedAt + '</td>' +
 									'<td>' + value.permission + '</td>' +
+									'<td><button class="button small green --jb-modal" id="inquireEmp_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="inquireEmp(this.value)" data-target="sample-modal-2" type="button"><span class="icon"><i class="mdi mdi-eye"></i></span></button></td>'+
 									'<td><button class="btn btn-primary btn-sm"id="edit_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="update(this.value)" ><span class="glyphicon glyphicon-pencil">編輯</span></button></td>'+
-									'<td><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash">刪除</span></button></td>'+
-			                   '</tr>';
+									'<td><button class="btn btn-danger btn-sm"id="delete_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="deleteEmp(this.value)"><span class="glyphicon glyphicon-trash">刪除</span></button></td>'+
+								'</tr>';
 	            $('#noteTable tbody').append(noteRow);
 	          });
 			  
@@ -511,24 +736,6 @@ function fetchNotes(startPage) {
     $(ele).find(".help-block").text("");
   }
 
-//   function getDepts(ele) {
-//     // 清空之前下拉選單的值
-//     $(ele).empty();
-//     $.ajax({
-//       url: "${APP_PATH}/depts",
-//       type: "get",
-//       success:function (result) {
-//         //"extend":{"depts":[{"deptId":1,"deptName":"開發部"},{"deptId":2,"deptName":"測試部"}]}}
-//         //顯示部門資訊在下拉選單中
-//         $("#empAddModal select").append("")
-//         $.each(result.extend.depts,function(){
-//           var optionEle = $("<option></option>").append(this.deptName).attr("value",this.deptId);
-//           optionEle.appendTo(ele);
-//         });
-//       }
-//     });
-//   }
-
   // 點選新增按鈕彈出模態框。
   $("#emp_add_model_btn").click(function () {
  
@@ -546,7 +753,7 @@ function fetchNotes(startPage) {
 			//校驗用戶名
 			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{2,5})/;
 			if(!regName.test(empName)){
-				//先清除樣式，然後校驗如果有錯誤，會友好的在輸入姓名的列表中顯示出校驗不合格的原因
+				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
 				show_validate_msg("#empName_add_input", "error", "姓名必須是2-5位中文或6-16位英文和數字的組合");
 				return false;
 			}else{
@@ -556,7 +763,7 @@ function fetchNotes(startPage) {
 			var email = $("#email_add_input").val();
 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 			if(!regEmail.test(email)){
-				//先清除樣式，如果有錯誤，會友好的在輸入email的列表中顯示出檢查不合格的原因
+				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
 				show_validate_msg("#email_add_input", "error", "信箱格式不正確");
 				return false;
 			}else{
@@ -578,28 +785,7 @@ function fetchNotes(startPage) {
 				$(ele).parent().addClass("has-error");
 				$(ele).next("span").text(msg);
 			}
-		}
-		
-		// //檢查用戶名是否可用（即是否重複）
-		// $("#empName_input").change(function(){
-		// 	var empName = this.value;
-		// 	$.ajax({
-		// 		url:"${APP_PATH}/checkuser",
-		// 		data:"empName=" + empName,
-		// 		type:"GET",
-		// 		success:function(result){
-		// 			if(result.code==0){
-		// 				show_validate_msg("#empName_input", "success", "用戶名可用");
-		// 				$("#add_emp_btn").attr("ajax-va", "success");
-		// 			}else{
-		// 				show_validate_msg("#empName_input", "error", "用戶名已存在");
-		// 				$("#add_emp_btn").attr("ajax-va", "error");
-		// 			}
-		// 		}
-		// 	});
-			
-		// });
-		
+		}	
 		//新增模態框裏的保存按鈕
 		$("#emp_save_btn").click(function(){
 			
@@ -610,13 +796,13 @@ function fetchNotes(startPage) {
 				  timer: 1500
 				})
 				
-				Swal.fire(
-  'Good job!',
-  'You clicked the button!',
-  'success'
-)
+// 				Swal.fire(
+//   'Good job!',
+//   'You clicked the button!',
+//   'success'
+// )
 			
-			//對數據進行校驗
+			//對數據進行檢查
 			if(!validate_add_form()){
 				return false
 			};
@@ -649,79 +835,154 @@ function fetchNotes(startPage) {
 			}); 
 		});
 
-		// 1、如果在編輯和刪除按鈕建立之前繫結 click 是繫結不上的
-  // 1）可以在建立按鈕的時候繫結
-  // 2）繫結點選 .live()
-//   $(document).on("click", "#edit_btn", function () {
+   
+	//把員工的 id 傳遞給模態框的更新按鈕
+
+	function update(id) {
+
+			$("#empUpdateModal").modal({
+
+			});
+
+			$.ajax({
+				url: "${contextRoot}/viewEmpId?employee_id=" + id,
+				type: "get",
+				contentType: 'application/json',
+				success: function (result) {
+					// console.log("result:" + result);
+
+					$("#password_update_input").val(result.password);
+					$("#lastName_update_input").val(result.lastName);
+					$("#firstName_update_input").val(result.firstName);
+					$("#empUpdateModal input[name=gender]").val([result.gender]);
+					$("#phone_update_input").val(result.phone);
+					$("#email_update_input").val(result.email);
+					$("#address_update_input").val(result.address);
+					$("#jobTitle_update_input").val(result.jobTitle);
+					$("#permission_update_input").val(result.permission);
 
 
-//     //把員工的 id 傳遞給模態框的更新按鈕
-//     // $("#emp_update_btn").attr("edit-id", $(this).attr("edit-id"));
-//     $("#empUpdateModal").modal({
+					//   點選更新，更新員工資訊
+					$("#emp_update_btn").click(function () {
+						alert(id);
+						// 驗證郵箱是否合法
+						// 1、校驗郵箱資訊
+						var email = $("#email_update_input").val();
+						var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+						if (!regEmail.test(email)) {
+							show_validate_msg("#email_update_input", "error", "信箱格式不正確");
+							return false;
+						} else {
+							show_validate_msg("#email_update_input", "success", "");
+						}
 
-//     });
-//   });
+						// 2、傳送 ajax 請求儲存更新的員工資料 
+						$.ajax({
+							url: "${contextRoot}/employee/editEmployee?employee_id=" + id,
+							//   type:"put",
+							// dataType: "json",
+							type: "POST",
+							data: $("#empUpdateModal form").serialize(),
+							success: function (result) {
+								// alert("123")
+								console.log(result)
+								fetchNotes(0);
+								$("#empUpdateModal").modal("hide");
+								// to_page(currentPage);
+							}
+						});
+					});
+				}
+			});
+		}
+
+			function deleteEmp(id) {
+
+				if (confirm("確定要刪除嗎")) {
+
+					$.ajax({
+						url: "${contextRoot}/employee/deleteEmployee?employee_id=" + id,
+						type: "Get",
+						contentType: 'application/json',
+						success: function (result) {
+							console.log(result)
+							fetchNotes(0);
+						}
+					});
+				}
+			}
+
+				// 全選功能
+				$("#check_all").click(function () {
+					$(".check_item").prop("checked", $(this).prop("checked"));
+				});
+
+				$(document).on("click", ".check_item", function () {
+					var flag = $(".check_item:checked").length == $(".check_item").length;
+					$("#check_all").prop("checked", flag);
+				});
 
 
-  function update(id) { 
-		getEmp(id);
-		alert(id);
-		$("#emp_update_btn").attr("edit-id", $(this).attr("edit-id"));
-		
-		
+			function inquireEmp(id){
+				$("#empInquireModal").modal({
+			
+			});
+			$.ajax({
+				url: "${contextRoot}/viewEmpId?employee_id=" + id,
+				type: "get",
+				contentType: 'application/json',
+				success: function (result) {
+					alert(id);
+					console.log("result:" + result);
+					$("#lastName_inquire_input").val(result.lastName);
+					$("#firstName_inquire_input").val(result.firstName);
+					$("#empInquireModal input[name=gender]").val([result.gender]);
+					$("#phone_inquire_input").val(result.phone);
+					$("#email_inquire_input").val(result.email);
+					$("#address_inquire_input").val(result.address);
+					$("#jobTitle_inquire_input").val(result.jobTitle);
+					$("#permission_inquire_input").val(result.permission);			
+				}
+			});
+	};
 
-		$("#empUpdateModal").modal({
 
-		});
-		getEmp(id);
-	}
-
-  function getEmp(id) { 
-    $.ajax({
-      url:"${contextRoot}/employee/editEmployee?employee_id="+id,
-      type:"get",
-      success:function (result) {
-		  console.log("result:"+result);
-
-        // var empData = result.extend.emp;
-		// console.log("empData:"+empData);
-		// alert("022")
-        $("#password_update_input").val(empData.password);
-        $("#lastName_update_input").val(empData.lastName);
-		$("#firstName_update_input").val(empData.firstName);
-		$("#empUpdateModal input[name=gender]").val([empData.gender]);
-		$("#phone_update_input").val(empData.phone);	
-		$("#email_update_input").val(empData.email);
-		$("#address_update_input").val(empData.address);
-		$("#jobTitle_update_input").val(empData.jobTitle);
-		$("#permission_update_input").val(empData.permission);
-      }
-    });
-  }
-  // 點選更新，更新員工資訊
-  $("#emp_update_btn").click(function () {
-    // 驗證郵箱是否合法
-    // 1、校驗郵箱資訊
-    var email = $("#email_update_input").val();
-    var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    if (!regEmail.test(email)) {
-      show_validate_msg("#email_update_input", "error", "郵箱格式不正確");
-      return false;
-    } else {
-      show_validate_msg("#email_update_input", "success", "");
-    }
-
-    // 2、傳送 ajax 請求儲存更新的員工資料
-    $.ajax({
-      url:"${contextRoot}/save",
-      type:"put",
-      data:$("#empUpdateModal form").serialize(),
-      success:function (result) {
-        $("#empUpdateModal").modal("hide");
-        to_page(currentPage);
-      }
-    });
-  });
+				$(function () {
+			        $("#button").click(function () {
+					
+			            var form = new FormData();
+			            form.append("file", document.getElementById("file").files[0]);
+			             $.ajax({
+			                 url: "${contextRoot}/upload",        
+			                 data: form,
+			                 cache: false,
+			                 async: false,
+			                 type: "POST",                  
+			                 encType: "multipart/form-data",            
+			                 processData: false,
+			                 contentType: false,
+			                 success: function (map) {  
+			                     if (map) {
+			                     	$("#images").attr("src",map.filePath);
+									alert("1233")
+									$("#img").val(map.fileName);
+			 
+			                     } else {
+			                     	alert("失敗");
+			                     }			                
+			                 },
+			             });
+			        })		 
+			    });			
 	</script>
+  
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" /></noscript>
+
+
+
+  <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
 </body>
+
 </html>

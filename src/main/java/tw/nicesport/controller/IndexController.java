@@ -31,9 +31,9 @@ public class IndexController {
 //		return "/layout/nav-and-aside";
 //	}
 	
-	// jsp:include 要 include 上與左導覽列用
-	@RequestMapping("/layout/underConstruction")
-	public String showUnderContruction() {
-		return "layout/underconstruction";
-	}
+//	// jsp:include 要 include 上與左導覽列用
+//	@RequestMapping("/layout/underConstruction")
+//	public String showUnderContruction() {
+//		return "layout/underconstruction";
+//	}
 }

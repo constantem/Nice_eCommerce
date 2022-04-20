@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
-import tw.nicesport.dto.MemberDto;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.MemberService;
 
@@ -94,12 +93,12 @@ public class MemberController {
 	}
 
 	// 查詢全部
-	@GetMapping("/member/showAllResult")
+	@GetMapping("/member/showAllResultDemo")
 	public ModelAndView showAllResult(ModelAndView model) {
 
 		List<Member> members = memberService.findAllMember();
 		model.getModel().put("members", members);
-		model.setViewName("member/showAllResult");
+		model.setViewName("member/showAllResultDemo");
 		return model;
 	}
 

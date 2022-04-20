@@ -94,10 +94,10 @@
 		</section>
 
 		<!-- 原核心內容的 section 開始 -->
-		<form action="${contextRoot}/member/showOneResult">
-		會員查詢:<input type="text" method="post">
-		<button value="Send">查詢</button>
-		</form>
+<%-- 		<form action="${contextRoot}/member/showOneResult"> --%>
+<!-- 		會員查詢:<input type="text" method="post"> -->
+<!-- 		<button value="Send">查詢</button> -->
+<%-- 		</form> --%>
 			<table>
 				<tr>
 					<th>編號</th>
@@ -147,7 +147,7 @@
  				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> 
  					<c:choose> 
  						<c:when test="${page.number !=pageNumber-1 }">
- 							<a href="${contextRoot}/member/showAllResult2?p=${pageNumber}"><c:out 
+ 							<a href="${contextRoot}/member/showAllResult?p=${pageNumber}"><c:out 
  									value="${pageNumber}"></c:out></a> 
 						</c:when> 
  						<c:otherwise> 

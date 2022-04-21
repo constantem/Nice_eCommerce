@@ -28,6 +28,7 @@
 			<th>Description
 			<th>Name
 			<th>Phone
+			<th>Email
 			<th>PreferedContactTime
 			<th>ProcessStatus
 			<th>Remark
@@ -45,6 +46,8 @@
 				<input type="hidden" name="name" value="${csResult.name}">
 			<td><input type="text" name="phone" value="${csResult.phone}" disabled><br>
 				<input type="hidden" name="phone" value="${csResult.phone}">
+			<td><input type="text" name="email" value="${csResult.email}" disabled><br>
+				<input type="hidden" name="email" value="${csResult.email}">	
 			<td><input type="text" name="preferedContactTime" value="${csResult.preferedContactTime}" disabled><br>
 				<input type="hidden" name="preferedContactTime" value="${csResult.preferedContactTime}">
 			<td><input type="text" name="processStatus" value="${csResult.processStatus}" disabled><br>

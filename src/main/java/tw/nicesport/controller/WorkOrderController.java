@@ -45,33 +45,33 @@ public class WorkOrderController {
 		return mav;
 	}
 
-	//宣告進入路徑
-	//@RequestParam 去取得值 沒有的話預設"1"
-	@ResponseBody
-	@GetMapping("/orders/OrderDetail")
-	public Set<OrderDetailBean> OrderDetail(@RequestParam(name = "id") Integer id) {
-//		用messageService的findById()方法去資料庫找id
-		OrdersBean order = OrderService.findById(id);
-		Set<OrderDetailBean> orderDetailSet = order.getOrderDetail();
-//		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
-//		model.addAttribute("OrderDetailSet", orderDetails);
-		return orderDetailSet;
-	}
-	
+//	//宣告進入路徑
+//	//@RequestParam 去取得值 沒有的話預設"1"
+//	@ResponseBody
+//	@GetMapping("/orders/OrderDetail")
+//	public Set<OrderDetailBean> OrderDetail(@RequestParam(name = "id") Integer id) {
+////		用messageService的findById()方法去資料庫找id
+//		OrdersBean order = OrderService.findById(id);
+//		Set<OrderDetailBean> orderDetailSet = order.getOrderDetail();
+////		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
+////		model.addAttribute("OrderDetailSet", orderDetails);
+//		return orderDetailSet;
+//	}
+//	
 	
 	
 	
 	//換頁
-//	@GetMapping("/orders/OrderDetail")
-//	public String OrderDetail(Model model, @RequestParam(name = "id") Integer id) {
-////		用messageService的findById()方法去資料庫找id
-//		OrdersBean order = OrderService.findById(id);
-//		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
-//		
-//		model.addAttribute("OrderDetailSet", orderDetails);
-//
-//		return "/order/viewOrderDetail";
-//	}
+	@GetMapping("/orders/OrderDetail")
+	public String OrderDetail(Model model, @RequestParam(name = "id") Integer id) {
+//		用messageService的findById()方法去資料庫找id
+		OrdersBean order = OrderService.findById(id);
+		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
+		
+		model.addAttribute("OrderDetailSet", orderDetails);
+
+		return "/order/viewOrderDetail";
+	}
 	
 	
 	

@@ -17,12 +17,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "Employee")
 public class Employee {
  
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "id")
-//	private Integer id;
-	@Id
+//  @Id註釋指定表的主鍵	
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//  @Column註釋定義了將成員屬性對映到關係表中的哪一列和該列的結構資訊
 	@Column(name = "employee_id")
 	private Integer employeeid;// 員工編號
 
@@ -49,6 +47,9 @@ public class Employee {
 
 	@Column(name = "jobTitle")
 	private String jobTitle;// 職稱
+	
+	@Column(name = "img")
+	private String img; //照片
 
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP) // 年 月 日 十分秒
@@ -210,14 +211,21 @@ public class Employee {
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
+	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	@Override
 	public String toString() {
-		return "Employee [employee_id=" + employeeid + ", firstName=" + firstName + ", lastName=" + lastName
+		return "Employee [employeeid=" + employeeid + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", password=" + password + ", gender=" + gender + ", phone=" + phone + ", email=" + email
-				+ ", address=" + address + ", jobTitle=" + jobTitle + ", hireDate=" + hireDate + ", permission="
-				+ permission + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + "]";
+				+ ", address=" + address + ", jobTitle=" + jobTitle + ", img=" + img + ", hireDate=" + hireDate
+				+ ", permission=" + permission + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + "]";
 	}
-	
-	
+
 }

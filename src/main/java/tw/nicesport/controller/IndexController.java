@@ -8,13 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 	// 跳轉前台首頁用
-	@RequestMapping("/frontstage")
+	@RequestMapping("/")
 	public String showFrontstageHomePage() {
 		return "index";
 	}
 	
+	// 測試跳轉前台首頁用
+//	@RequestMapping("/")
+//	public String showFrontstageHomePage() {
+//		return "redirect:/resources/frontstage/index.html";
+//	}
+	
 	// 跳轉前台首頁用
-	@RequestMapping("/")
+	@RequestMapping("/backstage")
 	public String showBackstageHomePage() {
 		return "index-backstage";
 	}
@@ -25,9 +31,9 @@ public class IndexController {
 //		return "/layout/nav-and-aside";
 //	}
 	
-	// jsp:include 要 include 上與左導覽列用
-	@RequestMapping("/layout/underConstruction")
-	public String showUnderContruction() {
-		return "layout/underconstruction";
-	}
+//	// jsp:include 要 include 上與左導覽列用
+//	@RequestMapping("/layout/underConstruction")
+//	public String showUnderContruction() {
+//		return "layout/underconstruction";
+//	}
 }

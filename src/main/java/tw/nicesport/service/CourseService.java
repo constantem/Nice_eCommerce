@@ -82,6 +82,7 @@ public class CourseService {
 	}
 	
 	public boolean updateOne(Course course) {
+		// 更新 course entity
 		Course courseResult = courseDao.save(course);
 		
 		if(courseResult!=null) {

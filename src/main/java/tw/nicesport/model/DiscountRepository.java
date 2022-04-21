@@ -12,4 +12,20 @@ import org.springframework.stereotype.Repository;
 
 public interface DiscountRepository extends JpaRepository<Discount, Integer>{
 
+	//Discount findFirstByOrderByAddedDesc();
+
+	@Query("from Discount where name = :name")
+	public List<Discount> findDiscountByName(@Param("name") String name);
+	
+	@Query(value="select*from Discount where name = :name", nativeQuery = true)
+	public List<Discount> findDiscountByName2(@Param("name") String name);
+	
+	@Transactional
+	@Modifying
+	@Query(value="delete from Discount where id =?1", nativeQuery = true)
+	public void deleteDiscountById(Integer id);
+
+	//public Discount findFirstByOrderByAddedDesc();
+	
+	//public List<Discount> findByLevelOrderByName(Integer level);
 }

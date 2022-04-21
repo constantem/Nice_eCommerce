@@ -163,7 +163,7 @@
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/">
+            <a href="${contextRoot}/discount/viewDiscount">
               <span>優惠券列表</span>
             </a>
           </li>

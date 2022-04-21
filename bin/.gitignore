@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### .class ###
+*.class
+**/.class
+**/src/main/java/*.class
+
+### MAC ###
+.DS_Store
+
+### VS Code ###
+.vscode/
+
+### IntelliJ IDEA 補 ###
+.mvn
+mvnw*

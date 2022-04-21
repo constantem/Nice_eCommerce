@@ -142,7 +142,7 @@
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/">
+            <a href="${contextRoot}/member/showAllResult">
               <span>會員列表</span>
             </a>
           </li>

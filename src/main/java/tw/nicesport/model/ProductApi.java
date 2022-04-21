@@ -13,9 +13,6 @@ public class ProductApi {
 	@Autowired
 	private ProductRepository pRes;
 	
-	@Autowired
-	private ProductBean pBean;
-	
 	
 	@GetMapping(value = "product/get{product_id}")
 	public ProductBean getProductById(@PathVariable Integer product_id) {

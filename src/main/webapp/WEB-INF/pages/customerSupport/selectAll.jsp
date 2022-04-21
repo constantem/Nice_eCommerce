@@ -10,6 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>打我阿笨蛋</title>
+<style>
+	td, input {
+		width: 100px
+	}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -19,7 +24,11 @@
 				<div class="card">
 					<div class="card-header">客服表單</div>
 					<div class="card-body">
-						<h1>查詢全部資料</h1>
+						<h1>查詢全部資料</h1> <form action="${contextRoot}/message/findByServiceInfoLike">
+											特定問題查詢:<input type="text" name="findByServiceInfoLike">
+											<input type="submit" value="送出">
+											</form>
+											
 						<table border="1">
 							<tr style="background-color: #a8fefa">
 								<th>Id
@@ -27,6 +36,7 @@
 								<th>Description
 								<th>Name
 								<th>Phone
+								<th>Email
 								<th>PreferedContactTime
 								<th>ProcessStatus
 								<th>Remark
@@ -38,38 +48,19 @@
 							<%-- 					<form method="GET" action="HwUpdate"> --%>
 							<c:forEach items="${allCus}" var="customerBean">
 								<tr>
-									<td>
-										<input type="text" name="id" value="${customerBean.id}" disabled> 
-										<input type="hidden" name="id" value="${customerBean.id}"> <br>
-									<td>
-										<input type="text" name="serviceInfo" value="${customerBean.serviceInfo}" disabled><br> 
-										<input type="hidden" name="serviceInfo" value="${customerBean.serviceInfo}">
-									<td>
-										<input type="text" name="description" value="${customerBean.description}" disabled><br> 
-										<input type="hidden" name="description" value="${customerBean.description}">
-									<td>
-										<input type="text" name="name" value="${customerBean.name}" disabled><br> 
-										<input type="hidden" name="name" value="${customerBean.name}">
-									<td>
-										<input type="text" name="phone" value="${customerBean.phone}" disabled><br> 
-										<input type="hidden" name="phone" value="${customerBean.phone}">
-									<td>
-										<input type="text" name="preferedContactTime" value="${customerBean.preferedContactTime}" disabled><br>
-										<input type="hidden" name="preferedContactTime" value="${customerBean.preferedContactTime}">
-									<td>
-										<input type="text" name="processStatus" value="${customerBean.processStatus}" disabled><br> 
-										<input type="hidden" name="processStatus" value="${customerBean.processStatus}">
-									<td>
-										<input type="text" name="remark" value="${customerBean.remark}" disabled><br> 
-										<input type="hidden" name="remark" value="${customerBean.remark}">
-									<td>
-										<input type="text" name="createdAt" value="${customerBean.createdAt}" disabled><br> 
-										<input type="hidden" name="createdAt" value="${customerBean.createdAt}">
-									<td>
-										<input type="text" name="modifiedAt" value="${customerBean.modifiedAt}" disabled><br> 
-										<input type="hidden" name="modifiedAt" value="${customerBean.modifiedAt}">
-									<td> 修改
-									<td> 刪除
+									<td>${customerBean.id} 
+									<td>${customerBean.serviceInfo} 
+									<td>${customerBean.description} 
+									<td>${customerBean.name}
+									<td>${customerBean.phone}
+									<td>${customerBean.email} 
+									<td>${customerBean.preferedContactTime} 
+									<td>${customerBean.processStatus} 
+									<td>${customerBean.remark} 
+									<td>${customerBean.createdAt} 
+									<td>${customerBean.modifiedAt} 
+									<td><a href="${contextRoot}/message/editForm?id=${customerBean.id}">修改</a>
+									<td><a href="${contextRoot}/message/delete?id=${customerBean.id}">刪除</a>
 								</tr>
 							</c:forEach>
 							<%-- 					</form> --%>

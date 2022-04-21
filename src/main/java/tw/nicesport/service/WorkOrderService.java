@@ -33,6 +33,8 @@ public class WorkOrderService {
 		}
 		return null;
 	}
+	
+	
 	//用ID刪除
 	public void deleteById(Integer order_id) {
 		workOrdersDao.deleteById(order_id);
@@ -41,6 +43,9 @@ public class WorkOrderService {
 	public List<OrdersBean> findAllOrders(){
 		return workOrdersDao.findAll();
 	}
+	
+	
+	
 	
 	//分頁物件page
 	public Page<OrdersBean> findByPage(Integer pageNumber){

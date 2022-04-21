@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -18,15 +20,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Member")
+@Table(name="member")
 public class Member {
 
 	// 對應欄位
 	// 會員編號, 主鍵
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name="member_id")
+//	private Integer member_id;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="member_id")
-	private Integer member_id;
+	private Integer memberid;
 	
 	// 帳號
 //	@NotBlank(message="帳號不可空白")
@@ -35,6 +42,7 @@ public class Member {
 	
 	// 密碼
 //	@NotBlank(message="密碼不可空白")
+//	@Size(min=6, max=12, message="密碼長度不符合")
 	@Column(name="password")
 	private String password;
 	
@@ -60,6 +68,7 @@ public class Member {
 	
 	// 電子信箱
 	@Column(name="email")
+	@Email(message="請輸入email")
 	private String email;
 	
 	// 住址
@@ -77,6 +86,7 @@ public class Member {
 	// 關聯 table
 	
 	@OneToMany(mappedBy = "memberBean")
+	@JsonIgnore
 	private Set<OrdersBean> ordersBeanSet = new HashSet<OrdersBean>();
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
@@ -89,17 +99,19 @@ public class Member {
 	}
 
 	// getter, setter
-	
-	public Integer getMember_id() {
-		return member_id;
-	}
 
-	public void setMember_id(Integer member_id) {
-		this.member_id = member_id;
-	}
+
 
 	public String getUsername() {
 		return username;
+	}
+
+	public Integer getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
 	}
 
 	public void setUsername(String username) {
@@ -172,7 +184,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [member_id=" + member_id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
+		return "Member [member_id=" + memberid + ", username=" + username + ", password=" + password + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", birthdate=" + birthdate + ", gender=" + gender + ", phone=" + phone
 				+ ", email=" + email + ", address=" + address + "]";
 	}

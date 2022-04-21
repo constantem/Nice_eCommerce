@@ -392,7 +392,7 @@ button {
 												class="lnr lnr-sync"></span>
 												<p class="hover-text">比較</p>
 											</a> <a
-												href="/Nice_eCommerce/getOneProductShop${prod.product_id}"
+												href="/Nice_eCommerce/getOneProductShop${prod.id}"
 												class="social-info"> <span class="lnr lnr-move"></span>
 												<p class="hover-text">更多商品資訊</p>
 											</a>

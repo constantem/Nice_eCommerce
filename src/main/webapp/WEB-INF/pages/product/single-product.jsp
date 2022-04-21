@@ -396,7 +396,7 @@ figure img {
 								<div class="col-6">
 									<div class="box_total">
 										<h5>顧客評論</h5>
-										<h4>5顧客評論.0</h4>
+										<h4>5.0</h4>
 										<h6>(03 則評論)</h6>
 									</div>
 								</div>
@@ -520,7 +520,7 @@ figure img {
 								<form class="row contact_form" action="${contextRoot}/insertComment"
 									method="get" id="contactForm" novalidate="novalidate">
 									
-									<input type="hidden" name="productId" value="${pdVal.product_id}">
+									<input type="hidden" name="id" value="${pdVal.id}">
 
 									<div class="col-md-12">
 										<div class="form-group">
@@ -897,10 +897,10 @@ figure img {
 											return false;
 										}
 										$("#pdName"+(index+1)).text(product.productName);
-										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
+										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
 										$("#relImg"+(index+1)).attr("src", $("#contextRoot").val()+"/ProductTempImg/"+product.imgUrl)
 										$("#price"+(index+1)).text("NT$ " + product.price);
-										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
+										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
 										
 
 									})

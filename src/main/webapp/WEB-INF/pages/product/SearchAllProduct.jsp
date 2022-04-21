@@ -147,7 +147,7 @@
 					<tr>
 						<c:forEach items="${page.content}" var="prod">
 							<tr>
-								<td data-label="product_id">${prod.product_id}</td>
+								<td data-label="product_id">${prod.id}</td>
 								<td data-label="productName">${prod.productName}</td>
 								<td data-label="productName">${prod.subCategory.name}</td>
 								<td data-label="City">${prod.supplier}</td>
@@ -166,7 +166,7 @@
 
 										<!-- 修改 -->
 										<form method="get"
-											action="/Nice_eCommerce/getOneProduct${prod.product_id}">
+											action="/Nice_eCommerce/getOneProduct${prod.id}">
 											<button class="button small green --jb-modal"
 												data-target="sample-modal-2" type="submit">
 												<span class="icon"><i class="mdi mdi-eye"></i></span>
@@ -175,7 +175,7 @@
 
 										<!-- 刪除 -->
 										<form method="get"
-											action="/Nice_eCommerce/deleteOneProduct${prod.product_id}">
+											action="/Nice_eCommerce/deleteOneProduct${prod.id}">
 											<button onclick="return confirm('確認刪除')" id="delete"
 												class="button small red --jb-modal"
 												data-target="sample-modal" type="submit">

@@ -92,7 +92,7 @@ button {
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">主頁</a></li>
+							<li class="nav-item"><a class="nav-link" href="${contextRoot}/">主頁</a></li>
 							<li class="nav-item submenu dropdown active"><a
 								href="FrontpageSeperate	" class="nav-link dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"

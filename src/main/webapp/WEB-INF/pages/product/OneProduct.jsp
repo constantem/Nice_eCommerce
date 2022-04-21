@@ -183,7 +183,7 @@ figure {
 					<!-- 					<label class="label">商品編號</label> -->
 					<div class="control">
 						<input name="product_id" type="text" readonly
-							value="${product_id}" class="input is-static">
+							value="${id}" class="input is-static">
 					</div>
 				</div>
 

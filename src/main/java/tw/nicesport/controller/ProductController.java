@@ -244,8 +244,8 @@ public class ProductController {
 			return catService.queryAll();
 		}
 
-		@GetMapping(value = "getOneProduct{product_id}")
-		public String getOneProductInfo1(Model m, @PathVariable Integer product_id) {
+		@GetMapping(value = "getOneProduct{id}")
+		public String getOneProductInfo1(Model m, @PathVariable("id") Integer product_id) {
 			ProductBean pd = pService.findById(product_id);
 
 			m.addAttribute("pdVal", pd);
@@ -346,8 +346,8 @@ public class ProductController {
 
 		
 		// 商城商品頁
-		@GetMapping(value = "getOneProductShop{product_id}")
-		public String getOneProductShop(Model m, @PathVariable Integer product_id) {
+		@GetMapping(value = "getOneProductShop{id}")
+		public String getOneProductShop(Model m, @PathVariable("id") Integer product_id) {
 			ProductBean pd = pService.findById(product_id);
 
 			m.addAttribute("pdVal", pd);

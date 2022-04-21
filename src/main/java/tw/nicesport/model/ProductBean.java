@@ -34,7 +34,7 @@ public class ProductBean implements Serializable {
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer product_id;
+	private Integer id;
 
 	// 產品名
 	@Column(name = "productName")
@@ -120,13 +120,21 @@ public class ProductBean implements Serializable {
 
 	// getter, setter
 
-	public Integer getProduct_id() {
-		return product_id;
+//	public Integer getProduct_id() {
+//		return id;
+//	}
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setProduct_id(Integer product_id) {
-		this.product_id = product_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
+//	public void setProduct_id(Integer product_id) {
+//		this.id = product_id;
+//	}
 
 	public String getProductName() {
 		return productName;

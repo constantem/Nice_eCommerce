@@ -21,7 +21,7 @@ public class ProductCommentController {
 	private ProductCommentService pcrService;
 	
 	@GetMapping("/insertComment")
-	public String insertComment(@RequestParam("productId") Integer productId, @RequestParam("name") String name,@RequestParam("phone")String phone,
+	public String insertComment(@RequestParam("id") Integer productId, @RequestParam("name") String name,@RequestParam("phone")String phone,
 			@RequestParam("email")String email,@RequestParam("productComment")String productComment,@RequestParam("createdAt")String createdAt) {
 			
 		Date date = new Date();

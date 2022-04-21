@@ -151,7 +151,7 @@
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/">
+            <a href="${contextRoot}/discount/viewDiscount">
               <span>優惠券列表</span>
             </a>
           </li>
@@ -253,11 +253,6 @@
           <li>
             <a href="${contextRoot}/message/selectAll">
               <span>列表</span>
-            </a>
-          </li>
-          <li>
-            <a href="${contextRoot}/message/form">
-              <span>客服表單(暫時寄放後台)</span>
             </a>
           </li>
         </ul>

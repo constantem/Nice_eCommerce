@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -167,16 +167,16 @@ public class EmployeeController {
 		String fileName = file.getOriginalFilename();
 		System.out.println("fileName:"+fileName);
 		String filePath = "C:\\Nice_eCommerce_Git\\Nice_eCommerce\\src\\main\\webapp\\upload\\";
-		JSONObject jo = new JSONObject();
+//		JSONObject jo = new JSONObject();
 
 		if (file.isEmpty()) {
-			jo.put("success", 0);
-			jo.put("fileName", "");
+//			jo.put("success", 0);
+//			jo.put("fileName", "");
 		}
 		try {
 			uploadFile(file.getBytes(), filePath, fileName);
-			jo.put("success", true);
-			jo.put("fileName", fileName);
+//			jo.put("success", true);
+//			jo.put("fileName", fileName);
 			// jo.put("xfileName", filePath+"/"+fileName);
 		} catch (Exception e) {
 		}

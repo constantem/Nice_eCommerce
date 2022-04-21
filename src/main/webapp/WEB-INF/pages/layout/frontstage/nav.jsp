@@ -25,11 +25,8 @@
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					 aria-expanded="false">購物商城</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/category.html">Shop Category</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/single-product.html">Product Details</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/checkout.html">Product Checkout</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/cart.html">Shopping Cart</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/confirmation.html">Confirmation</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/FrontpageSeperate">前往商城</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">空白</a></li>
 					</ul>
 				</li>
 				

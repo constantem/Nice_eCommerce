@@ -60,6 +60,9 @@ public class OrdersBean {
 	// 刪除狀態, yes or no
 	@Column(name = "deleteStatus")
 	private String deleteStatus;
+	// 訂單狀態, 1, 99, ...
+	@Column(name = "orderStatus")
+	private Integer orderStatus;
 	// 建立日期
 	@Column(name = "createdAt")
 	private String createdAt;
@@ -177,6 +180,14 @@ public class OrdersBean {
 		this.deleteStatus = deleteStatus;
 	}
 
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -208,6 +219,5 @@ public class OrdersBean {
 	public void setMemberBean(Member memberBean) {
 		this.memberBean = memberBean;
 	}
-
 
 }

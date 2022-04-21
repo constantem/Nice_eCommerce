@@ -1,0 +1,10 @@
+diff a/src/main/webapp/WEB-INF/pages/member/editMember.jsp b/src/main/webapp/WEB-INF/pages/member/editMember.jsp	(rejected hunks)
+@@ -113,7 +113,7 @@
+ 		
+ 		         <div class="control">
+ 		         	${member.memberid}
+-				<input type="hidden" name="member_id" value="${member.memberid}">
++				<input type="hidden" name="memberid" value="${member.memberid}">
+ 		         </div>
+ 		         <p class="help">
+ 		           

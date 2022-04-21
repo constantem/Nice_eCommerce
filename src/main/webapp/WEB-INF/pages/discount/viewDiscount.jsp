@@ -71,7 +71,7 @@
 	<div id="app">
 
 		<!-- 插入上導覽列與左導覽列 -->
-		<jsp:directive.include file="/WEB-INF/pages/layout/nav-and-aside.jsp" />
+		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
 	
 

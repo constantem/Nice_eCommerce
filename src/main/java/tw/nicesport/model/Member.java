@@ -86,6 +86,7 @@ public class Member {
 	// 關聯 table
 	
 	@OneToMany(mappedBy = "memberBean")
+	@JsonIgnore
 	private Set<OrdersBean> ordersBeanSet = new HashSet<OrdersBean>();
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table

@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,18 @@
 <link href="${contextRoot}/resources/backstage/css/main.css"
 	rel="stylesheet" />
 
-
+<!-- CSS only -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<!-- 	======================================================================================================================== -->
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -51,6 +63,7 @@
 <script async
 	src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
 <script>
+<!-- 	======================================================================================================================== -->
 	window.dataLayer = window.dataLayer || [];
 	function gtag() {
 		dataLayer.push(arguments);
@@ -59,6 +72,7 @@
 	gtag('config', 'UA-130795909-1');
 </script>
 
+<!-- 	======================================================================================================================== -->
 
 </head>
 <body>
@@ -110,7 +124,7 @@
 								</div>
 							</td>
 							<td data-label="order_id">${OrdersBean.order_id}</td>
-							<td data-label="member_id">${OrdersBean.member_id}</td>
+							<td data-label="member_id">${OrdersBean.memberBean.username}</td>
 							<td data-label="orderDate">${OrdersBean.orderDate}</td>
 							<td data-label="shippingDate">${OrdersBean.shippingDate}</td>
 							<td data-label="shippingFee">${OrdersBean.shippingFee}</td>
@@ -125,11 +139,23 @@
 							<td data-label="modifiedAt">${OrdersBean.modifiedAt}</td>
 							<td class="actions-cell">
 								<div class="buttons right nowrap">
-									<button class="button small green --jb-modal"
-										data-target="sample-modal-2" type="button"
-										onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.order_id}'">
-										<span class="icon"><i class="mdi mdi-eye"></i></span>
+
+
+									<input type="hidden" value="${OrdersBean.order_id}">
+									<button type="button" class="btn btn-primary"
+										id="order_detail_btn" data-bs-toggle="modal"
+										data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+										<%-- 										onclick = "findById('${OrdersBean.order_id}')"> --%>
+										<%--onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.order_id}'"> --%>
+										<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
 									</button>
+
+
+									<!-- 									<button type="button" class="btn btn-primary" -->
+									<!-- 										data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+									<!-- 										data-bs-whatever="@mdo">給我跳出來</button> -->
+
+
 
 									<button class="button small red --jb-modal"
 										data-target="sample-modal" type="button">
@@ -143,8 +169,87 @@
 
 
 		</div>
+		<!-- 		分頁物件 -->
+		<div id="page" align="center">
+			<div class="table-pagination">
+				<div class="flex items-center ">
+					<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+						<c:choose>
+							<c:when test="${page.number != pageNumber-1}">
+								<div class="buttons">
+									<a href="${contextRoot}/orders/viewAllOrders?p=${pageNumber}"><button
+											type="button" class="button active">${pageNumber}</button></a>
+									&nbsp&nbsp
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:out value="${pageNumber}"></c:out>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
 
-
+		<!-- 		分頁物件 -->
+		<!-- 	<!-- 測試模態框 -->
+		<!-- 	<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">產品名:</label>
+								<input type="text" disabled="disabled" class="form-control"
+									id="productName">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">收件資訊:</label>
+								<input type="text" disabled="disabled" class="form-control"
+									id="shipAddress">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">商品金額:</label>
+								<input type="text" disabled="disabled" class="form-control"
+									id="realPrice">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">運費:</label> <input
+									type="text" disabled="disabled" class="form-control"
+									id="shippingFee">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">付款方式:</label>
+								<input type="text" disabled="disabled" class="form-control"
+									id="recipient-name">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">訂單總金額:</label>
+								<input type="text" disabled="disabled" class="form-control"
+									id="totalPrice">
+							</div>
+							<div class="mb-3">
+								<label for="message-text" class="col-form-label">Message:</label>
+								<textarea class="form-control" id="message-text"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">關閉</button>
+						<button type="button" class="btn btn-primary">Send
+							message</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<!------------------------------------------------------------ -------------------------------------------------------------->
@@ -152,13 +257,13 @@
 			<div class="modal-background --jb-modal-close"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Sample modal</p>
+					<p class="modal-card-title">測試</p>
 				</header>
 				<section class="modal-card-body">
 					<p>
-						Lorem ipsum dolor sit amet <b>adipiscing elit</b>
+						測試2 <b>${OrderDetail.productBean.productName}</b>
 					</p>
-					<p>This is sample modal</p>
+					<p>測試3</p>
 				</section>
 				<footer class="modal-card-foot">
 					<button class="button --jb-modal-close">Cancel</button>
@@ -171,11 +276,11 @@
 			<div class="modal-background --jb-modal-close"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Sample modal</p>
+					<p class="modal-card-title">測試</p>
 				</header>
 				<section class="modal-card-body">
 					<p>
-						Lorem ipsum dolor sit amet <b>adipiscing elit</b>
+						測試 <b>adipiscing elit</b>
 					</p>
 					<p>This is sample modal</p>
 				</section>
@@ -188,25 +293,44 @@
 
 	</div>
 
-		<!------------------------------ JS------------------------------------------------ -->
+	<!------------------------------ JS------------------------------------------------ -->
 	<script src="${contextRoot}/resources/js/main.min.js?v=1628755089081"></script>
 	<script src="${contextRoot}/resources/js/chart.sample.js"></script>
 	<script src="${contextRoot}/resources/js/chart.sample.min.js"></script>
 	<script src="${contextRoot}/resources/js/main.js"></script>
 	<script src="${contextRoot}/resources/js/main.min.js"></script>
 	<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
-<%-- 	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script> --%>
+	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
 	<!------------------------------ JS------------------------------------------------ -->
-	<!-- 	==========================================判斷狀態============================================ -->
+	<!-- 	==========================================AJAX============================================ -->
 	<script>
-// 			$(window).load(function() {
-				var orderstate = $(".deleteStatus").text();
-				console.log(orderstate);
-// 			});
+		$('#order_detail_btn').click(
+				function(evt) {
+					var orderId = $(this).siblings("input").val();
+
+					$.ajax({
+						type : "GET",
+						url : "/Nice_eCommerce/orders/OrderDetail?id="
+								+ orderId,
+						success : function(orderdetails) {
+							orderdetails[0]
+							orderdetails[1]
+							$.each(orderdetails, function(index, orderdetail) {
+								console.log(index);
+								console.log(orderdetail);
+								$('#productName').val(
+										orderdetail.productBean.productName);
+							});
+							// 					console.log(orderdetail);
+							// 					console.log(orderdetail.productBean.productName);
+
+						}
+					})
+				})
 	</script>
-	
-	
-	
+
+
+
 	<script>
 		!function(f, b, e, v, n, t, s) {
 			if (f.fbq)

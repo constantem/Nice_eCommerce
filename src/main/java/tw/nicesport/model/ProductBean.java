@@ -21,6 +21,8 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Product")
@@ -107,6 +109,7 @@ public class ProductBean implements Serializable {
 	private StockBean stock;
 
 	@OneToMany(mappedBy = "productBean")
+	@JsonIgnore
 	private Set<OrderDetailBean> orderDetails = new HashSet<OrderDetailBean>();
 
 	// 建構子

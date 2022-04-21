@@ -3,6 +3,7 @@ package tw.nicesport.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,38 +19,57 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity @Table
-@Component
+@Entity @Table(name="RoomSizeType")
 public class RoomSizeType {
 
+	///////////
+	// field //
+	///////////
+	
+	// 主鍵
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column
+	@Column(name="roomSizeType_id")
 	private Integer roomSizeType_id;
 	
-	@Column
+	// 其他欄位
+	
+	@Column(name="name")
 	private String name;
 	
-	@Column
+	@Column(name="roomCapacity")
 	private Integer roomCapacity;
 	
-	@Column @Transient
+	@Column(name="createdAt") @Transient
 	private String createdAt;
 	
-	@Column
+	@Column(name="modifiedAt")
 	private String modifiedAt;
 	
-	// 以上為欄位, 以下為其他 entity
+	// associated entity
 	
-	@OneToMany(mappedBy="roomSizeType")
+	@OneToMany(
+		mappedBy="roomSizeType",
+		cascade= {
+			CascadeType.PERSIST,
+			CascadeType.DETACH,
+			CascadeType.MERGE,
+			CascadeType.REFRESH
+		}
+	)
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<Room> rooms = new HashSet<>();
 	
-	// 建構子
+	///////////
+	// 建構子 //
+	///////////
 
 	public RoomSizeType() {
 	}
 
-	// getter, setter
+	///////////////////
+	// getter,setter //
+	///////////////////
 	
 	public Integer getRoomSizeType_id() {
 		return roomSizeType_id;
@@ -91,18 +111,14 @@ public class RoomSizeType {
 		this.modifiedAt = modifiedAt;
 	}
 
-	// 對側 entity 的 getter, setter
+	// associated entity 的 getter, setter
 	
-//	public Set<Room> getRooms() {
-//		return rooms;
-//	}
-//
-//	public void setRooms(Set<Room> rooms) {
-//		this.rooms = rooms;
-//	}
+	public Set<Room> getRooms() {
+		return rooms;
+	}
 
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+	}
 
-	
-
-	
 }

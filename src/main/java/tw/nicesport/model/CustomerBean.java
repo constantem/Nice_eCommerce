@@ -28,6 +28,9 @@ public class CustomerBean {
 	@Column(name="phone")
 	private String phone;
 	
+	@Column(name="email")
+	private String email;
+	
 	@Column(name="preferedContactTime")
 	private String preferedContactTime;
 	
@@ -46,19 +49,22 @@ public class CustomerBean {
 	public CustomerBean() {
 	}
 
-	public CustomerBean(String serviceInfo, String description, String name, String phone,
+	public CustomerBean(String serviceInfo, String description, String name, String phone,String email,
 			String preferedContactTime, String processStatus, String remark, String createdAt, String modifiedAt) {
 		super();
 		this.serviceInfo = serviceInfo;
 		this.description = description;
 		this.name = name;
 		this.phone = phone;
+		this.email = email;
 		this.preferedContactTime = preferedContactTime;
 		this.processStatus = processStatus;
 		this.remark = remark;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -98,6 +104,14 @@ public class CustomerBean {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPreferedContactTime() {

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -145,6 +146,22 @@ public class CourseController {
 		model.addAttribute( "rooms", crContainer.getRooms() );
 		return "course/show-a-course";
 	}
+	
+	// 前台轉跳 course detail
+	@RequestMapping("/detail/{id}")
+	public String detailCourseJsp(
+		@PathVariable(name="id") Integer id,
+		Model model) {		
+		model.addAttribute("id",id);
+		return "course/detail-a-course-front";
+	}
+	
+	// 前台 course detail (用 Ajax)
+	@RequestMapping("/detail/data")
+	@ResponseBody
+	public Course detailCourseJson(@RequestBody Integer id) {		
+		return courseService.queryById(id);
+	}
 
 	@RequestMapping("/update/{course_id}")
 	public String updateOneCourse(
@@ -186,5 +203,13 @@ public class CourseController {
 		List<Course> courses = courseService.queryAll();
 		model.addAttribute("courses", courses);
 		return "course/show-all-courses";
+	}
+	
+	// 前端課程
+	@RequestMapping("/list/all")
+	public String showAllCourseInFront(Model model) {		
+		List<Course> courses = courseService.queryAll();
+		model.addAttribute("courses", courses);
+		return "course/list-all-courses-front";
 	}
 }

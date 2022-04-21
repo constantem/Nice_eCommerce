@@ -3,6 +3,7 @@ package tw.nicesport.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,39 +21,71 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity @Table
+@Entity @Table(name="Room")
 public class Room {
 	
+	///////////
+	// field //
+	///////////
+	
+	// 主鍵
+	
 	@Id // 沒自動生成
-	@Column
+	@Column(name="roomNo")
 	private String roomNo;
 	
-	@Column
+	// 其他欄位
+	
+	@Column(name="roomName")
 	private String roomName;
-	
-	@Column @Transient // FK 不做對應
-	private Integer roomSizeType_id;
-	
-	@Column @Transient
+		
+	@Column(name="createdAt") @Transient
 	private String createdAt;
 	
-	@Column
+	@Column(name="modifiedAt")
 	private String modifiedAt;
 
-	// 以上為欄位, 以下為其他 entity
-	@ManyToOne @JoinColumn(name="roomSizeType_id") // 以此 FK 關聯對面 PK
+	// DB table FK
+	
+	@Transient // FK 不做對應
+	@Column(name="roomSizeType_id") 
+	private Integer roomSizeType_id;
+	
+	// associated entity
+	
+	@ManyToOne(
+		cascade= {
+				CascadeType.PERSIST,
+				CascadeType.DETACH,
+				CascadeType.MERGE,
+				CascadeType.REFRESH
+			}
+	)
+	@JoinColumn(name="roomSizeType_id") // 以此 FK 關聯對面 PK
 	private RoomSizeType roomSizeType;
 	
-	@OneToMany(mappedBy="room")
+	@OneToMany(
+		mappedBy="room",
+		cascade= {
+				CascadeType.PERSIST,
+				CascadeType.DETACH,
+				CascadeType.MERGE,
+				CascadeType.REFRESH
+			}
+	)
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<Course> courses = new HashSet<>();
 
-	// 建構子
+	///////////
+	// 建構子 //
+	///////////
 	
 	public Room() {
 	}
 
-	// getter, setter
+	///////////////////
+	// getter,setter //
+	///////////////////
 	
 	public String getRoomNo() {
 		return roomNo;
@@ -94,7 +127,7 @@ public class Room {
 		this.modifiedAt = modifiedAt;
 	}
 
-	// 對側 entity 的 getter, setter
+	// associated entity 的 getter, setter
 	
 	public RoomSizeType getRoomSizeType() {
 		return roomSizeType;
@@ -104,13 +137,13 @@ public class Room {
 		this.roomSizeType = roomSizeType;
 	}
 	
-//	public Set<Course> getCourses() {
-//		return courses;
-//	}
-//
-//	public void setCourses(Set<Course> courses) {
-//		this.courses = courses;
-//	}
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 	
 	
 }

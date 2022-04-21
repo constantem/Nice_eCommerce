@@ -13,31 +13,33 @@ import tw.nicesport.service.MemberService;
 @Controller
 public class MemberPageController {
 	@Autowired
-	private MemberService MemberService;
+	private MemberService memberService;
 
 
-//
-//	@GetMapping("/member/add")
-//	public ModelAndView addMemberPage(ModelAndView mav) {
-//
-//		Member message = new Member();
-//		mav.getModel().put("Member", message);
-//
-//		Member lastMag = MemberService.getLastest();
-//		mav.getModel().put("lastMember", lastMag);
-//
-//		mav.setViewName("member/addMember");
-//		return mav;
-//	}
-//	
-//	@GetMapping("/member/viewMember")
-//	public ModelAndView viewMessages(ModelAndView mav,
-//			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber) {
-//		Member page = MemberService.findById(pageNumber);
-//
-//		mav.getModel().put("page", page);
-//		mav.setViewName("member/viewMember");
-//
-//		return mav;
-//	}
+
+	@GetMapping("/member/add2")
+	public ModelAndView addMemberPage(ModelAndView mav) {
+
+		Member message = new Member();
+		mav.getModel().put("Member", message);
+
+		Member lastMag = memberService.getLastest();
+		mav.getModel().put("lastMember", lastMag);
+
+		mav.setViewName("/member/addMember");
+		return mav;
+	}
+	
+	@GetMapping("/member/showAllResult")
+	public ModelAndView viewMessages(ModelAndView mav,
+			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber) {
+		Page<Member> page= memberService.findByPage(pageNumber);
+		
+		
+		mav.getModel().put("page", page);
+		mav.setViewName("/member/showAllResult");
+
+		return mav;
+	}
+	
 }

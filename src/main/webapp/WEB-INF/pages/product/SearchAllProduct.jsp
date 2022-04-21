@@ -20,6 +20,12 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
 <link href="${contextRoot}/resources/backstage/css/main.css"
 	rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <!--------------------------------------------------------------------------- -->
 
 
@@ -129,8 +135,8 @@
 						<th>商品尺寸</th>
 						<th>商品價格</th>
 						<th>庫存數量</th>
-						<th>新增日期</th>
-						<th>修改日期</th>
+						<th>上架日期</th>
+						<th>最後修改日期</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -253,12 +259,20 @@
 		$(window).load(function() {
 			var a = $(".quantity");
 			console.log(a);
+
 			$(".quantity").each(function() {
 
 				console.log($(this).text());
 
-				if ($(this).text() < 50) {
-					$(this).css("color", "#FF3333").text("低庫存量警示");
+				var a = $(this).text();
+
+				if (a < 50) {
+					$(this).css("color", "#FF0000").text("低庫存量警示");
+
+				}
+				if (a == 0) {
+					$(this).css("color", "#FF0000").text("無庫存");
+
 				} else {
 
 				}

@@ -396,7 +396,7 @@ figure img {
 								<div class="col-6">
 									<div class="box_total">
 										<h5>顧客評論</h5>
-										<h4>4.0</h4>
+										<h4>5顧客評論.0</h4>
 										<h6>(03 則評論)</h6>
 									</div>
 								</div>

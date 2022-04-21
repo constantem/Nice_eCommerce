@@ -114,6 +114,42 @@ button {
 	border: none;
 }
 
+
+#btnSort1 {
+	background-color:white;
+	font-size: 85%;
+	width: 110px;
+	height: 22px;
+	color: black;
+	margin-left: 8px;
+	border-radius: 5px;
+	border: none;
+	margin-bottom:10px;
+	margin-right: 350px;
+}
+#btnSort1:hover{
+	background-color: #EA7500;
+	transition: 0.2s;
+	color: white;
+}
+
+#btnSort2 {
+	font-size: 85%;
+	background-color:white;
+	width: 110px;
+	height: 22px;
+	color: black;
+	margin-left: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+#btnSort2:hover{
+	background-color: #EA7500;
+	transition: 0.2s;
+	color: white;
+}
+
 #btnColor:hover {
 	background-color: #EA7500;
 	transition: 0.2s;
@@ -293,17 +329,24 @@ button {
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select id="sortPage">
-							<option value="1">按價格排序</option>
-							<option value="2">按上架時間排序</option>
-						</select>
+<!-- 						<select id="sortPage"> -->
+<!-- 							<option value="1">按價格排序</option> -->
+<!-- 							<option value="2">按上架時間排序</option> -->
+<!-- 						</select> -->
+							<form method="get" action="${contextRoot}/FrontpageSeperate">
+							<button id="btnSort1" type="submit" value="">按價格排序</button>
+							</form>
+							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
+							<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
+							</form>
 					</div>
-					<div class="sorting mr-auto">
+					
+					<!-- <div class="sorting mr-auto">
 						<select>
 							<option value="1">顯示 6</option>
 							<option value="2">顯示 10</option>
 						</select>
-					</div>
+					</div> -->
 					<div class="pagination">
 						<a href="#" class="prev-arrow"><i
 							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
@@ -391,12 +434,12 @@ button {
 
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
-					<div class="sorting mr-auto">
+					<!-- <div class="sorting mr-auto">
 						<select>
 							<option value="1">顯示 6</option>
 							<option value="2">顯示 10</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 			</div>

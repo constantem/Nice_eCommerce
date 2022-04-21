@@ -212,7 +212,7 @@ public class ProductController {
 			catBean.setCreatedAt(creDate);
 			catService.insertCategory(catBean);
 
-			return "/product/insertSuccess";
+			return "insertSuccess";
 		}
 
 		//Jpa

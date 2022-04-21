@@ -83,11 +83,21 @@
 		<%@include file="leftbar.jsp"%>
 		<!---------------------------------------------------------------------- 中間大框框-------------------------------------------------------------------->
 		<p />
+		<section class="is-hero-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<h1 class="title">訂單資訊</h1>
+<%-- 				<a href="${pageContext.request.contextPath}/course/show/all"><button --%>
+<!-- 						class="button light">返回課程列表</button></a> -->
+			</div>
+		</section>
+		
 		<div class="container">
 			<p />
 			<table>
 				<thead>
 					<tr>
+					
 						<th class="checkbox-cell"><label class="checkbox"> <input
 								type="checkbox"> <span class="check"></span>
 						</label></th>
@@ -121,7 +131,7 @@
 							<td class="actions-cell">
 								<div class="buttons right nowrap">
 
-
+									
 									<input type="hidden" value="${OrdersBean.order_id}">
 									<button type="button" class="btn btn-primary"
 										id="order_detail_btn" data-bs-toggle="modal"

@@ -14,11 +14,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "Orders")
+@JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class, 
+	    property = "order_id",
+	    scope = Integer.class
+)
 public class OrdersBean {
+	
 	// 訂單編號
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,7 +81,7 @@ public class OrdersBean {
 //
 //	// 關聯 table
 	@OneToMany(mappedBy = "ordersBean")
-	@JsonIgnore
+//	@JsonIgnore
 	private Set<OrderDetailBean> orderDetail = new HashSet<OrderDetailBean>();
 	// 多方不用連動
 	@ManyToOne

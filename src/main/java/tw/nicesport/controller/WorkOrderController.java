@@ -68,6 +68,7 @@ public class WorkOrderController {
 		OrdersBean order = OrderService.findById(id);
 		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
 		
+		model.addAttribute("order", order);
 		model.addAttribute("OrderDetailSet", orderDetails);
 
 		return "/order/viewOrderDetail";

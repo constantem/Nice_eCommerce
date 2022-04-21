@@ -113,7 +113,7 @@
 		
 		         <div class="control">
 		         	${member.memberid}
-				<input type="hidden" name="member_id" value="${member.memberid}">
+				<input type="hidden" name="memberid" value="${member.memberid}">
 		         </div>
 		         <p class="help">
 		           

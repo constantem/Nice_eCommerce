@@ -63,7 +63,7 @@
         </p>
       </header>
       <div class="card-content">
-        <form:form action="${pageContext.request.contextPath}/login/employee/check" modelAttribute="employee">
+        <form:form action="${pageContext.request.contextPath}/login/employee/authenticate" modelAttribute="employee">
 
           <div class="field spaced">
             <form:label path="employeeId" class="label">員工編號</form:label>

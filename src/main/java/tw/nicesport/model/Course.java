@@ -1,9 +1,11 @@
 package tw.nicesport.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,13 +17,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.NaturalId;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,77 +36,116 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-@Entity @Table
+@Entity @Table(name="Course")
 public class Course {
 	
+	///////////
+	// field //
+	///////////
+	
+	// 主鍵
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column
+	@Column(name="course_id")
 	private Integer course_id;
 	
-	@Column
+	// 其他欄位
+	
+	@Column(name="courseName")
 	@NotBlank(message="不可空白")
 	private String courseName;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd") // 前端給後端, 後端的 LocalDate 變數若要接到, 要加, 不然接不到, 會是 null
+	@DateTimeFormat(pattern = "yyyy-MM-dd") // spring mvc 前端給後端, 後端的 LocalDate 變數若要接到, 要加, 不然接不到, 會是 null
 //	@JsonFormat(pattern = "yyyy/MM/dd") 
 	@JsonFormat(pattern = "yyyy-MM-dd") // 前端 Stringify 要求的格式
 	@JsonSerialize(using = LocalDateSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 //	@JsonDeserialize(using = LocalDateDeserializer.class) // 測試中
-	@Column
+	@Column(name="courseStartDate")
 	private LocalDate courseStartDate;
 	
-	@Column
+	@Column(name="courseClassAmount")
 	private Integer courseClassAmount;
 	
-	@Column
+	@Column(name="coursePeriod")
 	private String coursePeriod;
 	
-	@Column 
-	@Transient // FK 不做對應
-	private Integer coach_id;
-	
-	@Column 
-	@Transient // FK 不做對應
-	private String roomNo;
-	
-	@Column
+	@Column(name="coursePrice")
 	private Integer coursePrice;
 	
-//	@DateTimeFormat(pattern ="yyyy/MM/dd")
-	@Column(insertable = false, updatable = false) // 靠資料庫的 DEFAULT GETDATE() 來塞值
-	private LocalDate createdAt;
+//	@DateTimeFormat(iso = ISO.DATE_TIME)
+	@Column(name="createdAt", insertable = false, updatable = false) // 靠資料庫的 DEFAULT GETDATE() 來塞值
+	private LocalDateTime createdAt;
 	
-//	@DateTimeFormat(pattern ="yyyy/MM/dd")
-	@Column
-	private LocalDate modifiedAt;
+//	@DateTimeFormat(iso = ISO.DATE_TIME)
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonSerialize(using = LocalDateSerializer.class)
+//	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@Column(name="modifiedAt")
+	private LocalDateTime modifiedAt;
 	
-	@PrePersist
+	@PreUpdate // 用 SQL UPDATE 用 PrePersist 無效
 	void preUpate() {
 		if(course_id != null) {
-			modifiedAt = LocalDate.now();
+			modifiedAt = LocalDateTime.now();
 		}
 	}
 	
-	// 以上為欄位, 以下為其他 entity
+	// DB table FK
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@Column(name="coach_id")
+	@Transient // FK 不做對應
+	private Integer coach_id;
+	
+	@Column(name="roomNo")
+	@Transient // FK 不做對應
+	private String roomNo;
+	
+	// associated entity
+	
+	@ManyToOne(
+		cascade= {
+			CascadeType.PERSIST,
+			CascadeType.DETACH,
+			CascadeType.MERGE,
+			CascadeType.REFRESH
+		}
+	)
 	@JoinColumn(name="coach_id") // 以下面的 PK 來填上面的 FK
 	private Coach coach;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(
+		cascade= {
+			CascadeType.PERSIST,
+			CascadeType.DETACH,
+			CascadeType.MERGE,
+			CascadeType.REFRESH
+		}
+	)
 	@JoinColumn(name="roomNo") // 以下面的 PK 來填上面的 FK
 	private Room room;
 	
-	@OneToMany(mappedBy="course") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
+	@OneToMany(
+		mappedBy="course",
+		cascade= {
+			CascadeType.PERSIST,
+			CascadeType.DETACH,
+			CascadeType.MERGE,
+			CascadeType.REFRESH
+		}
+	) // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 
-	// 建構子
+	///////////
+	// 建構子 //
+	///////////
 	
 	public Course() {
 	}
 
-	// getter, setter
+	///////////////////
+	// getter,setter //
+	///////////////////
 	
 	public Integer getCourse_id() {
 		return course_id;
@@ -167,23 +211,23 @@ public class Course {
 		this.coursePrice = coursePrice;
 	}
 
-	public LocalDate getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDate createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDate getModifiedAt() {
+	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
 
-	public void setModifiedAt(LocalDate modifiedAt) {
+	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 
-	// 對側 entity 的 getter, setter
+	// associated entity 的 getter, setter
 	
 	public Coach getCoach() {
 		return coach;

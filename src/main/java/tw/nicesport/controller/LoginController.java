@@ -28,33 +28,33 @@ public class LoginController {
 	
 	@RequestMapping("/member")
 	public String showMemberLoginForm(Model model) {
-		model.addAttribute("member", new Member());
+//		model.addAttribute("member", new Member());
 		return "login/member-login-form";
 	}
 	
-	@RequestMapping("/member/check")
-	public String checkMemberLogin(
-			HttpServletRequest request,
-			@Valid @ModelAttribute("member") Member member,
-			BindingResult bindingResult,
-			Model model
-		) {
-		
-		if(bindingResult.hasErrors()) {
-			return "login/member-login-form";
-		}
-		
-		boolean memberExists = loginService.checkMemberLogin(member);
-		
-		if(memberExists) {
-			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("loginOK", member.getUsername());
-			return "login/member-login-success";
-		} else {
-			model.addAttribute("error", Map.of("notexist", "查無此帳號"));
-			return "login/member-login-form";
-		}
-	}
+//	@RequestMapping("/member/authenticate")
+//	public String authenticateMember(
+//			HttpServletRequest request,
+//			@Valid @ModelAttribute("member") Member member,
+//			BindingResult bindingResult,
+//			Model model
+//		) {
+//		
+//		if(bindingResult.hasErrors()) {
+//			return "login/member-login-form";
+//		}
+//		
+//		boolean memberExists = loginService.authenticateMember(member.getUsername(),member.getPassword());
+//		
+//		if(memberExists) {
+//			HttpSession httpSession = request.getSession();
+//			httpSession.setAttribute("loginOK", member.getUsername());
+//			return "login/member-login-success";
+//		} else {
+//			model.addAttribute("error", Map.of("notexist", "查無此帳號"));
+//			return "login/member-login-form";
+//		}
+//	}
 	
 	//// 員工登入 ////
 	
@@ -64,8 +64,8 @@ public class LoginController {
 		return "login/employee-login-form";
 	}
 	
-	@RequestMapping("/employee/check")
-	public String checkEmployeeLogin(
+	@RequestMapping("/employee/authenticate")
+	public String authenticateEmployee(
 			HttpServletRequest request,
 			@Valid @ModelAttribute("employee") Employee employee,
 			BindingResult bindingResult,
@@ -76,7 +76,7 @@ public class LoginController {
 			return "login/employee-login-form";
 		}
 		
-		boolean employeeExists = loginService.checkEmployeeLogin(employee);
+		boolean employeeExists = loginService.authenticateEmployee(employee.getEmployee_id(),employee.getPassword());
 		
 		if(employeeExists) {
 			HttpSession httpSession = request.getSession();

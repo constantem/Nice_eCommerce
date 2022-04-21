@@ -36,6 +36,12 @@ public class ProductPageController {
 		return "/product/single-product";
 	}
 	
+	
+	@GetMapping(path = "/ProductAdsController.controller")
+	public String processProductAdsController() {
+		return "/product/ProductAdsImg";
+	}
+	
 
 	
 

@@ -1,5 +1,7 @@
 package tw.nicesport.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,20 +23,26 @@ public class LoginService {
 	@Autowired
 	private LoginERepository employeeDao;
 	
-	public boolean checkMemberLogin(Member memberInput) {
-		Member memberResult = memberDao.findByUsernameAndPassword(memberInput.getUsername(),memberInput.getPassword());
+	public boolean authenticateMember(String username, String password) {
+		Member member = memberDao.findByUsername(username);
 		
-		if(memberResult!=null) { 
+		if( 
+			member!=null // 有此帳號
+			&& member.getPassword().equals(password) // 密碼正確
+		) { 
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean checkEmployeeLogin(Employee employeeInput) {
-		Employee employeeResult = employeeDao.findByIdAndPassword(employeeInput.getEmployee_id(),employeeInput.getPassword());
+	public boolean authenticateEmployee(Integer id, String password) {
+		Optional<Employee> empOption = employeeDao.findById(id);
 		
-		if(employeeResult!=null) { 
+		if(
+			empOption.isPresent() // 有此員工編號
+			&& empOption.get().getPassword().equals(password) // 密碼正確
+		) { 
 			return true;
 		}
 		

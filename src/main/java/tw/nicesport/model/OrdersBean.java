@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Orders")
 public class OrdersBean {
@@ -67,6 +69,7 @@ public class OrdersBean {
 //
 //	// 關聯 table
 	@OneToMany(mappedBy = "ordersBean")
+	@JsonIgnore
 	private Set<OrderDetailBean> orderDetail = new HashSet<OrderDetailBean>();
 	// 多方不用連動
 	@ManyToOne

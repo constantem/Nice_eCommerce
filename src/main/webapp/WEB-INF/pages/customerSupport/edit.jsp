@@ -31,9 +31,7 @@
 			<th>ProcessStatus
 			<th>Remark
 			<th>CreatedAt
-			<th>ModifiedAt
-			<th>Update 
-					<form method="post" action="HwUpdate">
+					<form method="post" action="">
 					<tr>
 						<td>
 							<input type="text" name="id" value="${cs.id}" disabled>

@@ -36,8 +36,9 @@
 					</a></li>
 					<li><a href="insertPdpage.controller"> <span>上架商品</span>
 					</a></li>
-					<li><a href="oneProductpage.controller"> <span>修改商品資訊</span>
+					<li><a href="searchProductAds.controller"> <span>商品廣告輪播配置</span>
 					</a></li>
+					
 
 				</ul></li>
 		</ul>

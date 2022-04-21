@@ -1,6 +1,7 @@
 package tw.nicesport.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="discount")
@@ -19,36 +26,61 @@ public class Discount implements Serializable{
 	@Column(name="id")
 	private Integer id;
 	
-	@Column(name="name")
+	//優惠券名稱(兌換碼)
+	//@Size(min = 2, max = 49, message = "請輸入 2 到 49 個字串")
+	@Column(name="name", columnDefinition = "nvarchar(50)")//columnDefinition客製化資料庫資料型別
 	private String name;
 	
-	@Column(name="description")
+	//折扣規則
+	//@Size(min = 2, max = 254, message = "請輸入 2 到 254 個字串")
+	@Column(name="description", columnDefinition = "nvarchar(255)")
 	private String description;
 	
-	@Column(name="conditionCategory")
+	//有無門檻
+	//@Size(min = 2, max = 49, message = "請輸入 2 到 49 個字串")
+	@Column(name="conditionCategory", columnDefinition = "nvarchar(50)")
 	private String conditionCategory;
 	
-	@Column(name="conditionPrice")
+	//低銷金額
+	@Column(name="conditionPrice", columnDefinition = "int", length = 8)
 	private Integer conditionPrice;
 	
-	@Column(name="discountCategory")
+	//比例/定額折扣
+	//@Size(min = 2, max = 49, message = "請輸入 2 到 49 個字串")
+	@Column(name="discountCategory", columnDefinition = "nvarchar(50)")
 	private String discountCategory;
 	
-	@Column(name="discountPercent")
+	//折扣比例
+	@Column(name="discountPercent", columnDefinition = "int", length = 2)
 	private Integer discountPercent;
 	
-	@Column(name="discountAmount")
+	//折扣額度
+	@Column(name="discountAmount", columnDefinition = "int", length = 8)
 	private Integer discountAmount;
 	
+	//優惠開始日
+	//@DateTimeFormat(pattern ="yyyy/MM/dd HH:mm:ss")//大寫MM是月，小寫mm是分鐘
+	//@Temporal(TemporalType.TIMESTAMP)//說明要用哪種時間表示方式
+	//@Future(message = "請輸入優惠開始日")
 	@Column(name="startDate")
 	private String startDate;
 	
+	//優惠結束日
+//	@DateTimeFormat(pattern ="yyyy/MM/dd HH:mm:ss")
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Future(message = "請輸入優惠結束日")
 	@Column(name="endDate")
 	private String endDate;
+	
 	
 	//private Integer createdAt;
 	
 	//private Integer modifiedAt;
+	
+//	@DateTimeFormat(pattern ="yyyy/MM/dd HH:mm:ss")
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name="added", columnDefinition = "datetime")
+//	private Date added;
 	
 	public Discount() {
 	}
@@ -70,6 +102,14 @@ public class Discount implements Serializable{
 
 	
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

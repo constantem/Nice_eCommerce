@@ -19,37 +19,49 @@ public class MemberService {
 	@Autowired
 	private MemberRepository memberDao;
 
-	public void insert(Member member) {
-		memberDao.save(member);
-	}
+//	public void insert(Member member) {
+//		System.out.println("dao, member->" + member.getFirstname());
+//		memberDao.save(member);
+//	}
 
-	public Member findById(Integer id) {
-		Optional<Member> option = memberDao.findById(id);
+	public Member findById(Integer memberid) {
+		Optional<Member> option = memberDao.findById(memberid);
 
 		if (option.isPresent()) {
 			return option.get();
 		}
-		return 	memberDao.findById(id).get();
+		return null;
 	}
 
 	public List<Member> findAllMember() {
 		return memberDao.findAll();
 	}
 
-	public Page<Member> findByAll(Integer pageNumber) {
-		Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "added");
-		Page<Member> page = memberDao.findAll(pgb);
-
-		return page;
+	public void deleteById(Integer memberid) {
+		  memberDao.deleteById(memberid);
 	}
 	
-	public void deleteById(Integer id){
-		memberDao.deleteById(id);
+	public Member save(Member member) {
+		return memberDao.save(member);
+		
+	}
+	
+	public Page<Member> findByPage(Integer pageNumber){
+		Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.ASC, "memberid");
+		
+		Page<Member> page = memberDao.findAll(pgb);
+		
+		return page;
 	}
 
-	public static Member getLastest() {
-
-		return null;
+	public Member getLastest() {
+//		return null;
+		
+		return memberDao.findFirstByOrderByMemberid();
 	}
+	
+//	public List<Member> searchMembers(String key){
+//		return memberDao.findAllByNameLike("%" + key + "%");
+//	}
 
 }

@@ -31,22 +31,37 @@
             ============================================= -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
 
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
-<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/linearicons.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/owl.carousel.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/themify-icons.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/nice-select.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="${contextRoot}/resources/frontstage/css/main.css" />
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
 </head>
 
 
 
 <style>
-#inputPrice {
-	width: 40px;
-	height: 20px;
+.inputPrice {
+	width: 50px;
+	height: 30px;
+}
+
+#Keyword {
+	width: 100px;
+	height: 30px;
 }
 
 .images {
@@ -70,6 +85,74 @@ button {
 	width: 8px;
 	height: 8px;
 	border-radius: 500px;
+	border:none;
+}
+
+#btnPrice {
+	background-color: orange;
+	width: 40px;
+	height: 30px;
+	color: white;
+	margin-left: 44px;
+	border-radius: 5px;
+	border: none;
+}
+
+#btnPrice:hover {
+	background-color: #EA7500;
+	transition: 0.2s;
+}
+
+#btnColor {
+	background-color: orange;
+	width: 37px;
+	height: 30px;
+	color: white;
+	margin-left: 8px;
+	border-radius: 5px;
+	margin-left: 185px;
+	border: none;
+}
+
+
+#btnSort1 {
+	background-color:white;
+	font-size: 85%;
+	width: 110px;
+	height: 22px;
+	color: black;
+	margin-left: 8px;
+	border-radius: 5px;
+	border: none;
+	margin-bottom:10px;
+	margin-right: 350px;
+}
+#btnSort1:hover{
+	background-color: #EA7500;
+	transition: 0.2s;
+	color: white;
+}
+
+#btnSort2 {
+	font-size: 85%;
+	background-color:white;
+	width: 110px;
+	height: 22px;
+	color: black;
+	margin-left: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+#btnSort2:hover{
+	background-color: #EA7500;
+	transition: 0.2s;
+	color: white;
+}
+
+#btnColor:hover {
+	background-color: #EA7500;
+	transition: 0.2s;
 }
 </style>
 
@@ -160,57 +243,85 @@ button {
 					<div class="common-filter">
 						<div class="head">品牌</div>
 
-						<form action="#">
+						<form action="${contextRoot}/FrontpageSearchByKeyword">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="apple" name="brand"><label for="apple">Nike<span>(29)</span></label></li>
+									type="radio" id="apple" name="brand" value="Nike"><label
+									for="apple">Nike<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="asus" name="brand"><label for="asus">Addidas<span>(29)</span></label></li>
+									type="radio" id="asus" name="brand" value="Addidas"><label
+									for="asus">Addidas<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="gionee" name="brand"><label
+									type="radio" id="gionee" name="brand" value="Converse"><label
 									for="gionee">Converse<span>(19)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="micromax" name="brand"><label
+									type="radio" id="micromax" name="brand" value="New Balance"><label
 									for="micromax">New Balance<span>(19)</span></label></li>
+
+
+								<li class="filter-list">關鍵字:&nbsp<input class=""
+									type="text" id="Keyword" name="brand"><label
+									for="micromax"><span></span></label></li>
 							</ul>
+
+							<button id="btnColor" type="submit" value="搜尋">
+								<i class="bi bi-search"></i>
+							</button>
 						</form>
+
 
 					</div>
 					<div class="common-filter">
 						<div class="head">顏色</div>
 
-						<form action="#">
+						<form action="FrontpageSeperateSortByColor">
+							<%-- 						<form action="FrontpageSeperateSortByColor?color=${color}"> --%>
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="black" name="color"><label for="black">黑<span>(29)</span></label></li>
+									type="radio" id="black" name="color" value="黑"><label
+									for="black">黑<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="balckleather" name="color"><label
+									type="radio" id="balckleather" name="color" value="白"><label
 									for="balckleather">白<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="blackred" name="color"><label
+									type="radio" id="blackred" name="color" value="藍"><label
 									for="blackred">藍<span>(19)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
-									type="radio" id="gold" name="color"><label for="gold">綠<span>(19)</span></label></li>
+									type="radio" id="gold" name="color" value="綠"><label
+									for="gold">綠<span>(0)</span></label></li>
 							</ul>
+
+							<button id="btnColor" type="submit" value="搜尋">
+								<i class="bi bi-search"></i>
+							</button>
 						</form>
 
 					</div>
-					<div class="common-filter">
-						<div class="head">價格</div>
-						<div class="price-range-area">
-							<div id="price-range"></div>
-							<div class="value-wrapper d-flex">
-								<div class="price">價格範圍:</div>
-								<span><i class="bi bi-currency-dollar"></i></span><input
-									id="inputPrice" type="text">
-								<div id="lower-value"></div>
-								<div class="to">~</div>
-								<span><i class="bi bi-currency-dollar"></i></span><input
-									id="inputPrice" type="text">
-								<div id="upper-value"></div>
+					<!--=============================依照價格搜尋=================================== -->
+					<form
+						action="/Nice_eCommerce/FrontpageSeperateSortByPriceBetween?startPrice=${prod.startPrice}&endPrice=${prod.endPrice}">
+						<div class="common-filter">
+							<div class="head">價格範圍</div>
+							<div class="">
+								<div id=""></div>
+								<div class="value-wrapper d-flex">
+
+									<span><i class="bi bi-currency-dollar"></i></span> <input
+										class="inputPrice" type="text" name="startPrice" value="0">
+									<div id="lower-value"></div>
+									<div class="to">~</div>
+									<span><i class="bi bi-currency-dollar"></i></span><input
+										name="endPrice" class="inputPrice" type="text">
+
+									<button id="btnPrice" type="submit" value="搜尋">
+										<i class="bi bi-search"></i>
+									</button>
+
+									<div id="upper-value"></div>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -218,17 +329,24 @@ button {
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select id="sortPage" onchange="pageSort()">
-							<option  value="1">按價格排序</option>
-							<option  value="2">按上架時間排序</option>
-						</select>
+<!-- 						<select id="sortPage"> -->
+<!-- 							<option value="1">按價格排序</option> -->
+<!-- 							<option value="2">按上架時間排序</option> -->
+<!-- 						</select> -->
+							<form method="get" action="${contextRoot}/FrontpageSeperate">
+							<button id="btnSort1" type="submit" value="">按價格排序</button>
+							</form>
+							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
+							<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
+							</form>
 					</div>
-					<div class="sorting mr-auto">
+					
+					<!-- <div class="sorting mr-auto">
 						<select>
 							<option value="1">顯示 6</option>
 							<option value="2">顯示 10</option>
 						</select>
-					</div>
+					</div> -->
 					<div class="pagination">
 						<a href="#" class="prev-arrow"><i
 							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
@@ -252,9 +370,9 @@ button {
 							<!-- single product -->
 							<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<img alt="picture" src="${contextRoot}/ProductTempImg/${prod.imgUrl}"
-										width="112" />
-<!-- 										ProductTempImg -->
+									<img alt="picture"
+										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" />
+									<!-- 										ProductTempImg -->
 									<div id="product-details" class="product-details">
 										<h5 class="pdName">${prod.productName}</h5>
 										<div class="price">
@@ -273,9 +391,7 @@ button {
 											</a> <a href="" class="social-info"> <span
 												class="lnr lnr-sync"></span>
 												<p class="hover-text">比較</p>
-											</a> 
-											
-											<a
+											</a> <a
 												href="/Nice_eCommerce/getOneProductShop${prod.product_id}"
 												class="social-info"> <span class="lnr lnr-move"></span>
 												<p class="hover-text">更多商品資訊</p>
@@ -318,12 +434,12 @@ button {
 
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
-					<div class="sorting mr-auto">
+					<!-- <div class="sorting mr-auto">
 						<select>
 							<option value="1">顯示 6</option>
 							<option value="2">顯示 10</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 			</div>
@@ -510,37 +626,40 @@ button {
 	<!-- 	======================================================================= -->
 
 	<script>
-		
 
-				function pageSort(){
-					var option = $("#sortPage option").val();
-					// document.getElementById("#sortPage").val();
+		$("#sortPage").change(function(){
 
-					if(option == 1){
-						$.ajax({
-							url: $("#contextRoot").val() + 'FrontpageSeperate1',
-							type:'post',
-							success: function(page){
-								return page;
-								console.log('success');
-							}
-						})
-					}else if(option == 2){
-						$.ajax({
-							url: $("#contextRoot").val() + 'FrontpageSeperateSortByCreatedAt',
-							type:'post',
-							success: function(){
-								
-								console.log('success');
-							}
-						})
+			var option = $(this).val();
+			if(option===1){
+				$.ajax({
+					url:$("#contextRoot").val()+ 'FrontpageSeperate',
+					type:"Get",
+					success:function(result){
+						if(result){
+							alert(1)
+						}
 					}
-				}
-				
-				
-				
-				
-				
+				})
+			}else{
+
+				$.ajax({
+					url:$("#contextRoot").val()+ 'FrontpageSeperateSortByCreatedAt',
+					type:"Get",
+					success:function(result){
+						if(result){
+							alert(2)
+						}
+					}
+				})
+			}
+		})
+
+
+
+
+
+
+
 	</script>
 
 
@@ -552,20 +671,16 @@ button {
 
 
 
-	<!-- 	======================================================================= -->
 
 
+	<!-- 	====================================== js ====================================== -->
 
 
-
-
-	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-		crossorigin="anonymous"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
 	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
@@ -573,11 +688,9 @@ button {
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
-	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="js/gmaps.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 </body>
 
 

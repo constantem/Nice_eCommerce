@@ -264,21 +264,21 @@
     <p class="menu-label">About</p>
     <ul class="menu-list">
       <li>
-        <a href="https://justboil.me" onclick="alert('Coming soon'); return false" target="_blank" class="has-icon">
-          <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
-          <span class="menu-item-label">Premium Demo</span>
-        </a>
-      </li>
-      <li>
         <a href="https://justboil.me/tailwind-admin-templates" class="has-icon">
           <span class="icon"><i class="mdi mdi-help-circle"></i></span>
           <span class="menu-item-label">About</span>
         </a>
       </li>
       <li>
-        <a href="https://github.com/justboil/admin-one-tailwind" class="has-icon">
+        <a href="https://github.com/constantem/Nice_eCommerce" class="has-icon">
           <span class="icon"><i class="mdi mdi-github-circle"></i></span>
-          <span class="menu-item-label">GitHub</span>
+          <span class="menu-item-label">本組GitHub</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://drive.google.com/drive/folders/1lWzF6pWIafRzq4-vXgjpKAoj32DKLIbl" class="has-icon">
+          <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
+          <span class="menu-item-label">本組sql檔雲端</span>
         </a>
       </li>
     </ul>

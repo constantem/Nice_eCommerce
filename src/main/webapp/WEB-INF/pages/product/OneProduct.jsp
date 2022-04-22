@@ -109,6 +109,17 @@ figure {
 	margin-right: 400px;
 	color: #2894FF;
 }
+
+#saveChange{
+	margin-left: 250px;
+	width: 90px;
+	background-color: #2894FF;
+	border: none;
+}
+#saveChange:hover{
+	background-color: #0873dd;
+	transition:0.3s;	
+}
 </style>
 
 <body>
@@ -306,7 +317,8 @@ figure {
 
 				<div class="field">
 					<div class="control">
-						<input id="saveChange" type="button" class="button green" value="修改">
+						<button id="saveChange" type="button" class="button green">
+							<i class="bi bi-pencil-square"></i>&nbsp修改</button>
 					</div>
 				</div>
 			</form>

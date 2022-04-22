@@ -249,7 +249,7 @@ public class ProductController {
 			m.addAttribute("pdVal", pd);
 			return "/product/OneProduct";
 		}
-
+		
 		
 		@PostMapping("editProduct")
 		public ModelAndView editProduct(@RequestParam("subcategory_id")Integer subcategory_id,@RequestParam("modifiedAt") String modifiedAt,

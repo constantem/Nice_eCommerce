@@ -25,7 +25,7 @@ public class ProductCommentController {
 	
 	@GetMapping("/insertComment")
 	public String insertComment(@RequestParam("id") Integer productId, @RequestParam("name") String name,@RequestParam("phone")String phone,
-			@RequestParam("email")String email,@RequestParam("productComment")String productComment,@RequestParam("createdAt")String createdAt) {
+			@RequestParam("email")String email,@RequestParam("productComment")String productComment,@RequestParam("score")String score,@RequestParam("createdAt")String createdAt) {
 			
 		Date date = new Date();
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -37,10 +37,11 @@ public class ProductCommentController {
 		pcrBean.setEmail(email);
 		pcrBean.setPhone(phone);
 		pcrBean.setProductComment(productComment);
+		pcrBean.setProductScore(score);
 		pcrBean.setCreatedAt(creDate);
 		
 		
-			pcrService.insertComment(pcrBean);
+		pcrService.insertComment(pcrBean);
 
 		
 		return "redirect:/getOneProductShop"+Integer.valueOf(productId);

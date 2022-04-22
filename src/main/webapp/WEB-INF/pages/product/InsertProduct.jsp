@@ -280,7 +280,7 @@
 
 							<div class="field grouped">
 								<div class="control">
-									<input id="btn1" type="button" class="button green" value="上架">
+									</i><button id="btn1" type="button" class="button green"><i class="bi bi-upload"></i>&nbsp上架</button>
 								</div>
 								<div class="control">
 									<button id="btnreset" type="reset" class="button red">重置</button>

@@ -301,7 +301,7 @@
 					'資料已刪除',
 					'success'
 					)
-					setTimeout(deleteProduct,2100)
+					setTimeout(deleteProduct,2000)
 				}
 			})
 		})

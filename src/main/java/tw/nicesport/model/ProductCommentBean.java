@@ -26,15 +26,6 @@ public class ProductCommentBean implements Serializable {
 
 	@Column(name = "customerFullName")
 	private String customerFullName;
-	
-	public String getCustomerFullName() {
-		return customerFullName;
-	}
-
-
-	public void setCustomerFullName(String customerFullName) {
-		this.customerFullName = customerFullName;
-	}
 
 	@Column(name = "email")
 	@Email(message = "請輸入Email")
@@ -53,11 +44,29 @@ public class ProductCommentBean implements Serializable {
 	// 修改日期
 	@Column(name = "modifiedAt")
 	private String modifiedAt;
-	
+
+	@Column(name = "productScore")
+	private String productScore;
+
+	public String getCustomerFullName() {
+		return customerFullName;
+	}
+
+	public String getProductScore() {
+		return productScore;
+	}
+
+	public void setProductScore(String productScore) {
+		this.productScore = productScore;
+	}
+
+	public void setCustomerFullName(String customerFullName) {
+		this.customerFullName = customerFullName;
+	}
+
 	public ProductCommentBean() {
 		super();
 	}
-	
 
 	public int getId() {
 		return id;

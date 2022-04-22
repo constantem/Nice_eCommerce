@@ -152,7 +152,7 @@
 
 			<div align="center">
 
-				<form method="post" action="insertProduct.controller"
+				<form id="insertForm" method="post" action="insertProduct.controller"
 					enctype="multipart/form-data">
 					<div id="div1">
 
@@ -280,7 +280,7 @@
 
 							<div class="field grouped">
 								<div class="control">
-									<button id="btn1" type="submit" class="button green">上架</button>
+									<input id="btn1" type="button" class="button green" value="上架">
 								</div>
 								<div class="control">
 									<button id="btnreset" type="reset" class="button red">重置</button>
@@ -399,22 +399,22 @@
 	</script>
 	<!-- ================================================================================ -->
 
-
+	<!--sweetalert 新增商品-->
 	<script>
-		document.getElementById("btn1").addEventListener("click", function() {
+		$("#btn1").click(function(){
 
-			Swal.fire({
-
-				icon : 'success',
-				title : '新增成功',
-				showConfirmButton : false,
-				closeOnConfirm: true,
-				timer : 2000
-			})
-		});
-		
-		
+			Swal.fire(
+				'新增成功!',
+				'',
+				'success'
+				)		
+			setTimeout(insert,1800)	
+		})
+		function insert () {
+				$("#insertForm").submit()
+    			}
 	</script>
+
 
 
 	<script type="text/javascript">

@@ -47,6 +47,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <!-- <meta property="og:url" -->
@@ -174,15 +176,15 @@
 										</form>
 
 										<!-- 刪除 -->
-										<form method="get"
+										<form id="deleteForm" method="get"
 											action="/Nice_eCommerce/deleteOneProduct${prod.id}">
-											<button onclick="return confirm('確認刪除')" id="delete"
-												class="button small red --jb-modal"
-												data-target="sample-modal" type="submit">
+											<button  id="delete"
+												class="button small red --jb-modal delete"
+												data-target="sample-modal" type="button">
 												<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 											</button>
 										</form>
-
+										<!-- onclick="return confirm('確認刪除')" -->
 									</div>
 								</td>
 						</c:forEach>
@@ -278,6 +280,35 @@
 				}
 			});
 		});
+	</script>
+
+	<!--sweetalert 刪除商品確認-->
+	<script>
+
+		$(".delete").click(function(){
+			Swal.fire({
+				title: '確定刪除??',
+				text: "刪除後商品資料無法回復",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '確定刪除!'
+				}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire(
+					'刪除成功',
+					'資料已刪除',
+					'success'
+					)
+					setTimeout(deleteProduct,2100)
+				}
+			})
+		})
+
+		function deleteProduct(){
+			$("#deleteForm").submit();
+		}
 	</script>
 
 	<!-- ================================================================================ -->

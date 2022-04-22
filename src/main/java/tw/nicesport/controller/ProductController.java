@@ -1,26 +1,21 @@
 package tw.nicesport.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,6 +64,9 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService catService;
+	
+	@Autowired
+	HttpServletRequest request;
 	
 //	@Autowired
 //	private ServletContext servletContext;
@@ -319,13 +317,15 @@ public class ProductController {
 		//上傳圖片方法
 		private String saveFile(MultipartFile file){
 			
-			
 			String fileName = file.getOriginalFilename();
 			
 			String suffixName = fileName.substring(fileName.lastIndexOf(".")); 
 			
+//			String filePath = "C:\\Nice_eCommerce_ThirdProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
 			
-			String filePath = "C:\\Nice_eCommerce_FinalProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
+			String filePath = request.getServletContext().getRealPath("") + "\\ProductTempImg\\";
+
+			System.out.println("new path====================>>>"+request.getServletContext().getRealPath(""));
 
 			fileName = UUID.randomUUID() + suffixName;
 			

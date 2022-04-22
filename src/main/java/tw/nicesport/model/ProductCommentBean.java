@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,7 @@ public class ProductCommentBean implements Serializable {
 	}
 
 	@Column(name = "email")
+	@Email(message = "請輸入Email")
 	private String email;
 
 	@Column(name = "phone")

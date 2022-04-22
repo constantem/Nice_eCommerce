@@ -183,16 +183,15 @@ button {
 								class="lnr lnr-arrow-right"></span>運動服飾<span class="number">(65)</span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">運動長褲<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">運動外套<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">機能系列<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
+								<li class="main-nav-list child"><a href="#">個人用品<span class="number">(01)</span>
 								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
+								<li class="main-nav-list child"><a href="#">背包<span
 										class="number">(11)</span></a></li>
 							</ul></li>
 
@@ -203,17 +202,12 @@ button {
 								class="lnr lnr-arrow-right"></span>健身器材<span class="number">(29)</span></a>
 							<ul class="collapse" id="healthProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">啞鈴<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">大型健身器材<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">飛輪<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
 							</ul></li>
 
 						<li class="main-nav-list"><a data-toggle="collapse"
@@ -222,17 +216,12 @@ button {
 								class="lnr lnr-arrow-right"></span>補充營養品<span class="number">(15)</span></a>
 							<ul class="collapse" id="homeAppliance" data-toggle="collapse"
 								aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">乳清蛋白<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">蛋白營養棒<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">餅乾/點心<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
 							</ul></li>
 
 					</ul>
@@ -334,10 +323,10 @@ button {
 <!-- 							<option value="2">按上架時間排序</option> -->
 <!-- 						</select> -->
 							<form method="get" action="${contextRoot}/FrontpageSeperate">
-							<button id="btnSort1" type="submit" value="">按價格排序</button>
+								<button id="btnSort1" type="submit" value="">按價格排序</button>
 							</form>
 							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
-							<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
+								<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
 							</form>
 					</div>
 					
@@ -653,12 +642,6 @@ button {
 				})
 			}
 		})
-
-
-
-
-
-
 
 	</script>
 

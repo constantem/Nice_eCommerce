@@ -39,6 +39,7 @@
 <!-- ajax -->
 <script
 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -177,14 +178,16 @@ figure {
 				</div>
 			</div>
 
-			<form action="editProduct" method="post"
+			<form  id="editForm" action="${contextRoot}/editProduct" method="post"
 				enctype="multipart/form-data">
+
 				<div class="field">
 					<!-- 					<label class="label">商品編號</label> -->
 					<div class="control">
-						<input name="product_id" type="text" readonly
+						<input name="id" type="text" readonly
 							value="${id}" class="input is-static">
 					</div>
+					<input type="hidden" name="id" value="${pdVal.id}">
 				</div>
 
 				<div class="field">
@@ -208,7 +211,7 @@ figure {
 					</div>
 				</div>
 				<!-- 為保留原圖片 -->
-<%-- 				<input id="img" type="hidden" name="img" class="input" type="text" value="${pdVal.img}"> --%>
+<%-- 			<input id="img" type="hidden" name="img" class="input" type="text" value="${pdVal.img}"> --%>
 					
 				<input id="imgUrl"  type="hidden" name="imgUrl" class="input" type="text" value="${pdVal.imgUrl}">
 				<input id="imgUrl_A" type="hidden" name="imgUrl_A" class="input" type="text" value="${pdVal.imgUrl_A}">
@@ -303,8 +306,7 @@ figure {
 
 				<div class="field">
 					<div class="control">
-						<button type="submit" class="button green">更新商品</button>
-						<span>${error}</span>
+						<input id="saveChange" type="button" class="button green" value="修改">
 					</div>
 				</div>
 			</form>
@@ -373,6 +375,35 @@ figure {
 				}
 			});
 		}
+	</script>
+
+	<script type="text/javascript">
+
+		$('#saveChange').click(function() {
+			Swal.fire({
+			title: '確定修改?',
+			showDenyButton: true,
+			showCancelButton: true,
+			confirmButtonText: '儲存修改',
+			denyButtonText: `放棄修改`,
+			}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				Swal.fire('修改成功', '', 'success')
+
+
+				setTimeout(editProduct,1500)
+			} else if (result.isDenied) {
+				Swal.fire('修改資料未儲存', '', 'info')
+			}
+			})
+		});
+
+		function editProduct(){
+			$("#editForm").submit();
+		}
+
+		
 	</script>
 
 

@@ -332,10 +332,10 @@ button {
 <!-- 							<option value="2">按上架時間排序</option> -->
 <!-- 						</select> -->
 							<form method="get" action="${contextRoot}/FrontpageSeperate">
-							<button id="btnSort1" type="submit" value="">按價格排序</button>
+								<button id="btnSort1" type="submit" value="">按價格排序</button>
 							</form>
 							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
-							<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
+								<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
 							</form>
 					</div>
 					

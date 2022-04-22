@@ -50,8 +50,6 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /><!-- css main1  -->
 
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <style>
@@ -144,7 +142,7 @@ figure img {
 }
 
 .commentDate{
-	margin-left: 320px;
+	margin-left: 280px;
 }
 </style>
 
@@ -517,8 +515,8 @@ figure img {
 								
 								
 								
-								<form class="row contact_form" action="${contextRoot}/insertComment"
-									method="get" id="contactForm" novalidate="novalidate">
+								<form  class="row contact_form" action="${contextRoot}/insertComment"
+									method="get" id="commentForm" novalidate="novalidate">
 									
 									<input type="hidden" name="id" value="${pdVal.id}">
 
@@ -532,7 +530,8 @@ figure img {
 									
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="email" class="form-control" id="email"
+
+											<input type="text" class="form-control" id="email"
 												name="email" placeholder="Email"
 												onfocus="this.placeholder = ''"
 												onblur="this.placeholder = 'Email'">
@@ -560,7 +559,7 @@ figure img {
 											type="hidden" value="">
 									
 									<div class="col-md-12 text-center">
-										<button  id="btnComment" type="submit" class="primary-btn">送出評論</button>
+										<button  id="btnComment" type="button" class="primary-btn">送出評論</button>
 									</div>
 								</form>
 								<div class="col-md-12 text-center">
@@ -773,6 +772,7 @@ figure img {
 
 
 	<!-- ======================================================================================= -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -836,21 +836,27 @@ figure img {
 	
 					</script>
 					
+
+					<!--sweetalert 商品評論-->
 					<script>
 
-							document.getElementById("btnComment").addEventListener("click", function() {
-								
-								Swal.fire({
-
-									icon : 'success',
-									title : '感謝您的評論',
-									showConfirmButton : false,
-									timer : 1500
+						$("#btnComment").click(function(){
+							
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: '感謝您的意見',
+								showConfirmButton: false,
+								timer: 2000
 								})
-							});
+									setTimeout(sentComment,1500)	
+									})
+
+								function sentComment(){
+									$("#commentForm").submit();
+								}
 							
 					</script>
-
 
 
 
@@ -923,12 +929,8 @@ figure img {
 							$("#productComment").text("五顆星商品 推薦給大家~~~")
 
 						})
-
-
-
-
-
 					</script>
+
 
 	<!-- ======================================================= -->
 

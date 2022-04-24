@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>部分會員	</title>
+<title>修改會員	</title>
 
 <!-- Tailwind is included -->
 <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
@@ -113,7 +113,7 @@
 		
 		         <div class="control">
 		         	${member.memberid}
-				<input type="hidden" name="memberid" value="${member.memberid}">
+				<input type="hidden" name="memberid" id="memberid" value="${member.memberid}">
 		         </div>
 		         <p class="help">
 		           
@@ -126,7 +126,7 @@
 		
 		         <div class="control">
 		         	${member.username}
-				<input type="hidden" name="username" value="${member.username}">
+				<input type="hidden" name="username" id="username" value="${member.username}">
 		         </div>
 		         <p class="help">
 		           
@@ -137,7 +137,7 @@
 		       <div class="field">
 		         <label class="label">密碼</label>
 		         <div class="control">
-		           <input class="input" type="text" name="password" value="${member.password}">
+		           <input class="input" type="text" name="password" id="password" value="${member.password}">
 		         </div>
 		         <p class="help">
 		           
@@ -149,7 +149,7 @@
 		         <label class="label">姓</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="lastname" value="${member.lastname}">
+		           <input class="input" type="text" name="lastname" id="lastname" value="${member.lastname}">
 		         </div>
 		         <p class="help">
 		           
@@ -161,7 +161,7 @@
 		         <label class="label">名</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="firstname" value="${member.firstname}">
+		           <input class="input" type="text" name="firstname" id="firstname" value="${member.firstname}">
 		         </div>
 		         <p class="help">
 		           
@@ -173,7 +173,7 @@
 		         <label class="label">生日</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="birthdate" value="${member.birthdate}">
+		           <input class="input" type="text" name="birthdate" id="birthdate" value="${member.birthdate}">
 		         </div>
 		         <p class="help">
 		           
@@ -185,7 +185,7 @@
 		         <label class="label">性別</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="gender" value="${member.gender}">
+		           <input class="input" type="text" name="gender" id="gender" value="${member.gender}">
 		         </div>
 		         <p class="help">
 		           
@@ -197,7 +197,7 @@
 		         <label class="label">電話</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="phone" value="${member.phone}">
+		           <input class="input" type="text" name="phone" id="phone" value="${member.phone}">
 		         </div>
 		         <p class="help">
 		           
@@ -209,7 +209,7 @@
 		         <label class="label">email</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="email" value="${member.email}">
+		           <input class="input" type="text" name="email" id="email" value="${member.email}">
 		         </div>
 		         <p class="help">
 		           
@@ -221,7 +221,7 @@
 		         <label class="label">住址</label>
 		
 		         <div class="control">
-		           <input class="input" type="text" name="address" value="${member.address}">
+		           <input class="input" type="text" name="address" id="address" value="${member.address}">
 		         </div>
 		         <p class="help">
 		           
@@ -237,8 +237,14 @@
 		            </button>
 		          </div>
 		          <div class="control">
-		            <button type="reset" class="button red">
+		            <button type="reset" class="button red" id="reset">
 		              清除
+		            </button>
+		          </div>
+		          <div class="field grouped">
+		          <div class="control">
+		            <button type="submit" class="button green">
+		              返回
 		            </button>
 		          </div>
 		        </div>
@@ -319,6 +325,25 @@
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	
+	<!-- 一鍵清除 -->
+	<script type="text/javascript">
+		$("#reset").click(function(){
+			$("#password").attr("value","");
+			$("#lastname").attr("value","");
+			$("#firstname").attr("value","");
+			$("#birthdate").attr("value","");
+			$("#gender").attr("value","");
+			$("#phone").attr("value","");
+			$("#email").attr("value","");
+			$("#address").attr("value","");
+		});
+	</script>
+	
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />

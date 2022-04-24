@@ -9,11 +9,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.nicesport.model.Member;
 import tw.nicesport.model.MemberRepository;
 
 @Service
+@Transactional
 public class MemberService {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class MemberService {
 	}
 	
 	public Page<Member> findByPage(Integer pageNumber){
-		Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.ASC, "memberid");
+		Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.ASC, "memberid");
 		
 		Page<Member> page = memberDao.findAll(pgb);
 		
@@ -60,8 +62,12 @@ public class MemberService {
 		return memberDao.findFirstByOrderByMemberid();
 	}
 	
-//	public List<Member> searchMembers(String key){
-//		return memberDao.findAllByNameLike("%" + key + "%");
-//	}
+	public List<Member> findByUsernameContaining(String specificUsername){
+		return memberDao.findByUsernameContaining(specificUsername);
+	}
+	
+	public List<Member> queryAll(){
+		return memberDao.findAll();
+	}
 
 }

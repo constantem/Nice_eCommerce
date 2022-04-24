@@ -94,12 +94,23 @@
 		</section>
 
 		<!-- 原核心內容的 section 開始 -->
-<%-- 		<form action="${contextRoot}/member/showOneResult"> --%>
-<!-- 		會員查詢:<input type="text" method="post"> -->
-<!-- 		<button value="Send">查詢</button> -->
-<%-- 		</form> --%>
+		
+		
+			<form action="${contextRoot}/member/findAllByNameLike">
+				查詢特定會員:<input type="text" name="specificUsername">
+				<input type="submit" value="送出">
+			 
+			<action="${contextRoot}/member/showAllResult">
+				<input type="submit" value="返回">
+			</form>
+
 			<table>
+			<thead>
 				<tr>
+				<th class="checkbox-cell"><label class="checkbox">
+					<input type="checkbox" id="checkall"><span class="check"></span>
+					</label></th>
+				<th class="image-cell"></th>
 					<th>編號</th>
 					<th>帳號</th>
 					<th>密碼</th>
@@ -113,7 +124,12 @@
 					<th>刪除</th>
 				</tr>
 				<c:forEach items="${page.content}" var="member">
-					<tr>
+						<tr>
+						<td class="checkbox-cell"><label class="checkbox">
+							<input type="checkbox"> <span class="check"></span>
+							</label></td>
+						<td class="image-cell">
+						</td>
 						<td>${member.memberid}</td>
 						<td>${member.username}</td>
 						<td>${member.password}</td>
@@ -154,7 +170,7 @@
  							<c:out value="${pageNumber}"></c:out> 
 						</c:otherwise> 
  					</c:choose> 
-				<c:if test="${pageNumber != page.totalPages}">| 
+				<c:if test="${pageNumber != page.totalPages}">➣
  					</c:if> 
  				</c:forEach> 
 			</div> 
@@ -241,8 +257,5 @@
 	<link rel="stylesheet"
 		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
-
 </body>
 </html>
-<%-- ${members[0].id} <br> --%>
-<%-- ${members[1].id} <br> --%>

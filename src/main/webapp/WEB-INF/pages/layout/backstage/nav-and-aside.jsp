@@ -230,13 +230,13 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/">
-              <span>新增員工</span>
+            <a href="${contextRoot}/employee/viewEmployee">
+              <span>員工列表</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/employee/viewEmployee">
-              <span>員工列表</span>
+            <a href="${contextRoot}/employee/WorkSchedule">
+              <span>排班系統</span>
             </a>
           </li>
         </ul>

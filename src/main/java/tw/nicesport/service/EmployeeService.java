@@ -38,7 +38,12 @@ public class EmployeeService {
 	public void deleteById(Integer id) {
 		employeeDao.deleteById(id);
 	}
-
+	
+	public void deleteChoice(Iterable id) {
+		employeeDao.deleteAllById(id);
+	}
+	
+	
 	// 查詢All
 	public List<Employee> findAllEmp() {
 		return employeeDao.findAll();

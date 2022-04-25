@@ -2,7 +2,10 @@ package tw.nicesport.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,14 +43,13 @@ public class EmployeeController {
 	@ResponseBody
 	public String addEmployee(ModelAndView mav,@Valid @ModelAttribute(name = "Employee") Employee emp,
 			BindingResult br) {
-
+		Employee newEmp = new Employee();
+		
 		if (!br.hasErrors()) {
-			employeeService.insert(emp);
-			Employee newEmp = new Employee();
+			employeeService.insert(emp);	
+			
 			mav.getModel().put("Employee", newEmp);
 		}
-		
-
 
 //		Employee latestEmp = employeeService.getLastest();
 //
@@ -76,10 +77,10 @@ public class EmployeeController {
 		// Employee emp1 = employeeService.findById(emp.getEmployee_id());
 
 		// mav.setViewName("editEmployee");
-		if (!br.hasErrors()) {
+//		if (!br.hasErrors()) {
 			employeeService.insert(emp);
 			mav.setViewName("redirect:/employee/editEmployee");
-		}
+//		}
 		return "成功";
 		// return mav;
 	}
@@ -93,7 +94,22 @@ public class EmployeeController {
 
 		return mav;
 	}
-
+	
+	@GetMapping("employee/deleteChoiceEmp")
+	public ModelAndView deleteChoice(ModelAndView mav ,@RequestParam(name = "employee_id")Integer[] id) {
+		employeeService.deleteChoice(Arrays.asList(id));
+		
+		mav.setViewName("redirect:/employee/viewEmployee");
+		
+		return mav;
+	}
+	
+//	public List<Employee> deleteChoice(@RequestParam(name = "employee_id")Integer id){
+//		
+//		employeeService.deleteChoice(id);
+//		
+//	}
+	
 //	@RequestMapping(value="/emp", method=RequestMethod.POST)
 //	@ResponseBody
 //	public Msg saveEmp(Employee employee) {
@@ -160,24 +176,18 @@ public class EmployeeController {
 
 	@ResponseBody 
 	@RequestMapping("/upload")
-	public Map<String,String> uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+	public Map<String,String> uploadImg(@RequestParam("file")MultipartFile file, HttpServletRequest request) {
 //		String contentType = file.getContentType();
 		//System.currentTimeMillis() 自動取名 並新增
 //		String fileName = System.currentTimeMillis() + file.getOriginalFilename();
 		String fileName = file.getOriginalFilename();
-		System.out.println("fileName:"+fileName);
-		String filePath = "C:\\Nice_eCommerce_Git\\Nice_eCommerce\\src\\main\\webapp\\upload\\";
-//		JSONObject jo = new JSONObject();
+//		String filePath = "C:\\Nice_eCommerce_Git\\Nice_eCommerce\\src\\main\\webapp\\upload\\";
+		String filePath = request.getServletContext().getRealPath("")+"\\upload\\";
+		request.getServletContext().getRealPath("");
 
-		if (file.isEmpty()) {
-//			jo.put("success", 0);
-//			jo.put("fileName", "");
-		}
 		try {
 			uploadFile(file.getBytes(), filePath, fileName);
-//			jo.put("success", true);
-//			jo.put("fileName", fileName);
-			// jo.put("xfileName", filePath+"/"+fileName);
+
 		} catch (Exception e) {
 		}
 //		System.out.print(request.getSession().getServletContext().getContextPath()+fileName);
@@ -185,11 +195,11 @@ public class EmployeeController {
 //		System.out.println("request..getServletContext():"+request.getServletContext());
 //		System.out.println("request.getContextPath():"+request.getContextPath());
 		
-		// 使用 HashMap 裝兩個物件  (key,value)
+		// 使用 HashMap 裝兩個物件  (key,value)<<<重點
 		Map<String,String> map = new HashMap<>();
 		map.put("fileName",fileName);
 		map.put("filePath",request.getContextPath()+"/upload/"+fileName);
-		
+
 		return map;
 	}
 }

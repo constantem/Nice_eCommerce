@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface WorkOedersDetailRepository extends JpaRepository<OrderDetailBean, Integer>{
+public interface OrdersDetailRepository extends JpaRepository<OrderDetailBean, Integer>{
 	
 //	public OrdersBean findFirstByOrderByAddedDesc();
 	

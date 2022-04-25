@@ -74,16 +74,14 @@
 	width: 250px;
 }
 
-#leftBOX{
-width: 800px;
-float: left;
-
+#leftBOX {
+	width: 800px;
+	float: left;
 }
-#rightBOX{
-width: 800px;
-margin-left: 800px;
 
-
+#rightBOX {
+	width: 800px;
+	margin-left: 800px;
 }
 </style>
 </head>
@@ -99,37 +97,30 @@ margin-left: 800px;
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 class="title">訂單資訊</h1>
+				<h1 class="title">訂單資訊</h1> 
+				<small class="text-gray-500"> 訂單編號：${order.orderStatus} 目前資料庫沒有資料 </small>
 				<a href="${pageContext.request.contextPath}/orders/viewAllOrders"><button
 						class="button light">返回訂單列表</button></a>
 			</div>
 		</section>
 		<div class="container">
-			<table>
+				<table>
 				<thead>
 					<tr>
 						<th class="checkbox-cell"><label class="checkbox"> <input
 								type="checkbox"> <span class="check"></span>
 						</label></th>
-						<th class="image-cell"></th>
-						<th>訂單編號</th>
-			</table>
-			<table>
-				<thead>
-					<tr>
-						<th class="checkbox-cell"><label class="checkbox"> <input
-								type="checkbox"> <span class="check"></span>
-						</label></th>
-						<th class="image-cell"></th>
+						<th>產品圖片</th>
 						<th>產品名稱</th>
-						<th>商品單價</th>
 						<th>數量</th>
+						<th>商品單價</th>
 						<th>商品總價</th>
-						<th>購買時間</th>
-						<th>訂單管理</th>
+						<th>修改時間</th>
 						<th></th>
 					</tr>
+					
 				</thead>
+				<hr>
 
 				<c:forEach var="OrderDetail" items="${OrderDetailSet}">
 					<tbody>
@@ -137,36 +128,38 @@ margin-left: 800px;
 							<td class="checkbox-cell"><label class="checkbox"> <input
 									type="checkbox"> <span class="check"></span>
 							</label>
-							<td data-label="productName">${OrderDetail.productBean.productName}</td>
-							<td id="quantity" data-label="quantity">${OrderDetail.quantity}</td>
-							<td id="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
-							<td data-label="shippingFee">${OrderDetail.createdAt}</td>
-							<td data-label="shippingFee">${OrderDetail.createdAt}</td>
+							<td>
+							<img alt="picture"
+									src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}" width="112" /></td>
+							<td id="productName" data-label="productName" >${OrderDetail.productBean.productName}</td>
+							<td id="quantity" class="quantity" data-label="quantity">${OrderDetail.quantity}</td>
+							<td id="realPrice" class="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
+							<td id="totalPrice" data-label="totalPrice">${order.totalPrice}</td>
+							<td data-label="shippingFee" class="text-gray-500">${OrderDetail.modifiedAt} 目前資料庫沒有資料</td>
 						</tr>
+						
 				</c:forEach>
 			</table>
 		</div>
 		<div class="buttons right nowrap">
 
 			<input type="hidden" value="${OrdersBean.order_id}">
-
+ 
 			<button type="button" class="button blue" id="order_detail_btn"
-				data-bs-toggle="modal" 
-				data-bs-target="#exampleModal"
+				data-bs-toggle="modal" data-bs-target="#exampleModal"
 				data-bs-whatever="@mdo">
 				<%--onclick = "findById('${OrdersBean.order_id}')"> --%>
 				<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
 				<span class="icon"><i class="mdi-update"></i></span>修改訂單明細
 			</button>
 		</div>
-		<hr>			
-			<div class="buttons right nowrap">
+		<hr>
+		<div class="buttons right nowrap">
 
 			<input type="hidden" value="${OrdersBean.order_id}">
 
 			<button type="button" class="button blue" id="order_detail_btn"
-				data-bs-toggle="modal" 
-				data-bs-target="#exampleModal"
+				data-bs-toggle="modal" data-bs-target="#exampleModal"
 				data-bs-whatever="@mdo">
 				<%--onclick = "findById('${OrdersBean.order_id}')"> --%>
 				<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
@@ -174,109 +167,174 @@ margin-left: 800px;
 			</button>
 		</div>
 		<hr>
-<!-- 		.. -->
-      <div class="card" id="leftBOX">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            配送資訊
-          </p>
-        </header>
-        <div class="card-content">
-         
-          <hr>
-          <div class="field">
-            <label class="label">收件人</label>
-			<div class="control">
-              <input type="text" readonly value="${order.shipName}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">E-mail</label>
-            <div class="control">
-              <input type="text" readonly value="user@example.com" class="input is-static">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-	<!-- 		.. -->
+		<!-- ==================================================================配送資料確認區================================================================== -->
+		
+		<div class="card" id="leftBOX">
+			<header class="card-header">
+				<p class="card-header-title">
+					<span class="icon"><i class="mdi mdi-account"></i></span> 配送資訊
+			</header>
+			<div class="card-content">				
+				<div class="field">
+					<label class="label">收件人</label>
+					<div class="control">
+						<small class="text-gray-900"> ${order.shipName}</small>
+					</div>
+				<div class="field">
+						<label class="label">配送地址</label>
+						<div class="control">
+							<small class="text-gray-900"> ${order.shipPostalCode} ${order.shipAddress} </small>
+						</div>
+					</div>
+				<div class="field">
+					<label class="label">訂單狀態</label>
+					<div class="control">
+						<small class="text-gray-500"> ${order.orderStatus} 目前資料庫沒有資料 </small>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">時間戳記</label>
+					<div class="control">
+						<small class="text-gray-500"> ${order.orderDate}
+							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
+						</small>
+					</div>
+					<div class="buttons right nowrap">
+
+						<input type="hidden" value="${OrdersBean.order_id}">
+	
+						<button type="button" class="button blue" id="order_detail_btn"
+							data-bs-toggle="modal" data-bs-target="#exampleModal"
+							data-bs-whatever="@mdo"
+							onclick = "updateShipInformation()">
+							<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+							<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ==================================================================配送資料確認區================================================================== -->
+	<!-- ==================================================================訂單確認區================================================================== -->
 	<div class="card" id="rightBOX">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            訂單確認
-          </p>
-        </header>
-        <div class="card-content">
-        <div class="field">
-            <label class="label">運費</label>
-            <div class="control">
-              <input type="text"  value="60" class="input is-static">
-            </div>
-          </div>
-          <hr>
-          <div class="field">
-			<label class="label">訂單出貨</label>
-            <div class="control">
-                <select id="orderStatus">
-					<option value="">訂單狀態</option>
-					<option value="等待付款">等待付款</option>
-					<option value="已出貨">已出貨</option>
-				
-				  </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-		<!------------------------------ JS------------------------------------------------ -->
-		<script src="${contextRoot}/resources/js/main.min.js?v=1628755089081"></script>
-		<script src="${contextRoot}/resources/js/chart.sample.js"></script>
-		<script src="${contextRoot}/resources/js/chart.sample.min.js"></script>
-		<script src="${contextRoot}/resources/js/main.js"></script>
-		<script src="${contextRoot}/resources/js/main.min.js"></script>
-		<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
-		<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
-		<!------------------------------ JS------------------------------------------------ -->
-		<!-- Scripts below are for demo only -->
-		<!-- 		==========================================AJAX============================================ -->
+		<header class="card-header">
+			<p class="card-header-title">
+				<span class="icon"><i class="mdi mdi-account"></i></span> 訂單確認
+			</p>
+		</header>
+		
+		<div class="card-content">
+			<!-- 修改配送資訊按鈕 -->
+			<div class="buttons right nowrap">
+				<input type="hidden" value="${OrdersBean.order_id}">
+				<button type="button" class="button blue" id="order_detail_btn"
+					data-bs-toggle="modal" data-bs-target="#exampleModal"
+					data-bs-whatever="@mdo">
+					<%--onclick = "update(this.value)> 
+					<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+					<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
+				</button>
+			</div>
+			<!-- 修改配送資訊按鈕 -->
+			<!-- 運費輸入text -->
+			<div class="field">
+				<label class="label">運費</label>
+				<div class="control">
+					<input type="text" value="${order.shippingFee}" class="input is-static">
+				</div>
+			</div>
+			<!-- 運費輸入text -->
+			<!-- 總價輸入text -->
+			<div class="field">
+				<label class="label">總價</label>
+				<div class="control">
+					<input type="text" id="totalPrice" value="${order.totalPrice}" class="input is-static">
+				</div>
+			</div>
+			<!-- 總價輸入text -->
+			<hr>
+			<!-- 訂單出貨 -->
+			<div class="field">
+				<label class="label">訂單出貨</label>
+				<div class="control">
+					<select id="orderStatus">
+						<option value="">訂單狀態</option>
+						<option value="等待付款">等待付款</option>
+						<option value="已出貨">已出貨</option>
+
+					</select>
+				</div>
+			</div>
+			<!-- 訂單出貨 -->
+		</div>
+	</div>
+	<!-- ==================================================================訂單確認區================================================================== -->
+	</div>
+	<!------------------------------ JS------------------------------------------------ -->
+	<script src="${contextRoot}/resources/js/main.min.js?v=1628755089081"></script>
+	<script src="${contextRoot}/resources/js/chart.sample.js"></script>
+	<script src="${contextRoot}/resources/js/chart.sample.min.js"></script>
+	<script src="${contextRoot}/resources/js/main.js"></script>
+	<script src="${contextRoot}/resources/js/main.min.js"></script>
+	<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
+	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
+	<!------------------------------ JS------------------------------------------------ -->
+	<!-- 		==========================================JavaScript============================================ -->
+	<script>
+		function updateShipInformation()
+		{
+			alert("你好，我是一个警告框！");
+		}
+	</script>
+	<!-- 		==========================================計算總價============================================ -->
+	<script>
+		totalPrice();
+		function totalPrice(){
+			alert($("#quantity").val())  
+			
+		}
+	</script>
+
+
+	<!-- 		==========================================JavaScript============================================ -->
+	<!-- 		==========================================AJAX============================================ -->
 
 
 
 
-		<script>
-			!function(f, b, e, v, n, t, s) {
-				if (f.fbq)
-					return;
-				n = f.fbq = function() {
-					n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
-							.push(arguments)
-				};
-				if (!f._fbq)
-					f._fbq = n;
-				n.push = n;
-				n.loaded = !0;
-				n.version = '2.0';
-				n.queue = [];
-				t = b.createElement(e);
-				t.async = !0;
-				t.src = v;
-				s = b.getElementsByTagName(e)[0];
-				s.parentNode.insertBefore(t, s)
-			}(window, document, 'script',
-					'https://connect.facebook.net/en_US/fbevents.js');
-			fbq('init', '658339141622648');
-			fbq('track', 'PageView');
-		</script>
+	<script>
+		!function(f, b, e, v, n, t, s) {
+			if (f.fbq)
+				return;
+			n = f.fbq = function() {
+				n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
+						.push(arguments)
+			};
+			if (!f._fbq)
+				f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script',
+				'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '658339141622648');
+		fbq('track', 'PageView');
+	</script>
 
-		<noscript>
-			<img height="1" width="1" style="display: none"
-				src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
-		</noscript>
+	<noscript>
+		<img height="1" width="1" style="display: none"
+			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
+	</noscript>
 
-		<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-		<link rel="stylesheet"
-			href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+	<link rel="stylesheet"
+		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </body>
 </html>

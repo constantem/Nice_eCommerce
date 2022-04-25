@@ -133,7 +133,7 @@
 
 									
 									<input type="hidden" value="${OrdersBean.order_id}">
-									<button type="button" class="btn btn-primary"
+									<button type="button" class="button blue"
 										id="order_detail_btn" data-bs-toggle="modal"
 										data-bs-target="#exampleModal" data-bs-whatever="@mdo"
 										<%-- onclick = "findById('${OrdersBean.order_id}')"> --%>

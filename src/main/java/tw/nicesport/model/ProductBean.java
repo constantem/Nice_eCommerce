@@ -35,6 +35,12 @@ public class ProductBean implements Serializable {
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	
+	@OneToMany(mappedBy = "productBean",
+			cascade= {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JsonIgnore
+	private Set<ProductWishListBean> productMyFavorSet = new HashSet<>();
 
 	// 產品名
 	@Column(name = "productName")

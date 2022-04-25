@@ -92,9 +92,15 @@ public class Member {
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
+	
+	@OneToMany(mappedBy = "member")
+	@JsonIgnore
+	private Set<ProductWishListBean> productMyWishListSet = new HashSet<>();
+	
+	
 
 	// 建構子
-	
+
 	public Member() {
 	}
 
@@ -223,4 +229,11 @@ public class Member {
 		this.ordersBeanSet = ordersBeanSet;
 	}
 
+	public Set<ProductWishListBean> getProductMyWishListSet() {
+		return productMyWishListSet;
+	}
+
+	public void setProductMyWishListSet(Set<ProductWishListBean> productMyWishListSet) {
+		this.productMyWishListSet = productMyWishListSet;
+	}
 }

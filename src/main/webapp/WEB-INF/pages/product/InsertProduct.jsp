@@ -262,7 +262,7 @@
 						<div class="field">
 							<label class="label">商品描述</label>
 							<div class="control">
-								<textarea name="productDiscription" class="textarea"
+								<textarea id="productDiscription" name="productDiscription" class="textarea"
 									placeholder="輸入商品描述"></textarea>
 							</div>
 						</div>
@@ -378,13 +378,14 @@
 
 	<script>
 		$("#InputData").on("click", function() {
-			$("#Name").attr("value", "NIKE鞋")
-			$("#supplier").attr("value", "NIKE")
-			$("#color").attr("value", "藍")
+			$("#productName").attr("value", "New Balance鞋")
+			$("#supplier").attr("value", "New Balance")
+			$("#color").attr("value", "灰")
 			$("#size").attr("value", "US9")
 			$("#weight").attr("value", "234g")
 			$("#price").attr("value", "2350")
-			$("#quantity").attr("value", "444")
+			$("#quantity").attr("value", "0")
+			$("#productDiscription").attr("value","997H是經典997的次世代進化型號，為追求獨特風格的人群而生，將90年代經典鞋款大膽重塑，向永恆長青傳統致敬。 此款為復古慢跑鞋")
 		})
 
 		$("#btnreset").on("click", function() {

@@ -167,6 +167,100 @@ button {
 
 	<!-- 上方導覽列 -->
 	<%@include file="FrontPageNavBar.jsp"%>
+	
+	
+	<!-- Start Banner Area -->
+
+	<section class="banner-area organic-breadcrumb">
+
+		<!-- photo size 1280 * 533 -->
+		<div class="window" align='Center'>
+		
+			<div class="images" id="images">
+				<img id="img1" src="">
+				<img id="img2" src="">
+				<img id="img3" src="">
+				<img id="img4" src="">
+			</div>
+			
+
+			<span id="buttons">
+				<button></button>
+				<button></button>
+				<button></button>
+				<button></button>
+			</span>
+			
+		</div>
+
+	</section>
+
+	<!-- End Banner Area -->
+
+
+	<!--=================================廣告輪播========================================== -->
+
+	<script>
+						var allButtons = $('#buttons > button');
+						for (let i = 0; i < allButtons.length; i++) {
+							$(allButtons[i]).on('click', function (ev) {
+								var index = $(ev.currentTarget).index();
+								var npx = index * -800;
+								$('#images').css({
+									transform: 'translateX(' + npx + 'px)'
+								});
+								n = index;
+								activeButton(allButtons.eq(n))
+							});
+						}
+						var n = 0;
+						var size = allButtons.length;
+						var timerId = setTimer();
+						$('.window').on('mouseenter', function () {
+							window.clearInterval(timerId);
+						})
+						$('.window').on('mouseleave', function () {
+							timerId = setTimer();
+						})
+						function setTimer() {
+							return setInterval(() => {
+								n++;
+								playSlide(n % size);
+							}, 2000)
+						}
+						function playSlide(index) {
+							allButtons.eq(index).trigger('click');
+						}
+						function activeButton($button) {
+							$button.addClass('red')
+								.siblings('.red')
+								.removeClass('red');
+						}
+					</script>
+	<!--================================= 廣告輪播 ========================================== -->
+
+
+	<!-- =============================== 抓取圖片資料 =================================== -->
+	<script>
+
+		$(document).ready(function getAllPtoto(){
+			
+			$.ajax({
+				url:$("#contextRoot").val() +"/shopCenterProductAds.controller",
+				type:"post",
+				success:function(productAds){
+
+					$("#img1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_A);
+					$("#img2").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_B);
+					$("#img3").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_C);
+					$("#img4").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_D);
+
+				}
+			})
+		}
+	)
+	</script>
+	<!-- ================================================================================= -->
 
 
 
@@ -374,13 +468,19 @@ button {
 
 											<a href="" class="social-info"> <span class="ti-bag"></span>
 												<p class="hover-text">加入購物車</p>
-											</a> <a href="" class="social-info"> <span
+											</a>
+											
+											 <a id="addWishList" href="insertProductToWishList?productId=${prod.id}&memberId=101" class="social-info"> <span
 												class="lnr lnr-heart"></span>
 												<p class="hover-text">加入願望清單</p>
-											</a> <a href="" class="social-info"> <span
-												class="lnr lnr-sync"></span>
-												<p class="hover-text">比較</p>
-											</a> <a
+											</a>
+											
+<!-- 											 <a href="" class="social-info"> <span -->
+<!-- 												class="lnr lnr-sync"></span> -->
+<!-- 												<p class="hover-text">比較</p> -->
+<!-- 											</a> -->
+											
+											 <a
 												href="/Nice_eCommerce/getOneProductShop${prod.id}"
 												class="social-info"> <span class="lnr lnr-move"></span>
 												<p class="hover-text">更多商品資訊</p>
@@ -644,6 +744,9 @@ button {
 		})
 
 	</script>
+
+
+
 
 
 

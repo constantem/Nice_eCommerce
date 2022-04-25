@@ -219,6 +219,98 @@ figure img {
 		<!-- 	為了讓body內也能使用contextRoot的值 -->
 		<input type="hidden" id="contextRoot"
 		value="${pageContext.request.contextPath}">
+		<!-- Start Banner Area -->
+
+	<section class="banner-area organic-breadcrumb">
+
+		<!-- photo size 1280 * 533 -->
+		<div class="window" align='Center'>
+		
+			<div class="images" id="images">
+				<img id="img1" src="">
+				<img id="img2" src="">
+				<img id="img3" src="">
+				<img id="img4" src="">
+			</div>
+			
+
+			<span id="buttons">
+				<button></button>
+				<button></button>
+				<button></button>
+				<button></button>
+			</span>
+			
+		</div>
+
+	</section>
+
+	<!-- End Banner Area -->
+
+
+	<!--=================================廣告輪播========================================== -->
+
+	<script>
+						var allButtons = $('#buttons > button');
+						for (let i = 0; i < allButtons.length; i++) {
+							$(allButtons[i]).on('click', function (ev) {
+								var index = $(ev.currentTarget).index();
+								var npx = index * -800;
+								$('#images').css({
+									transform: 'translateX(' + npx + 'px)'
+								});
+								n = index;
+								activeButton(allButtons.eq(n))
+							});
+						}
+						var n = 0;
+						var size = allButtons.length;
+						var timerId = setTimer();
+						$('.window').on('mouseenter', function () {
+							window.clearInterval(timerId);
+						})
+						$('.window').on('mouseleave', function () {
+							timerId = setTimer();
+						})
+						function setTimer() {
+							return setInterval(() => {
+								n++;
+								playSlide(n % size);
+							}, 2000)
+						}
+						function playSlide(index) {
+							allButtons.eq(index).trigger('click');
+						}
+						function activeButton($button) {
+							$button.addClass('red')
+								.siblings('.red')
+								.removeClass('red');
+						}
+					</script>
+	<!--================================= 廣告輪播 ========================================== -->
+
+
+	<!-- =============================== 抓取圖片資料 =================================== -->
+	<script>
+
+		$(document).ready(function getAllPtoto(){
+			
+			$.ajax({
+				url:$("#contextRoot").val() +"/shopCenterProductAds.controller",
+				type:"post",
+				success:function(productAds){
+
+					$("#img1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_A);
+					$("#img2").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_B);
+					$("#img3").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_C);
+					$("#img4").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_D);
+
+				}
+			})
+		}
+	)
+	</script>
+	<!-- ================================================================================= -->
 
 
 
@@ -311,8 +403,10 @@ figure img {
 							
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" id="btnCart" href="#">加入購物車</a> <a
-								class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							<a class="primary-btn" id="btnCart" href="#">加入購物車</a>
+							
+<!-- 							加入願望清單 -->
+							 <a id="addWishList" class="icon_btn" href="${contextRoot}/insertProductToWishListInSingleProduct?productId=${pdVal.id}&memberId=101"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -471,7 +565,7 @@ figure img {
 								<div class="col-6">
 									<div class="box_total">
 										<h5>顧客評論</h5>
-										<h4>5.0</h4>
+										<h4 id="scoreAvg"></h4>
 										<h6>(03 則評論)</h6>
 									</div>
 								</div>
@@ -982,11 +1076,11 @@ figure img {
 								function sentComment(){
 									$("#commentForm").submit();
 								}
-							
+										
 					</script>
 
 				
-			<!--================================= ajax 取得評論/顯示分數及對應顯示星號 ==================================-->
+			<!--================================= ajax 取得評論/顯示平均分數及對應顯示星號 ==================================-->
 
 					<script>
 
@@ -1008,12 +1102,13 @@ figure img {
 										$("#prodComment"+ (index+1)).text(pdComment.productComment)
 										$("#commentDate"+ (index+1)).text(pdComment.createdAt)
 
+
 					
 										//第一則評論
 											$('#scoreBox').empty();
 											var sc1 = $("#score1").text();
 											
-
+										
 											if(sc1 === "5"){
 												let getScore1 =  '<i class="fa fa-star"></i>'
 																+'<i class="fa fa-star"></i>'
@@ -1106,6 +1201,11 @@ figure img {
 												let getScore3 =  '<i class="fa fa-star"></i>';		
 												$("#scoreBox2").append(getScore3);		
 											}
+
+											//顧客評論平均分數
+											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
+											var avgScore = (Math.round(totalScore/3))
+											$("#scoreAvg").text(avgScore + '.0')	
 									})
 								}
 							})

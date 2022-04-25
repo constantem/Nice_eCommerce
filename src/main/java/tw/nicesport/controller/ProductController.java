@@ -313,7 +313,6 @@ public class ProductController {
 		
 		
 		
-		
 		//上傳圖片方法
 		private String saveFile(MultipartFile file){
 			

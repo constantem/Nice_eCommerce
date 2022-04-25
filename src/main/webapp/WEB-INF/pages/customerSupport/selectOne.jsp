@@ -20,7 +20,7 @@
 <div class="card">
 <div class="card-header">客服表單</div>
 <div class="card-body">
-<h1>查詢單筆資料</h1>
+<h1>以下是您的表單紀錄，請妥善保存</h1>
 	<table border="1">
 		<tr style="background-color: #a8fefa">
 			<th>Id

@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <%-- <jsp:include page="layout/default.jsp"/>     --%>
 <!--script>
 function confirm(){
@@ -54,7 +55,7 @@ function confirm(){
 請選擇方便連絡時段(必選):	<input type="checkbox" name="preferedContactTime"
 								value="上午">上午
 					<input type="checkbox" name="preferedContactTime" value="下午">下午<br>
-							<input type="submit" name="submit" value="送出表單">
+							<input type="submit" name="submit" value="送出表單" onclick="SendMail()">
 						</form:form>
 					</div>
 
@@ -64,6 +65,17 @@ function confirm(){
 
 		</div>
 	</div>
+	<!-- 引入jquery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+function SendMail(){
+	$.ajax({
+		url:'${contextRoot}/message/selectOne',
+		type:'GET'
+		
+	});
+}
 
+</script>
 </body>
 </html>

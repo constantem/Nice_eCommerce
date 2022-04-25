@@ -59,7 +59,7 @@ public class MemberController {
 	@GetMapping("/member/form")
 	public String memberForm(Model model) {
 		model.addAttribute("member", new Member());
-		return "member/form";
+		return "member/Test";
 	}
 
 	@RequestMapping("/member/add")

@@ -112,25 +112,27 @@
                     <h2>你是忘記了還是害怕想起來? <a href="#">要進來了喔</a></h2>
                 </div>
 	                <p>如果你忘記了，那讓我們來新增你的記憶，如果你只是害怕想起來，那讓我們來幫助你吧!</p>
-                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="name" name="name">
-                        <span class="placeholder" data-placeholder="Username or Email"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <input type="password" class="form-control" id="password" name="password">
-                        <span class="placeholder" data-placeholder="Password"></span>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <button type="submit" value="submit" class="primary-btn">login</button>
-                        <div class="creat_account">
-                            <input type="checkbox" id="f-option" name="selector">
-                            <label for="f-option">會記得你的</label>
-                        </div>
-                        <a class="lost_pass" href="#">忘記密碼?Are you 87?</a>
-                    </div>
-                </form>
+<%--                 <form class="row contact_form" action="#" method="post" novalidate="novalidate"> --%>
+<!--                     <div class="col-md-6 form-group p_star"> -->
+<!--                         <input type="text" class="form-control" id="name" name="name"> -->
+<!--                         <span class="placeholder" data-placeholder="Username or Email"></span> -->
+<!--                     </div> -->
+<!--                     <div class="col-md-6 form-group p_star"> -->
+<!--                         <input type="password" class="form-control" id="password" name="password"> -->
+<!--                         <span class="placeholder" data-placeholder="Password"></span> -->
+<!--                     </div> -->
+<!--                     <div class="col-md-12 form-group"> -->
+<!--                         <button type="submit" value="submit" class="primary-btn">login</button> -->
+<!--                         <div class="creat_account"> -->
+<!--                             <input type="checkbox" id="f-option" name="selector"> -->
+<!--                             <label for="f-option">會記得你的</label> -->
+<!--                         </div> -->
+<!--                         <a class="lost_pass" href="#">忘記密碼?Are you 87?</a> -->
+<!--                     </div> -->
+<%--                 </form> --%>
             </div>
+            
+		<!-- 註冊表單 -->
             <div class="billing_details">
                 <div class="row">
                     <div class="col-lg-8">
@@ -138,45 +140,45 @@
                         <form class="row contact_form" action="${contextRoot}/member/registerAdd" method="post" novalidate="novalidate">
                         
                         	<div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="username" name="username">
-                                <span class="placeholder" data-placeholder="Username"></span>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                                <span class="placeholder"></span>
                             </div>
                         
                         	<div class="col-md-6 form-group p_star">
-                                <input type="password" class="form-control" id="password" name="password">
-                                <span class="placeholder" data-placeholder="Password"></span>
+                                <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                                <span class="placeholder"></span>
                             </div>
                         
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="lastname" name="lastname">
-                                <span class="placeholder" data-placeholder="Last name"></span>
+                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name">
+                                <span class="placeholder"></span>
                             </div>
                             
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="firstname" name="firstname">
-                                <span class="placeholder" data-placeholder="First name"></span>
+                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name">
+                                <span class="placeholder"></span>
                             </div>
                             
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="phone" name="phone">
-                                <span class="placeholder" data-placeholder="Phone"></span>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone">
+                                <span class="placeholder"></span>
                             </div>
                             
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="email">
-                                <span class="placeholder" data-placeholder="Email"></span>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                                <span class="placeholder"></span>
                             </div>
                         
                        		<div class="col-md-12 form-group p_star">
-                                <label class="label">性別: 
-				        	 <input type="radio" id="gender" name="gender" value="男">男
-				        	 <input type="radio" id="gender" name="gender" value="女">女
-				        	 </label>
+<!--                                 <label class="label">性別: -->
+<!-- 				        	 <input type="radio" id="gender" name="gender" value="男">男 -->
+				        	 <input type="text" class="form-control" id="gender" name="gender" placeholder="Gender">
+<!-- 				        	 </label> -->
                             </div>
                         
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="address" name="address">
-                                <span class="placeholder" data-placeholder="Address"></span>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                                <span class="placeholder"></span>
                             </div>
                             
                             <div class="col-md-12 form-group">
@@ -184,23 +186,26 @@
                             </div>                           
                             
                             <hr>                             
-
-<!-- 							<div class="col-md-12 form-group"> -->
-<!-- 		                        <button type="submit" value="submit" class="primary-btn">註冊</button> -->
-<!-- 		                        <div class="creat_account">                            																			 -->
-<!-- 								</div> -->
-								
-								<div class="col-md-12 form-group">
-		            			<button type="submit" value="submit" class="primary-btn" id="register"> 一鍵註冊</button>
-		             			<div class="creat_account">   
-		             			</div>                         																					            		
-		          			</div>
-		          			</div>						
-						</form>					
-                    </div>
+					
+					<!-- 按鍵 -->				          									
+						
+						<div class="col-md-12 form-group">	
+            				<button type="submit" value="submit" class="primary-btn">註冊</button>
+            			<div class="creat_account"> 
+            			</div>
+            			</div>	
+            				</form>
+            			<div class="col-md-12 form-group">
+            				<button type="submit" class="primary-btn" id="register"> 一鍵輸入</button>	
+             			<div class="creat_account">   
+         				</div>      				
+                   		</div>
+                		</div>
+                   		
+          			</div>
 				</div>
 			</div>
-		</div>
+		
 	</section>
 		
 		<!-- 原核心內容的 section 結束 -->
@@ -228,7 +233,7 @@
 	<!-- 一鍵註冊 -->
 	<script type="text/javascript">
 		$("#register").click(function(){
-			$("#username").attr("value","diamond");
+			$("#username").attr("value","diamond123");
 			$("#password").attr("value","testtest");
 			$("#lastname").attr("value","安安");
 			$("#firstname").attr("value","你好");

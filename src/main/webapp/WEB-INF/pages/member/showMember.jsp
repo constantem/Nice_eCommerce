@@ -139,6 +139,24 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<div class="row justify-content-center"> 
+		<div class="col-9">
+ 				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> 
+ 					<c:choose> 
+ 						<c:when test="${page.number !=pageNumber-1 }">
+ 							<a href="${contextRoot}/member/showAllResult?p=${pageNumber}"><c:out 
+ 									value="${pageNumber}"></c:out></a> 
+						</c:when> 
+ 						<c:otherwise> 
+ 							<c:out value="${pageNumber}"></c:out> 
+						</c:otherwise> 
+ 					</c:choose> 
+				<c:if test="${pageNumber != page.totalPages}">➣
+ 					</c:if> 
+ 				</c:forEach> 
+			</div> 
+	</div> 
 	
 	<!-- 原核心內容的 section 結束 -->
 

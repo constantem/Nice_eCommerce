@@ -60,6 +60,7 @@
 	gtag('js', new Date());
 	gtag('config', 'UA-130795909-1');
 </script>
+	
 </head>
 <body>
 
@@ -126,7 +127,7 @@
 				<c:forEach items="${page.content}" var="member">
 						<tr>
 						<td class="checkbox-cell"><label class="checkbox">
-							<input type="checkbox"> <span class="check"></span>
+							<input type="checkbox" class="checkitem"> <span class="check"></span>
 							</label></td>
 						<td class="image-cell">
 						</td>
@@ -148,7 +149,7 @@
              			</td>
 						<td>
 							<a href="${contextRoot}/member/delete?id=${member.memberid}">
-								<button class="button small red" type="button">
+								<button class="button small red" type="button" onclick="deleteMemberList()">
 									<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 								</button>
 							</a>
@@ -158,8 +159,8 @@
 				</c:forEach>
 			</table>
 			
-			<div class="row justify-content-center"> 
-		<div class="col-9">
+		<div class="row justify-content-center"> 
+			<div class="col-9">
  				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> 
  					<c:choose> 
  						<c:when test="${page.number !=pageNumber-1 }">
@@ -170,7 +171,7 @@
  							<c:out value="${pageNumber}"></c:out> 
 						</c:otherwise> 
  					</c:choose> 
-				<c:if test="${pageNumber != page.totalPages}">➣
+				<c:if test="${pageNumber != page.totalPages}">❱❱
  					</c:if> 
  				</c:forEach> 
 			</div> 
@@ -248,6 +249,34 @@
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
+
+	<script>
+		$("#checkall").click(function(){
+			$(".checkitem").prop("checked", $(this).prop("checked"));
+		});
+
+		$(document).on("click", ".checkitem", function(){
+			var flag = $(".checkitem:checked").length == $(".checkitem").length;
+			$("checkall").prop("checked", flag);
+		});
+
+		function deleteMemberList(){
+			var memberlist ="";
+			var checkboxs =document.querySelectorAll("input[type=checkbox]:checked")
+
+			for(var i = 1; i < checkboxs.length; i++){
+				memberlist += "," + checkboxs[i].value;
+			}
+
+			if(confirm("刪除嗎嗎嗎")){
+				$.ajax({
+					url:"${contextRoot}/member/delete",
+					
+				})
+			}
+		}
+	</script>
+
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
@@ -256,6 +285,7 @@
 	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 	<link rel="stylesheet"
 		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
 
 </body>
 </html>

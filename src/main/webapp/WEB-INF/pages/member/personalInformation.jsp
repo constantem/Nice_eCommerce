@@ -44,6 +44,12 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	<style type="text/css">
+	.t1{
+	margin:auto;
+	width:250px;
+	}
+	</style>
 </head>
 
 <body>
@@ -118,6 +124,7 @@
 	<!-- End banner Area -->
 
 	<!-- Start category Area -->
+	<div class="t1">
 	<form action="${contextRoot}/member/showOneResult" method="post">
 	
 	<div class="field">
@@ -208,6 +215,7 @@
     </div>
 	
 	</form>
+	</div>
 
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />

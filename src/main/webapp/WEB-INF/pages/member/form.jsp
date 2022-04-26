@@ -159,28 +159,24 @@
 						
 			<!-- 欄位5 -->
 			<div class="field">
-			         <label class="label">生日:</label>
+		         <label class="label">生日:</label>
 			        
-			         <div class="control">
-			         ${member.birthdate}
-			        <form:input path="birthdate" />
-				  </div>
-				  <p class="help">
+		         <div class="control">
+		         ${member.birthdate}
+		         <form:input type="date" path="birthdate" />
+				 </div>
+				 <p class="help">
 				    
-				  </p>
+				 </p>
 				</div>
 										
 			<!-- 欄位6 -->
 			<div class="field">
-			         <label class="label">性別: 
-        	 <select>
-					<option>男</option>
-					<option>女</option>
-			</select></label>
-			        
-			         <div class="control">
-<%-- 			         ${member.gender} --%>
-<%-- 			         <form:input path="gender" />  --%>
+		         <label class="label">性別: 
+        	 <input type="radio" name="gender" value="男">男
+        	 <input type="radio" name="gender" value="女">女
+       	 		</label> 
+	      		  <div class="control">
 				  </div>
 				  <p class="help">
 				    
@@ -230,10 +226,12 @@
 		            <button type="submit" class="button green">
 		              申請
 		            </button>
-		          </div>					
-<%-- 			<form:button value="Send"></form:button> --%>
-		</form:form>
-	
+		          </div>	
+		        </div>				
+	        </div>
+        </div>
+	</form:form>
+</section>
 		
 		<!-- 原核心內容的 section 結束 -->
 

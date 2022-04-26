@@ -59,7 +59,7 @@ public class MemberController {
 	@GetMapping("/member/form")
 	public String memberForm(Model model) {
 		model.addAttribute("member", new Member());
-		return "member/form";
+		return "member/Test";
 	}
 
 	@RequestMapping("/member/add")
@@ -84,7 +84,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/showOneResult")
-	public String showOneResult(Model model, @RequestParam(name = "memberid") Integer memberid) {
+	public String showOneResult(Model model, Integer memberid) {
 
 		Member member = memberService.findById(memberid);
 		model.addAttribute("member", member);
@@ -138,28 +138,41 @@ public class MemberController {
 		return mav;
 	}
 	
-//	@PostMapping("/api/postMember")
-//	@ResponseBody
-//	public List<Member> postMemberApi(@RequestBody MemberDto dto) {
-//
-//		String text = dto.getMem();
-//
-//		Member member = new Member();
-//		member.setMember_id(null);
-//		memberService.save(member);
-//
-//		Page<Member> page = memberService.findByPage(1);
-//
-//		List<Member> list = page.getContent();
-//
-//		return list;
-//	}
 
-//	@ResponseBody
-//	public List<Member> showSearch(@RequestParam(value="key") String key, Model model){
-//		logger.info("key:" + key);
-//		List<Member> list = memberService.searchMembers(key);
-//		logger.info("查詢結果:" + list.size());
-//		return list;
-//	}
+	// 模糊搜尋
+	@GetMapping("member/findAllByNameLike")
+	public ModelAndView findAllByNameLike(ModelAndView mav, @RequestParam("specificUsername") String specificUsername){
+		System.out.println("============================>"+specificUsername);
+		List<Member> allMem = memberService.findByUsernameContaining(specificUsername);
+		mav.getModel().put("allMem", allMem);
+		
+		mav.setViewName("member/showMember");
+		
+		return mav;
+	}
+	
+	// 前台個人資料
+	@RequestMapping("member/personal")
+	public String showPersonalInformation(Model model) {
+		List<Member> member = memberService.queryAll();
+		model.addAttribute("member", member);
+		return "member/personalInformation";
+	}
+	
+	// 前台註冊
+	@GetMapping("/member/register")
+	public String memberRegister(Model model) {
+		model.addAttribute("member", new Member());
+		return "member/register";
+	}
+
+	@RequestMapping("/member/registerAdd")
+	public ModelAndView register(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
+
+		memberService.save(member);
+
+		mav.setViewName("member/registerSuccess");
+
+		return mav;
+	}
 }

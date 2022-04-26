@@ -11,13 +11,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JavaMail {
 	
 	private String userName = "yutoulin023@gmail.com"; // 寄件者信箱
 	private String password = "ypimfrpzhsxqqhxf"; // 寄件者密碼
 	private String customer = "yutoulin023@gmail.com"; // 收件者郵箱
 	private String subject = "客服系統回信"; // 標題
-	private String txt = "<h1>感謝您的來信，我們會盡快與您聯絡</h1>"; // 內容
+	private String txt = "<h1>感謝您的來信，我們會盡快與您聯絡，以下是您的表單資訊</h1>"; // 內容
 	
 	public void SendMail() {
 		// ---------------------------------------------------------連線設定

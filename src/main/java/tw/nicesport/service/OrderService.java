@@ -11,12 +11,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import tw.nicesport.model.OrdersBean;
-import tw.nicesport.model.WorkOedersRepository;
+import tw.nicesport.model.OrdersRepository;
 @Service
-public class WorkOrderService {
+public class OrderService {
 
 	@Autowired
-	private WorkOedersRepository workOrdersDao;
+	private OrdersRepository workOrdersDao;
 
 	// insert資料
 	public void insert(OrdersBean ordersBean) {

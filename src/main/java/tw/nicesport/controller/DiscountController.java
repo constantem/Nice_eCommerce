@@ -1,6 +1,8 @@
 package tw.nicesport.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,10 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tw.nicesport.model.Course;
 import tw.nicesport.model.Discount;
 import tw.nicesport.service.DiscountService;
 
@@ -59,6 +65,16 @@ public class DiscountController {
 		return "/discount/viewDiscount";
 	}
 	
+//	@GetMapping(value = "/discount/get/{id}")
+//	public Discount getCustomerById(@PathVariable Integer id) {
+//		Discount responseDis = discountService.findById(id);
+//		
+//		if(responseDis.isPresent()) {
+//			return responseDis.get();
+//		}
+//		return null;
+//	}
+	
 	@GetMapping("/discount/viewDiscount")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<Discount> page = discountService.findByPage(pageNumber);
@@ -67,6 +83,22 @@ public class DiscountController {
 		mav.setViewName("/discount/viewDiscount");
 		
 		return mav;
+	}
+	
+	@GetMapping("//")
+	public ModelAndView findAllAds(ModelAndView mav)  {
+		List<Discount> discounts = discountService.findAllMessages();
+		mav.getModel().put("discounts", discounts);
+		mav.setViewName("index");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/discount/showADs-front")
+	public String showAllADsInFront(Model model) {		
+		List<Discount> discounts = discountService.queryAll();
+		model.addAttribute("discounts", discounts);
+		return "discount/showADs-front";
 	}
 	
 	@GetMapping("/discount/showEditDiscount")

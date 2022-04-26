@@ -25,7 +25,13 @@
 				<li class="nav-item active"><a class="nav-link" href="${contextRoot}/">首頁</a></li>
 				
 				<!-- 2. 活動 -->
-				<li class="nav-item"><a class="nav-link" href="">好康優惠</a></li>
+				<li class="nav-item submenu dropdown">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+					 aria-expanded="false">好康優惠</a>
+					<ul class="dropdown-menu">
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/discount/showADs-front">活動一覽</a></li>
+						<li class="nav-item"><a class="nav-link" href="null">null</a></li>
+					</ul>
 				
 				<!-- 3. 商城 -->
 				<li class="nav-item submenu dropdown">
@@ -103,7 +109,6 @@
 								</a>
 							</form>
 						</li>
-
 					</ul>
 				</li>
 				

@@ -2,12 +2,16 @@ package tw.nicesport.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -16,11 +20,20 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="member")
+@JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class, 
+	    property = "memberid",
+	    scope = Integer.class
+)
 public class Member {
 
 	// 對應欄位
@@ -93,11 +106,13 @@ public class Member {
 	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 	
+
 	@OneToMany(mappedBy = "member")
 	@JsonIgnore
 	private Set<ProductWishListBean> productMyWishListSet = new HashSet<>();
 	
-	
+	@OneToOne(cascade = CascadeType.ALL,mappedBy="member")
+	private CartBean cart;
 
 	// 建構子
 
@@ -236,4 +251,13 @@ public class Member {
 	public void setProductMyWishListSet(Set<ProductWishListBean> productMyWishListSet) {
 		this.productMyWishListSet = productMyWishListSet;
 	}
+
+	public CartBean getCart() {
+		return cart;
+	}
+
+	public void setCart(CartBean cart) {
+		this.cart = cart;
+	}
+	
 }

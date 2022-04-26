@@ -49,7 +49,8 @@
 					 aria-expanded="false">會員中心</a>
 					<ul class="dropdown-menu">
 						<li class="nav-item"><a class="nav-link" href="">登入</a></li>
-						<li class="nav-item"><a class="nav-link" href="">個人資料</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/member/personal">個人資料</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/member/register">註冊</a></li>
 						<li class="nav-item"><a class="nav-link" href="">我的訂單</a></li>
 						<li class="nav-item"><a class="nav-link" href="">我的收藏</a></li>
 						<li class="nav-item"><a class="nav-link" href="">我的優惠券</a></li>

@@ -1,5 +1,6 @@
 package tw.nicesport.model;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,9 +20,19 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity @Table(name="Room")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class, 
+    property = "roomNo", 
+    scope = String.class
+)
 public class Room {
 	
 	///////////
@@ -39,11 +50,15 @@ public class Room {
 	@Column(name="roomName")
 	private String roomName;
 		
-	@Column(name="createdAt") @Transient
-	private String createdAt;
+	@Column(name="createdAt", insertable = false, updatable = false)
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
+	private LocalDateTime createdAt;
 	
 	@Column(name="modifiedAt")
-	private String modifiedAt;
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
+	private LocalDateTime modifiedAt;
 
 	// DB table FK
 	
@@ -73,7 +88,7 @@ public class Room {
 				CascadeType.REFRESH
 			}
 	)
-	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
+//	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<Course> courses = new HashSet<>();
 
 	///////////
@@ -111,19 +126,19 @@ public class Room {
 		this.roomSizeType_id = roomSizeType_id;
 	}
 
-	public String getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getModifiedAt() {
+	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
 
-	public void setModifiedAt(String modifiedAt) {
+	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 

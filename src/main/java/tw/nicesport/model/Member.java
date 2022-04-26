@@ -16,11 +16,19 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Table;
 
 @Entity
 @Table(name="member")
+@JsonIdentityInfo( // 轉 JSON 時, A 中可以有 B, 但此 B 中不能再有 A 的設定
+    generator = ObjectIdGenerators.PropertyGenerator.class, 
+    property = "memberid", // 這邊要跟 java bean 的主鍵屬性一樣
+    scope = Integer.class
+)
 public class Member {
 
 	// 對應欄位
@@ -90,7 +98,7 @@ public class Member {
 	private Set<OrdersBean> ordersBeanSet = new HashSet<OrdersBean>();
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
-	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
+//	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 
 	// 建構子

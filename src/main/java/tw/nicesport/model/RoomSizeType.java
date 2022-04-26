@@ -1,5 +1,6 @@
 package tw.nicesport.model;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,9 +18,19 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity @Table(name="RoomSizeType")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class, 
+    property = "id", 
+    scope = Integer.class
+)
 public class RoomSizeType {
 
 	///////////
@@ -29,8 +40,8 @@ public class RoomSizeType {
 	// 主鍵
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="roomSizeType_id")
-	private Integer roomSizeType_id;
+	@Column(name="id")
+	private Integer id;
 	
 	// 其他欄位
 	
@@ -40,11 +51,15 @@ public class RoomSizeType {
 	@Column(name="roomCapacity")
 	private Integer roomCapacity;
 	
-	@Column(name="createdAt") @Transient
-	private String createdAt;
+	@Column(name="createdAt", insertable = false, updatable = false)
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
+	private LocalDateTime createdAt;
 	
 	@Column(name="modifiedAt")
-	private String modifiedAt;
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
+	private LocalDateTime modifiedAt;
 	
 	// associated entity
 	
@@ -57,7 +72,7 @@ public class RoomSizeType {
 			CascadeType.REFRESH
 		}
 	)
-	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
+//	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<Room> rooms = new HashSet<>();
 	
 	///////////
@@ -71,12 +86,12 @@ public class RoomSizeType {
 	// getter,setter //
 	///////////////////
 	
-	public Integer getRoomSizeType_id() {
-		return roomSizeType_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setRoomSizeType_id(Integer roomSizeType_id) {
-		this.roomSizeType_id = roomSizeType_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -95,19 +110,19 @@ public class RoomSizeType {
 		this.roomCapacity = roomCapacity;
 	}
 
-	public String getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getModifiedAt() {
+	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
 
-	public void setModifiedAt(String modifiedAt) {
+	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 

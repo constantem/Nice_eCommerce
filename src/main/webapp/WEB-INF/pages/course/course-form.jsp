@@ -86,8 +86,8 @@
 					
 					console.log(autoInputMapObj.coach);
 					const coachAutoSelected = JSON.parse(autoInputMapObj.coach);
-					$("#coach_id")
-						.find("option[value="+coachAutoSelected.coach_id+"]").prop("selected",true)
+					$("#coachId")
+						.find("option[value="+coachAutoSelected.id+"]").prop("selected",true)
 						.siblings().prop("selected",false);
 
 					const roomAutoSelected = JSON.parse(autoInputMapObj.room);
@@ -127,93 +127,9 @@
 
 	<div id="app">
 
-		<nav id="navbar-main" class="navbar is-fixed-top">
-			<div class="navbar-brand">
-				<a class="navbar-item mobile-aside-button"> <span class="icon"><i
-						class="mdi mdi-forwardburger mdi-24px"></i></span>
-				</a>
-				<div class="navbar-item">
-					<div class="control">
-						<input placeholder="系統建置中..." class="input">
-					</div>
-				</div>
-			</div>
-			<div class="navbar-brand is-right">
-				<a class="navbar-item --jb-navbar-menu-toggle"
-					data-target="navbar-menu"> <span class="icon"><i
-						class="mdi mdi-dots-vertical mdi-24px"></i></span>
-				</a>
-			</div>
-			<div class="navbar-menu" id="navbar-menu">
-				<div class="navbar-end">
-					<div class="navbar-item dropdown has-divider has-user-avatar">
-						<a class="navbar-link">
-							<div class="user-avatar">
-								<img src="https://avatars.dicebear.com/v2/initials/john-doe.svg"
-									alt="John Doe" class="rounded-full">
-							</div>
-							<div class="is-user-name">
-								<span>施工中</span>
-							</div> <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-						</a>
-						<div class="navbar-dropdown">
-							<a href="#" class="navbar-item active"> <span class="icon"><i
-									class="mdi mdi-account"></i></span> <span>施工中</span>
-							</a> <a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-settings"></i></span> <span>施工中</span>
-							</a> <a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-email"></i></span> <span>施工中</span>
-							</a>
-							<hr class="navbar-divider">
-							<a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-logout"></i></span> <span>施工中</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-
-		<aside class="aside is-placed-left is-expanded">
-			<div class="aside-tools">
-				<div>
-					康康運動 <b class="font-black">後台</b>
-				</div>
-			</div>
-			<div class="menu is-menu-main">
-				<p class="menu-label">總覽</p>
-				<ul class="menu-list">
-					<li class="--set-active-index-html"><a
-						href="${pageContext.request.contextPath}/"> <span class="icon"><i
-								class="mdi mdi-desktop-mac"></i></span> <span class="menu-item-label">管理系統總覽</span>
-					</a></li>
-				</ul>
-				<p class="menu-label">各管理系統</p>
-				<ul class="menu-list">
-					<li><a href="${pageContext.request.contextPath}/login/member">
-							<span class="icon"><i class="mdi mdi-account-circle"></i></span>
-							<span class="menu-item-label">會員登入</span>
-					</a></li>
-					<li><a href="${pageContext.request.contextPath}/login/employee">
-							<span class="icon"><i class="mdi mdi-account-circle"></i></span>
-							<span class="menu-item-label">員工登入</span>
-					</a></li>
-					<li class="active"><a class="dropdown"> <span class="icon"><i
-								class="mdi mdi-view-list"></i></span> <span class="menu-item-label">課程管理系統</span>
-							<span class="icon"><i class="mdi mdi-plus"></i></span>
-					</a>
-						<ul>
-							<li class="active"><a
-								href="${pageContext.request.contextPath}/course/form"> <span>新增課程</span>
-							</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/course/show/all"> <span>課程列表</span>
-							</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</aside>
-
+	<!-- 插入上導覽列與左導覽列 -->
+	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+	
 		<section class="is-title-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
@@ -231,7 +147,9 @@
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">新增課程</h1>
-				<button class="button light">施工中</button>
+				<a class="button light" href="${contextRoot}/course/show/all">
+              		<span>回列表</span>
+            	</a>
 			</div>
 		</section>
 
@@ -297,12 +215,12 @@
 
 						<!-- select 下拉選項1 -->
 						<div class="field">
-							<form:label class="label" path="coach_id">教練</form:label>
+							<form:label class="label" path="coachId">教練</form:label>
 							<div class="control">
 								<div class="select">
-									<form:select id="coach_id" path="coach_id">
+									<form:select id="coachId" path="coachId">
 										<c:forEach items="${coachs}" var="coach">
-											<form:option value="${coach.coach_id}">${coach.lastName}${coach.firstName}</form:option>
+											<form:option value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
 										</c:forEach>
 									</form:select>
 								</div>

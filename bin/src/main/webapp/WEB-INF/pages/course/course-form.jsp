@@ -86,8 +86,8 @@
 					
 					console.log(autoInputMapObj.coach);
 					const coachAutoSelected = JSON.parse(autoInputMapObj.coach);
-					$("#coach_id")
-						.find("option[value="+coachAutoSelected.coach_id+"]").prop("selected",true)
+					$("#id")
+						.find("option[value="+coachAutoSelected.id+"]").prop("selected",true)
 						.siblings().prop("selected",false);
 
 					const roomAutoSelected = JSON.parse(autoInputMapObj.room);
@@ -297,12 +297,12 @@
 
 						<!-- select 下拉選項1 -->
 						<div class="field">
-							<form:label class="label" path="coach_id">教練</form:label>
+							<form:label class="label" path="id">教練</form:label>
 							<div class="control">
 								<div class="select">
-									<form:select id="coach_id" path="coach_id">
+									<form:select id="id" path="id">
 										<c:forEach items="${coachs}" var="coach">
-											<form:option value="${coach.coach_id}">${coach.lastName}${coach.firstName}</form:option>
+											<form:option value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
 										</c:forEach>
 									</form:select>
 								</div>

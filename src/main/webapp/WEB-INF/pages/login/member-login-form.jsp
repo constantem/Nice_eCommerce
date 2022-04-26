@@ -21,7 +21,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>登入</title>
 
 	<!--
 		CSS
@@ -34,10 +34,29 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function() {
+			$("#first").click(function() {
+				$.ajax({
+					url: $("#contextRoot").val() + "/userLoginAutoInputFirst",
+					success: function (member) {
+						$("#username").val(member.username);
+						$("#password").val(member.password);
+					}
+				});
+			});
+		});
+	</script>
 </head>
 
 <body>
-
+	<!-- variable -->
+	<input type="hidden" id="contextRoot" value="${contextRoot}">
+	
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -61,7 +80,7 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login/Register</h1>
+					<h1>登入/註冊</h1>
 					<nav class="d-flex align-items-center">
 						<a href="${contextRoot}/">首頁<span class="lnr lnr-arrow-right"></span></a>
 						<a href="#">登入/註冊</a>
@@ -80,27 +99,33 @@
 					<div class="login_box_img">
 						<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/login.jpg" alt="">
 						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							<h4>還不是會員嗎?</h4>
+							<p>別猶豫，趕緊</p>
 							<a class="primary-btn" href="#">會員註冊</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Log in to enter</h3>
+						<h3>已是會員</h3>
 						<c:if test="${param.error!=null}">
 							<span style="color:red;">查無帳號或密碼</span>
 						</c:if>
+						<c:if test="${param.logout!=null}">
+							<span style="color:orange;">登出狀態</span>
+						</c:if>
 						<!-- form:form 以支援 security defense -->
-						<form:form class="row login_form" action="${contextRoot}/login/member/authenticate" method="post" id="contactForm" novalidate="novalidate">
+						<form class="row login_form" 
+							action="${contextRoot}/userLoginAuthenticate" 
+							method="post">
+							
 							<div class="col-md-12 form-group">
 								<!-- name="username" 以搭配 spring security -->
-								<input type="text" class="form-control" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'">
 							</div>
 							<div class="col-md-12 form-group">
 								<!-- name="password" 以搭配 spring security -->
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="password" class="form-control" id="password" name="password" placeholder="密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
@@ -108,11 +133,18 @@
 									<label for="f-option2">記住登入</label>
 								</div>
 							</div>
-							<div class="col-md-12 form-group">
-								<form:button type="submit" value="submit" class="primary-btn">登入</form:button>
-								<a href="#">忘記密碼</a>
+							
+							<!-- 登入一鍵輸入 -->
+							<div class="col-md-5 form-group">
+								<a id="first" class="genric-btn success circle">會員一</a>	
 							</div>
-						</form:form>
+							
+							<div class="col-md-12 form-group">
+											
+								<button type="submit" value="submit" class="primary-btn">登入</button>
+								<a href="#">忘記密碼？</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

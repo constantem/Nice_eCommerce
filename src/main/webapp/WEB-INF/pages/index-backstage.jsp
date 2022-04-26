@@ -81,17 +81,91 @@
 
 	<!-- 原核心內容的 section 開始 -->
 	<section class="section main-section">
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3 mb-6">
+      	
+      	<!-- 管理系統1 -->
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
               <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-              施工中...敬請期待
+              會員管理
             </p>
           </header>
           <div class="card-content">
           </div>
         </div>
+        
+        <!-- 管理系統2 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              優惠券管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
+        
+        <!-- 管理系統3 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              商品管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
+
+        <!-- 管理系統4 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              訂單管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
+
+        <!-- 管理系統5 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              課程管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
+
+        <!-- 管理系統6 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              員工管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
+
+        <!-- 管理系統7 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              客服系統
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>   
       </div>
 
     </section>

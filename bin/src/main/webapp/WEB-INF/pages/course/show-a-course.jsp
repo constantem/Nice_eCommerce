@@ -299,14 +299,14 @@
 
 						<!-- select 下拉選項1 -->
 						<div class="field">
-							<form:label class="label" path="coach_id">教練</form:label>
+							<form:label class="label" path="id">教練</form:label>
 							<div class="control">
 								<div class="select">
 									<span class="displayable">${course.coach.lastName}${course.coach.firstName}</span>
-									<form:select class="inputable" hidden="hidden" path="coach_id">
+									<form:select class="inputable" hidden="hidden" path="id">
 										<c:forEach items="${coachs}" var="coach">
 											<form:option class="inputable" hidden="hidden"
-												value="${coach.coach_id}">${coach.lastName}${coach.firstName}</form:option>
+												value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
 										</c:forEach>
 									</form:select>
 								</div>

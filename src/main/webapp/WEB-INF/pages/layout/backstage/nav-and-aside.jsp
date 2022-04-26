@@ -291,10 +291,10 @@
 </aside>
 <!-- 左導覽列結束 -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous">
-</script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
+<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
+<!-- 	crossorigin="anonymous"> -->
+<!-- </script> -->
 <script>
 	$.ajax({
 		url: $("#contextRoot").val() + "/staff/role",
@@ -303,12 +303,6 @@
 			if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
 				$(".isAuthenticatedAsStaff").show();
 				$(".notAuthenticatedAsStaff").hide();
-// 				$.ajax({
-// 					url: $("#contextRoot").val() + "/staff/name",
-// 					success: function (name) {
-						
-// 					}
-// 				});
 			} else {
 				$(".isAuthenticatedAsStaff").hide();
 				$(".notAuthenticatedAsStaff").show();

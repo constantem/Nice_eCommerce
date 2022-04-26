@@ -17,18 +17,6 @@
 <link href="${contextRoot}/resources/backstage/css/main.css"
 	rel="stylesheet" />
 
-
-<!-- <!-- CSS only -->
-<!-- <link -->
-<!-- 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" -->
-<!-- 	rel="stylesheet" -->
-<!-- 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" -->
-<!-- 	crossorigin="anonymous"> -->
-<!-- <!-- JavaScript Bundle with Popper -->
-<!-- <script -->
-<!-- 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" -->
-<!-- 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" -->
-<!-- 	crossorigin="anonymous"></script> -->
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -97,14 +85,15 @@
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 class="title">訂單資訊</h1> 
-				<small class="text-gray-500"> 訂單編號：${order.orderStatus} 目前資料庫沒有資料 </small>
-				<a href="${pageContext.request.contextPath}/orders/viewAllOrders"><button
+				<h1 class="title">訂單資訊</h1>
+				<small class="text-gray-500"> 訂單編號：${order.orderStatus}
+					目前資料庫沒有資料 </small> <a
+					href="${pageContext.request.contextPath}/orders/viewAllOrders"><button
 						class="button light">返回訂單列表</button></a>
 			</div>
 		</section>
 		<div class="container">
-				<table>
+			<table>
 				<thead>
 					<tr>
 						<th class="checkbox-cell"><label class="checkbox"> <input
@@ -118,103 +107,174 @@
 						<th>修改時間</th>
 						<th></th>
 					</tr>
-					
-				</thead>
-				<hr>
 
+				</thead>
 				<c:forEach var="OrderDetail" items="${OrderDetailSet}">
 					<tbody>
 						<tr>
 							<td class="checkbox-cell"><label class="checkbox"> <input
 									type="checkbox"> <span class="check"></span>
 							</label>
-							<td>
-							<img alt="picture"
-									src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}" width="112" /></td>
-							<td id="productName" data-label="productName" >${OrderDetail.productBean.productName}</td>
+							<td><img alt="picture"
+								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
+								width="112" /></td>
+							<td id="productName" data-label="productName">${OrderDetail.productBean.productName}</td>
 							<td id="quantity" class="quantity" data-label="quantity">${OrderDetail.quantity}</td>
 							<td id="realPrice" class="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
 							<td id="totalPrice" data-label="totalPrice">${order.totalPrice}</td>
-							<td data-label="shippingFee" class="text-gray-500">${OrderDetail.modifiedAt} 目前資料庫沒有資料</td>
+							<td data-label="shippingFee" class="text-gray-500">${OrderDetail.modifiedAt}
+								目前資料庫沒有資料</td>
 						</tr>
-						
 				</c:forEach>
 			</table>
 		</div>
-		<div class="buttons right nowrap">
 
-			<input type="hidden" value="${OrdersBean.order_id}">
- 
-			<button type="button" class="button blue" id="order_detail_btn"
-				data-bs-toggle="modal" data-bs-target="#exampleModal"
-				data-bs-whatever="@mdo">
-				<%--onclick = "findById('${OrdersBean.order_id}')"> --%>
-				<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-				<span class="icon"><i class="mdi-update"></i></span>修改訂單明細
-			</button>
-		</div>
-		<hr>
-		<div class="buttons right nowrap">
 
-			<input type="hidden" value="${OrdersBean.order_id}">
 
-			<button type="button" class="button blue" id="order_detail_btn"
-				data-bs-toggle="modal" data-bs-target="#exampleModal"
-				data-bs-whatever="@mdo">
-				<%--onclick = "findById('${OrdersBean.order_id}')"> --%>
-				<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-				<span class="icon"><i class="mdi-update"></i></span>訂單出貨
-			</button>
-		</div>
-		<hr>
+		<!-- 		<div class="buttons right nowrap"> -->
+
+		<%-- 			<input type="hidden" value="${OrdersBean.order_id}"> --%>
+
+		<!-- 			<button type="button" class="button blue" data-bs-toggle="modal" -->
+		<!-- 				data-bs-target="#exampleModal" data-bs-whatever="@mdo"> -->
+		<%-- 				onclick = "findById('${OrdersBean.order_id}')"> --%>
+		<%-- 				onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+		<!-- 				<span class="icon"><i class="mdi-update"></i></span>修改訂單明細 -->
+		<!-- 			</button> -->
+		<!-- 		</div> -->
+		<!-- 		<hr> -->
+		<!-- 		<div class="buttons right nowrap"> -->
+
+		<%-- 			<input type="hidden" value="${OrdersBean.order_id}"> --%>
+
+		<!-- 			<button type="button" class="button blue" data-bs-toggle="modal" -->
+		<!-- 				data-bs-target="#exampleModal" data-bs-whatever="@mdo"> -->
+		<%-- 				onclick = "findById('${OrdersBean.order_id}')"> --%>
+		<%-- 				onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+		<!-- 				<span class="icon"><i class="mdi-update"></i></span>訂單出貨 -->
+		<!-- 			</button> -->
+		<!-- 		</div> -->
+		<!-- 		<hr> -->
 		<!-- ==================================================================配送資料確認區================================================================== -->
-		
+
+
 		<div class="card" id="leftBOX">
 			<header class="card-header">
 				<p class="card-header-title">
 					<span class="icon"><i class="mdi mdi-account"></i></span> 配送資訊
 			</header>
-			<div class="card-content">				
-				<div class="field">
-					<label class="label">收件人</label>
-					<div class="control">
-						<small class="text-gray-900"> ${order.shipName}</small>
-					</div>
-				<div class="field">
-						<label class="label">配送地址</label>
+			<div class="card-content">
+				<!-- ==================form:form表單開始================== -->
+				<!-- 				modelAttribute 就是JavaBean-->
+				<form:form id="springForm"
+					action="${pageContext.request.contextPath}/orders/UpdateOrderShipInfo/"
+					modelAttribute="order" method="POST">
+
+					<form:input hidden="hidden" path="order_id"
+						value="${order.order_id}" />
+
+					<!-- input 收件人 -->
+					<div class="field">
+						<form:label class="label" path="shipName">收件人</form:label>
+
 						<div class="control">
-							<small class="text-gray-900"> ${order.shipPostalCode} ${order.shipAddress} </small>
+							<span class="displayable">${order.shipName}</span>
+							<form:input id="shipName" class="input inputable" hidden="hidden"
+								type="text" path="shipName" required=""
+								value="${order.shipName}" />
+						</div>
+						<p class="help">*必填</p>
+						<p class="help">
+							<form:errors style="color: red;" path="shipName" cssClass="error" />
+						</p>
+					</div>
+					<!-- input 郵遞區號 -->
+					<div class="field">
+						<form:label class="label" path="shipPostalCode">郵遞區號</form:label>
+
+						<div class="control">
+							<span class="displayable">${order.shipPostalCode}</span>
+							<form:input id="shipPostalCode" class="input inputable"
+								hidden="hidden" type="text" path="shipPostalCode"
+								value="${order.shipPostalCode}" />
+						</div>
+						<form:errors style="color: red;" path="shipPostalCode"
+							cssClass="error" />
+					</div>
+
+					<!-- input 地址 -->
+					<div class="field">
+						<form:label class="label" path="shipAddress">配送地址</form:label>
+
+						<div class="control">
+							<span class="displayable">${order.shipAddress}</span>
+							<form:input id="shipAddress" class="input inputable"
+								hidden="hidden" type="text" path="shipAddress"
+								value="${order.shipAddress}" />
+						</div>
+						<p class="help">*必填</p>
+						<p class="help">
+							<form:errors style="color: red;" path="shipAddress"
+								cssClass="error" />
+						</p>
+					</div>
+
+
+					<div class="field">
+						<label class="label">訂單狀態</label>
+						<div class="control">
+							<small class="text-gray-500"> ${order.orderStatus}
+								目前資料庫沒有資料 </small>
 						</div>
 					</div>
-				<div class="field">
-					<label class="label">訂單狀態</label>
-					<div class="control">
-						<small class="text-gray-500"> ${order.orderStatus} 目前資料庫沒有資料 </small>
-					</div>
-				</div>
-				<div class="field">
-					<label class="label">時間戳記</label>
-					<div class="control">
-						<small class="text-gray-500"> ${order.orderDate}
-							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
-						</small>
-					</div>
-					<div class="buttons right nowrap">
+					<div class="field">
+						<label class="label">時間戳記</label>
+						<div class="control">
+							<small class="text-gray-500"> ${order.orderDate}
+								</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
+							</small>
+						</div>
 
-						<input type="hidden" value="${OrdersBean.order_id}">
-	
-						<button type="button" class="button blue" id="order_detail_btn"
-							data-bs-toggle="modal" data-bs-target="#exampleModal"
-							data-bs-whatever="@mdo"
-							onclick = "updateShipInformation()">
-							<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-							<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
-						</button>
+						<!-- 						修改配送資訊 -->
+						<!-- 						判斷是否開按鈕 -->
+						<c:set var="orderStatus" scope="session" value="${order.orderStatus}" />
+						<c:if test="${orderStatus == 111}">
+<!-- 							<p> -->
+<%-- 								<c:out value="訂單狀態：已刪除僅限查閱" /> --%>
+						<!-- 						判斷是否開按鈕 -->
+							<div class="buttons right nowrap">
+
+								<input type="hidden" value="${OrdersBean.order_id}">
+
+								<button type="button" class="button blue"
+									id="order_UpdateShipInfo_btn" data-bs-toggle="modal"
+									data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+									onclick="updateShipInformation()">
+									<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+									<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
+								</button>
+
+							</div>
+						</c:if>
+						<!-- 						修改配送資訊 -->
 					</div>
-				</div>
+					<hr hidden="hidden" class="forEdit">
+					<!-- 					確認與取消修改按鈕 -->
+					<div hidden="hidden" class="field grouped forEdit">
+						<div hidden="hidden" class="control forEdit">
+							<button id="send" type="button" id="submit" class="button green">確認修改</button>
+						</div>
+
+						<div hidden="hidden" class="control forEdit">
+							<button id="cancel" type="button" class="button red">取消</button>
+						</div>
+					</div>
+					<!-- 					確認與取消修改按鈕 -->
+				</form:form>
 			</div>
 		</div>
 	</div>
+
 	<!-- ==================================================================配送資料確認區================================================================== -->
 	<!-- ==================================================================訂單確認區================================================================== -->
 	<div class="card" id="rightBOX">
@@ -223,54 +283,86 @@
 				<span class="icon"><i class="mdi mdi-account"></i></span> 訂單確認
 			</p>
 		</header>
-		
-		<div class="card-content">
-			<!-- 修改配送資訊按鈕 -->
-			<div class="buttons right nowrap">
-				<input type="hidden" value="${OrdersBean.order_id}">
-				<button type="button" class="button blue" id="order_detail_btn"
-					data-bs-toggle="modal" data-bs-target="#exampleModal"
-					data-bs-whatever="@mdo">
-					<%--onclick = "update(this.value)> 
-					<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-					<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
-				</button>
-			</div>
-			<!-- 修改配送資訊按鈕 -->
-			<!-- 運費輸入text -->
-			<div class="field">
-				<label class="label">運費</label>
-				<div class="control">
-					<input type="text" value="${order.shippingFee}" class="input is-static">
-				</div>
-			</div>
-			<!-- 運費輸入text -->
-			<!-- 總價輸入text -->
-			<div class="field">
-				<label class="label">總價</label>
-				<div class="control">
-					<input type="text" id="totalPrice" value="${order.totalPrice}" class="input is-static">
-				</div>
-			</div>
-			<!-- 總價輸入text -->
-			<hr>
-			<!-- 訂單出貨 -->
-			<div class="field">
-				<label class="label">訂單出貨</label>
-				<div class="control">
-					<select id="orderStatus">
-						<option value="">訂單狀態</option>
-						<option value="等待付款">等待付款</option>
-						<option value="已出貨">已出貨</option>
 
-					</select>
-				</div>
-			</div>
-			<!-- 訂單出貨 -->
+		<div class="card-content">
+			<!-- ==================form:form表單開始================== -->
+			<!-- 				modelAttribute 就是JavaBean-->
+			<%-- 			<form:form id="springForm" --%>
+			<%-- 				action="${pageContext.request.contextPath}/orders/UpdateOrderState/" --%>
+			<%-- 				modelAttribute="order" method="POST"> --%>
+
+			<%-- 				<form:input hidden="hidden" path="order_id" --%>
+			<%-- 					value="${order.order_id}" /> --%>
+
+			<!-- 				input 運費 -->
+			<!-- 				<div class="field"> -->
+			<%-- 					<form:label class="label" path="shippingFee">運費</form:label> --%>
+
+			<!-- 					<div class="control"> -->
+			<%-- 						<span class="displayable">${order.shippingFee}</span> --%>
+			<%-- 						<form:input id="shippingFee" class="input inputable" --%>
+			<%-- 							hidden="hidden" type="text" path="shippingFee" --%>
+			<%-- 							value="${order.shippingFee}" /> --%>
+			<!-- 					</div> -->
+			<!-- 					<p class="help">*必填</p> -->
+			<!-- 					<p class="help"> -->
+			<%-- 						<form:errors style="color: red;" path="shippingFee" --%>
+			<%-- 							cssClass="error" /> --%>
+			<!-- 					</p> -->
+			<!-- 				</div> -->
+			<!-- 				<hr> -->
+			<!-- 				訂單出貨 -->
+
+			<!-- 				<div class="field"> -->
+			<!-- 					<label class="label">訂單出貨</label> -->
+			<!-- 					<div class="control"> -->
+			<!-- 						<select id="orderStatus"> -->
+			<!-- 							<option value="">訂單狀態</option> -->
+			<!-- 							<option value="等待付款">等待付款</option> -->
+			<!-- 							<option value="已出貨">已出貨</option> -->
+
+			<!-- 						</select> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="field"> -->
+			<!-- 					<label class="label">時間戳記</label> -->
+			<!-- 					<div class="control"> -->
+			<%-- 						<small class="text-gray-500"> ${order.orderDate} --%>
+			<%-- 							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料 --%>
+			<!-- 						</small> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="buttons right nowrap"> -->
+
+			<%-- 					<input type="hidden" value="${OrdersBean.order_id}"> --%>
+
+			<!-- 					<button type="button" class="button blue" -->
+			<!-- 						id="order_UpdateShipInfo_btn" data-bs-toggle="modal" -->
+			<!-- 						data-bs-target="#exampleModal" data-bs-whatever="@mdo" -->
+			<!-- 						onclick="updateShipInformation()"> -->
+			<%-- 						onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+			<!-- 						<span class="icon"><i class="mdi-update"></i></span>修改配送資訊 -->
+			<!-- 					</button> -->
+
+			<!-- 				</div> -->
+			<!-- 				<hr hidden="hidden" class="forEdit"> -->
+			<!-- 									確認與取消修改按鈕 -->
+			<!-- 				<div hidden="hidden" class="field grouped forEdit"> -->
+			<!-- 					<div hidden="hidden" class="control forEdit"> -->
+			<!-- 						<button id="send" type="button" id="submit" class="button green">確認修改</button> -->
+			<!-- 					</div> -->
+
+			<!-- 					<div hidden="hidden" class="control forEdit"> -->
+			<!-- 						<button id="cancel" type="button" class="button red">取消</button> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 									確認與取消修改按鈕 -->
+			<%-- 			</form:form> --%>
 		</div>
 	</div>
+
 	<!-- ==================================================================訂單確認區================================================================== -->
-	</div>
+
 	<!------------------------------ JS------------------------------------------------ -->
 	<script src="${contextRoot}/resources/js/main.min.js?v=1628755089081"></script>
 	<script src="${contextRoot}/resources/js/chart.sample.js"></script>
@@ -280,24 +372,78 @@
 	<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
 	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
 	<!------------------------------ JS------------------------------------------------ -->
-	<!-- 		==========================================JavaScript============================================ -->
+
+
+	<!-- 		==========================================JavaScript區============================================ -->
 	<script>
-		function updateShipInformation()
-		{
-			alert("你好，我是一个警告框！");
+		function updateShipInformation() {
+			alert(" 請注意!擅自修改可能發生不可預期的錯誤!");
 		}
 	</script>
 	<!-- 		==========================================計算總價============================================ -->
 	<script>
-		totalPrice();
-		function totalPrice(){
-			alert($("#quantity").val())  
-			
+		function totalPrice() {
+			alert($("#quantity").val())
+
 		}
 	</script>
+	<!-- 		==========================================開放修改============================================ -->
+	<script>
+		$(document).ready(
+				function() { // Document is ready
 
+					$("#order_UpdateShipInfo_btn").click(function() {
+						$("#order_UpdateShipInfo_btn").hide();
+						$(".forEdit").show();
 
-	<!-- 		==========================================JavaScript============================================ -->
+						$("span.displayable").hide();
+						$(".inputable").show();
+						$("select").show();
+						$("option").show();
+					});
+					// 送出
+					$("#send").click(function() {
+						confirm(" 即將送出修改!! ");
+						$("#springForm").submit();
+					});
+					// 取消
+					$("#cancel").click(
+							function() {
+								$("#order_UpdateShipInfo_btn").show();
+								$(".forEdit").hide();
+
+								$.each($("input.inputable"),
+										function(index, thisInput) {
+											$(thisInput).val(
+													$(thisInput).siblings(
+															"span.displayable")
+															.text());
+										});
+
+								$.each($("select.inputable"), function(index,
+										thisSelect) {
+									const originalOption = $(thisSelect)
+											.siblings("span.displayable")
+											.text();
+									$(thisSelect).find(
+											"option:contains(" + originalOption
+													+ ")").prop("selected",
+											true).siblings().prop("selected",
+											false);
+								});
+
+								$("span.displayable").show();
+								$(".inputable").hide();
+								$("select").hide();
+								$("option").hide();
+
+							}); // end of 取消 event
+				}); // end of document ready
+	</script>
+
+	<!-- 		==========================================開放修改============================================ -->
+
+	<!-- 		==========================================JavaScript區============================================ -->
 	<!-- 		==========================================AJAX============================================ -->
 
 

@@ -59,7 +59,7 @@ public class MemberController {
 	@GetMapping("/member/form")
 	public String memberForm(Model model) {
 		model.addAttribute("member", new Member());
-		return "member/Test";
+		return "member/form";
 	}
 
 	@RequestMapping("/member/add")
@@ -152,9 +152,11 @@ public class MemberController {
 	}
 	
 	// 前台個人資料
-	@RequestMapping("member/personal")
-	public String showPersonalInformation(Model model) {
-		List<Member> member = memberService.queryAll();
+	@RequestMapping("/user/myProfileByMemberId")
+	public String showPersonalInformation(
+			@RequestParam("id") Integer memberid,
+			Model model) {
+		Member member = memberService.findById(memberid);
 		model.addAttribute("member", member);
 		return "member/personalInformation";
 	}

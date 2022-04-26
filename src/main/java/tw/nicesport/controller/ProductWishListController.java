@@ -96,8 +96,8 @@ public class ProductWishListController {
 		return productBeanList;
 	}
 	
-	@GetMapping("/findMyWishList.controller")
-	public ModelAndView findMyWishList(ModelAndView mav,@RequestParam("memberId") Integer memberId){
+	@GetMapping("/user/myWishListByMemberId")
+	public ModelAndView findMyWishList(ModelAndView mav,@RequestParam("id") Integer memberId){
 		Member member = memberService.findById(memberId);
 		Set<ProductWishListBean> productMyWishListSet = member.getProductMyWishListSet();
 		List<ProductBean> productBeanList = new ArrayList<>();

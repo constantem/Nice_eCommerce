@@ -101,7 +101,9 @@
 						<div class="hover">
 							<h4>還不是會員嗎?</h4>
 							<p>別猶豫，趕緊</p>
-							<a class="primary-btn" href="#">會員註冊</a>
+							<a class="primary-btn" href="${contextRoot}/member/register">
+								會員註冊
+							</a>
 						</div>
 					</div>
 				</div>

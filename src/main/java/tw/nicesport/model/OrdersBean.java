@@ -61,15 +61,6 @@ public class OrdersBean {
 	// 郵遞區號
 	@Column(name = "shipPostalCode")
 	private String shipPostalCode;
-	// 付款狀態, yes or no
-	@Column(name = "paymentStatus")
-	private String paymentStatus;
-	// 出貨狀態, yes or no
-	@Column(name = "shipStatus")
-	private String shipStatus;
-	// 刪除狀態, yes or no
-	@Column(name = "deleteStatus")
-	private String deleteStatus;
 	// 訂單狀態, 1, 99, ...
 	@Column(name = "orderStatus")
 	private Integer orderStatus;
@@ -164,30 +155,6 @@ public class OrdersBean {
 
 	public void setShipPostalCode(String shipPostalCode) {
 		this.shipPostalCode = shipPostalCode;
-	}
-
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
-
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	public String getShipStatus() {
-		return shipStatus;
-	}
-
-	public void setShipStatus(String shipStatus) {
-		this.shipStatus = shipStatus;
-	}
-
-	public String getDeleteStatus() {
-		return deleteStatus;
-	}
-
-	public void setDeleteStatus(String deleteStatus) {
-		this.deleteStatus = deleteStatus;
 	}
 
 	public Integer getOrderStatus() {

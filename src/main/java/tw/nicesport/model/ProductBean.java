@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "Product")
 @JsonIdentityInfo(
 	    generator = ObjectIdGenerators.PropertyGenerator.class, 
-	    property = "product_id",
+	    property = "id",
 	    scope = Integer.class
 )
 public class ProductBean implements Serializable {
@@ -326,7 +326,7 @@ public class ProductBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductBean [product_id=" + product_id + ", productName=" + productName + ", supplier=" + supplier
+		return "ProductBean [id=" + id + ", productName=" + productName + ", supplier=" + supplier
 				+ ", color=" + color + ", size=" + size + ", price=" + price + ", weight=" + weight + ", img="
 				+ Arrays.toString(img) + ", imgUrl=" + imgUrl + ", imgUrl_A=" + imgUrl_A + ", imgUrl_B=" + imgUrl_B
 				+ ", imgUrl_C=" + imgUrl_C + ", imgUrl_D=" + imgUrl_D + ", productDiscription=" + productDiscription

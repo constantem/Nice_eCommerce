@@ -193,7 +193,7 @@ figure {
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						  </div>
 
-						<form method="post" action="${contextRoot}/insertProductAds.controller"
+						<form id="insertAdForm" method="post" action="${contextRoot}/insertProductAds.controller"
 							enctype="multipart/form-data">
 
 								<div class="input-group mb-3">
@@ -232,7 +232,7 @@ figure {
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">Close</button>
-									<button type="submit" id="insertImg" class="btn btn-warning">新增圖片</button>
+									<button type="button" id="insertImg" class="btn btn-warning">新增圖片</button>
 								</div>
 						</form>
 					</div>
@@ -255,7 +255,7 @@ figure {
 				</div>
 
 				<div class="modal-body">
-				<form method="post" action="${contextRoot}/editProductAds"
+				<form id="changeForm" method="post" action="${contextRoot}/editProductAds"
 					enctype="multipart/form-data">
 
 					<div class="imgdiv">
@@ -343,7 +343,7 @@ figure {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Close</button>
-						<button type="submit" id="btnChang" class="btn btn-primary">更改圖片</button>
+						<button type="button" id="btnChange" class="btn btn-primary">更改圖片</button>
 					</div>
 				</form>
 			</div>
@@ -506,27 +506,58 @@ figure {
 		})
 
 	</script>
-	
-	<script>
-	
-				document.getElementById("btnChang").addEventListener("click", function() {
-					
-					Swal.fire({
-			
-						icon : 'success',
-						title : '修改完成',
-						showConfirmButton : false,
-						timer : 3000
-					})
-				});
-	
+
+	<!--sweetalert 廣告修改確認-->
+	<script type="text/javascript">
+
+		$('#btnChange').click(function() {
+			Swal.fire({
+			title: '確定修改?',
+			showDenyButton: true,
+			showCancelButton: true,
+			confirmButtonText: '儲存修改',
+			denyButtonText: `放棄修改`,
+			}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				Swal.fire('修改成功', '', 'success')
+
+				setTimeout(editAds,2000)
+
+			} else if (result.isDenied) {
+				Swal.fire('圖片未儲存', '', 'info')
+			}
+			})
+		});
+
+		function editAds(){
+			$("#changeForm").submit();
+		}
+
 	</script>
+
+	
+					<!--sweetalert 新增廣告圖-->
+					<script>
+						$("#insertImg").click(function(){
+
+							Swal.fire(
+								'新增成功!',
+								'',
+								'success'
+								)		
+							setTimeout(insertAd,1700)	
+						})
+						function insertAd () {
+								$("#insertAdForm").submit()
+								}
+					</script>
 
 	<!-- ================================================================================= -->
 
 
 
-		<!-- ================================================================================ -->
+	<!-- ================================================================================ -->
 
 
 

@@ -106,12 +106,16 @@ public class Member {
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 	
+
+	@OneToMany(mappedBy = "member")
+	@JsonIgnore
+	private Set<ProductWishListBean> productMyWishListSet = new HashSet<>();
+	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy="member")
 	private CartBean cart;
-	
-	
+
 	// 建構子
-	
+
 	public Member() {
 	}
 
@@ -240,6 +244,14 @@ public class Member {
 		this.ordersBeanSet = ordersBeanSet;
 	}
 
+	public Set<ProductWishListBean> getProductMyWishListSet() {
+		return productMyWishListSet;
+	}
+
+	public void setProductMyWishListSet(Set<ProductWishListBean> productMyWishListSet) {
+		this.productMyWishListSet = productMyWishListSet;
+	}
+
 	public CartBean getCart() {
 		return cart;
 	}
@@ -248,6 +260,4 @@ public class Member {
 		this.cart = cart;
 	}
 	
-	
-
 }

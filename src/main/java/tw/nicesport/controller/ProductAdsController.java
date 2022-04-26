@@ -34,6 +34,9 @@ public class ProductAdsController {
 
 	@Autowired
 	private ProductAdsRepository pAdsRes;
+	
+	@Autowired
+	HttpServletRequest request;
 
 	@PostMapping("/insertProductAds.controller")
 	public String insertProductAdsImg(@RequestParam("imgUrl_A") MultipartFile file1,
@@ -185,8 +188,11 @@ public class ProductAdsController {
 		String fileName = file.getOriginalFilename();
 		
 		String suffixName = fileName.substring(fileName.lastIndexOf(".")); 
-		String filePath = "C:\\Nice_eCommerce_FinalProject\\Nice_eCommerce\\src\\main\\webapp\\ProductTempImg\\";
+		
+		String filePath = request.getServletContext().getRealPath("") + "\\ProductTempImg\\";
 
+		System.out.println("new path====================>>>"+request.getServletContext().getRealPath(""));
+		
 		fileName = UUID.randomUUID() + suffixName;
 		
 		File dest = new File(filePath + fileName);

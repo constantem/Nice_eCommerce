@@ -25,7 +25,7 @@ public class CategoryBean implements Serializable {
 
 	public CategoryBean(Integer catrgory_id, String name, String createdAt, String modifiedAt) {
 
-		this.category_id = catrgory_id;
+		this.id = catrgory_id;
 		this.name = name;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
@@ -34,7 +34,7 @@ public class CategoryBean implements Serializable {
 	@Id
 	@Column(name = "category_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer category_id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -47,11 +47,11 @@ public class CategoryBean implements Serializable {
 	
 
 	public Integer getCategory_id() {
-		return category_id;
+		return id;
 	}
 
 	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
+		this.id = category_id;
 	}
 
 	public String getName() {

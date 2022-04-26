@@ -47,6 +47,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <!-- <meta property="og:url" -->
@@ -147,7 +149,7 @@
 					<tr>
 						<c:forEach items="${page.content}" var="prod">
 							<tr>
-								<td data-label="product_id">${prod.product_id}</td>
+								<td data-label="product_id">${prod.id}</td>
 								<td data-label="productName">${prod.productName}</td>
 								<td data-label="productName">${prod.subCategory.name}</td>
 								<td data-label="City">${prod.supplier}</td>
@@ -166,7 +168,7 @@
 
 										<!-- 修改 -->
 										<form method="get"
-											action="/Nice_eCommerce/getOneProduct${prod.product_id}">
+											action="/Nice_eCommerce/getOneProduct${prod.id}">
 											<button class="button small green --jb-modal"
 												data-target="sample-modal-2" type="submit">
 												<span class="icon"><i class="mdi mdi-eye"></i></span>
@@ -174,15 +176,15 @@
 										</form>
 
 										<!-- 刪除 -->
-										<form method="get"
-											action="/Nice_eCommerce/deleteOneProduct${prod.product_id}">
-											<button onclick="return confirm('確認刪除')" id="delete"
-												class="button small red --jb-modal"
-												data-target="sample-modal" type="submit">
+										<form id="deleteForm" method="get"
+											action="/Nice_eCommerce/deleteOneProduct${prod.id}">
+											<button  id="delete"
+												class="button small red --jb-modal delete"
+												data-target="sample-modal" type="button">
 												<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 											</button>
 										</form>
-
+										<!-- onclick="return confirm('確認刪除')" -->
 									</div>
 								</td>
 						</c:forEach>
@@ -278,6 +280,35 @@
 				}
 			});
 		});
+	</script>
+
+	<!--sweetalert 刪除商品確認-->
+	<script>
+
+		$(".delete").click(function(){
+			Swal.fire({
+				title: '確定刪除??',
+				text: "刪除後商品資料無法回復",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '確定刪除!'
+				}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire(
+					'刪除成功',
+					'資料已刪除',
+					'success'
+					)
+					setTimeout(deleteProduct,2000)
+				}
+			})
+		})
+
+		function deleteProduct(){
+			$("#deleteForm").submit();
+		}
 	</script>
 
 	<!-- ================================================================================ -->

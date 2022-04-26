@@ -42,6 +42,16 @@ public class ProductPageController {
 		return "/product/ProductAdsImg";
 	}
 	
+	@GetMapping(path = "/ProductCartController.controller")
+	public String processProductCartController() {
+		return "/product/cart";
+	}
+	
+	@GetMapping(path = "/ProductMyFavorController.controller")
+	public String processProductMyFavorController() {
+		return "/product/myWishList";
+	}
+	
 
 	
 

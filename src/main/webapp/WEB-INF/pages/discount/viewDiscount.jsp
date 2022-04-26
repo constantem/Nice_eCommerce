@@ -73,20 +73,139 @@
 		<!-- 插入上導覽列與左導覽列 -->
 		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
-	
+<!-- 章節 -->
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>後台</li>
+      <li>優惠券列表</li>
+    </ul>
+    <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
+      <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
+      <span>Premium Demo</span>
+    </a>
+  </div>
+</section>
 
-		<!-- 核心內容標題 -->
-		<section class="is-hero-bar">
-			<div
-				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="showTitle"  class="title">折價券清單</h1>
-				<button class="button light">Button</button>
-			</div>
-		</section>
+<!-- 標題 -->
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 id="showTitle" class="title">
+      優惠券列表
+    </h1>
+    <button class="button light">Button</button>
+  </div>
+</section>
 
 		<!-- 原核心內容的 section 開始 -->
-		<!-- 內容請放這邊!!! -->
+  <section class="section main-section">
+
+    <div class="card has-table">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          優惠券
+        </p>
+        <a href="#" class="card-header-icon">
+          <span class="icon"><i class="mdi mdi-reload"></i></span>
+        </a>
+      </header>
+      <div class="card-content">
+        <table>
+        
+        
+
+        
+        
+        
+        
+          <!-- 列表表頭 -->
+          <thead>
+          <tr>
+            <th class="checkbox-cell">
+              <label class="checkbox">
+                <input type="checkbox">
+                <span class="check"></span>
+              </label>
+            </th>
+   			<th>編號</th>
+			<th>活動名稱</th>
+			<th>優惠內容</th>
+			<th>有無門檻</th>
+			<th>低銷金額</th>
+			<th>比例/定額折扣</th>
+			<th>折扣百分比</th>
+			<th>折扣金額</th>
+			<th>活動開始日</th>
+			<th>活動結束日</th>
+			<th>建立日期</th>
+			<th>修改/刪除</th>
+          </tr>
+          </thead>
+          
+          <!-- 列表內文 -->
+          <tbody>
+          
+          <c:forEach var="discount" items="${discounts}">
+	          <tr>
+	            <td class="checkbox-cell">
+	              <label class="checkbox">
+	                <input type="checkbox">
+	                <span class="check"></span>
+	              </label>
+	            </td>   
+            	<td data-label="id">${discount.id}</td>
+				<td data-label="name">${discount.name}</td>
+				<td data-label="description">${discount.description}</td>
+				<td data-label="conditionCategory">${discount.conditionCategory}</td>
+				<td data-label="conditionPrice">${discount.conditionPrice}</td>
+				<td data-label="discountCategory">${discount.discountCategory}</td>
+				<td data-label="discountPercent">${discount.discountPercent}</td>
+				<td data-label="discountAmount">${discount.discountAmount}</td>
+				<td data-label="startDate">${discount.startDate}</td>
+				<td data-label="endDate">${discount.endDate}</td>
+	            <td data-label="Created">
+	              <small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
+	            </td>
+	            <td class="actions-cell">
+	              <div class="buttons right nowrap">
+	              	<a href="${contextRoot}/discount/showEditDiscount?id=${discount.id}">
+	                	<button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
+							<span class="icon"><i class="mdi mdi-eye"></i></span>
+	                	</button>
+	                </a>
+	                <a onclick="return confirm('確定要刪掉人家嗎>w<')" href="${contextRoot}/discount/deleteDiscount?id=${discount.id}">
+	                	<button class="button small red --jb-modal" data-target="sample-modal" type="button">
+	                  		<span class="icon"><i class="mdi mdi-trash-can"></i></span>
+	                	</button>
+	                </a>
+	              </div>
+	            </td>
+	          </tr>
+ 		  </c:forEach>	
+          </tbody>
+        </table>
+        <div class="table-pagination">
+          <div class="flex items-center justify-between">
+            <div class="buttons">
+              <button type="button" class="button active">1</button>
+              <button type="button" class="button">2</button>
+              <button type="button" class="button">3</button>
+            </div>
+            <small>Page 1 of 3</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
 		<!-- 原核心內容的 section 結束 -->
+
+	<!-- 插入頁腳 -->
+	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
+
+
 
 
 	<!-- Scripts below are for demo only -->
@@ -126,55 +245,7 @@
 	<link rel="stylesheet"
 		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 		
-		<div class="container">
-		<p/>
-		<div class="content-center">
-			<table border="1">
-			<thead>
-							<tr style="background-color: pink">
-								<th>編號
-								<th>活動名稱
-								<th>優惠內容
-								<th>有無門檻
-								<th>低銷金額
-								<th>比例/定額折扣
-								<th>折扣百分比
-								<th>折扣金額
-								<th>活動開始日
-								<th>活動結束日
-								<th>修改資料
-								<th>刪除活動
-							</tr>
-			</thead>	
-			<tbody>
-			<!-- discounts ====> List<Discount> -->
-			<!-- discount ====> Discount -->
-			<c:forEach var="discount" items="${discounts}">
-					<tr>
-						
-					<td data-label="id">${discount.id}</td>
-					<td data-label="name">${discount.name}</td>
-					<td data-label="description">${discount.description}</td>
-					<td data-label="conditionCategory">${discount.conditionCategory}</td>
-					<td data-label="conditionPrice">${discount.conditionPrice}</td>
-					<td data-label="discountCategory">${discount.discountCategory}</td>
-					<td data-label="discountPercent">${discount.discountPercent}</td>
-					<td data-label="discountAmount">${discount.discountAmount}</td>
-					<td data-label="startDate">${discount.startDate}</td>
-					<td data-label="endDate">${discount.endDate}</td>
-					<td data-label="Update"><a href="${contextRoot}/discount/showEditDiscount?id=${discount.id}">編輯</a></td>
-					<td data-label="Delete">
-		<a onclick="return confirm('確定要刪掉人家嗎>w<')" href="${contextRoot}/discount/deleteDiscount?id=${discount.id}">刪除</a>
-					</td>
-					
-					</tr>
-			</c:forEach>				
-	
-				</table>
-					</div>
-			</div>
-			</div>
 
-</body>
+
 </body>
 </html>

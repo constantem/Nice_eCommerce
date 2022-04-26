@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,104 +75,19 @@
 </script>
 </head>
 <body>
-	<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+	
 	<input type="hidden" id="contextRoot" value="${contextRoot}">
 
 	<div id="app">
 
-		<nav id="navbar-main" class="navbar is-fixed-top">
-			<div class="navbar-brand">
-				<a class="navbar-item mobile-aside-button"> <span class="icon"><i
-						class="mdi mdi-forwardburger mdi-24px"></i></span>
-				</a>
-				<div class="navbar-item">
-					<div class="control">
-						<input placeholder="系統建置中..." class="input">
-					</div>
-				</div>
-			</div>
-			<div class="navbar-brand is-right">
-				<a class="navbar-item --jb-navbar-menu-toggle"
-					data-target="navbar-menu"> <span class="icon"><i
-						class="mdi mdi-dots-vertical mdi-24px"></i></span>
-				</a>
-			</div>
-			<div class="navbar-menu" id="navbar-menu">
-				<div class="navbar-end">
-					<div class="navbar-item dropdown has-divider has-user-avatar">
-						<a class="navbar-link">
-							<div class="user-avatar">
-								<img src="https://avatars.dicebear.com/v2/initials/john-doe.svg"
-									alt="John Doe" class="rounded-full">
-							</div>
-							<div class="is-user-name">
-								<span>施工中</span>
-							</div> <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-						</a>
-						<div class="navbar-dropdown">
-							<a href="#" class="navbar-item active"> <span class="icon"><i
-									class="mdi mdi-account"></i></span> <span>施工中</span>
-							</a> <a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-settings"></i></span> <span>施工中</span>
-							</a> <a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-email"></i></span> <span>施工中</span>
-							</a>
-							<hr class="navbar-divider">
-							<a class="navbar-item"> <span class="icon"><i
-									class="mdi mdi-logout"></i></span> <span>施工中</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-
-		<aside class="aside is-placed-left is-expanded">
-			<div class="aside-tools">
-				<div>
-					康康運動 <b class="font-black">後台</b>
-				</div>
-			</div>
-			<div class="menu is-menu-main">
-				<p class="menu-label">總覽</p>
-				<ul class="menu-list">
-					<li class="--set-active-index-html"><a
-						href="${pageContext.request.contextPath}/"> <span class="icon"><i
-								class="mdi mdi-desktop-mac"></i></span> <span class="menu-item-label">管理系統總覽</span>
-					</a></li>
-				</ul>
-				<p class="menu-label">各管理系統</p>
-				<ul class="menu-list">
-					<li><a href="${pageContext.request.contextPath}/login/member">
-							<span class="icon"><i class="mdi mdi-account-circle"></i></span>
-							<span class="menu-item-label">會員登入</span>
-					</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/login/employee"> <span
-							class="icon"><i class="mdi mdi-account-circle"></i></span> <span
-							class="menu-item-label">員工登入</span>
-					</a></li>
-					<li class="active"><a class="dropdown"> <span class="icon"><i
-								class="mdi mdi-view-list"></i></span> <span class="menu-item-label">課程管理系統</span>
-							<span class="icon"><i class="mdi mdi-plus"></i></span>
-					</a>
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/course/form">
-									<span>新增課程</span>
-							</a></li>
-							<li class="active"><a
-								href="${pageContext.request.contextPath}/course/show/all"> <span>課程列表</span>
-							</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</aside>
-
+	<!-- 插入上導覽列與左導覽列 -->
+	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+	
 		<section class="is-title-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<ul>
-					<li>康康運動</li>
+					<li>運動網</li>
 					<li>課程管理系統</li>
 				</ul>
 				<a href="#" class="button blue"> <span class="icon"><i
@@ -183,7 +100,9 @@
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">課程列表</h1>
-				<button class="button light">施工</button>
+				<a class="button light" href="${contextRoot}/course/form">
+              		<span>新增課程</span>
+            	</a>
 			</div>
 		</section>
 
@@ -215,7 +134,7 @@
 								<th>教練</th>
 								<th>教室</th>
 								<th>價錢</th>
-								<th>建檔/修改日期</th>
+								<th>建檔/編輯日期</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -240,33 +159,33 @@
 									<td data-label="roomNo">${course.room.roomNo}</td>
 									<td data-label="coursePrice">${course.coursePrice}</td>
 									<td data-label="Created">
-										<div>
-											<small class="text-gray-500" title="Oct 25, 2021">
-											<fmt:parseDate value="${course.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedCreatedAt"/>
-											<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy/MM/dd HH:mm:ss" var="formattedCreatedAt" />
-<%-- 											<javatime:format value="${course.createdAt}" pattern="yyyy/MM/dd HH:mm:ss" var="formattedCreatedAt" /> --%>
-												${formattedCreatedAt}建檔
-											</small>
-										</div>
-										<div>
-											<small class="text-gray-500" title="Oct 25, 2021">
-											<fmt:parseDate type="both" value="${course.modifiedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedModifiedAt"/>
-											<fmt:formatDate type="both" value="${parsedModifiedAt}" var="formattedModifiedAt" pattern="yyyy/MM/dd HH:mm:ss"/>
-												編輯於${formattedModifiedAt}
-											</small>
-										</div>
+										<small class="text-gray-500" title="Oct 25, 2021">
+											<c:choose>
+												<c:when test="${course.modifiedAt!=null}">
+													<fmt:parseDate value="${course.modifiedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedModifiedAt"/>
+													<fmt:formatDate value="${parsedModifiedAt}" var="formattedModifiedAt" pattern="yyyy/MM/dd HH:mm:ss"/>
+													${formattedModifiedAt}編輯
+												</c:when>
+												<c:otherwise>
+													<fmt:parseDate value="${course.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedCreatedAt"/>
+													<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy/MM/dd HH:mm:ss" var="formattedCreatedAt" />
+													${formattedCreatedAt}建檔
+												</c:otherwise>
+											</c:choose>
+
+										</small>
 									</td>
 									<td class="actions-cell">
 										<div class="buttons right nowrap">
 											<a
-												href="${pageContext.request.contextPath}/course/show/${course.course_id}">
+												href="${pageContext.request.contextPath}/course/show/${course.id}">
 												<button class="button small green"
 													data-target="sample-modal-2" type="button">
 													<!-- --jb-modal -->
 													<span class="icon"><i class="mdi mdi-eye"></i></span>
 												</button>
 											</a> <a
-												href="${pageContext.request.contextPath}/course/delete/${course.course_id}"><button
+												href="${pageContext.request.contextPath}/course/delete/${course.id}"><button
 													class="button small red" data-target="sample-modal"
 													type="button">
 													<!-- --jb-modal -->

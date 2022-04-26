@@ -29,7 +29,7 @@ public class SubCategoryBean implements Serializable {
 	@Id
 	@Column(name = "subcategory_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer subcategory_id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -61,11 +61,11 @@ public class SubCategoryBean implements Serializable {
 	}
 
 	public Integer getSubcategory_id() {
-		return subcategory_id;
+		return id;
 	}
 
 	public void setSubcategory_id(Integer subcategory_id) {
-		this.subcategory_id = subcategory_id;
+		this.id = subcategory_id;
 	}
 
 

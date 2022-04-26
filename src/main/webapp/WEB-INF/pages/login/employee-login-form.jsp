@@ -1,26 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="en" class="form-screen">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login - Admin One Tailwind CSS Admin Dashboard</title>
+  <title>後台登入</title>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
   <!-- Tailwind is included -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/backstage/css/main.css?v=1628755089081">
+  <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
-  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png"/>
+  <link rel="mask-icon" href="${contextRoot}/resources/backstage/safari-pinned-tab.svg" color="#00b4b6"/>
 
   <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -49,9 +51,26 @@
     gtag('config', 'UA-130795909-1');
   </script>
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function() {
+			$("#first").click(function() {
+				$.ajax({
+					url: $("#contextRoot").val() + "/staffLoginAutoInputFirst",
+					success: function (employee) {
+						$("#username").val(employee.employee_id);
+						$("#password").val(employee.password);
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body>
-
+<!-- variable -->
+<input type="hidden" id="contextRoot" value="${pageContext.request.contextPath}">
 <div id="app">
 
   <section class="section main-section">
@@ -59,37 +78,44 @@
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="mdi mdi-lock"></i></span>
-          會員登入<span style="color:red;">${error.notexist}</span>
+          員工登入<span style="color:red;">${error.notexist}</span>
         </p>
       </header>
       <div class="card-content">
-        <form:form action="${pageContext.request.contextPath}/login/employee/authenticate" modelAttribute="employee">
+        <form
+        	action="${contextRoot}/staffLoginAuthenticate" 
+        	method="post" >
 
           <div class="field spaced">
-            <form:label path="employeeId" class="label">員工編號</form:label>
+            <label for="username" class="label">
+            	員工編號
+            </label>
             <div class="control icons-left">
-              <form:input path="employeeId" id="employeeId" class="input" type="text" name="login" placeholder="" autocomplete="employeeId"/>
+              <input id="username" class="input" type="text" name="username" placeholder=""/>
               <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
             </div>
             <p class="help" style="color:red">
-              <form:errors path="employeeId"/>
+<%--               <form:errors path="username"/> --%>
             </p>
           </div>
 
           <div class="field spaced">
-            <form:label path="password" class="label">密碼</form:label>
+            <label for="password" class="label">
+            	密碼
+            </label>
             <p class="control icons-left">
-              <form:input id="password" path="password" class="input" type="password" name="password" placeholder="" autocomplete="current-password"/>
+              <input id="password" class="input" type="password" name="password" placeholder=""/>
               <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
             </p>
             <p class="help" style="color:red">
-              <form:errors path="password"/>
+<%--               <form:errors path="password"/> --%>
             </p>
           </div>
 
           <div class="field spaced">
             <div class="control">
-              <label class="checkbox"><input type="checkbox" name="remember" value="1" checked>
+              <label class="checkbox">
+<!--               	<input type="checkbox" name="remember" value="1" checked> -->
                 <span class="check"></span>
                 <span class="control-label">記得密碼(施工中)</span>
               </label>
@@ -97,21 +123,22 @@
           </div>
 
           <hr>
-
           <div class="field grouped">
             <div class="control">
-              <button type="submit" class="button blue">
-                登入
-              </button>
+              <input name="submit" type="submit" value="登入" class="button blue"/>
             </div>
             <div class="control">
-              <a href="${pageContext.request.contextPath}/" class="button">
+              <a href="${contextRoot}/backstage" class="button">
                 返回
               </a>
             </div>
+            <!-- 一鍵輸入 -->
+            <div class="control">
+             <button id="first" name="first" type="button" class="button green">員工一</button>
+          </div>
           </div>
 
-        </form:form>
+        </form>
       </div>
     </div>
 
@@ -121,7 +148,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/backstage/js/main.min.js?v=1628755089081"></script>
+<script type="text/javascript" src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
 
 <script>

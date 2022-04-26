@@ -23,17 +23,25 @@ public class LoginService {
 	@Autowired
 	private LoginERepository employeeDao;
 	
-	public boolean authenticateMember(String username, String password) {
-		Member member = memberDao.findByUsername(username);
-		
-		if( 
-			member!=null // 有此帳號
-			&& member.getPassword().equals(password) // 密碼正確
-		) { 
-			return true;
-		}
-		
-		return false;
+//	public boolean authenticateMember(String username, String password) {
+//		Member member = memberDao.findByUsername(username);
+//		
+//		if( 
+//			member!=null // 有此帳號
+//			&& member.getPassword().equals(password) // 密碼正確
+//		) { 
+//			return true;
+//		}
+//		
+//		return false;
+//	}
+	
+	public Member findFirstMember() {
+		return memberDao.findFirstByOrderByMemberid();
+	}
+	
+	public Employee findFirstEmployee() {
+		return employeeDao.findFirstByOrderByEmployeeid();
 	}
 	
 	public boolean authenticateEmployee(Integer id, String password) {
@@ -47,5 +55,21 @@ public class LoginService {
 		}
 		
 		return false;
+	}
+	
+	public Member findMemberByUsername(String username) throws Exception {
+		Optional<Member> memberOpt = memberDao.findByUsername(username);
+		Member member = memberOpt.orElseThrow(
+			() -> new Exception("查無 Member===>|"+username+"|的資訊.")
+        );
+		return member;
+	}
+	
+	public Employee findEmployeeByUsername(Integer id) throws Exception {
+		Optional<Employee> employeeOpt = employeeDao.findById(id);
+		Employee employee = employeeOpt.orElseThrow(
+			() -> new Exception("查無 Employee===>|"+id+"|的資訊.")
+        );
+		return employee;
 	}
 }

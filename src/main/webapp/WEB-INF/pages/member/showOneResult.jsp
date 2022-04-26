@@ -107,9 +107,11 @@
 			<th>電話</th>
 			<th>email</th>
 			<th>住址</th>
+			<th>修改</th>
+			<th>刪除</th>
 		</tr>
 		<tr>
-			<td>${member.member_id}</td>
+			<td>${member.memberid}</td>
 			<td>${member.username}</td>
 			<td>${member.password}</td>
 			<td>${member.lastname}${member.firstname}</td>
@@ -118,6 +120,20 @@
 			<td>${member.phone}</td>
 			<td>${member.email}</td>
 			<td>${member.address}</td>
+			<td>
+				<a href="${contextRoot}/member/edit?id=${member.memberid}">
+					<button class="button small green " type="button">
+					  <span class="icon"><i class="mdi mdi-eye"></i></span>
+                	</button>
+                </a>	
+             		</td>
+					<td>
+				<a href="${contextRoot}/member/delete?id=${member.memberid}">
+					<button class="button small red" type="button">
+						<span class="icon"><i class="mdi mdi-trash-can"></i></span>
+					</button>
+				</a>
+			</td>
 		</tr>
 	</table>
 		

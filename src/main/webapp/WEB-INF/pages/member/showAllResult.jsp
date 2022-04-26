@@ -60,6 +60,7 @@
 	gtag('js', new Date());
 	gtag('config', 'UA-130795909-1');
 </script>
+	
 </head>
 <body>
 
@@ -94,12 +95,23 @@
 		</section>
 
 		<!-- 原核心內容的 section 開始 -->
-<%-- 		<form action="${contextRoot}/member/showOneResult"> --%>
-<!-- 		會員查詢:<input type="text" method="post"> -->
-<!-- 		<button value="Send">查詢</button> -->
-<%-- 		</form> --%>
+		
+		
+			<form action="${contextRoot}/member/findAllByNameLike">
+				查詢特定會員:<input type="text" name="specificUsername">
+				<input type="submit" value="送出">
+			 
+			<action="${contextRoot}/member/showAllResult">
+				<input type="submit" value="返回">
+			</form>
+
 			<table>
+			<thead>
 				<tr>
+				<th class="checkbox-cell"><label class="checkbox">
+					<input type="checkbox" id="checkall"><span class="check"></span>
+					</label></th>
+				<th class="image-cell"></th>
 					<th>編號</th>
 					<th>帳號</th>
 					<th>密碼</th>
@@ -113,7 +125,12 @@
 					<th>刪除</th>
 				</tr>
 				<c:forEach items="${page.content}" var="member">
-					<tr>
+						<tr>
+						<td class="checkbox-cell"><label class="checkbox">
+							<input type="checkbox" class="checkitem"> <span class="check"></span>
+							</label></td>
+						<td class="image-cell">
+						</td>
 						<td>${member.memberid}</td>
 						<td>${member.username}</td>
 						<td>${member.password}</td>
@@ -132,7 +149,7 @@
              			</td>
 						<td>
 							<a href="${contextRoot}/member/delete?id=${member.memberid}">
-								<button class="button small red" type="button">
+								<button class="button small red" type="button" onclick="deleteMemberList()">
 									<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 								</button>
 							</a>
@@ -142,8 +159,8 @@
 				</c:forEach>
 			</table>
 			
-			<div class="row justify-content-center"> 
-		<div class="col-9">
+		<div class="row justify-content-center"> 
+			<div class="col-9">
  				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}"> 
  					<c:choose> 
  						<c:when test="${page.number !=pageNumber-1 }">
@@ -154,7 +171,7 @@
  							<c:out value="${pageNumber}"></c:out> 
 						</c:otherwise> 
  					</c:choose> 
-				<c:if test="${pageNumber != page.totalPages}">| 
+				<c:if test="${pageNumber != page.totalPages}">❱❱
  					</c:if> 
  				</c:forEach> 
 			</div> 
@@ -232,6 +249,34 @@
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
+
+	<script>
+		$("#checkall").click(function(){
+			$(".checkitem").prop("checked", $(this).prop("checked"));
+		});
+
+		$(document).on("click", ".checkitem", function(){
+			var flag = $(".checkitem:checked").length == $(".checkitem").length;
+			$("checkall").prop("checked", flag);
+		});
+
+		function deleteMemberList(){
+			var memberlist ="";
+			var checkboxs =document.querySelectorAll("input[type=checkbox]:checked")
+
+			for(var i = 1; i < checkboxs.length; i++){
+				memberlist += "," + checkboxs[i].value;
+			}
+
+			if(confirm("刪除嗎嗎嗎")){
+				$.ajax({
+					url:"${contextRoot}/member/delete",
+					
+				})
+			}
+		}
+	</script>
+
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
@@ -244,5 +289,3 @@
 
 </body>
 </html>
-<%-- ${members[0].id} <br> --%>
-<%-- ${members[1].id} <br> --%>

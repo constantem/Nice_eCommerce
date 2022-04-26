@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
+<input id="contextRoot" type="hidden" value="${pageContext.request.contextPath}">
 <!-- 上導覽列開始 -->
 <nav id="navbar-main" class="navbar is-fixed-top">
   <div class="navbar-brand">
@@ -16,60 +23,58 @@
   </div>
   <div class="navbar-menu" id="navbar-menu">
     <div class="navbar-end">
-      <div class="navbar-item dropdown has-divider">
-        <a class="navbar-link">
-          <span class="icon"><i class="mdi mdi-menu"></i></span>
-          <span>Sample Menu</span>
-          <span class="icon">
-            <i class="mdi mdi-chevron-down"></i>
-          </span>
-        </a>
-        <div class="navbar-dropdown">
-          <a href="${contextRoot}/resources/backstage/profile.html" class="navbar-item">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            <span>My Profile</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-settings"></i></span>
-            <span>Settings</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-email"></i></span>
-            <span>Messages</span>
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-logout"></i></span>
-            <span>Log Out</span>
-          </a>
-        </div>
-      </div>
+    
+	  <!-- 下拉式選單1 -->	
       <div class="navbar-item dropdown has-divider has-user-avatar">
-        <a class="navbar-link">
-          <div class="user-avatar">
+        <a class="navbar-link" 
+        	href="#">
+          <div id="staffImgContainer" class="user-avatar">
             <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
           </div>
-          <div class="is-user-name"><span>John Doe</span></div>
+          <div id="staffNameContainer" class="is-user-name"><span>John Doe</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
+       
         <div class="navbar-dropdown">
-          <a href="${contextRoot}/resources/backstage/profile.html" class="navbar-item active">
+        
+          <!-- 登入 -->
+          <a href="${contextRoot}/staffLogin" 
+          	class="navbar-item active notAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-account"></i></span>
-            <span>My Profile(暫用模板提供)</span>
+            <span>登入</span>
           </a>
-          <a class="navbar-item">
+          
+          <!-- 員工個人資料 -->
+          <a href="${contextRoot}/resources/backstage/profile.html" 
+          	class="navbar-item active isAuthenticatedAsStaff">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span>個人資料</span>
+          </a>
+          
+          <!-- (擺設用) -->
+          <a class="navbar-item isAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-settings"></i></span>
-            <span>Settings</span>
+            <span>設定</span>
           </a>
-          <a class="navbar-item">
+          
+          <!-- (擺設用) -->
+          <a class="navbar-item isAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-email"></i></span>
-            <span>Messages</span>
+            <span>信箱</span>
           </a>
+          
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-logout"></i></span>
-            <span>Log Out</span>
-          </a>
+          
+          <!-- 登出 -->
+          <form:form id="logoutForm" 
+          	action="${contextRoot}/staffLogout" 
+          	method="POST"
+          	cssClass="isAuthenticatedAsStaff">
+			  <a class="navbar-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+	            <span class="icon"><i class="mdi mdi-logout"></i></span>
+	            <span>登出</span>
+	          </a>
+		  </form:form>
         </div>
       </div>
       <a href="https://justboil.me/tailwind-admin-templates" class="navbar-item has-divider desktop-icon-only">
@@ -230,13 +235,13 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/">
-              <span>新增員工</span>
+            <a href="${contextRoot}/employee/viewEmployee">
+              <span>員工列表</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/employee/viewEmployee">
-              <span>員工列表</span>
+            <a href="${contextRoot}/employee/WorkSchedule">
+              <span>排班系統</span>
             </a>
           </li>
         </ul>
@@ -264,9 +269,9 @@
     <p class="menu-label">About</p>
     <ul class="menu-list">
       <li>
-        <a href="https://justboil.me/tailwind-admin-templates" class="has-icon">
+        <a href="https://tailwindcss.com/docs/installation" class="has-icon">
           <span class="icon"><i class="mdi mdi-help-circle"></i></span>
-          <span class="menu-item-label">About</span>
+          <span class="menu-item-label">後台樣式官網</span>
         </a>
       </li>
       <li>
@@ -276,7 +281,7 @@
         </a>
       </li>
       <li>
-        <a href="https://drive.google.com/drive/folders/1lWzF6pWIafRzq4-vXgjpKAoj32DKLIbl" class="has-icon">
+        <a href="https://drive.google.com/drive/folders/1lWzF6pWIafRzq4-vXgjpKAoj32DKLIblㄖㄛ" class="has-icon">
           <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
           <span class="menu-item-label">本組sql檔雲端</span>
         </a>
@@ -285,3 +290,23 @@
   </div>
 </aside>
 <!-- 左導覽列結束 -->
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
+<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
+<!-- 	crossorigin="anonymous"> -->
+<!-- </script> -->
+<script>
+	$.ajax({
+		url: $("#contextRoot").val() + "/staff/role",
+		success: function (roles) {
+			console.log(roles);
+			if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
+				$(".isAuthenticatedAsStaff").show();
+				$(".notAuthenticatedAsStaff").hide();
+			} else {
+				$(".isAuthenticatedAsStaff").hide();
+				$(".notAuthenticatedAsStaff").show();
+			}
+		}
+	});
+</script>

@@ -30,13 +30,21 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity @Table(name="Course")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class, 
+    property = "id", 
+    scope = Integer.class
+)
 public class Course {
 	
 	///////////
@@ -46,8 +54,8 @@ public class Course {
 	// 主鍵
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="course_id")
-	private Integer course_id;
+	@Column(name="id")
+	private Integer id;
 	
 	// 其他欄位
 	
@@ -57,7 +65,7 @@ public class Course {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd") // spring mvc 前端給後端, 後端的 LocalDate 變數若要接到, 要加, 不然接不到, 會是 null
 //	@JsonFormat(pattern = "yyyy/MM/dd") 
-	@JsonFormat(pattern = "yyyy-MM-dd") // 前端 Stringify 要求的格式
+	@JsonFormat(pattern = "yyyy-MM-dd") // 前端 Stringify 要求的 String 格式(type="date")
 	@JsonSerialize(using = LocalDateSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 //	@JsonDeserialize(using = LocalDateDeserializer.class) // 測試中
 	@Column(name="courseStartDate")
@@ -73,31 +81,33 @@ public class Course {
 	private Integer coursePrice;
 	
 //	@DateTimeFormat(iso = ISO.DATE_TIME)
+//	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name="createdAt", insertable = false, updatable = false) // 靠資料庫的 DEFAULT GETDATE() 來塞值
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 	private LocalDateTime createdAt;
 	
 //	@DateTimeFormat(iso = ISO.DATE_TIME)
-//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//	@JsonSerialize(using = LocalDateSerializer.class)
-//	@JsonDeserialize(using = LocalDateDeserializer.class)
+//	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@Column(name="modifiedAt")
 	private LocalDateTime modifiedAt;
 	
 	@PreUpdate // 用 SQL UPDATE 用 PrePersist 無效
 	void preUpate() {
-		if(course_id != null) {
+		if(this.id != null) {
 			modifiedAt = LocalDateTime.now();
 		}
 	}
 	
-	// DB table FK
+	// 外來鍵
 	
-	@Column(name="coach_id")
-	@Transient // FK 不做對應
-	private Integer coach_id;
+	@Transient // 前端用
+	private Integer coachId;
 	
-	@Column(name="roomNo")
-	@Transient // FK 不做對應
+	@Transient // 前端用
 	private String roomNo;
 	
 	// associated entity
@@ -133,7 +143,7 @@ public class Course {
 			CascadeType.REFRESH
 		}
 	) // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
-	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
+//	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 
 	///////////
@@ -147,12 +157,12 @@ public class Course {
 	// getter,setter //
 	///////////////////
 	
-	public Integer getCourse_id() {
-		return course_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCourse_id(Integer course_id) {
-		this.course_id = course_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCourseName() {
@@ -187,22 +197,6 @@ public class Course {
 		this.coursePeriod = coursePeriod;
 	}
 
-	public Integer getCoach_id() {
-		return coach_id;
-	}
-
-	public void setCoach_id(Integer coach_id) {
-		this.coach_id = coach_id;
-	}
-
-	public String getRoomNo() {
-		return roomNo;
-	}
-
-	public void setRoomNo(String roomNo) {
-		this.roomNo = roomNo;
-	}
-
 	public Integer getCoursePrice() {
 		return coursePrice;
 	}
@@ -227,16 +221,34 @@ public class Course {
 		this.modifiedAt = modifiedAt;
 	}
 
+	// 外來鍵的 getter, setter
+	
+	public Integer getCoachId() {
+		return coachId;
+	}
+
+	public void setCoachId(Integer coachId) {
+		this.coachId = coachId;
+	}
+
+	public String getRoomNo() {
+		return roomNo;
+	}
+	
+	public void setRoomNo(String roomNo) {
+		this.roomNo = roomNo;
+	}
+	
 	// associated entity 的 getter, setter
 	
 	public Coach getCoach() {
 		return coach;
 	}
-
+	
 	public void setCoach(Coach coach) {
 		this.coach = coach;
 	}
-
+	
 	public Room getRoom() {
 		return room;
 	}

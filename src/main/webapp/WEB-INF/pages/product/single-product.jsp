@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="tw.nicesport.model.ProductBean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -50,11 +51,70 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /><!-- css main1  -->
 
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <style>
+#star1:hover{
+color: #ff8000;
+}
+#star2:hover{
+color: #ff8000;
+}
+#star3:hover{
+color: #ff8000;
+}
+#star4:hover{
+color: #ff8000;
+}
+#star5:hover{
+color: #ff8000;
+}	
+#yourScore{
+color: #fa8d20;
+font-size: 90%;
+}
+#stPoint1{
+	color:	#6C6C6C ;
+}	
+#stPoint2{
+	color:	#6C6C6C;
+}	
+#stPoint3{
+	color:	#6C6C6C ;
+}	
+#stPoint4{
+	color:	#6C6C6C ;
+}
+#stPoint5{
+	color:	#6C6C6C ;
+}	
+#stPoint6{
+	color:	#6C6C6C ;
+}	
+#stPoint7{
+	color:	#6C6C6C ;
+}	
+#stPoint8{
+	color:	#6C6C6C ;
+}
+#stPoint9{
+	color:	#6C6C6C ;
+}
+#stPoint10{
+	color:	#6C6C6C ;
+}
+
+#prodComment1{
+	margin-left: 15px;
+}
+#prodComment2{
+	margin-left: 15px;
+}
+#prodComment3{
+	margin-left: 15px;
+}
+
+
 #row {
 	margin-left: 250px;
 }
@@ -144,7 +204,7 @@ figure img {
 }
 
 .commentDate{
-	margin-left: 320px;
+	margin-left: 280px;
 }
 </style>
 
@@ -159,6 +219,98 @@ figure img {
 		<!-- 	為了讓body內也能使用contextRoot的值 -->
 		<input type="hidden" id="contextRoot"
 		value="${pageContext.request.contextPath}">
+		<!-- Start Banner Area -->
+
+	<section class="banner-area organic-breadcrumb">
+
+		<!-- photo size 1280 * 533 -->
+		<div class="window" align='Center'>
+		
+			<div class="images" id="images">
+				<img id="img1" src="">
+				<img id="img2" src="">
+				<img id="img3" src="">
+				<img id="img4" src="">
+			</div>
+			
+
+			<span id="buttons">
+				<button></button>
+				<button></button>
+				<button></button>
+				<button></button>
+			</span>
+			
+		</div>
+
+	</section>
+
+	<!-- End Banner Area -->
+
+
+	<!--=================================廣告輪播========================================== -->
+
+	<script>
+						var allButtons = $('#buttons > button');
+						for (let i = 0; i < allButtons.length; i++) {
+							$(allButtons[i]).on('click', function (ev) {
+								var index = $(ev.currentTarget).index();
+								var npx = index * -800;
+								$('#images').css({
+									transform: 'translateX(' + npx + 'px)'
+								});
+								n = index;
+								activeButton(allButtons.eq(n))
+							});
+						}
+						var n = 0;
+						var size = allButtons.length;
+						var timerId = setTimer();
+						$('.window').on('mouseenter', function () {
+							window.clearInterval(timerId);
+						})
+						$('.window').on('mouseleave', function () {
+							timerId = setTimer();
+						})
+						function setTimer() {
+							return setInterval(() => {
+								n++;
+								playSlide(n % size);
+							}, 2000)
+						}
+						function playSlide(index) {
+							allButtons.eq(index).trigger('click');
+						}
+						function activeButton($button) {
+							$button.addClass('red')
+								.siblings('.red')
+								.removeClass('red');
+						}
+					</script>
+	<!--================================= 廣告輪播 ========================================== -->
+
+
+	<!-- =============================== 抓取圖片資料 =================================== -->
+	<script>
+
+		$(document).ready(function getAllPtoto(){
+			
+			$.ajax({
+				url:$("#contextRoot").val() +"/shopCenterProductAds.controller",
+				type:"post",
+				success:function(productAds){
+
+					$("#img1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_A);
+					$("#img2").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_B);
+					$("#img3").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_C);
+					$("#img4").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_D);
+
+				}
+			})
+		}
+	)
+	</script>
+	<!-- ================================================================================= -->
 
 
 
@@ -210,7 +362,7 @@ figure img {
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h3>${pdVal.productName}</h3>
-						<h2>
+						<h2 id="pdPrice">
 							NT $ <i class="bi bi-currency-dollar"></i>${pdVal.price}</h2>
 						<ul class="list">
 							<li class="status"><a class="active" href="#"><span>商品類別</span>${pdVal.subCategory.name}</a></li>
@@ -221,23 +373,40 @@ figure img {
 						<p>${pdVal.productDiscription}</p>
 
 						<div class="product_count">
-							<label for="qty">數量:</label> <input type="text" name="qty"
+							 數量:<input type="text" name="qty"
 								id="sst" maxlength="12" value="1" title="Quantity:"
 								class="input-text qty">
+
 							<button
+								id="upPrice"
 								onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 								class="increase items-count" type="button">
 								<i class="lnr lnr-chevron-up"></i>
 							</button>
+
 							<button
+								id="downPrice"
 								onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
 								class="reduced items-count" type="button">
 								<i class="lnr lnr-chevron-down"></i>
 							</button>
+
+
+							總價:<input type="text" name="qty"
+								id="orderPrice" maxlength="12" value="" title="Quantity:"
+								class="input-text qty">
+
+								<input type="hidden" name="qty"
+								id="totalPrice" maxlength="12" value="${pdVal.price}" title="Quantity:"
+								class="input-text qty">
+
+							
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" id="btnCart" href="#">加入購物車</a> <a
-								class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							<a class="primary-btn" id="btnCart" href="#">加入購物車</a>
+							
+<!-- 							加入願望清單 -->
+							 <a id="addWishList" class="icon_btn" href="${contextRoot}/insertProductToWishListInSingleProduct?productId=${pdVal.id}&memberId=101"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -396,33 +565,43 @@ figure img {
 								<div class="col-6">
 									<div class="box_total">
 										<h5>顧客評論</h5>
-										<h4>5顧客評論.0</h4>
+										<h4 id="scoreAvg"></h4>
 										<h6>(03 則評論)</h6>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="rating_list">
 										<h3>評分</h3>
+
 										<ul class="list">
-											<li><a href="#">5 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> 01
+											<li><a href="#">5 Star
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i> 
 											</a></li>
-											<li><a href="#">4 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> 01
+
+											<li><a href="#">4 Star
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
 											</a></li>
-											<li><a href="#">3 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> 01
+
+											<li><a href="#">3 Star
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
 											</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> 01
+
+											<li><a href="#">2 Star
+												<i  class="fa fa-star"></i>
+												<i  class="fa fa-star"></i>
 											</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i><i
-													class="fa fa-star"></i><i class="fa fa-star"></i> 01
+
+											<li><a href="#">1 Star
+												 <i class="fa fa-star"></i>
 											</a></li>
 										</ul>
 									</div>
@@ -439,9 +618,12 @@ figure img {
 										<div class="media-body">
 											<!--評論人姓名-->
 											<h4 id="cusName1"></h4>
-											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i>
+											<span hidden id="score1"></span>
+
+											<div id="scoreBox">
+								
+											</div>
+											
 										</div>
 									</div>
 
@@ -461,9 +643,12 @@ figure img {
 										<div class="media-body">
 											<!--評論人姓名-->
 											<h4 id="cusName2"></h4>
-											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i>
+											<span hidden id="score2"></span>
+
+											<div id="scoreBox1">
+												
+											</div>
+
 										</div>
 									</div>
 
@@ -483,9 +668,12 @@ figure img {
 										<div class="media-body">
 											<!--評論人姓名-->	
 											<h4 id="cusName3"></h4>
-											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i>
+											<span hidden id="score3"></span>
+
+											<div id="scoreBox2">
+												
+											</div>
+
 										</div>
 									</div>
 
@@ -508,19 +696,25 @@ figure img {
 								<p>您的評分:</p>
 								
 								<ul class="list">
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
+									<li><a ><i id="star1" class="fa fa-star"></i></a></li>
+									<li><a ><i id="star2" class="fa fa-star"></i></a></li>
+									<li><a ><i id="star3" class="fa fa-star"></i></a></li>
+									<li><a ><i id="star4" class="fa fa-star"></i></a></li>
+									<li><a ><i id="star5" class="fa fa-star"></i></a></li>
 								</ul>
+								<span id="yourScore">(點擊評分)</span>
+
 								
 								
 								
-								<form class="row contact_form" action="${contextRoot}/insertComment"
-									method="get" id="contactForm" novalidate="novalidate">
+								<form  class="row contact_form" action="${contextRoot}/insertComment"
+									method="get" id="commentForm" novalidate="novalidate">
 									
-									<input type="hidden" name="productId" value="${pdVal.product_id}">
+									<input type="hidden" name="id" value="${pdVal.id}">
+
+									<input type="hidden" class="form-control" id="score" name="score"
+												placeholder="評分" onfocus="this.placeholder = ''"
+												onblur="this.placeholder = '您的姓名'">
 
 									<div class="col-md-12">
 										<div class="form-group">
@@ -532,7 +726,8 @@ figure img {
 									
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="email" class="form-control" id="email"
+
+											<input type="text" class="form-control" id="email"
 												name="email" placeholder="Email"
 												onfocus="this.placeholder = ''"
 												onblur="this.placeholder = 'Email'">
@@ -560,7 +755,7 @@ figure img {
 											type="hidden" value="">
 									
 									<div class="col-md-12 text-center">
-										<button  id="btnComment" type="submit" class="primary-btn">送出評論</button>
+										<button  id="btnComment" type="button" class="primary-btn">送出評論</button>
 									</div>
 								</form>
 								<div class="col-md-12 text-center">
@@ -676,7 +871,6 @@ figure img {
 						</div>
 
 
-					
 				<div class="col-lg-3">
 					<div class="ctg-right">
 						<a href="#" target="_blank"> <img
@@ -773,6 +967,7 @@ figure img {
 
 
 	<!-- ======================================================================================= -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -835,24 +1030,57 @@ figure img {
 							})
 	
 					</script>
-					
+
+				<!--========================= 算出此筆購買金額 ==============================-->
 					<script>
 
-							document.getElementById("btnComment").addEventListener("click", function() {
-								
-								Swal.fire({
+						$("#upPrice").click(function(){
+							var a = $("#sst").val();
+							var b = $("#totalPrice").val();
+							var tPrice = ((parseFloat(a))*(parseFloat(b)))
 
-									icon : 'success',
-									title : '感謝您的評論',
-									showConfirmButton : false,
-									timer : 1500
-								})
-							});
+							$("#orderPrice").val(tPrice)
+							// console.log(tPrice)
+						})
+
+						
+						$("#downPrice").click(function(){
+							var a = $("#sst").val();
+							var b = $("#totalPrice").val();
+							var tPrice = ((parseFloat(a))*(parseFloat(b)))
+
+							$("#orderPrice").val(tPrice)
+							// console.log(tPrice)
+						})
+
+					</script>
+				<!--=======================================================================-->
+
+					
+
+					<!--sweetalert 商品評論-->
+					<script>
+
+						$("#btnComment").click(function(){
 							
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: '感謝您的意見',
+								showConfirmButton: false,
+								timer: 2000
+								})
+									setTimeout(sentComment,1500)	
+									})
+
+								function sentComment(){
+									$("#commentForm").submit();
+								}
+										
 					</script>
 
-
-
+				
+			<!--================================= ajax 取得評論/顯示平均分數及對應顯示星號 ==================================-->
 
 					<script>
 
@@ -869,18 +1097,122 @@ figure img {
 										if(index===3){
 											return false;
 										}
-
+										$("#score"+(index+1)).text(pdComment.productScore)
 										$("#cusName" + (index+1)).text(pdComment.customerFullName)
 										$("#prodComment"+ (index+1)).text(pdComment.productComment)
 										$("#commentDate"+ (index+1)).text(pdComment.createdAt)
+
+
+					
+										//第一則評論
+											$('#scoreBox').empty();
+											var sc1 = $("#score1").text();
+											
+										
+											if(sc1 === "5"){
+												let getScore1 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox").append(getScore1);
+											}else if(sc1 === "4"){
+												let getScore1 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox").append(getScore1);
+											}else if(sc1 === "3"){
+												let getScore1 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox").append(getScore1);
+											}else if(sc1 === "2"){
+												let getScore1 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox").append(getScore1);		
+											}else if(sc1 === "1"){
+												let getScore1 =  '<i class="fa fa-star"></i>';
+																
+												$("#scoreBox").append(getScore1);		
+											}
+											
+
+										//第二則評論	
+											$('#scoreBox1').empty();
+											var sc2 = $("#score2").text();
+											
+											if(sc2 === "5"){
+												let getScore2 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox1").append(getScore2);
+											}else if(sc2 === "4"){
+												let getScore2 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox1").append(getScore2);
+											}else if(sc2 === "3"){
+												let getScore2 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox1").append(getScore2);
+											}else if(sc2 === "2"){
+												let getScore2 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox1").append(getScore2);		
+											}else if(sc2 === "1"){
+												let getScore2 =  '<i class="fa fa-star"></i>';
+																
+												$("#scoreBox1").append(getScore2);		
+											}
+
+
+										//第三則評論
+											$('#scoreBox2').empty();
+											var sc3 = $("#score3").text();
+
+											if(sc3 === "5"){
+												let getScore3 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox2").append(getScore3);
+											}else if(sc3 === "4"){
+												let getScore3 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox2").append(getScore3);
+											}else if(sc3 === "3"){
+												let getScore3 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox2").append(getScore3);
+											}else if(sc3 === "2"){
+												let getScore3 =  '<i class="fa fa-star"></i>'
+																+'<i class="fa fa-star"></i>';
+												$("#scoreBox2").append(getScore3);		
+											}else if(sc3 === "1"){
+												let getScore3 =  '<i class="fa fa-star"></i>';		
+												$("#scoreBox2").append(getScore3);		
+											}
+
+											//顧客評論平均分數
+											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
+											var avgScore = (Math.round(totalScore/3))
+											$("#scoreAvg").text(avgScore + '.0')	
 									})
 								}
 							})
 						}
 					</script>
 
-
-
+						<!--=========================================================================-->
 
 					<script>
 
@@ -897,21 +1229,15 @@ figure img {
 											return false;
 										}
 										$("#pdName"+(index+1)).text(product.productName);
-										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
+										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
 										$("#relImg"+(index+1)).attr("src", $("#contextRoot").val()+"/ProductTempImg/"+product.imgUrl)
 										$("#price"+(index+1)).text("NT$ " + product.price);
-										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.product_id)
-										
-
+										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
+									
 									})
 								}
-
-
 							})
 						}
-
-
-
 
 					</script>
 
@@ -923,14 +1249,61 @@ figure img {
 							$("#productComment").text("五顆星商品 推薦給大家~~~")
 
 						})
+					</script>
 
+					<!--========================== 商品評分 ===============================-->
 
+					<script>
 
+						$("#star1").click(function(){
+							$("#yourScore").text("評分1顆星");
+						})
+						$("#star2").click(function(){
+							$("#yourScore").text("評分2顆星");
+						})
+						$("#star3").click(function(){
+							$("#yourScore").text("評分3顆星");
+						})
+						$("#star4").click(function(){
+							$("#yourScore").text("評分4顆星");
+						})
+						$("#star5").click(function(){
+							$("#yourScore").text("評分5顆星");
+						})
+
+					</script>
+
+					<script>
+						$("#star1").click(function(){
+							$("#score").val("1")
+						})
+						$("#star2").click(function(){
+							$("#score").val("2")
+						})
+						$("#star3").click(function(){
+							$("#score").val("3")
+						})
+						$("#star4").click(function(){
+							$("#score").val("4")
+						})
+						$("#star5").click(function(){
+							$("#score").val("5")
+						})
+
+						
+					</script>
+
+					<script>
+
+						
 
 
 					</script>
 
-	<!-- ======================================================= -->
+					<!--======================================================================-->
+
+
+	<!-- ========================================================================================================= -->
 
 
 </body>

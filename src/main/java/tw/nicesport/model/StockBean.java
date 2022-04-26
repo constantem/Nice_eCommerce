@@ -25,7 +25,7 @@ public class StockBean implements Serializable {
 	@Id
 	@Column(name="stock_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer stock_id;
+	private Integer id;
 
 	private Integer quantity;
 
@@ -41,7 +41,7 @@ public class StockBean implements Serializable {
 	
 	public StockBean(Integer stock_id,Integer quantity,String createdAt, String modifiedAt) {
 		
-		this.stock_id = stock_id;
+		this.id = stock_id;
 		this.quantity = quantity;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
@@ -50,11 +50,11 @@ public class StockBean implements Serializable {
 	
 
 	public Integer getStock_id() {
-		return stock_id;
+		return id;
 	}
 
 	public void setStock_id(Integer stock_id) {
-		this.stock_id = stock_id;
+		this.id = stock_id;
 	}
 
 	public Integer getQuantity() {

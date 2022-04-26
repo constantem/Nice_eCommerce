@@ -75,6 +75,10 @@ public class DiscountService {
 			Page<Discount> page = discountDao.findAll(pgb);
 			return page;
 		}
+
+		public List<Discount> queryAll() {
+			return discountDao.findAll();
+		}
 	
 
 

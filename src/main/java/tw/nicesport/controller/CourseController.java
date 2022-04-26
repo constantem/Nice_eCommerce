@@ -1,8 +1,10 @@
 package tw.nicesport.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -22,18 +24,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import tw.nicesport.dto.CoachsAndRoomsContainer;
 import tw.nicesport.model.Coach;
 import tw.nicesport.model.Course;
+import tw.nicesport.model.CourseBooking;
+import tw.nicesport.model.Member;
 import tw.nicesport.model.Room;
 import tw.nicesport.service.CourseService;
+import tw.nicesport.service.MemberService;
 import tw.nicesport.util.randomUtils;
 
 @Controller
-@RequestMapping("/course") // controller 根 URL
 public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
 	
-	@RequestMapping("/form")
+	@Autowired
+	private MemberService memberService;
+	
+	@RequestMapping("/course/form")
 	public String showCourseForm(Model model) {
 		model.addAttribute( "course", new Course() );
 		CoachsAndRoomsContainer crContainer = courseService.getAllCoachAndRoom();
@@ -42,7 +49,7 @@ public class CourseController {
 		return "course/course-form";
 	}
 	
-	@RequestMapping("/create")
+	@RequestMapping("/course/create")
 	@ResponseBody
 	public String courseCreated(
 			@Valid @ModelAttribute("course") Course course,
@@ -56,7 +63,7 @@ public class CourseController {
 			return "驗證不通過";
 		}
 		
-		Coach coach = courseService.getCoach(course.getCoach_id());
+		Coach coach = courseService.getCoach(course.getCoachId());
 		Room room = courseService.getRoom(course.getRoomNo());
 		course.setCoach(coach);
 		course.setRoom(room);
@@ -70,7 +77,7 @@ public class CourseController {
 		return "新增失敗";
 	}
 	
-	@RequestMapping("/autoinput")
+	@RequestMapping("/course/autoinput")
 	@ResponseBody
 	public Map<String,String> autoinput() throws JsonProcessingException {
 		
@@ -128,16 +135,16 @@ public class CourseController {
 		return mapForAutoInput;
 	}
 	
-	@RequestMapping("/show/all")
+	@RequestMapping("/course/show/all")
 	public String showAllCourse(Model model) {		
 		List<Course> courses = courseService.queryAll();
 		model.addAttribute("courses", courses);
 		return "course/show-all-courses";
 	}
 	
-	@RequestMapping("/show/{course_id}")
+	@RequestMapping("/course/show/{id}")
 	public String showOneCourse(
-			@PathVariable("course_id") Integer id,
+			@PathVariable("id") Integer id,
 			Model model) {		
 		Course course = courseService.queryById(id);
 		model.addAttribute("course", course);
@@ -148,7 +155,7 @@ public class CourseController {
 	}
 	
 	// 前台轉跳 course detail
-	@RequestMapping("/detail/{id}")
+	@RequestMapping("/course/detail/{id}")
 	public String detailCourseJsp(
 		@PathVariable(name="id") Integer id,
 		Model model) {		
@@ -157,15 +164,15 @@ public class CourseController {
 	}
 	
 	// 前台 course detail (用 Ajax)
-	@RequestMapping("/detail/data")
+	@RequestMapping("/course/detail/data")
 	@ResponseBody
 	public Course detailCourseJson(@RequestBody Integer id) {		
 		return courseService.queryById(id);
 	}
 
-	@RequestMapping("/update/{course_id}")
+	@RequestMapping("/course/update/{id}")
 	public String updateOneCourse(
-			@PathVariable("course_id") Integer id,
+			@PathVariable("id") Integer id,
 			@Valid @ModelAttribute("course") Course course,
 			BindingResult br,
 			Model model) {	
@@ -179,7 +186,7 @@ public class CourseController {
 			return "course/show-a-course";
 		}
 		
-		Coach coach = courseService.getCoach(course.getCoach_id());
+		Coach coach = courseService.getCoach(course.getCoachId());
 		Room room = courseService.getRoom(course.getRoomNo());
 		course.setCoach(coach);
 		course.setRoom(room);
@@ -194,9 +201,9 @@ public class CourseController {
 		return "course/update-failure";
 	}
 	
-	@RequestMapping("/delete/{course_id}")
+	@RequestMapping("/course/delete/{id}")
 	public String deleteOneCourse(
-			@PathVariable("course_id") Integer id,
+			@PathVariable("id") Integer id,
 			Model model) {		
 		courseService.deleteById(id);
 		
@@ -206,10 +213,11 @@ public class CourseController {
 	}
 	
 	// 前端課程
-	@RequestMapping("/list/all")
-	public String showAllCourseInFront(Model model) {		
+	@RequestMapping("/course/list/all")
+	public String showAllCoursesInFront(Model model) {		
 		List<Course> courses = courseService.queryAll();
 		model.addAttribute("courses", courses);
 		return "course/list-all-courses-front";
 	}
+	
 }

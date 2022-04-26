@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "Product")
 @JsonIdentityInfo(
 	    generator = ObjectIdGenerators.PropertyGenerator.class, 
-	    property = "product_id",
+	    property = "id",
 	    scope = Integer.class
 )
 public class ProductBean implements Serializable {
@@ -42,7 +42,13 @@ public class ProductBean implements Serializable {
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer product_id;
+	private Integer id;
+	
+	
+	@OneToMany(mappedBy = "productBean",
+			cascade= {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JsonIgnore
+	private Set<ProductWishListBean> productMyFavorSet = new HashSet<>();
 
 	// 產品名
 	@Column(name = "productName")
@@ -132,13 +138,21 @@ public class ProductBean implements Serializable {
 
 	// getter, setter
 
-	public Integer getProduct_id() {
-		return product_id;
+//	public Integer getProduct_id() {
+//		return id;
+//	}
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setProduct_id(Integer product_id) {
-		this.product_id = product_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
+//	public void setProduct_id(Integer product_id) {
+//		this.id = product_id;
+//	}
 
 	public String getProductName() {
 		return productName;
@@ -312,7 +326,7 @@ public class ProductBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductBean [product_id=" + product_id + ", productName=" + productName + ", supplier=" + supplier
+		return "ProductBean [id=" + id + ", productName=" + productName + ", supplier=" + supplier
 				+ ", color=" + color + ", size=" + size + ", price=" + price + ", weight=" + weight + ", img="
 				+ Arrays.toString(img) + ", imgUrl=" + imgUrl + ", imgUrl_A=" + imgUrl_A + ", imgUrl_B=" + imgUrl_B
 				+ ", imgUrl_C=" + imgUrl_C + ", imgUrl_D=" + imgUrl_D + ", productDiscription=" + productDiscription

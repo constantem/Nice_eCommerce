@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import tw.nicesport.mail.JavaMail;
 import tw.nicesport.model.CustomerBean;
 import tw.nicesport.service.CustomerService;
 
@@ -22,9 +23,27 @@ public class CustomerSupportController {
 	@Autowired
 	private CustomerService csService;
 	
+	@Autowired
+	private JavaMail mail;
+	
 	@GetMapping("/")
 	public String welcomeIndex() {
 		return "index";
+	}
+	
+	@GetMapping("/ai")
+	public String ai() {
+
+	return "customerSupport/ai";
+
+	}
+
+	
+	
+	@GetMapping("/message/sendMail")
+	public String mail() {
+		mail.SendMail();
+		return "Success";
 	}
 	
 	@GetMapping("/message/selectOne")

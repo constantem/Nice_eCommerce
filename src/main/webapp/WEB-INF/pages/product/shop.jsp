@@ -167,6 +167,100 @@ button {
 
 	<!-- 上方導覽列 -->
 	<%@include file="FrontPageNavBar.jsp"%>
+	
+	
+	<!-- Start Banner Area -->
+
+	<section class="banner-area organic-breadcrumb">
+
+		<!-- photo size 1280 * 533 -->
+		<div class="window" align='Center'>
+		
+			<div class="images" id="images">
+				<img id="img1" src="">
+				<img id="img2" src="">
+				<img id="img3" src="">
+				<img id="img4" src="">
+			</div>
+			
+
+			<span id="buttons">
+				<button></button>
+				<button></button>
+				<button></button>
+				<button></button>
+			</span>
+			
+		</div>
+
+	</section>
+
+	<!-- End Banner Area -->
+
+
+	<!--=================================廣告輪播========================================== -->
+
+	<script>
+						var allButtons = $('#buttons > button');
+						for (let i = 0; i < allButtons.length; i++) {
+							$(allButtons[i]).on('click', function (ev) {
+								var index = $(ev.currentTarget).index();
+								var npx = index * -800;
+								$('#images').css({
+									transform: 'translateX(' + npx + 'px)'
+								});
+								n = index;
+								activeButton(allButtons.eq(n))
+							});
+						}
+						var n = 0;
+						var size = allButtons.length;
+						var timerId = setTimer();
+						$('.window').on('mouseenter', function () {
+							window.clearInterval(timerId);
+						})
+						$('.window').on('mouseleave', function () {
+							timerId = setTimer();
+						})
+						function setTimer() {
+							return setInterval(() => {
+								n++;
+								playSlide(n % size);
+							}, 2000)
+						}
+						function playSlide(index) {
+							allButtons.eq(index).trigger('click');
+						}
+						function activeButton($button) {
+							$button.addClass('red')
+								.siblings('.red')
+								.removeClass('red');
+						}
+					</script>
+	<!--================================= 廣告輪播 ========================================== -->
+
+
+	<!-- =============================== 抓取圖片資料 =================================== -->
+	<script>
+
+		$(document).ready(function getAllPtoto(){
+			
+			$.ajax({
+				url:$("#contextRoot").val() +"/shopCenterProductAds.controller",
+				type:"post",
+				success:function(productAds){
+
+					$("#img1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_A);
+					$("#img2").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_B);
+					$("#img3").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_C);
+					$("#img4").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+productAds.imgUrl_D);
+
+				}
+			})
+		}
+	)
+	</script>
+	<!-- ================================================================================= -->
 
 
 
@@ -183,16 +277,15 @@ button {
 								class="lnr lnr-arrow-right"></span>運動服飾<span class="number">(65)</span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">運動長褲<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">運動外套<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">機能系列<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
+								<li class="main-nav-list child"><a href="#">個人用品<span class="number">(01)</span>
 								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
+								<li class="main-nav-list child"><a href="#">背包<span
 										class="number">(11)</span></a></li>
 							</ul></li>
 
@@ -203,17 +296,12 @@ button {
 								class="lnr lnr-arrow-right"></span>健身器材<span class="number">(29)</span></a>
 							<ul class="collapse" id="healthProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">啞鈴<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">大型健身器材<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">飛輪<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
 							</ul></li>
 
 						<li class="main-nav-list"><a data-toggle="collapse"
@@ -222,17 +310,12 @@ button {
 								class="lnr lnr-arrow-right"></span>補充營養品<span class="number">(15)</span></a>
 							<ul class="collapse" id="homeAppliance" data-toggle="collapse"
 								aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
+								<li class="main-nav-list child"><a href="#">乳清蛋白<span
 										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
+								<li class="main-nav-list child"><a href="#">蛋白營養棒<span
 										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
+								<li class="main-nav-list child"><a href="#">餅乾/點心<span
 										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
 							</ul></li>
 
 					</ul>
@@ -334,10 +417,10 @@ button {
 <!-- 							<option value="2">按上架時間排序</option> -->
 <!-- 						</select> -->
 							<form method="get" action="${contextRoot}/FrontpageSeperate">
-							<button id="btnSort1" type="submit" value="">按價格排序</button>
+								<button id="btnSort1" type="submit" value="">按價格排序</button>
 							</form>
 							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
-							<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
+								<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
 							</form>
 					</div>
 					
@@ -385,14 +468,20 @@ button {
 
 											<a href="" class="social-info"> <span class="ti-bag"></span>
 												<p class="hover-text">加入購物車</p>
-											</a> <a href="" class="social-info"> <span
+											</a>
+											
+											 <a id="addWishList" href="insertProductToWishList?productId=${prod.id}&memberId=101" class="social-info"> <span
 												class="lnr lnr-heart"></span>
 												<p class="hover-text">加入願望清單</p>
-											</a> <a href="" class="social-info"> <span
-												class="lnr lnr-sync"></span>
-												<p class="hover-text">比較</p>
-											</a> <a
-												href="/Nice_eCommerce/getOneProductShop${prod.product_id}"
+											</a>
+											
+<!-- 											 <a href="" class="social-info"> <span -->
+<!-- 												class="lnr lnr-sync"></span> -->
+<!-- 												<p class="hover-text">比較</p> -->
+<!-- 											</a> -->
+											
+											 <a
+												href="/Nice_eCommerce/getOneProductShop${prod.id}"
 												class="social-info"> <span class="lnr lnr-move"></span>
 												<p class="hover-text">更多商品資訊</p>
 											</a>
@@ -654,13 +743,10 @@ button {
 			}
 		})
 
-
-
-
-
-
-
 	</script>
+
+
+
 
 
 

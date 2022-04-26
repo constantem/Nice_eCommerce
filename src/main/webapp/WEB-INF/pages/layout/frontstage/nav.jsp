@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
+<input id="contextRoot" type="hidden" value="${pageContext.request.contextPath}">
 <!-- 導覽列開始 -->
 <nav class="navbar navbar-expand-lg navbar-light main_box">
 	<div class="container">
@@ -18,7 +25,13 @@
 				<li class="nav-item active"><a class="nav-link" href="${contextRoot}/">首頁</a></li>
 				
 				<!-- 2. 活動 -->
-				<li class="nav-item"><a class="nav-link" href="">好康優惠</a></li>
+				<li class="nav-item submenu dropdown">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+					 aria-expanded="false">好康優惠</a>
+					<ul class="dropdown-menu">
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/discount/showADs-front">活動一覽</a></li>
+						<li class="nav-item"><a class="nav-link" href="null">null</a></li>
+					</ul>
 				
 				<!-- 3. 商城 -->
 				<li class="nav-item submenu dropdown">
@@ -26,7 +39,6 @@
 					 aria-expanded="false">購物商城</a>
 					<ul class="dropdown-menu">
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/FrontpageSeperate">前往商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">空白</a></li>
 					</ul>
 				</li>
 				
@@ -42,19 +54,61 @@
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/blog.html">交通方式</a></li>
 					</ul>
 				</li>
-				
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<li class="nav-item"><a class="nav-link" href="">USER 登入!</a></li>
+				</sec:authorize>
 				<!-- 6. 會員中心 -->
 				<li class="nav-item submenu dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					 aria-expanded="false">會員中心</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link" href="">登入</a></li>
-						<li class="nav-item"><a class="nav-link" href="">個人資料</a></li>
-						<li class="nav-item"><a class="nav-link" href="">我的訂單</a></li>
-						<li class="nav-item"><a class="nav-link" href="">我的收藏</a></li>
-						<li class="nav-item"><a class="nav-link" href="">我的優惠券</a></li>
-						<li class="nav-item"><a class="nav-link" href="">我的課程</a></li>
-						<li class="nav-item"><a class="nav-link" href="">登出</a></li>
+						<li class="nav-item notAuthenticatedAsUser">
+							<a class="nav-link" href="${contextRoot}/userLogin">
+								註冊/登入
+							</a>
+						</li>
+
+						<li class="nav-item isAuthenticatedAsUser">
+							<a class="nav-link" 
+								href="${contextRoot}/user/myProfile">
+								個人資料
+							</a>
+						</li>
+						<li class="nav-item isAuthenticatedAsUser">
+							<a class="nav-link" 
+								href="${contextRoot}/user/myOrders">
+								我的訂單
+							</a>
+						</li>
+						<li class="nav-item isAuthenticatedAsUser">
+							<a class="nav-link" 
+								href="${contextRoot}/user/myWishList">
+								我的收藏
+							</a>
+						</li>
+						<li class="nav-item isAuthenticatedAsUser">
+							<a class="nav-link" 
+								href="${contextRoot}/user/myDiscounts">
+								我的優惠券
+							</a>
+						</li>
+						<li class="nav-item isAuthenticatedAsUser">
+							<a class="nav-link" 
+								href="${contextRoot}/user/myCourses">
+								我的課程
+							</a>
+						</li>
+						<li class="nav-item isAuthenticatedAsUser">
+							<form 
+								id="logoutForm" 
+								action="${contextRoot}/userLogout" 
+								method="POST">
+								
+								<a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">
+									登出
+								</a>
+							</form>
+						</li>
 					</ul>
 				</li>
 				
@@ -76,3 +130,22 @@
 		</div>
 	</div>
 </nav>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous">
+</script>
+<script>
+	$.ajax({
+		url: $("#contextRoot").val() + "/user/role",
+		success: function (roles) {
+			if(roles.length===1 && roles[0]=="ROLE_USER") {
+				$(".isAuthenticatedAsUser").show();
+				$(".notAuthenticatedAsUser").hide();
+			} else {
+				$(".isAuthenticatedAsUser").hide();
+				$(".notAuthenticatedAsUser").show();
+			}
+		}
+	});
+</script>

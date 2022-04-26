@@ -206,6 +206,53 @@ figure img {
 .commentDate{
 	margin-left: 280px;
 }
+
+#inputPrice {
+	width: 40px;
+	height: 20px;
+}
+
+.images {
+	align-items: flex-start;
+	transition: transform 0.5s;
+	display: flex;
+}
+
+
+#img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
+	width: 800px;
+}
+
+.window {
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+	overflow: hidden;
+}
+
+button {
+	width: 12px;
+	height: 12px;
+	border-radius: 150%;
+	margin: 0 3px;
+	border: none;
+}
+
+.red {
+	background: #84C1FF;
+}
 </style>
 
 <body>
@@ -213,7 +260,25 @@ figure img {
 	
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+
+ <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
 
 
 		<!-- 	為了讓body內也能使用contextRoot的值 -->
@@ -1301,6 +1366,23 @@ figure img {
 					</script>
 
 					<!--======================================================================-->
+					
+						
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 
 
 	<!-- ========================================================================================================= -->

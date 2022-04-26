@@ -152,6 +152,53 @@ button {
 	transition: 0.2s;
 	color: white;
 }
+
+#inputPrice {
+	width: 40px;
+	height: 20px;
+}
+
+.images {
+	align-items: flex-start;
+	transition: transform 0.5s;
+	display: flex;
+}
+
+
+#img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
+	width: 800px;
+}
+
+.window {
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+	overflow: hidden;
+}
+
+button {
+	width: 12px;
+	height: 12px;
+	border-radius: 150%;
+	margin: 0 3px;
+	border: none;
+}
+
+.red {
+	background: #84C1FF;
+}
 </style>
 
 
@@ -164,7 +211,25 @@ button {
 		value="${pageContext.request.contextPath}">
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+
+ <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
 	
 	
 	<!-- Start Banner Area -->

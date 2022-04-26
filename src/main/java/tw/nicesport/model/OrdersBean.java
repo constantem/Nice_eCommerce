@@ -1,6 +1,8 @@
 package tw.nicesport.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,11 +16,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "Orders")
+@JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class, 
+	    property = "order_id",
+	    scope = Integer.class
+)
 public class OrdersBean {
+	
 	// 訂單編號
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,8 +82,8 @@ public class OrdersBean {
 //
 //	// 關聯 table
 	@OneToMany(mappedBy = "ordersBean")
-	@JsonIgnore
-	private Set<OrderDetailBean> orderDetail = new HashSet<OrderDetailBean>();
+//	@JsonIgnore
+	private List<OrderDetailBean> orderDetail = new ArrayList<OrderDetailBean>();
 	// 多方不用連動
 	@ManyToOne
 	@JoinColumn(name = "member_id")
@@ -204,11 +214,11 @@ public class OrdersBean {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public Set<OrderDetailBean> getOrderDetail() {
+	public List<OrderDetailBean> getOrderDetail() {
 		return orderDetail;
 	}
 
-	public void setOrderDetail(Set<OrderDetailBean> orderDetail) {
+	public void setOrderDetail(List<OrderDetailBean> orderDetail) {
 		this.orderDetail = orderDetail;
 	}
 

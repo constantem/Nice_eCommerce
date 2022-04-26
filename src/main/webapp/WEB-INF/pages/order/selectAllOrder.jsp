@@ -18,17 +18,17 @@
 <link href="${contextRoot}/resources/backstage/css/main.css"
 	rel="stylesheet" />
 
-<!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
+<!-- <!-- CSS only --> 
+<!-- <link -->
+<!-- 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" -->
+<!-- 	rel="stylesheet" -->
+<!-- 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" -->
+<!-- 	crossorigin="anonymous"> -->
+<!-- <!-- JavaScript Bundle with Popper -->
+<!-- <script -->
+<!-- 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" -->
+<!-- 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" -->
+<!-- 	crossorigin="anonymous"></script> -->
 <!-- 	======================================================================================================================== -->
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
@@ -83,29 +83,29 @@
 		<%@include file="leftbar.jsp"%>
 		<!---------------------------------------------------------------------- 中間大框框-------------------------------------------------------------------->
 		<p />
+		<section class="is-hero-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<h1 class="title">訂單資訊</h1>
+<%-- 				<a href="${pageContext.request.contextPath}/course/show/all"><button --%>
+<!-- 						class="button light">返回課程列表</button></a> -->
+			</div>
+		</section>
+		
 		<div class="container">
 			<p />
 			<table>
 				<thead>
 					<tr>
+					
 						<th class="checkbox-cell"><label class="checkbox"> <input
 								type="checkbox"> <span class="check"></span>
 						</label></th>
 						<th class="image-cell"></th>
 						<th>訂單編號</th>
-						<th>會員編號</th>
+						<th>會員姓名</th>
 						<th>下單日期</th>
-						<th>出貨日期</th>
-						<th>運費</th>
-						<th>最終總價</th>
-						<th>收貨人姓名</th>
-						<th>收貨人住址</th>
-						<th>郵遞區號</th>
-						<th>付款狀態</th>
-						<th>出貨狀態</th>
-						<th>刪除狀態</th>
-						<th>建立日期</th>
-						<th>修改日期</th>
+						<th>訂單總價</th>					
 						<th>訂單狀態</th>
 						<th></th>
 					</tr>
@@ -126,37 +126,20 @@
 							<td data-label="order_id">${OrdersBean.order_id}</td>
 							<td data-label="member_id">${OrdersBean.memberBean.username}</td>
 							<td data-label="orderDate">${OrdersBean.orderDate}</td>
-							<td data-label="shippingDate">${OrdersBean.shippingDate}</td>
-							<td data-label="shippingFee">${OrdersBean.shippingFee}</td>
 							<td data-label="totalPrice">${OrdersBean.totalPrice}</td>
-							<td data-label="shipName">${OrdersBean.shipName}</td>
-							<td data-label="shipAddress">${OrdersBean.shipAddress}</td>
-							<td data-label="shipPostalCode">${OrdersBean.shipPostalCode}</td>
-							<td data-label="paymentStatus">${OrdersBean.paymentStatus}</td>
-							<td data-label="shipStatus">${OrdersBean.shipStatus}</td>
-							<td class="deleteStatus" data-label="deleteStatus">${OrdersBean.deleteStatus}</td>
-							<td data-label="createdAt">${OrdersBean.createdAt}</td>
-							<td data-label="modifiedAt">${OrdersBean.modifiedAt}</td>
+							<td data-label="orderStatus">${OrdersBean.orderStatus}</td>
 							<td class="actions-cell">
 								<div class="buttons right nowrap">
 
-
+									
 									<input type="hidden" value="${OrdersBean.order_id}">
-									<button type="button" class="btn btn-primary"
+									<button type="button" class="button blue"
 										id="order_detail_btn" data-bs-toggle="modal"
-										data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-										<%-- 										onclick = "findById('${OrdersBean.order_id}')"> --%>
-										<%--onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.order_id}'"> --%>
+										data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+										<%-- onclick = "findById('${OrdersBean.order_id}')"> --%>
+										onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.order_id}'">
 										<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
 									</button>
-
-
-									<!-- 									<button type="button" class="btn btn-primary" -->
-									<!-- 										data-bs-toggle="modal" data-bs-target="#exampleModal" -->
-									<!-- 										data-bs-whatever="@mdo">給我跳出來</button> -->
-
-
-
 									<button class="button small red --jb-modal"
 										data-target="sample-modal" type="button">
 										<span class="icon"><i class="mdi mdi-trash-can"></i></span>
@@ -169,7 +152,7 @@
 
 
 		</div>
-		<!-- 		分頁物件 -->
+		<!-- 		分頁頁數物件 -->
 		<div id="page" align="center">
 			<div class="table-pagination">
 				<div class="flex items-center ">
@@ -303,31 +286,31 @@
 	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
 	<!------------------------------ JS------------------------------------------------ -->
 	<!-- 	==========================================AJAX============================================ -->
-	<script>
-		$('#order_detail_btn').click(
-				function(evt) {
-					var orderId = $(this).siblings("input").val();
+<!-- 	<script> -->
+<!-- // 		$('#order_detail_btn').click( -->
+<!-- // 				function(evt) { -->
+<!-- // 					var orderId = $(this).siblings("input").val(); -->
 
-					$.ajax({
-						type : "GET",
-						url : "/Nice_eCommerce/orders/OrderDetail?id="
-								+ orderId,
-						success : function(orderdetails) {
-							orderdetails[0]
-							orderdetails[1]
-							$.each(orderdetails, function(index, orderdetail) {
-								console.log(index);
-								console.log(orderdetail);
-								$('#productName').val(
-										orderdetail.productBean.productName);
-							});
-							// 					console.log(orderdetail);
-							// 					console.log(orderdetail.productBean.productName);
+<!-- // 					$.ajax({ -->
+<!-- // 						type : "GET", -->
+<!-- // 						url : "/Nice_eCommerce/orders/OrderDetail?id=" -->
+<!-- // 								+ orderId, -->
+<!-- // 						success : function(orderdetails) { -->
+<!-- // 							orderdetails[0] -->
+<!-- // 							orderdetails[1] -->
+<!-- // 							$.each(orderdetails, function(index, orderdetail) { -->
+<!-- // 								console.log(index); -->
+<!-- // 								console.log(orderdetail); -->
+<!-- // 								$('#productName').val( -->
+<!-- // 										orderdetail.productBean.productName); -->
+<!-- // 							}); -->
+<!-- // 							// 					console.log(orderdetail); -->
+<!-- // 							// 					console.log(orderdetail.productBean.productName); -->
 
-						}
-					})
-				})
-	</script>
+<!-- // 						} -->
+<!-- // 					}) -->
+<!-- // 				}) -->
+<!-- 	</script> -->
 
 
 

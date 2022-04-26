@@ -1,8 +1,10 @@
 package tw.nicesport.model;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,12 +23,18 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Product")
-@Component
+@JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class, 
+	    property = "product_id",
+	    scope = Integer.class
+)
 public class ProductBean implements Serializable {
 
 	// 對應欄位
@@ -111,7 +119,11 @@ public class ProductBean implements Serializable {
 	@OneToMany(mappedBy = "productBean")
 	@JsonIgnore
 	private Set<OrderDetailBean> orderDetails = new HashSet<OrderDetailBean>();
-
+	
+	// 對應購物車明細
+	@OneToMany(mappedBy = "productBean")
+	private List<CartProductBean> cartProduct = new ArrayList<CartProductBean>();
+	
 	// 建構子
 
 	public ProductBean() {
@@ -289,4 +301,25 @@ public class ProductBean implements Serializable {
 	public void setOrderDetails(Set<OrderDetailBean> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+
+	public List<CartProductBean> getCartProduct() {
+		return cartProduct;
+	}
+
+	public void setCartProduct(List<CartProductBean> cartProduct) {
+		this.cartProduct = cartProduct;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductBean [product_id=" + product_id + ", productName=" + productName + ", supplier=" + supplier
+				+ ", color=" + color + ", size=" + size + ", price=" + price + ", weight=" + weight + ", img="
+				+ Arrays.toString(img) + ", imgUrl=" + imgUrl + ", imgUrl_A=" + imgUrl_A + ", imgUrl_B=" + imgUrl_B
+				+ ", imgUrl_C=" + imgUrl_C + ", imgUrl_D=" + imgUrl_D + ", productDiscription=" + productDiscription
+				+ ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", stock_id=" + stock_id
+				+ ", subcategory_id=" + subcategory_id + ", subCategory=" + subCategory + ", stock=" + stock
+				+ ", orderDetails=" + orderDetails + "]";
+	}
+	
+	
 }

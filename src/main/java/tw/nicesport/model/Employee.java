@@ -7,11 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat; 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat; 
 
 @Entity
 @Table(name = "Employee")
@@ -51,21 +54,21 @@ public class Employee {
 	@Column(name = "img")
 	private String img; //照片
 
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP) // 年 月 日 十分秒
-	@Column(name = "hireDate", columnDefinition = "datetime")
+	@Column(name = "hireDate")
 	private Date hireDate;// 受雇起始日
 
 	@Column(name = "permission")
 	private String permission;// 權限
 
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP) // 年 月 日 十分秒
 	@Column(name = "createdAt", columnDefinition = "datetime")
 	private Date createdAt;// 建立日期
 
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "modifiedAt", columnDefinition = "datetime")
 	private Date modifiedAt;// 修改日期
 
@@ -73,16 +76,26 @@ public class Employee {
 	}
 
 	@PrePersist // 在轉換到 PrePersist狀態以前去做的  不能寫多個 只能注入一個
-	public void onCreate1() {
+	public void onCreate() {
+		if (hireDate == null&&createdAt == null) {
+			hireDate = new Date();
+			createdAt = new Date();
+		}
+//		if (createdAt == null) {
+//			createdAt = new Date();
+//		}
+	}
+	
+	@PreUpdate // 在轉換到 PrePersist狀態以前去做的  不能寫多個 只能注入一個
+	public void onUpdate() {
+		modifiedAt = new Date();
+		
 		if (hireDate == null) {
 			hireDate = new Date();
 		}
 		if (createdAt == null) {
 			createdAt = new Date();
 		}
-//		if (modifiedAt == null) {
-//			modifiedAt = new Date();
-//		}
 	}
 //
 //	@PrePersist // 在轉換到 PrePersist狀態以前去做的

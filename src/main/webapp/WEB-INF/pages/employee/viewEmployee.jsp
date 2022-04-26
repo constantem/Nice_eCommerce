@@ -114,13 +114,13 @@
 			<div class="col-md-4 col-md-offset-8">
 				
 				<button type="button" class="btn btn-primary btn-sm" id="emp_add_model_btn">新增</button>
-				<button type="button" class="btn btn-danger btn-sm" id="emp_delete_all_btn">刪除</button>	
+				<button type="button" class="btn btn-danger btn-sm" id="emp_delete_all_btn"onclick="deleteEmpList()">刪除</button>	
 			</div>
 			
 			<div class="row">
 				<div class="col-md-12">
 					<!-- <table class="table table-hover" id="emps_table"> -->
-						<table id="noteTable" class="table table-hover table-sm">
+						<table id="noteTable" class="table table-hover table-sm" style="display:block; overflow-x: auto;white-space: nowrap;">
 						<!-- <thead> -->
 							<thead class="thead-dark">
 							<tr>
@@ -142,14 +142,16 @@
 						</thead>
 			
 						<tbody>
-			
+						
 						</tbody>
 					</table>
-				</div>
+				</div>			
 			</div>
 
-			<ul class="pagination justify-content-center" style="margin:20px 0; cursor: pointer;">
-			</ul>
+			<div  style="text-align:center;">
+				<ul class="pagination justify-content-center" style="margin:20px 0; cursor: pointer;"></ul>
+			</div>
+	
 	</section>
 	<!-- 原核心內容的 section 結束 -->
 
@@ -199,7 +201,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 							aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">員工資料</h4>
+					<h4 style="text-align:center" class="modal-title">員工資料</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">	
@@ -207,7 +209,11 @@
 							<input id="images" type="hidden" name="images">
 							<p id="images" name="images"><img src="" width=200></p>
 						</div> -->
-
+						<div class="modal-body">
+							<!-- <input name="file" id="file"> -->
+							<input id="images" type="hidden" name="file">
+							<p ><img src="" width=200 id="img_inquire_url"></p>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">姓</label>
 							<div class="col-sm-10">
@@ -286,12 +292,10 @@
 	
 						<div class="form-group">
 							<label class="col-sm-2 control-label">權限</label>
-							<div class="col-sm-10">
-								<label class="radio-inline">
+							<div class="col-sm-10">		
 									<input name="permission" style="outline:none;" readonly class="form-control-static"
 										id="permission_inquire_input">
 									<span class="help-block"></span>
-								</label>
 							</div>
 						</div>
 					</form>
@@ -308,17 +312,18 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">新增員工</h4>
+	        <h4 style="text-align:center" class="modal-title" id="myModalLabel">新增員工</h4>
 	      </div>
 	      <div class="modal-body">
 	        <form class="form-horizontal">
 				<div class="modal-body">
-				<input type="file" name="file" id="file">
+
+				<!-- <p id="img_url"><img src="" width=200></p> -->
+				<p ><img src="" width=200 id="img_url"></p>
+				<input type="file" name="img" id="file">
 				<input id="img" type="hidden" name="img">
-				<p id="url"><img src="" width=200></p>
 				<input type="button" name="img" id="button" value="上傳">
 				</div>
-
 
 				<div class="form-group">
 					<label class="col-sm-2 control-label">密碼</label>
@@ -359,7 +364,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">電話</label>
 			    <div class="col-sm-5">
-			      <input type="tel" name="phone" class="form-control" id="phone_add_input"  >
+			      <input type="tel" name="phone" class="form-control" id="phone_add_input" placeholder="請輸入手機號碼">
 			      <span class="help-block"></span>
 			    </div>
 			  </div>
@@ -390,13 +395,18 @@
 						  </div>
 			  </div>
 
-			  <div class="form-group">
-			    <label class="col-sm-2 control-label">職稱</label>
-			    <div class="col-sm-10">
-			      <input type="text" name="jobTitle" class="form-control" id="jobTitle_add_input">
-			      <span class="help-block"></span>
-			    </div>
-			  </div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">職稱</label>
+				<div class="col-sm-10">
+					<label class="radio-inline">
+						<select class="form-control" name="jobTitle" id="jobTitle_add_input">
+							<option>經理</option>
+							<option>主管</option>
+							<option>一般職員</option>
+						</select>
+					</label>
+				</div>
+			</div>
 
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">權限</label>
@@ -413,8 +423,9 @@
 			</form>
 	      </div>
 	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>       
+	      	<button type="button" class="btn btn-primary" id="emp_save_btn">新增</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal">關閉</button>
+			<button type="button" class="btn btn-danger" id="emp_Automatic">一鍵輸入</button> 
 	      </div>
 	    </div>
 	  </div>
@@ -427,11 +438,20 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">員工修改</h4>
+	        <h4 style="text-align:center" class="modal-title">員工修改</h4>
 	      </div>
 	      <div class="modal-body">
 	        <form class="form-horizontal">
 				  
+				<div class="modal-body">				
+					<!-- <p id="img_url"><img src="" width=200></p> -->
+					<p><img src="" width=200 name="img" id="img_update_url"></p>
+					<input type="file" name="img" id="file_update">
+					<input type="hidden" name="img" id="img_update_input">
+					<input type="button" name="img" id="button_updete" value="更新圖片">
+					</div>
+
+
 				<div class="form-group">
 					<label class="col-sm-2 control-label">密碼</label>
 					<div class="col-sm-10">
@@ -470,7 +490,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">電話</label>
 			    <div class="col-sm-5">
-			      <input type="text" name="phone" class="form-control" id="phone_update_input"  >
+			      <input type="text" name="phone" class="form-control" id="phone_update_input" placeholder="請輸入手機號碼">
 			      <span class="help-block"></span>
 			    </div>
 			  </div>
@@ -478,7 +498,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">email</label>
 			    <div class="col-sm-10">
-			      <input type="text" name="email" class="form-control" id="email_update_input" placeholder="email@atguigu.com">
+			      <input type="text" name="email" class="form-control" id="email_update_input" placeholder="xxxxx@gmail.com">
 			      <span class="help-block"></span>
 			    </div>
 			  </div>
@@ -502,13 +522,21 @@
 			  </div>
 
 			  <div class="form-group">
-			    <label class="col-sm-2 control-label">職稱</label>
-			    <div class="col-sm-10">
-			      <input type="text" name="jobTitle" class="form-control" id="jobTitle_update_input">
-			      <span class="help-block"></span>
-			    </div>
-			  </div>
+				<label class="col-sm-2 control-label">職稱</label>
+				<div class="col-sm-10">
+					<label class="radio-inline">
+						<select class="form-control" name="jobTitle" id="jobTitle_update_input">
+							<option>經理</option>
+							<option>主管</option>
+							<option>一般職員</option>
+						</select>
+					</label>
+				</div>
+			</div>
 
+			  <input type="hidden" name="hireDate" class="form-control" id="hireDate_update_input">
+			  <input type="hidden" name="createdAt" class="form-control" id="createdAt_update_input">
+			
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">權限</label>
 			    <div class="col-sm-10">
@@ -524,7 +552,7 @@
 	      </div>
 	      <div class="modal-footer">
 	      	<button type="button" class="btn btn-primary" id="emp_update_btn">更新</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal">關閉</button>
 	      </div>
 	    </div>
 	  </div>
@@ -559,16 +587,11 @@
 var pageSize = 5;
 var totalElements;
 
-		$(document).ready(function() {
+	$(document).ready(function() {
 	let totalPages = 0;
 
 	fetchNotes(totalPages);
-	
-	
-	// (function(){
-    // 	// get first-page at initial time
-    // 	fetchNotes(0);
-    // })();
+
 });
 
 
@@ -578,14 +601,15 @@ $(document).on("click", "ul.pagination li a", function() {
 		let val = $(this).text();
 		console.log('val: ' + val);
 
-		// click on the NEXT tag
 		if(val.toUpperCase() === "« FIRST") {
+			//跳到第一頁
 			let currentActive = $("li.active");
 			fetchNotes(0);
 			$("li.active").removeClass("active");
 	  		// add .active to next-pagination li
 	  		currentActive.next().addClass("active");
 		} else if(val.toUpperCase() === "LAST »") {
+			//跳到最後一頁
 			fetchNotes(totalPages - 1);
 			$("li.active").removeClass("active");
 	  		// add .active to next-pagination li
@@ -623,9 +647,7 @@ $(document).on("click", "ul.pagination li a", function() {
     });
 function buildPagination(result) {
 		totalPages = result.totalPages;
-		console.log("totalPages:"+totalPages)
 		var pageNumber = result.pageable.pageNumber;
-		console.log(pageNumber)
 		 totalElements = result.totalElements;
 		var numLinks = 10;
 		
@@ -639,20 +661,20 @@ function buildPagination(result) {
 			prev = '<li class="page-item"><a class="page-link">‹ Prev</a></li>';
 		} else {
 			
-			prev = '<li  class="disable"><a >‹ Prev</a></li>'; 
-			first = '<li class="disable"><a >‹ First</a></li>';
+			prev = '<li><a >‹ Prev</a></li>'; 
+			first = '<li><a aria-disabled style="pointer-events: none">« First</a></li>';
 		}
 		
-		var next = '';
-		var last = '';
+		// var next = '';
+		// var last = '';
 		if (pageNumber < totalPages) {
 			if(pageNumber !== totalPages - 1) {
 				next = '<li class="page-item"><a class="page-link">Next ›</a></li>';				
 				last = '<li class="page-item"><a class="page-link">Last »</a></li>';
 			}
 		} else {
-			next = '<li class="disable"><a class="page-link">Next ›</a></li>'; // on the last page, don't show 'next' link
-			last = '<li class="disable"><a class="page-link">Last »</a></li>'; // nor 'last page' link
+			next = '<li><a class="page-link">Next ›</a></li>'; // on the last page, don't show 'next' link
+			last = '<li><a class="page-link">Last »</a></li>'; // nor 'last page' link
 		}
 		
 		var start = pageNumber - (pageNumber % numLinks) + 1;
@@ -689,13 +711,16 @@ function fetchNotes(startPage) {
 	            size: pageSize
 	        },
 	        success: function(result){
-				console.log(result)
 	          $('#noteTable tbody').empty();
 	          // add table rows
 	          $.each(result.content, (idenx, value) => {
 				var gender = value.gender=='M'?'男':'女';
+
+				if(value.modifiedAt==null){
+					value.modifiedAt="";
+				}	
 	            let noteRow = '<tr>' +
-									'<td><input type="checkbox" class="check_item"></td>'+
+									'<td><input type="checkbox" id="checkbox_btn'+value.employee_id+'" value="'+value.employee_id+'" class="check_item"></td>'+
 	      	  						'<td>' + value.employee_id + '</td>' +
 			                		'<td>' + value.lastName+value.firstName + '</td>' +
 									'<td>' + gender +'</td>' +
@@ -746,30 +771,56 @@ function fetchNotes(startPage) {
        $("#empAddModal").modal(); 
   });
 
-		//校驗表格中的數據
+		//檢查表格中的數據
 		function validate_add_form(){
-			//拿到數據，使用正則表達式檢查
-			var empName = $("#empName_add_input").val();
-			//校驗用戶名
-			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{2,5})/;
-			if(!regName.test(empName)){
-				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
-				show_validate_msg("#empName_add_input", "error", "姓名必須是2-5位中文或6-16位英文和數字的組合");
+			//檢查密碼
+			// 密碼長度須超過八個字 {8,}
+			// - 小寫字母 [a-z]
+			// - 大寫字母 [A-Z]
+			// - 數字 \d
+			// - 特殊符號 "#$%&'()*+,./:;<=>?@[]^_`{|}~-
+
+			var empPassword = $("#password_add_input").val();
+			var regex = /^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z]).*)/;
+			if(!regex.test(empPassword)){
+				show_validate_msg("#password_add_input","error","密碼長度須超過八個字,開頭必須是英文,不包含特殊符號")
 				return false;
 			}else{
-				show_validate_msg("#empName_add_input", "success", "");
+				show_validate_msg("#password_add_input", "success", "");
+			}
+			//拿到數據，使用正則表達式檢查
+			var empLastName = $("#lastName_add_input").val();
+			var empFirstName = $("#firstName_add_input").val(); 
+			//檢查名字
+			var regLastName =/(^[u\2E80-\u9FFF]{1,3})/;
+			var regFirstName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{1,5})/;
+			if(!regLastName.test(empLastName)&&!regFirstName.test(empFirstName)){
+				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
+				show_validate_msg("#lastName_add_input", "error", "姓必須是1-3位中文");
+				show_validate_msg("#firstName_add_input", "error", "名字必須是2-5位中文或6-16位英文");
+				return false;
+			}else{
+				show_validate_msg("#lastName_add_input", "success", "");
+				show_validate_msg("#firstName_add_input", "success", "");
 			}
 			//檢查信箱
-			var email = $("#email_add_input").val();
+			var empEmail = $("#email_add_input").val();
 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-			if(!regEmail.test(email)){
+			if(!regEmail.test(empEmail)){
 				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
 				show_validate_msg("#email_add_input", "error", "信箱格式不正確");
 				return false;
 			}else{
 				show_validate_msg("#email_add_input", "success", "");
 			}
-			
+			var empPhone = $("#phone_add_input").val();
+			var regPhone =/^(09)[0-9]{8}$/;
+			if(!regPhone.test(empPhone)){
+				show_validate_msg("#phone_add_input","error","電話格式不正確")
+				return false;
+			}else{
+				show_validate_msg("#phone_add_input", "success", "");
+			}
 			return true;
 		}
 		
@@ -788,30 +839,16 @@ function fetchNotes(startPage) {
 		}	
 		//新增模態框裏的保存按鈕
 		$("#emp_save_btn").click(function(){
-			
-			Swal.fire({
-				  icon: 'success',
-				  title: 'Your work has been saved',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-				
-// 				Swal.fire(
-//   'Good job!',
-//   'You clicked the button!',
-//   'success'
-// )
-			
+
 			//對數據進行檢查
 			if(!validate_add_form()){
 				return false
 			};
 			
-			// //判斷檢測用戶名重複時放入的屬性信息，來確定下一步幹啥
-			// if($(this).attr("ajax-va")=="error"){
-			// 	return false;
-			// }
-						
+			//判斷檢測用戶名重複時放入的屬性信息，來確定下一步幹啥
+			if($(this).attr("ajax-va")=="error"){
+				return false;
+			}			
 			$.ajax({
 				url:"${contextRoot}/save",
 				type:"POST",
@@ -819,38 +856,74 @@ function fetchNotes(startPage) {
 				data:$("#empAddModal form").serialize(),
 				success:function(message){
 // 					 alert(message);
-
+				  Swal.fire({
+				  icon: 'success',
+				  title: 'Your work has been saved',
+				  showConfirmButton: false,
+				  timer: 2000
+				})
+				
+// 				Swal.fire(
+//   'Good job!',
+//   'You clicked the button!',
+//   'success'
+// )
 					if(totalElements%pageSize==0){
 						fetchNotes(totalPages);
 					}
 					else{
-
 						fetchNotes(totalPages-1);
 					}
 					//關閉模態框
 					$("#empAddModal").modal("hide");
 						//往最後一頁，顯示剛剛保存的數據
-		
 				}
 			}); 
 		});
-
    
 	//把員工的 id 傳遞給模態框的更新按鈕
-
 	function update(id) {
 
 			$("#empUpdateModal").modal({
 
-			});
+			}); 
+
+				$("#button_updete").click(function () {					
+					var form = new FormData();
+					form.append("file", document.getElementById("file_update").files[0]);
+					 $.ajax({
+						 url: "${contextRoot}/upload",        
+						 data: form,
+						 cache: false,
+						 async: false,
+						 type: "POST",                  
+						 encType: "multipart/form-data",            
+						 processData: false,
+						 contentType: false,
+						 success: function (map) { 
+							//  alert(map)
+							 if (map) { 
+								 $("#img_update_url").attr("src",map.filePath);
+								// alert("1233")
+								$("#img_update_input").val(map.fileName);
+								console.log(map.filePath)
+		 
+							 } else {
+								 alert("失敗");
+							 }			                
+						 },
+					 });
+				})	
 
 			$.ajax({
 				url: "${contextRoot}/viewEmpId?employee_id=" + id,
 				type: "get",
 				contentType: 'application/json',
 				success: function (result) {
-					// console.log("result:" + result);
-
+					var img = result.img;
+					var filePath="/Nice_eCommerce/upload/"+img
+					// alert(img)
+					// console.log("result:" + result);		
 					$("#password_update_input").val(result.password);
 					$("#lastName_update_input").val(result.lastName);
 					$("#firstName_update_input").val(result.firstName);
@@ -860,59 +933,104 @@ function fetchNotes(startPage) {
 					$("#address_update_input").val(result.address);
 					$("#jobTitle_update_input").val(result.jobTitle);
 					$("#permission_update_input").val(result.permission);
+					$("#img_update_input").val(result.img);
+					$("#hireDate_update_input").val(result.hireDate);
+					$("#createdAt_update_input").val(result.createdAt);
+					if(img!=""&&img!=null){
+						$("#img_update_url").attr("src",filePath);
+					}
 
-
-					//   點選更新，更新員工資訊
+					//   點選更新，更新員工資訊			
 					$("#emp_update_btn").click(function () {
-						alert(id);
-						// 驗證郵箱是否合法
-						// 1、校驗郵箱資訊
-						var email = $("#email_update_input").val();
-						var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-						if (!regEmail.test(email)) {
-							show_validate_msg("#email_update_input", "error", "信箱格式不正確");
-							return false;
-						} else {
-							show_validate_msg("#email_update_input", "success", "");
-						}
-
+			//檢查密碼
+			// 密碼長度須超過八個字 {8,}
+			// - 小寫字母 [a-z]
+			// - 大寫字母 [A-Z]
+			// - 數字 \d
+			// - 特殊符號 "#$%&'()*+,./:;<=>?@[]^_`{|}~-
+			var empPassword = $("#password_update_input").val();
+			var regex = /^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z]).*)/;
+			if(!regex.test(empPassword)){
+				show_validate_msg("#password_update_input","error","密碼長度須超過八個字,開頭必須是英文,不包含特殊符號")
+				return false;
+			}else{
+				show_validate_msg("#password_update_input", "success", "");
+			}
+			//拿到數據，使用正則表達式檢查
+			var empLastName = $("#lastName_update_input").val();
+			var empFirstName = $("#firstName_update_input").val(); 
+			//檢查名字
+			var regLastName =/(^[u\2E80-\u9FFF]{1,3})/;
+			var regFirstName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{1,5})/;
+			if(!regLastName.test(empLastName)&&!regFirstName.test(empFirstName)){
+				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
+				show_validate_msg("#lastName_update_input", "error", "姓必須是1-3位中文");
+				show_validate_msg("#firstName_update_input", "error", "名字必須是2-5位中文或6-16位英文");
+				return false;
+			}else{
+				show_validate_msg("#lastName_update_input", "success", "");
+				show_validate_msg("#firstName_update_input", "success", "");
+			}
+			//檢查信箱
+			var empEmail = $("#email_update_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(empEmail)){
+				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
+				show_validate_msg("#email_update_input", "error", "信箱格式不正確");
+				return false;
+			}else{
+				show_validate_msg("#email_update_input", "success", "");
+			}
+			//檢查電話
+			var empPhone = $("#phone_update_input").val();
+			var regPhone =/^(09)[0-9]{8}$/;
+			if(!regPhone.test(empPhone)){
+				show_validate_msg("#phone_update_input","error","電話格式不正確")
+				return false;
+			}else{
+				show_validate_msg("#phone_update_input", "success", "");
+			}
 						// 2、傳送 ajax 請求儲存更新的員工資料 
-						$.ajax({
+						if(id!=""){
+							$.ajax({
 							url: "${contextRoot}/employee/editEmployee?employee_id=" + id,
 							//   type:"put",
 							// dataType: "json",
 							type: "POST",
 							data: $("#empUpdateModal form").serialize(),
 							success: function (result) {
-								// alert("123")
 								console.log(result)
 								fetchNotes(0);
 								$("#empUpdateModal").modal("hide");
 								// to_page(currentPage);
+								
+								filePath="";
+								id="";			
 							}
-						});
+							
+						});					
+						}		
 					});
 				}
 			});
 		}
-
 			function deleteEmp(id) {
 
 				if (confirm("確定要刪除嗎")) {
-
 					$.ajax({
-						url: "${contextRoot}/employee/deleteEmployee?employee_id=" + id,
-						type: "Get",
+						url: "${contextRoot}/employee/deleteEmployee?employee_id="+ id,
+						type: "GET",
 						contentType: 'application/json',
 						success: function (result) {
-							console.log(result)
 							fetchNotes(0);
 						}
 					});
 				}
+				$("#emp_delete_all_btn").click(function(){
+					alert("221")
+				});
 			}
-
-				// 全選功能
+				// 全選功能			
 				$("#check_all").click(function () {
 					$(".check_item").prop("checked", $(this).prop("checked"));
 				});
@@ -922,18 +1040,50 @@ function fetchNotes(startPage) {
 					$("#check_all").prop("checked", flag);
 				});
 
+				function deleteEmpList() {
+				//找到被勾選的checkbox
+				var emp_list ="";
+				var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+
+					for (var i = 1; i < checkboxes.length; i++) {
+						emp_list += "," + checkboxes[i].value;
+						//,123,456
+						console.log(checkboxes[i].value);
+						// alert(checkboxes[i].value)
+				}
+
+				if (confirm("確定要刪除嗎")) {
+					$.ajax({
+					url: "${contextRoot}/employee/deleteChoiceEmp",
+					data:{"employee_id" : [emp_list.substring(1)]},//123,456	
+                        traditional : true,//如果要傳陣列，這行一定要加！用傳統的方式來序列化資料
+						// 預設的話，traditional為false，即jquery會深度序列化引數物件，
+						// 以適應如PHP和Ruby on Rails框架，但servelt api無法處理，
+						// 我們可以通過設定traditional 為true阻止深度序列化，然後序列化結果如下：
+						// p: ["123", "456", "789"]    =>    p=123&p=456&p=456
+						type: "GET",
+						success: function (result) {
+							console.log(emp_list.substring(1))
+							$("#check_all").prop("checked",false);
+							fetchNotes(0);
+						}
+					});
+				}
+			}
+
+				
 
 			function inquireEmp(id){
 				$("#empInquireModal").modal({
-			
 			});
+			$('img').removeAttr('src');
 			$.ajax({
 				url: "${contextRoot}/viewEmpId?employee_id=" + id,
 				type: "get",
 				contentType: 'application/json',
 				success: function (result) {
-					alert(id);
-					console.log("result:" + result);
+					var img = result.img;
+					var filePath="/Nice_eCommerce/upload/"+img
 					$("#lastName_inquire_input").val(result.lastName);
 					$("#firstName_inquire_input").val(result.firstName);
 					$("#empInquireModal input[name=gender]").val([result.gender]);
@@ -941,15 +1091,17 @@ function fetchNotes(startPage) {
 					$("#email_inquire_input").val(result.email);
 					$("#address_inquire_input").val(result.address);
 					$("#jobTitle_inquire_input").val(result.jobTitle);
-					$("#permission_inquire_input").val(result.permission);			
+					$("#permission_inquire_input").val(result.permission);
+					if(img!=""&&img!=null){
+						$("#img_inquire_url").attr("src",filePath);
+					}
 				}
 			});
 	};
-
-
+			
 				$(function () {
 			        $("#button").click(function () {
-					
+						form="";	
 			            var form = new FormData();
 			            form.append("file", document.getElementById("file").files[0]);
 			             $.ajax({
@@ -961,19 +1113,29 @@ function fetchNotes(startPage) {
 			                 encType: "multipart/form-data",            
 			                 processData: false,
 			                 contentType: false,
-			                 success: function (map) {  
-			                     if (map) {
-			                     	$("#images").attr("src",map.filePath);
-									alert("1233")
-									$("#img").val(map.fileName);
-			 
+			                 success: function (map) { 
+			                     if (map) { 
+			                     	$("#img_url").attr("src",map.filePath);
+									$("#img").val(map.fileName);								
 			                     } else {
 			                     	alert("失敗");
-			                     }			                
-			                 },
+			                     }										                
+			                 }
 			             });
+						
 			        })		 
-			    });			
+			    });
+
+				$("#emp_Automatic").click(function(){
+					$("#password_add_input").val("a12345678");
+					$("#lastName_add_input").val("蘇");
+					$("#firstName_add_input").val("峻輝");
+					// $("#gender2_add_input").prop("checked",true);
+					$("#gender1_add_input").prop("checked",true);
+					$("#phone_add_input").val("0976820155");
+					$("#email_add_input").val("sulol0703@gmail.com");
+					$("#address_add_input").val("台北市中山區");
+				})
 	</script>
   
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" /></noscript>

@@ -127,7 +127,26 @@
 							<td data-label="member_id">${OrdersBean.memberBean.username}</td>
 							<td data-label="orderDate">${OrdersBean.orderDate}</td>
 							<td data-label="totalPrice">${OrdersBean.totalPrice}</td>
-							<td data-label="orderStatus">${OrdersBean.orderStatus}</td>
+<%-- 							<c:if test="${OrdersBean.orderStatus == 999}"> --%>
+<!-- 								<td data-label="orderStatus">訂單已刪除</td> -->
+<%-- 							<c:otherwise> --%>
+<%-- 							</c:if> --%>
+							
+							<c:choose>
+   								 <c:when test="${OrdersBean.orderStatus == 111}">
+   								    <td data-label="orderStatus">未出貨</td>
+ 								 </c:when>
+ 								 <c:when test="${OrdersBean.orderStatus == 222}">
+   								    <td data-label="orderStatus">已出貨</td>
+ 								 </c:when>
+   								 <c:when test="${OrdersBean.orderStatus == 999}">
+     								<td data-label="orderStatus">訂單已刪除</td>		  
+  							     </c:when>
+							     <c:otherwise>
+    							    <td data-label="orderStatus">資料庫沒有訂單狀態</td>
+   								 </c:otherwise>
+							</c:choose>
+							
 							<td class="actions-cell">
 								<div class="buttons right nowrap">
 

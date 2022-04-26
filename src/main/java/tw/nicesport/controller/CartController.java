@@ -103,7 +103,7 @@ public class CartController {
 			//取得整張table的product_id (因javaBean內宣告對應為ProductBean)
 			  ProductBean product = cartProductBean.getProductBean();
 			//用ProductBean去比對前端傳來的Product_id
-			if(productid.equals(product.getProduct_id())) {
+			if(productid.equals(product.getId())) {
 				//用Product_id刪掉此筆資料
 				cartProductService.deleteByBean(cartProductBean);
 			}

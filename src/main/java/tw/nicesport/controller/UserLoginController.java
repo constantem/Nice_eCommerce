@@ -66,9 +66,15 @@ public class UserLoginController {
     @RequestMapping("/user/role")
     @ResponseBody
     public Set<String> currentRole(Authentication authentication) {
-    	Set<String> roles = authentication.getAuthorities().stream()
-       	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-        return roles;
+    	if(authentication!=null) {
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+           	System.out.println("後端 user roles=======>|"+roles);
+            return roles;
+    	} else {
+    		return null;
+    	}
+
     }
 	
 	// 前端會員中心個人資料: 中間站

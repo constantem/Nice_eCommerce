@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +18,12 @@
 
 <!-- Tailwind is included -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/backstage/css/main.css">
+	href="${contextRoot}/resources/backstage/css/main.css">
 
 
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6" />
 
 <meta name="description" content="Admin One - free Tailwind dashboard">
@@ -99,7 +101,7 @@
 		});
 
 		// 確認按鈕綁定 handler
-		$("#submit").click(function() {
+		$("#submitBtn").click(function() {
 			$.ajax({
 				url : $("#contextRoot").val() + "/course/create",
 				type : "GET",
@@ -122,7 +124,7 @@
 </script>
 </head>
 <body>
-	<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+	
 	<input type="hidden" id="contextRoot" value="${contextRoot}">
 
 	<div id="app">
@@ -256,7 +258,7 @@
 
 						<div class="field grouped">
 							<div class="control">
-								<button type="button" id="submit" class="button green">確認新增</button>
+								<button type="button" id="submitBtn" class="button green">確認新增</button>
 							</div>
 							<div class="control">
 								<button type="reset" class="button red">清除</button>
@@ -288,6 +290,7 @@
 			</div>
 		</footer>
 
+		<!-- 原生彈窗1 -->
 		<div id="sample-modal" class="modal">
 			<div class="modal-background --jb-modal-close"></div>
 			<div class="modal-card">
@@ -307,7 +310,28 @@
 			</div>
 		</div>
 
+		<!-- 原生彈窗2 -->
 		<div id="sample-modal-2" class="modal">
+			<div class="modal-background --jb-modal-close"></div>
+			<div class="modal-card">
+				<header class="modal-card-head">
+					<p class="modal-card-title">Sample modal</p>
+				</header>
+				<section class="modal-card-body">
+					<p>
+						Lorem ipsum dolor sit amet <b>adipiscing elit</b>
+					</p>
+					<p>This is sample modal</p>
+				</section>
+				<footer class="modal-card-foot">
+					<button class="button --jb-modal-close">Cancel</button>
+					<button class="button blue --jb-modal-close">Confirm</button>
+				</footer>
+			</div>
+		</div>
+		
+		<!-- 彈窗: 客製"確認新增" -->
+		<div id="sample-modal-insertConfirm" class="modal">
 			<div class="modal-background --jb-modal-close"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">

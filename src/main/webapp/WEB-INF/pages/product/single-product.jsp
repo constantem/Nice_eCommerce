@@ -1010,7 +1010,7 @@ figure img {
 
 				<script>
 								
-							console.log($("#stockStatus").text());
+							console.log("stockStatus====>"+$("#stockStatus").text());
 
 							$("#stockStatus").each(function(){
 								var a = $(this).text();	
@@ -1223,7 +1223,7 @@ figure img {
 								url:$("#contextRoot").val() + "/queryTopSixProduct.controller",
 								type:"post",
 								success:function(list){
-									
+									console.log(list);
 									$.each(list,function(index,product){
 										if(index===6) {
 											return false;

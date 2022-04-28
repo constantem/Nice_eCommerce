@@ -225,6 +225,7 @@ public class ProductController {
 		@RequestMapping(path = "/queryTopSixProduct.controller", method = RequestMethod.POST)
 		@ResponseBody
 		public List<ProductBean> queryTopSixProduct() {
+			System.out.println("安安你好");
 			return pService.findTop6ByOrderByCreatedAtDesc();
 		}
 		

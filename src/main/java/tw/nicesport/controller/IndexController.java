@@ -1,16 +1,31 @@
 package tw.nicesport.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import tw.nicesport.model.Discount;
+import tw.nicesport.service.DiscountService;
 
 
 @Controller // 本 controller 專做本組首頁跳轉
 public class IndexController {
 
+	@Autowired
+	private DiscountService discountService;
+	
 	// 跳轉前台首頁用
 	@RequestMapping("/")
-	public String showFrontstageHomePage() {
-		return "index";
+	public ModelAndView showIndex(ModelAndView mav)  {
+		List<Discount> discounts = discountService.findAllMessages();
+		System.out.println("discount========>"+discounts);
+		mav.getModel().put("discounts", discounts);
+		mav.setViewName("index");
+		
+		return mav;
 	}
 	
 	// 測試跳轉前台首頁用

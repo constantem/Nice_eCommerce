@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,6 +66,7 @@ public class DiscountController {
 		return "/discount/viewDiscount";
 	}
 	
+		
 //	@GetMapping(value = "/discount/get/{id}")
 //	public Discount getCustomerById(@PathVariable Integer id) {
 //		Discount responseDis = discountService.findById(id);
@@ -79,21 +81,35 @@ public class DiscountController {
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<Discount> page = discountService.findByPage(pageNumber);
 		List<Discount> discounts = page.getContent();
+		mav.getModel().put("page", page);
 		mav.getModel().put("discounts", discounts);
 		mav.setViewName("/discount/viewDiscount");
 		
 		return mav;
 	}
 	
-	@GetMapping("//")
-	public ModelAndView findAllAds(ModelAndView mav)  {
-		List<Discount> discounts = discountService.findAllMessages();
-		mav.getModel().put("discounts", discounts);
-		mav.setViewName("index");
-		
-		return mav;
-	}
+	//pageNumber在service已經-1過，不需要再減
+//		@GetMapping("/discount/viewDiscount")
+//		public ModelAndView viewDiscountPage(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
+//			Page<Discount> page = discountService.findByPage(pageNumber);
+//			
+//			mav.getModel().put("page", page);
+//			//回傳的頁面
+//			mav.setViewName("/discount/viewDiscount");
+//			
+//			return mav;
+//		}
 	
+	
+	//跳轉到前台頁面
+		@RequestMapping("/discount/showEvents-front")
+		public String showAllEventsInFront(Model model) {		
+			List<Discount> discounts = discountService.queryAll();
+			model.addAttribute("discounts", discounts);
+			return "discount/showEvents-front";
+		}
+	
+	//跳轉到前台頁面
 	@RequestMapping("/discount/showADs-front")
 	public String showAllADsInFront(Model model) {		
 		List<Discount> discounts = discountService.queryAll();
@@ -126,17 +142,7 @@ public class DiscountController {
 	
 	
 	
-	//pageNumber在service已經-1過，不需要再減
-//	@GetMapping("/discount/viewMessages")
-//	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
-//		Page<WorkMessages> page = messageService.findByPage(pageNumber);
-//		
-//		mav.getModel().put("page", page);
-//		//回傳的頁面
-//		mav.setViewName("viewMessages");
-//		
-//		return mav;
-//	}
+	
 	
 //	@GetMapping("/discount/ajax")
 //	public String ajaxPage() {

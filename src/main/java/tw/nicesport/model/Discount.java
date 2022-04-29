@@ -182,5 +182,12 @@ public class Discount implements Serializable{
 		this.endDate = endDate;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Discount [id=" + id + ", name=" + name + ", description=" + description + ", conditionCategory="
+				+ conditionCategory + ", conditionPrice=" + conditionPrice + ", discountCategory=" + discountCategory
+				+ ", discountPercent=" + discountPercent + ", discountAmount=" + discountAmount + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
+	}
+
 }

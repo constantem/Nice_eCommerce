@@ -31,7 +31,7 @@
           <div id="staffImgContainer" class="user-avatar">
             <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
           </div>
-          <div id="staffNameContainer" class="is-user-name"><span>John Doe</span></div>
+          <div id="staffNameContainer" class="is-user-name"><span id="staffName">John Doe</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
        
@@ -315,6 +315,17 @@
 		console.log(openedItems);
 		
 		if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
+			
+// 			fetch("${contextRoot}/staff/role", {method: "GET"})
+// 			.then(function (response) {
+// 				console.log("response ========>|" + response);
+// 				console.log(response);
+// 				return response.json();
+// 			})
+// 			.then(function (roles) {
+				
+// 			});
+			
 			for (let elem of protectedItems) {
 				console.log(elem);
 			    elem.style.display = 'block';

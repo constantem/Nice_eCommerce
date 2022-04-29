@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class randomUtils {
+public class RandomUtils {
 	
     public static LocalDate getRandomDate(int minYear, int maxYear) {
         /** Given a group size, this method will return `n` random birthday

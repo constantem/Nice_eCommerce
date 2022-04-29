@@ -17,17 +17,33 @@ public class CoachService {
 	@Autowired
 	private CoachRepository coachDao;
 	
-	public List<Coach> queryAll() {
+	// 教練新增
+	public void insert(Coach coach) {
+		coachDao.save(coach);
+	}
+	
+	// 教練更新
+	public void update(Coach coach) {
+		coachDao.save(coach);
+	}
+	
+	public List<Coach> findAll() {
 		return coachDao.findAll();
 	}
 	
-	public Coach queryById(Integer id) {
-		Optional<Coach> result = coachDao.findById(id);
+	public Coach findById(Integer id) {
 		
-		if(result.isEmpty()) {
+		Optional<Coach> coachOpt = coachDao.findById(id);
+		
+		if(coachOpt.isEmpty()) {
 			return null;
 		}
 		
-		return result.get();
+		return coachOpt.get();
+	}
+	
+	// 教練刪除一個
+	public void deleteOne(Integer id) {
+		coachDao.deleteById(id);
 	}
 }

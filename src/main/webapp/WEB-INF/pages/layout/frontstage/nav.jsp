@@ -149,6 +149,8 @@
 	$.ajax({
 		url: $("#contextRoot").val() + "/user/role",
 		success: function (roles) {
+			console.log("roles.length======>|"+roles.length+"|");
+			console.log("roles[0]======>|"+roles[0]+"|");
 			if(roles.length===1 && roles[0]=="ROLE_USER") {
 				$(".isAuthenticatedAsUser").show();
 				$(".notAuthenticatedAsUser").hide();

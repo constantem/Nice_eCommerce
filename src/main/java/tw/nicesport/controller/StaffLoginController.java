@@ -1,6 +1,7 @@
 package tw.nicesport.controller;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,9 +42,15 @@ public class StaffLoginController {
     @RequestMapping("/staff/role")
     @ResponseBody
     public Set<String> currentRole(Authentication authentication) {
-    	Set<String> roles = authentication.getAuthorities().stream()
-       	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-        return roles;
+    	if(authentication!=null) {
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+           	System.out.println("後端 staff roles=======>|"+roles);
+               return roles;
+    	} else {
+    		System.out.println("後端 staff roles=======>|null");
+    		return new HashSet<>();
+    	}
     }
     
 	// 後端我(員工)的資料: 中間站
@@ -51,6 +58,6 @@ public class StaffLoginController {
 	public String showMyProfile(Principal principal, Model model) throws Exception {
 		String username = principal.getName();
 		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
-		return "forward:/user/myProfileByEmployeeId?id="+employee.getEmployee_id();
+		return "forward:/staff/myProfileByEmployeeId?id="+employee.getEmployee_id();
 	}
 }

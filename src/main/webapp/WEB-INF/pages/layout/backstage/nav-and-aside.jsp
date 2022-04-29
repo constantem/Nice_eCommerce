@@ -31,7 +31,7 @@
           <div id="staffImgContainer" class="user-avatar">
             <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
           </div>
-          <div id="staffNameContainer" class="is-user-name"><span>John Doe</span></div>
+          <div id="staffNameContainer" class="is-user-name"><span id="staffName">John Doe</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
        
@@ -45,7 +45,7 @@
           </a>
           
           <!-- 員工個人資料 -->
-          <a href="${contextRoot}/resources/backstage/profile.html" 
+          <a href="${contextRoot}/staff/myProfileByEmployeeId" 
           	class="navbar-item active isAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>個人資料</span>
@@ -296,10 +296,64 @@
 <!-- 	crossorigin="anonymous"> -->
 <!-- </script> -->
 <script>
+	fetch("${contextRoot}/staff/role", {method: "GET"})
+	.then(function (response) {
+		console.log("response ========>|" + response);
+		console.log(response);
+		return response.json();
+	})
+	.then(function (roles) {
+		console.log("staff roles 前端 ========>|" + roles);
+		console.log(roles);
+		
+		const protectedItems = document.querySelectorAll(".isAuthenticatedAsStaff");
+		const openedItems = document.querySelectorAll(".notAuthenticatedAsStaff");
+		
+		console.log("protectedItems ========>|" + protectedItems);
+		console.log(protectedItems);
+		console.log("openedItems ========>|" + openedItems);
+		console.log(openedItems);
+		
+		if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
+			
+// 			fetch("${contextRoot}/staff/role", {method: "GET"})
+// 			.then(function (response) {
+// 				console.log("response ========>|" + response);
+// 				console.log(response);
+// 				return response.json();
+// 			})
+// 			.then(function (roles) {
+				
+// 			});
+			
+			for (let elem of protectedItems) {
+				console.log(elem);
+			    elem.style.display = 'block';
+			}
+			for (let elem of openedItems) {
+				console.log(elem);
+			    elem.style.display = 'none';
+			}
+		} else {
+			for (let elem of protectedItems) {
+				console.log(elem);
+			    elem.style.display = 'none';
+			}
+			for (let elem of openedItems) {
+				console.log(elem);
+			    elem.style.display = 'block';
+			}
+		}
+	});
+
+</script>
+<!-- 
+<script>
+
 	$.ajax({
 		url: $("#contextRoot").val() + "/staff/role",
 		success: function (roles) {
-			console.log(roles);
+			console.log("staff roles 後端 ========>|" + roles);
 			if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
 				$(".isAuthenticatedAsStaff").show();
 				$(".notAuthenticatedAsStaff").hide();
@@ -309,4 +363,6 @@
 			}
 		}
 	});
+
 </script>
+ -->

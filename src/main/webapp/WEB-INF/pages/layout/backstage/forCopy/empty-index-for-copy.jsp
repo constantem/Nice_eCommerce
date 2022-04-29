@@ -94,6 +94,7 @@
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
+    <!-- 彈窗1 -->
     <div id="sample-modal" class="modal">
       <div class="modal-background --jb-modal-close"></div>
       <div class="modal-card">
@@ -111,6 +112,7 @@
       </div>
     </div>
 
+    <!-- 彈窗2 -->
     <div id="sample-modal-2" class="modal">
       <div class="modal-background --jb-modal-close"></div>
       <div class="modal-card">

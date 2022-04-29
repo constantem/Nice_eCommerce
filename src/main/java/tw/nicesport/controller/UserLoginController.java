@@ -33,6 +33,7 @@ import tw.nicesport.model.Employee;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.LoginService;
 import tw.nicesport.service.MemberService;
+import tw.nicesport.util.AuthenticationUtils;
 
 @Controller
 public class UserLoginController {
@@ -76,10 +77,12 @@ public class UserLoginController {
     @ResponseBody
     public Set<String> currentRole(Authentication authentication) {
     	if(authentication!=null) {
-    		 Set<String> roles = authentication.getAuthorities().stream()
-       	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-    		 return roles;
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+           	System.out.println("後端 user roles=======>|"+roles);
+            return roles;
     	} else {
+    		System.out.println("後端 user roles=======>|null");
     		return new HashSet<>();
     	}
 

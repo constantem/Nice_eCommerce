@@ -50,6 +50,16 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
 </head>
+<style>
+.cartImg{
+	width: 100px;
+	height: 90px;
+}
+
+
+
+
+</style>
 
 <body>
 
@@ -60,16 +70,30 @@
 		value="${pageContext.request.contextPath}">
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
-
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+	   <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
 	<!-- End Header Area -->
-
 	<!-- Start Banner Area -->
 	<section class="banner-area organic-breadcrumb">
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Shopping Cart</h1>
+                    <h1>購物車</h1>
                     <nav class="d-flex align-items-center">
                         <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
                         <a href="category.html">Cart</a>
@@ -95,24 +119,30 @@
 							</tr>
 						</thead>
 						<tbody>
+
+							<c:forEach items="${cartProductList}" var="cartProduct" >
 							<tr>
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/cart.jpg" alt="">
+											<img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
+											<p>${cartProduct.productBean.productName}</p>
+										
 										</div>
 									</div>
 								</td>
 								<td>
-									<h5>$360.00</h5>
+									<h5>NT$ ${cartProduct.productBean.price}</h5>
 								</td>
 								<td>
 									<div class="product_count">
-										 <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+										<input type="text" name="qty" disabled id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
                                             class="input-text qty">
+										<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+                                            class="input-text qty">
+
                                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                             class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
@@ -120,77 +150,11 @@
 									</div>
 								</td>
 								<td>
-									<h5>$720.00</h5>
+									<h5>NT$${cartProduct.productBean.price * cartProduct.quantity}</h5>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/cart.jpg" alt="">
-										</div>
-										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-									<div class="product_count">
-										<input type="text" name="qty" id="sst" maxlength="12"
-											value="1" title="Quantity:" class="input-text qty">
-										<button
-											onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-											class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button
-											onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp&amp > 0 ) result.value--;return false;"
-											class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/cart.jpg" alt="">
-										</div>
-										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-									<div class="product_count">
-										<input type="text" name="qty" id="sst" maxlength="12"
-											value="1" title="Quantity:" class="input-text qty">
-										<button
-											onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-											class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button
-											onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp&amp  > 0 ) result.value--;return false;"
-											class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
+						</c:forEach>
+
 							<tr class="bottom_button">
 								<td><a class="gray_btn" href="#">更新購物車</a></td>
 								<td></td>
@@ -207,7 +171,7 @@
 								<td></td>
 								<td></td>
 								<td>
-									<h5>小計</h5>
+									<h5>總價</h5>
 								</td>
 								<td>
 									<h5>$2160.00</h5>
@@ -251,7 +215,7 @@
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
 										<a class="gray_btn" href="#">繼續購物</a> <a
-											class="primary-btn" href="#">前往結帳</a>
+											class="primary-btn" href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
 									</div>
 								</td>
 							</tr>
@@ -360,6 +324,21 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
 		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 		crossorigin="anonymous"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>	
 	<script src="js/vendor/bootstrap.min.js"></script>
 	<script src="js/jquery.ajaxchimp.min.js"></script>
 	<script src="js/jquery.nice-select.min.js"></script>
@@ -372,6 +351,26 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
+
+			<!-------------------------------- 抓取購物車資料 --------------------------------->
+	<script>
+
+		function getCartProduct(){
+			$.ajax({
+
+				url:$("#contextRoot").val() + "/findMyWishList?memberId=101",
+				type:"post",
+				success:function(){
+
+				}
+
+
+			})
+		}
+
+	</script>
+	
+	
 </body>
 
 </html>

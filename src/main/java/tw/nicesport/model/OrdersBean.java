@@ -37,7 +37,7 @@ public class OrdersBean {
 	// 會員編號 外來鍵, 關聯 Member table (會員table) 的主鍵
 	@Transient
 	@Column(name = "member_id")
-	private Integer member_id;
+	private Integer memberId;
 	// 下單日期
 	@Column(name = "orderDate")
 	private String orderDate;
@@ -93,12 +93,12 @@ public class OrdersBean {
 		this.order_id = order_id;
 	}
 
-	public Integer getMember_id() {
-		return member_id;
+	public Integer getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(Integer member_id) {
-		this.member_id = member_id;
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getOrderDate() {

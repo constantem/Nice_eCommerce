@@ -71,6 +71,14 @@ public class UserLoginController {
         return roles;
     }
 	
+	// 前端我的訂單: 中間站
+	@RequestMapping("/user/myCart")
+	public String showMyCart(Principal principal, Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/myCartByMemberId?memberid="+member.getMemberid();
+	}
+    
 	// 前端會員中心個人資料: 中間站
 	@RequestMapping("/user/myProfile")
 	public String showMyProfile(Principal principal, Model model) throws Exception {
@@ -85,6 +93,17 @@ public class UserLoginController {
 		String username = principal.getName();
 		Member member = loginService.findMemberByUsername(username);
 		return "forward:/user/myOrdersByMemberId?id="+member.getMemberid();
+	}
+	
+	// 前端商品加入追蹤清單: 中間站
+	@RequestMapping("/user/addMyWishList")
+	public String addMyWishList(
+			@RequestParam("productId") Integer productId,
+			Principal principal, 
+			Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addMyWishListByMemberId?memberId="+member.getMemberid()+"&productId="+productId;
 	}
 	
 	// 前端我的收藏: 中間站

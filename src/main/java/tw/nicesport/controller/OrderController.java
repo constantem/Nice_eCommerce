@@ -1,5 +1,7 @@
 package tw.nicesport.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -21,11 +23,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.dto.CoachsAndRoomsContainer;
+import tw.nicesport.model.CartBean;
+import tw.nicesport.model.CartProductBean;
 import tw.nicesport.model.Coach;
 import tw.nicesport.model.Course;
+import tw.nicesport.model.Member;
 import tw.nicesport.model.OrderDetailBean;
 import tw.nicesport.model.OrdersBean;
+import tw.nicesport.model.ProductBean;
 import tw.nicesport.model.Room;
+import tw.nicesport.service.CartProductService;
+import tw.nicesport.service.MemberService;
 import tw.nicesport.service.OrderService;
 import tw.nicesport.service.OrderdDetailService;
 
@@ -37,6 +45,10 @@ public class OrderController {
 	private OrderService OrderService;
 	@Autowired
 	private OrderdDetailService OrderdDetailService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private CartProductService cartProductService;
 	
 	@GetMapping("/order")
 	public String welcomIndex() {
@@ -44,37 +56,119 @@ public class OrderController {
 	}
 	//宣告進入路徑
 	//@RequestParam 去取得值 沒有的話預設"1"
-	
-	
 	@GetMapping("/orders/viewAllOrders")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		//import springframework 的Page 分頁物件  
 		//OrderService內的.findByPage()方法
 		Page<OrdersBean> page = OrderService.findByPage(pageNumber);
-		
+		for(int i=1;i<5;i++) {
+			System.out.println(i);
+		}
 		//ModelAndView準備傳到前端
 		mav.getModel().put("page", page);
+		
 		mav.setViewName("/order/selectAllOrder");
 		
 		return mav;
 	}
 
-//	//宣告進入路徑
-//	//@RequestParam 去取得值 沒有的話預設"1"
-//	@ResponseBody
-//	@GetMapping("/orders/OrderDetail")
-//	public Set<OrderDetailBean> OrderDetail(@RequestParam(name = "id") Integer id) {
-////		用messageService的findById()方法去資料庫找id
-//		OrdersBean order = OrderService.findById(id);
-//		Set<OrderDetailBean> orderDetailSet = order.getOrderDetail();
-////		Set<OrderDetailBean> orderDetails = order.getOrderDetail();
-////		model.addAttribute("OrderDetailSet", orderDetails);
-//		return orderDetailSet;
-//	}
-//	
-	
-	
-	
+	// 新增訂單
+		@RequestMapping("/insertOrder")
+		public String insertOrder(
+				@RequestParam("memberid") Integer memberid,
+				@RequestParam("lastname") String lastname,
+				@RequestParam("firstname") String firstname, 
+				@RequestParam("email") String email,
+				@RequestParam("shipPostalCode") String shipPostalCode,
+				@RequestParam("address") String address,
+				@RequestParam("shippingFee") Integer shippingFee
+				//還有一個總價還沒進來
+				) {
+			//準備工作
+			//取得現在時間
+			Date date = new Date();
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String nowDate = sdFormat.format(date);
+//			=========================================================新增Order區  開始=========================================================			
+			// 創建訂單明細 準備insert資料
+			OrdersBean ordersBean = new OrdersBean();
+			//insert購物車資料
+			//找memberID
+			Member member = memberService.findById(memberid);
+			// insert會員ID
+			ordersBean.setMemberBean(member);
+			// insert郵遞區號
+			ordersBean.setShipPostalCode(shipPostalCode);
+			// insert下單日期
+			ordersBean.setOrderDate(nowDate);
+			// insert購買日期
+			ordersBean.setOrderDate(nowDate);
+			// insert運費
+			ordersBean.setShippingFee(shippingFee);
+			// insert收貨人資料
+			ordersBean.setShipName(lastname+firstname);
+			// insert收貨人地址
+			ordersBean.setShipAddress(address);
+			// insert訂單狀態
+			ordersBean.setOrderStatus(111);
+			// insert創建日期
+			ordersBean.setCreatedAt(nowDate);
+			// insert更改日期
+			ordersBean.setModifiedAt(nowDate);
+			// 去存起來
+			OrdersBean ordersBeanRequest = OrderService.insert(ordersBean);
+//			=========================================================新增Order區  結束=========================================================
+			//取得此筆新增訂單的ID
+			Integer orderId = ordersBean.getOrder_id();
+			System.out.println("============================================================"+orderId);
+			//取得此筆購物車的明細
+//			=========================================================新增OrderDetail區  開始=========================================================
+			// 創建訂單明細 準備insert資料
+			OrderDetailBean orderDetailBean = new OrderDetailBean();
+			
+			//找到購物車明細
+			CartBean cart = member.getCart();
+			List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+//			
+//			for(元素型別T 每次迴圈元素的名稱O : 迴圈物件){
+//		　　　　　　　　//對O進行操作
+//		　　　　}
+			//準備變數接明細的值與運算
+			int totalPrice = 0;
+						
+			//跑for迴圈把所有資料存下來
+			for(int i=0; i < cartProductList.size();i++) {
+				//cartProductList.get(i)代表 在List中的第幾列資料
+				// insert訂單ID
+				orderDetailBean.setOrdersBean(ordersBean);
+				// insert產品ID
+				orderDetailBean.setProductBean(cartProductList.get(i).getProductBean());
+				// insert數量
+				orderDetailBean.setQuantity(cartProductList.get(i).getQuantity());
+				// insert實際價格
+				orderDetailBean.setRealPrice(Integer.parseInt(cartProductList.get(i).getProductBean().getPrice()));
+				// insert創建日期
+				orderDetailBean.setCreatedAt(nowDate);
+				// insert更改日期
+				orderDetailBean.setModifiedAt(nowDate);
+				//新增"訂單總價"到"訂單Table"
+				totalPrice += Integer.parseInt(cartProductList.get(i).getProductBean().getPrice())*(cartProductList.get(i).getQuantity());
+				ordersBeanRequest.setTotalPrice(totalPrice);
+				
+				
+				//存起來~~~~~~
+				OrderdDetailService.insert(orderDetailBean);
+				OrderService.insert(ordersBeanRequest);
+			}
+//			=========================================================新增OrderDetail區  結束=========================================================
+//			=========================================================清除購物車明細  開始=========================================================
+			
+//			=========================================================清除購物車明細  結束=========================================================
+			
+		return "/Cart/confirmation";
+		}
+
+//	@RequestBody 前端的欄位name要對應Bean的欄位(ex:orderDate)
 	//換頁
 	@GetMapping("/orders/OrderDetail")
 	public String OrderDetail(Model model, @RequestParam(name = "id") Integer id) {
@@ -92,7 +186,7 @@ public class OrderController {
 	//更新配送資料
 	@RequestMapping("/orders/UpdateOrderShipInfo")
 	public String updateOneOrderShipInfo(
-//			@Valid   //驗證用  表示去驗證下面的OrdersBean
+//			@Valid   //驗證用  表示去驗證下面的OrdersBean 現在沒用到
 			@ModelAttribute("order") OrdersBean ordersBean,
 			Model model) {	
 		Integer id = ordersBean.getOrder_id(); 
@@ -110,39 +204,15 @@ public class OrderController {
 	
 	
 	
-	
+	//更新訂單狀態
 	@RequestMapping("/orders/UpdateOrderState")
 	public String updateOneOederState(
-			@ModelAttribute("order") OrdersBean ordersBean,
-			Model model
-			){
+			@ModelAttribute("order") OrdersBean ordersBean,Model model){
 		Integer id = ordersBean.getOrder_id();
-		
 		
 		return "redirect:/orders/OrderDetail?id=" + id;
 	}
 	
-	
-//	@RequestMapping("/orders/UpdateOrderState")
-//	public String updateOneCourse(
-////			@Valid   //驗證用  表示去驗證下面的OrdersBean
-//			@ModelAttribute("order") OrdersBean ordersBean,
-//			Model model) {	
-//		Integer id = ordersBean.getOrder_id(); 
-//		OrdersBean originalOrdersBean = OrderService.findById(id);
-//		//把要更新的資料一個一個用set方法塞進去更新  ordersBean.getShipName()會拿到前端送過來的資料裡面的ShipName
-//		//如果沒有set到的話資料都是null  會直接改到資料庫的資料
-//		originalOrdersBean.setShipName(ordersBean.getShipName());
-//		originalOrdersBean.setShipPostalCode(ordersBean.getShipPostalCode());
-//		originalOrdersBean.setShipAddress(ordersBean.getShipAddress());
-//		OrderService.updateOne(originalOrdersBean);
-//		model.addAttribute("ordersBean", ordersBean);;
-////		redirect:是回到某個指定的Controller方法
-//		return "redirect:/orders/OrderDetail?id=" + id;  
-//		}
-
-
-
 
 }
 

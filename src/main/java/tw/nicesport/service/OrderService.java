@@ -20,8 +20,9 @@ public class OrderService {
 	private OrdersRepository ordersDao;
 
 	// insert資料
-	public void insert(OrdersBean ordersBean) {
+	public OrdersBean insert(OrdersBean ordersBean) {
 		ordersDao.save(ordersBean);
+		return ordersBean;
 	}
 
 	//用id搜尋
@@ -34,8 +35,7 @@ public class OrderService {
 		}
 		return null;
 	}
-	
-	
+		
 	//用ID刪除
 	public void deleteById(Integer order_id) {
 		ordersDao.deleteById(order_id);

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,7 @@ import tw.nicesport.model.CartBean;
 import tw.nicesport.model.CartProductBean;
 import tw.nicesport.model.Coach;
 import tw.nicesport.model.Member;
+import tw.nicesport.model.OrdersBean;
 import tw.nicesport.model.ProductBean;
 import tw.nicesport.service.CartProductService;
 import tw.nicesport.service.CartService;
@@ -53,23 +56,42 @@ public class CartController {
 
 	}
 
+	//進會員購物車
 	@RequestMapping("/user/myCartByMemberId")
 	public ModelAndView selectCartForPage(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
 		Member member = memberService.findById(memberid);
-		CartBean cart = member.getCart();
+		CartBean cart = new CartBean();
 		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
-		mav.getModel().put("cartProductList", cartProductList);
+		//把List塞進mav中
 		mav.getModel().put("member", member);
-		mav.setViewName("/Cart/cart");
+		mav.getModel().put("cartProductList", cartProductList);
+		//設定跳轉頁面		
+		mav.setViewName("/Cart/cart"); //合併以我為準
 
 		return mav;
 	}
+	
+	@RequestMapping("/checkOut")
+	public ModelAndView checkOut(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
+		Member member = memberService.findById(memberid);
+		CartBean cart = member.getCart();
+		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+		//把List塞進mav中
+		mav.getModel().put("member",member);
+		mav.getModel().put("cartProductList", cartProductList);
+		//設定跳轉頁面
+		mav.setViewName("/Cart/checkout");
 
+		return mav;
+	}
+	
 	// 新增資料
 	@RequestMapping("/insertCart")
 	@ResponseBody
-	public CartProductBean insertCart(@RequestParam("memberid") Integer memberid,
-			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
+	public CartProductBean insertCart(
+			@RequestParam("memberid") Integer memberid,
+			@RequestParam("productid") Integer productid, 
+			@RequestParam("quantity") Integer quantity) {
 
 		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
 		Member member = memberService.findById(memberid);
@@ -93,9 +115,10 @@ public class CartController {
 //		System.out.println("==============================================" + cartProductBean);
 
 		cartProductService.insert(cartProductBean);
+
 		return cartProductBean;
 	}
-	
+
 
 	// 刪除購物車內同商品的明細
 	@RequestMapping("/DeleteCart")
@@ -118,6 +141,18 @@ public class CartController {
 			}
 
 		}
+	}
+
+	// 更新購物車數量
+	@RequestMapping("/updateQuantity")
+	public ModelAndView updateQuantity(
+			@RequestParam("productid") Integer productid,
+			@RequestParam("memberid") Integer memberid, 
+			@RequestParam("quantity") Integer quantity) {
+		Member member = memberService.findById(memberid);
+		CartBean cart = member.getCart();
+		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+			return null;
 //		productService.deleteById(product);
 //		return CartProductBean;
 	}

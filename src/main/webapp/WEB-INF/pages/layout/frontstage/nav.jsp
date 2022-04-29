@@ -49,7 +49,7 @@
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/FrontpageSeperate">前往商城</a></li>
 					</ul>
 				</li>
-				
+			
 				<!-- 5. 課程 -->
 				<li class="nav-item submenu dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

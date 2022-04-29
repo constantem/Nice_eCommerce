@@ -88,6 +88,7 @@ public class UserLoginController {
 
     }
 	
+	// 前端我的訂單: 中間站
     // 
 //    @RequestMapping("/user/memberUsername2")
 //    @ResponseBody
@@ -121,7 +122,7 @@ public class UserLoginController {
 		return "forward:/user/myOrdersByMemberId?id="+member.getMemberid();
 	}
 	
-	// 前端商品頁加入追蹤清單: 中間站
+	// 前端商品加入追蹤清單: 中間站
 	@RequestMapping("/user/addMyWishList")
 	public String addMyWishList(
 			@RequestParam("productId") Integer productId,

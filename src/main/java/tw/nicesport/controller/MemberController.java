@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
+import tw.nicesport.model.CartBean;
 import tw.nicesport.model.Member;
+import tw.nicesport.service.CartService;
 import tw.nicesport.service.MemberService;
 
 @Controller
@@ -32,6 +34,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@GetMapping("/member")
 	public String welcomIndex() {
@@ -66,9 +71,13 @@ public class MemberController {
 	public ModelAndView addMember(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
 
 //		System.out.println("firstname->" + member.getFirstname());
-
-		memberService.save(member);
-
+//		===================================================
+		CartBean cart = new CartBean();  //新增購物車 By:Z功
+		cart.setMember(member);//新增購物車 By:Z功
+		cartService.insert(cart);//新增購物車 By:Z功
+//		===================================================
+		
+		memberService.save(member);		
 		mav.setViewName("member/insertSuccess");
 
 		return mav;
@@ -172,7 +181,11 @@ public class MemberController {
 	public ModelAndView register(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
 
 		memberService.save(member);
-
+//		===================================================
+		CartBean cart = new CartBean();  //新增購物車 By:Z功
+		cart.setMember(member);//新增購物車 By:Z功
+		cartService.insert(cart);//新增購物車 By:Z功
+//		===================================================
 		mav.setViewName("member/registerSuccess");
 
 		return mav;

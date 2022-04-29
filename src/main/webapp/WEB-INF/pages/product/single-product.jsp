@@ -206,6 +206,60 @@ figure img {
 .commentDate{
 	margin-left: 280px;
 }
+
+#inputPrice {
+	width: 40px;
+	height: 20px;
+}
+
+.images {
+	align-items: flex-start;
+	transition: transform 0.5s;
+	display: flex;
+}
+
+
+#img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
+	width: 800px;
+}
+
+.window {
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+	overflow: hidden;
+}
+
+button {
+	width: 12px;
+	height: 12px;
+	border-radius: 150%;
+	margin: 0 3px;
+	border: none;
+}
+
+.red {
+	background: #84C1FF;
+}
+
+#btnCart{
+width: 150px;
+height: 40px;
+
+
+}
 </style>
 
 <body>
@@ -213,7 +267,25 @@ figure img {
 	
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+
+ <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
 
 
 		<!-- 	為了讓body內也能使用contextRoot的值 -->
@@ -287,7 +359,7 @@ figure img {
 								.removeClass('red');
 						}
 					</script>
-	<!--================================= 廣告輪播 ========================================== -->
+	<!--================================= end 廣告輪播 ========================================== -->
 
 
 	<!-- =============================== 抓取圖片資料 =================================== -->
@@ -363,7 +435,7 @@ figure img {
 					<div class="s_product_text">
 						<h3>${pdVal.productName}</h3>
 						<h2 id="pdPrice">
-							NT $ <i class="bi bi-currency-dollar"></i>${pdVal.price}</h2>
+							NT $ <i class=""></i>${pdVal.price}</h2>
 						<ul class="list">
 							<li class="status"><a class="active" href="#"><span>商品類別</span>${pdVal.subCategory.name}</a></li>
 							<li class="status"><a href="#" id="stockStatus">${pdVal.stock.quantity}</a></li>
@@ -372,8 +444,12 @@ figure img {
 						<!-- 						商品描述 -->
 						<p>${pdVal.productDiscription}</p>
 
+						<form method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
+
+							<input type="text" name="productid" hidden value="${pdVal.id}">
+
 						<div class="product_count">
-							 數量:<input type="text" name="qty"
+							 數量:<input type="text" name="quantity"
 								id="sst" maxlength="12" value="1" title="Quantity:"
 								class="input-text qty">
 
@@ -391,22 +467,24 @@ figure img {
 								<i class="lnr lnr-chevron-down"></i>
 							</button>
 
+					
+							<!-- 總價:<input type="text" name="qty"
+									id="orderPrice" readonly maxlength="12" value="" title="Quantity:"
+									class="input-text qty">
 
-							總價:<input type="text" name="qty"
-								id="orderPrice" maxlength="12" value="" title="Quantity:"
-								class="input-text qty">
-
-								<input type="hidden" name="qty"
-								id="totalPrice" maxlength="12" value="${pdVal.price}" title="Quantity:"
-								class="input-text qty">
+								<input type="hidden" readonly name="qty"
+									id="totalPrice" maxlength="12" value="${pdVal.price}" title="Quantity:"
+									class="input-text qty"> -->
 
 							
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" id="btnCart" href="#">加入購物車</a>
-							
+							<!-- <a class="primary-btn" id="" href="#">加入購物車</a> -->
+							<button class="primary-btn" id="btnCart" type="submit">加入購物車</button>
+						</form>
+
 <!-- 							加入願望清單 -->
-							 <a id="addWishList" class="icon_btn" href="${contextRoot}/insertProductToWishListInSingleProduct?productId=${pdVal.id}&memberId=101"><i class="lnr lnr lnr-heart"></i></a>
+							 <a id="addWishList" class="icon_btn" href="${contextRoot}/user/addMyWishList?productId=${pdVal.id}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -1019,7 +1097,7 @@ figure img {
 									$(this).css("color", "#FF3333").text("無庫存");
 									$("#btnCart").attr("disabled", true);
 									$("#btnCart").removeAttr('href');
-									$("#btnCart").text('目前無庫存');
+									$("#btnCart").text('補貨中').css("color","#E0E0E0");
 									
 								}if(a !== "0"){
 									$(this).css("color", "#0080FF").text("有庫存");
@@ -1215,8 +1293,8 @@ figure img {
 						<!--=========================================================================-->
 
 					<script>
-
 						getProduct();
+						
 						function getProduct(){
 							$.ajax({
 
@@ -1240,7 +1318,8 @@ figure img {
 						}
 
 					</script>
-
+					
+					<!-- ----------------------- 一鍵輸入 ------------------------------------>
 					<script>
 							$("#btnCreate").click(function(){
 							$("#name").val("Renee")
@@ -1301,6 +1380,23 @@ figure img {
 					</script>
 
 					<!--======================================================================-->
+					
+						
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
 
 
 	<!-- ========================================================================================================= -->

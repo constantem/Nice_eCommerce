@@ -270,8 +270,8 @@
 
 				if (a < 50) {
 					$(this).css("color", "#FF0000").text("低庫存量警示");
-
 				}
+				
 				if (a == 0) {
 					$(this).css("color", "#FF0000").text("無庫存");
 

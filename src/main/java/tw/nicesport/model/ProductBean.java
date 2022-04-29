@@ -45,8 +45,7 @@ public class ProductBean implements Serializable {
 	private Integer id;
 	
 	
-	@OneToMany(mappedBy = "productBean",
-			cascade= {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@OneToMany(mappedBy = "productBean")
 	@JsonIgnore
 	private Set<ProductWishListBean> productMyFavorSet = new HashSet<>();
 

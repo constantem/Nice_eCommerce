@@ -78,7 +78,7 @@
 				<button class="button light">Button</button>
 			</div>
 
-			<!-- Performance block -->
+		<!-- Performance block -->
 			<div class="card mb-6">
 				<header class="card-header">
 					<p class="card-header-title">
@@ -107,7 +107,7 @@
 					</div>
 				</div>
 			</div>
-
+			<!--End Performance block -->
 
 		</section>
 	</div>

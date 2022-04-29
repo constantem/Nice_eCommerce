@@ -55,6 +55,7 @@ public class CartController {
 		return cartProduct;
 
 	}
+
 	//進會員購物車
 	@RequestMapping("/user/myCartByMemberId")
 	public ModelAndView selectCartForPage(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
@@ -109,6 +110,7 @@ public class CartController {
 		// insert商品數量
 		cartProductBean.setQuantity(quantity);
 		// 去存起來
+
 //		cart.getCartProductBeanList().add(cartProductBean);//同步		
 //		System.out.println("==============================================" + cartProductBean);
 
@@ -117,7 +119,8 @@ public class CartController {
 		return cartProductBean;
 	}
 
-	// 刪除購物車
+
+	// 刪除購物車內同商品的明細
 	@RequestMapping("/DeleteCart")
 	@ResponseBody
 	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("productid") Integer productid) {
@@ -138,7 +141,6 @@ public class CartController {
 			}
 
 		}
-
 	}
 
 	// 更新購物車數量
@@ -150,9 +152,23 @@ public class CartController {
 		Member member = memberService.findById(memberid);
 		CartBean cart = member.getCart();
 		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
-		
-
 			return null;
-		
+//		productService.deleteById(product);
+//		return CartProductBean;
 	}
+
+	@RequestMapping("/checkOut")
+	public ModelAndView checkOut(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
+		Member member = memberService.findById(memberid);
+		CartBean cart = member.getCart();
+		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+		// 把List塞進mav中
+		mav.getModel().put("member", member);
+		mav.getModel().put("cartProductList", cartProductList);
+		// 設定跳轉頁面
+		mav.setViewName("/Cart/checkout");
+
+		return mav;
+	}
+
 }

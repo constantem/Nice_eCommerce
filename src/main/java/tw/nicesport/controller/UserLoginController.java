@@ -2,6 +2,7 @@ package tw.nicesport.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,7 @@ import tw.nicesport.model.Employee;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.LoginService;
 import tw.nicesport.service.MemberService;
+import tw.nicesport.util.AuthenticationUtils;
 
 @Controller
 public class UserLoginController {
@@ -63,15 +65,40 @@ public class UserLoginController {
         return principal.getName();
     }
     
+    @RequestMapping("/user/memberId")
+    @ResponseBody
+    public Integer currentMemberId(Principal principal) throws Exception {
+        String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return member.getMemberid();
+    }
+    
     @RequestMapping("/user/role")
     @ResponseBody
     public Set<String> currentRole(Authentication authentication) {
-    	Set<String> roles = authentication.getAuthorities().stream()
-       	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-        return roles;
+    	if(authentication!=null) {
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+           	System.out.println("後端 user roles=======>|"+roles);
+            return roles;
+    	} else {
+    		System.out.println("後端 user roles=======>|null");
+    		return new HashSet<>();
+    	}
+
     }
 	
 	// 前端我的訂單: 中間站
+    // 
+//    @RequestMapping("/user/memberUsername2")
+//    @ResponseBody
+//    public String currentUserName2(Principal principal) {
+//    	String username = principal.getName();
+//    	Member member = loginService.findMemberByUsername(username);
+//        return ;
+//    }
+    
+	// 前端我的購物車: 中間站
 	@RequestMapping("/user/myCart")
 	public String showMyCart(Principal principal, Model model) throws Exception {
 		String username = principal.getName();
@@ -104,6 +131,42 @@ public class UserLoginController {
 		String username = principal.getName();
 		Member member = loginService.findMemberByUsername(username);
 		return "forward:/user/addMyWishListByMemberId?memberId="+member.getMemberid()+"&productId="+productId;
+	}
+	
+	// 前端商城頁加入追蹤清單: 中間站
+	@RequestMapping("/user/addMyWishListFromShop")
+	public String addMyWishListFromShop(
+			@RequestParam("productId") Integer productId,
+			Principal principal, 
+			Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addMyWishListFromShopByMemberId?memberId="+member.getMemberid()+"&productId="+productId;
+	}
+	
+	
+	// 前端商城加入購物車: 中間站 
+	@RequestMapping("/user/addMyCartFromShop")
+	public String addMyCartFromShop(
+			@RequestParam("productId") Integer productId,
+			Principal principal, 
+			Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addMyCartFromShopByMemberId?memberid="+member.getMemberid()+"&productid="+productId+"&quantity=1";
+	}
+	
+	// 前端商品頁加入購物車: 中間站 
+	@RequestMapping("/user/addMyCartFromSingleProduct")
+	public String addMyCartFromSingleProduct(
+			
+			@RequestParam("quantity") Integer quantity,
+			Principal principal, 
+			Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addMyCartFromSingleProductByMemberId?memberid="
+				+member.getMemberid()+"&quantity="+quantity;
 	}
 	
 	// 前端我的收藏: 中間站

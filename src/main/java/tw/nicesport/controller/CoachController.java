@@ -23,10 +23,10 @@ public class CoachController {
 	@Autowired
 	private CoachService coachService;
 	
-	@RequestMapping("/query/all")
-	@ResponseBody
-	public List<Coach> queryAllCoach() throws JsonProcessingException {
-		List<Coach> coachs = coachService.queryAll();
-		return coachs;
-	} 
+//	@RequestMapping("/query/all")
+//	@ResponseBody
+//	public List<Coach> queryAllCoach() throws JsonProcessingException {
+//		List<Coach> coachs = coachService.queryAll();
+//		return coachs;
+//	} 
 }

@@ -152,6 +152,53 @@ button {
 	transition: 0.2s;
 	color: white;
 }
+
+#inputPrice {
+	width: 40px;
+	height: 20px;
+}
+
+.images {
+	align-items: flex-start;
+	transition: transform 0.5s;
+	display: flex;
+}
+
+
+#img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
+	width: 800px;
+}
+
+.window {
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+	overflow: hidden;
+}
+
+button {
+	width: 12px;
+	height: 12px;
+	border-radius: 150%;
+	margin: 0 3px;
+	border: none;
+}
+
+.red {
+	background: #84C1FF;
+}
 </style>
 
 
@@ -164,7 +211,25 @@ button {
 		value="${pageContext.request.contextPath}">
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+
+ <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
 	
 	
 	<!-- Start Banner Area -->
@@ -194,6 +259,8 @@ button {
 	</section>
 
 	<!-- End Banner Area -->
+	
+	
 
 
 	<!--=================================廣告輪播========================================== -->
@@ -459,13 +526,13 @@ button {
 
 						<c:forEach items="${prod}" var="prod">
 							<!-- single product -->
-							<div class="col-lg-4 col-md-6">
+													<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<img alt="picture"
-										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" />
+									<a href="${contextRoot}/getOneProductShop${prod.id}"><img id="pdimg" alt="picture"
+										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" /></a>
 									<!-- 										ProductTempImg -->
 									<div id="product-details" class="product-details">
-										<h5 class="pdName">${prod.productName}</h5>
+										<a href="${contextRoot}/getOneProductShop${prod.id}"><h5 class="pdName">${prod.productName}</h5></a>
 										<div class="price">
 											<p class="pdPrice">
 												價格: NT<i class="bi bi-currency-dollar"></i>${prod.price}</p>
@@ -474,19 +541,39 @@ button {
 										</div>
 										<div class="prd-bottom">
 
-											<a href="" class="social-info"> <span class="ti-bag"></span>
-												<p class="hover-text">加入購物車</p>
-											</a> <a href="" class="social-info"> <span
-												class="lnr lnr-heart"></span>
-												<p class="hover-text">加入願望清單</p>
-											</a> <a href="" class="social-info"> <span
-												class="lnr lnr-sync"></span>
-												<p class="hover-text">比較</p>
-											</a> <a
-												href="/Nice_eCommerce/getOneProductShop${prod.id}"
-												class="social-info"> <span class="lnr lnr-move"></span>
+											<c:choose>
+												<c:when test="${prod.stock.quantity == 0}">
+													<a class="social-info"> 
+														<span style="font-size: 110%;" class="bi bi-cart-x"></span>
+														<p class="hover-text" style="color: red;">補貨中</p>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="${contextRoot}/user/addMyCartFromShop?productId=${prod.id}" class="social-info"> 
+														<span  class="bi bi-cart4"></span>
+														<p class="hover-text">加入購物車</p>
+													</a>
+												</c:otherwise>
+											</c:choose>
+
+
+											
+											 <a class="social-info addWishList" href="${contextRoot}/user/addMyWishListFromShop?productId=${prod.id}" > 
+											 	<span class="lnr lnr-heart"></span>
+												<p class="hover-text">加入追蹤清單</p>
+											</a>
+
+											<a style="display:none" class="social-info removeWishList" href="#" > 
+												<span style="color: #EA7500;" class="bi bi-heart-fill"></span>
+											   <p class="hover-text">取消追蹤清單</p>
+										   </a>
+											
+											 <a
+												href="${contextRoot}/getOneProductShop${prod.id}"
+												class="social-info"> <span class="bi bi-info-lg"></span>
 												<p class="hover-text">更多商品資訊</p>
 											</a>
+
 										</div>
 									</div>
 								</div>
@@ -754,6 +841,51 @@ button {
 		// 		}
 		// 	})
 		// })
+	</script>
+	
+	<script>
+		
+		console.log("準備開始抓");
+
+		$.ajax({
+			url: $("#contextRoot").val() + "/user/role",
+			success: function(roles) {
+				console.log("有抓到東西");
+				console.log(roles);
+				if(roles.includes("ROLE_USER")) {
+					console.log("USER 登入中");
+					$.ajax({
+						url: $("#contextRoot").val() + "/user/memberId",
+						success: function (memberId) {
+							console.log("USER 登入中且拿到 member id");
+							$.each( $(".productId"),function (index, productIdInput) {
+								$.ajax({
+									url: $("#contextRoot").val() + "/user/myWishListByMemberIdForAjax",
+									data: {
+										"memberId": memberId,
+										"productId": $(productIdInput).val()},
+									success: function(status) {
+										let singleProductDiv = $(productIdInput).closest(".single-product");
+										if(status) { // 若已在 wishList
+											// 未加入
+											singleProductDiv.find(".addWishList").hide(); 
+											// 已加入
+											singleProductDiv.find(".removeWishList").show();
+										} else { // 尚未在 wishList
+											// 未加入
+											singleProductDiv.find(".addWishList").show();
+											// 已加入
+											singleProductDiv.find(".removeWishList").hide();
+										}
+									}
+								});
+							})
+						}
+					});
+				}
+			}
+		});
+
 	</script>
 
 

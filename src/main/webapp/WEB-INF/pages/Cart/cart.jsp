@@ -110,7 +110,7 @@
                     <h1>${member.lastname} ${member.firstname} 購物車</h1>
                     <nav class="d-flex align-items-center">
                         <a href="${contextRoot}/FrontpageSeperate">購物商城<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">前往結帳</a>
+                        <a href="">前往結帳</a>
                     </nav>
                 </div>
             </div>
@@ -264,7 +264,7 @@
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
 										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a> <a
-											class="primary-btn" href="#">前往結帳</a>
+											class="primary-btn" href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
 									</div>
 								</td>
 							</tr>

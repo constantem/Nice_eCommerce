@@ -60,7 +60,7 @@ public class CartController {
 	@RequestMapping("/user/myCartByMemberId")
 	public ModelAndView selectCartForPage(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
 		Member member = memberService.findById(memberid);
-		CartBean cart = new CartBean();
+		CartBean cart = member.getCart();
 		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
 		//把List塞進mav中
 		mav.getModel().put("member", member);
@@ -157,18 +157,6 @@ public class CartController {
 //		return CartProductBean;
 	}
 
-	@RequestMapping("/checkOut")
-	public ModelAndView checkOut(ModelAndView mav, @RequestParam("memberid") Integer memberid) {
-		Member member = memberService.findById(memberid);
-		CartBean cart = member.getCart();
-		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
-		// 把List塞進mav中
-		mav.getModel().put("member", member);
-		mav.getModel().put("cartProductList", cartProductList);
-		// 設定跳轉頁面
-		mav.setViewName("/Cart/checkout");
 
-		return mav;
-	}
 
 }

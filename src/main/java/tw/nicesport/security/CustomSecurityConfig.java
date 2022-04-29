@@ -44,6 +44,7 @@ public class CustomSecurityConfig {
 
 				.authorizeRequests() 
 					.antMatchers("/userLogin*").permitAll()
+					.antMatchers("/user/role").permitAll()
 					.anyRequest().authenticated()
 //					.hasRole("USER")
 					

@@ -253,6 +253,13 @@ button {
 .red {
 	background: #84C1FF;
 }
+
+#btnCart{
+width: 150px;
+height: 40px;
+
+
+}
 </style>
 
 <body>
@@ -352,7 +359,7 @@ button {
 								.removeClass('red');
 						}
 					</script>
-	<!--================================= 廣告輪播 ========================================== -->
+	<!--================================= end 廣告輪播 ========================================== -->
 
 
 	<!-- =============================== 抓取圖片資料 =================================== -->
@@ -428,7 +435,7 @@ button {
 					<div class="s_product_text">
 						<h3>${pdVal.productName}</h3>
 						<h2 id="pdPrice">
-							NT $ <i class="bi bi-currency-dollar"></i>${pdVal.price}</h2>
+							NT $ <i class=""></i>${pdVal.price}</h2>
 						<ul class="list">
 							<li class="status"><a class="active" href="#"><span>商品類別</span>${pdVal.subCategory.name}</a></li>
 							<li class="status"><a href="#" id="stockStatus">${pdVal.stock.quantity}</a></li>
@@ -437,8 +444,12 @@ button {
 						<!-- 						商品描述 -->
 						<p>${pdVal.productDiscription}</p>
 
+						<form method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
+
+							<input type="text" name="productid" hidden value="${pdVal.id}">
+
 						<div class="product_count">
-							 數量:<input type="text" name="qty"
+							 數量:<input type="text" name="quantity"
 								id="sst" maxlength="12" value="1" title="Quantity:"
 								class="input-text qty">
 
@@ -456,22 +467,24 @@ button {
 								<i class="lnr lnr-chevron-down"></i>
 							</button>
 
+					
+							<!-- 總價:<input type="text" name="qty"
+									id="orderPrice" readonly maxlength="12" value="" title="Quantity:"
+									class="input-text qty">
 
-							總價:<input type="text" name="qty"
-								id="orderPrice" maxlength="12" value="" title="Quantity:"
-								class="input-text qty">
-
-								<input type="hidden" name="qty"
-								id="totalPrice" maxlength="12" value="${pdVal.price}" title="Quantity:"
-								class="input-text qty">
+								<input type="hidden" readonly name="qty"
+									id="totalPrice" maxlength="12" value="${pdVal.price}" title="Quantity:"
+									class="input-text qty"> -->
 
 							
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" id="btnCart" href="#">加入購物車</a>
-							
+							<!-- <a class="primary-btn" id="" href="#">加入購物車</a> -->
+							<button class="primary-btn" id="btnCart" type="submit">加入購物車</button>
+						</form>
+
 <!-- 							加入願望清單 -->
-							 <a id="addWishList" class="icon_btn" href="${contextRoot}/insertProductToWishListInSingleProduct?productId=${pdVal.id}&memberId=101"><i class="lnr lnr lnr-heart"></i></a>
+							 <a id="addWishList" class="icon_btn" href="${contextRoot}/user/addMyWishList?productId=${pdVal.id}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -1084,7 +1097,7 @@ button {
 									$(this).css("color", "#FF3333").text("無庫存");
 									$("#btnCart").attr("disabled", true);
 									$("#btnCart").removeAttr('href');
-									$("#btnCart").text('目前無庫存');
+									$("#btnCart").text('補貨中').css("color","#E0E0E0");
 									
 								}if(a !== "0"){
 									$(this).css("color", "#0080FF").text("有庫存");
@@ -1280,8 +1293,8 @@ button {
 						<!--=========================================================================-->
 
 					<script>
-
 						getProduct();
+						
 						function getProduct(){
 							$.ajax({
 
@@ -1305,7 +1318,8 @@ button {
 						}
 
 					</script>
-
+					
+					<!-- ----------------------- 一鍵輸入 ------------------------------------>
 					<script>
 							$("#btnCreate").click(function(){
 							$("#name").val("Renee")

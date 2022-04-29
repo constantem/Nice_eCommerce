@@ -50,27 +50,19 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
 </head>
-
 <style>
-.wishImg1{
+.cartImg{
 	width: 100px;
 	height: 90px;
 }
 
-#deleteWishList{
-	width: 120%;
-}
-#addToCart{
-	margin-left: 0px;
-}
-.deleteFavor{
+.deleteCart{
+	margin-left: 10px;
 	font-size: 18px;
 	color: 	#FF8C00;
-
 }
-.quantityStatus{
-	width: 155px;
-	text-align: center;
+#truck{
+	font-size: 110%;
 }
 
 #keepShopping{
@@ -78,17 +70,19 @@
 }
 
 
+
+
 </style>
 
 <body>
 
+	
 <!-- 	為了讓body內也能使用contextRoot的值 -->
 	<input type="hidden" id="contextRoot"
 		value="${pageContext.request.contextPath}">
 
-<!-- 	<!-- 上方導覽列 -->
+	<!-- 上方導覽列 -->
 <%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
-
 	   <!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -106,17 +100,17 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-	
+
 
 	<!-- Start Banner Area -->
 	<section class="banner-area organic-breadcrumb">
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>${member.lastname} ${member.firstname} 的追蹤清單</h1>
+                    <h1>${member.lastname} ${member.firstname} 購物車</h1>
                     <nav class="d-flex align-items-center">
                         <a href="${contextRoot}/FrontpageSeperate">購物商城<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="${contextRoot}/user/myCart">購物車</a>
+                        <a href="category.html">前往結帳</a>
                     </nav>
                 </div>
             </div>
@@ -124,7 +118,7 @@
     </section>
 	<!-- End Banner Area -->
 
-	<!--================ WishList Area =================-->
+	<!--================Cart Area =================-->
 	<section class="cart_area">
 		<div class="container">
 			<div class="cart_inner">
@@ -133,73 +127,144 @@
 						<thead>
 							<tr>
 								<th scope="col">商品</th>
-								<th scope="col">價格</th>
-								<!-- <th scope="col">數量</th>
-								<th scope="col">小計</th> -->
-								<th scope="col"></th>
-								<th>刪除</th>
+								<th scope="col">單價</th>
+								<th scope="col">數量</th>
+								<th scope="col">小計</th>
+								<th scope="col">刪除</th>
 							</tr>
 						</thead>
-
 						<tbody>
-							<c:forEach items="${productBeanList}" var="pdWish" varStatus="status">
+
+							<c:forEach items="${cartProductList}" var="cartProduct" >
 							<tr>
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt="">
+											<img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
-											<p id="pdName1">${pdWish.productName}</p>
+											<p>${cartProduct.productBean.productName}</p>
+										
 										</div>
 									</div>
 								</td>
 								<td>
-									<h5 id="">NT$ ${pdWish.price}</h5>
+									<h5>NT$ ${cartProduct.productBean.price}</h5>
 								</td>
-
-								<td hidden class="quantity" >
-									${pdWish.stock.quantity}
-								</td>
-							
 								<td>
-									<c:choose>
-										<c:when test="${pdWish.stock.quantity == 0}">
-											<a class="gray_btn quantityStatus" style="color: red;">補貨中</a>
-										</c:when>
-										<c:otherwise>
-											<a class="gray_btn quantityStatus" href="${contextRoot}/insertCartFromCartWishList?memberid=${member.memberid}&productid=${pdWish.id}&quantity=1">加入購物車</a>
-										</c:otherwise>
-									</c:choose>
-								</td>
+									<div class="product_count">
+										<input type="text" name="qty" disabled id="sst"   maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+                                            class="input-text qty">
+										<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+                                            class="input-text qty">
 
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+									</div>
+								</td>
 								<td>
-									<!-- <input type="checkbox" class="deleteWishList" name="productId"> -->
-									<a data-wishid="${wishIds[status.index]}" class="deleteFavor" href=""><i id="trash" class="bi bi-trash"></i></a>
-								</td>
 
+									<h5>NT$ ${cartProduct.productBean.price * cartProduct.quantity}</h5>
+									<c:set var="amount" value="${cartProduct.productBean.price * cartProduct.quantity}"/>
+									<c:set var="total" value="${total + amount}" />
+									
+								</td>
+								<td>
+									<a class="deleteCart" 
+										href="" data-memberid="${member.memberid}" data-productid="${cartProduct.productBean.id}" >
+										
+										
+										<i id="trash" class="bi bi-trash"></i>
+									</a>
+								</td>
 							</tr>
-							</c:forEach>
+						</c:forEach>
+
 							<tr class="bottom_button">
-								<td></td>
+								<td><a class="gray_btn" href="#">更新購物車</a></td>
 								<td></td>
 								<td></td>
 								<td>
+									<div class="cupon_text d-flex align-items-center">
+										<input type="text" placeholder="優惠券代碼"> <a
+											class="primary-btn" href="#">使用</a> <a class="gray_btn"
+											href="#">更新優惠券代碼</a>
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
-						
+								<td>
+									<h5>總金額</h5>
+								</td>
+								<td>
+								
+									<h5>NT$<c:out value="${total}"/></h5>
+								</td>
 							</tr>
+							<tr class="shipping_area">
+								<td></td>
+								<td></td>
+								<td>
+			
+								</td>
+			
+								<td>
+									<div class="shipping_box">
+										<ul class="list">
 
+											<div class="switch-wrap d-flex justify-content-between">
+												<p>711交貨便</p>
+												<div class="confirm-radio">
+													<input type="checkbox" id="confirm-radio1" checked>
+													<label for="confirm-radio1"></label>
+												</div>
+											</div>
+
+											<div class="switch-wrap d-flex justify-content-between">
+												<p>郵局寄送</p>
+												<div class="confirm-radio">
+													<input type="checkbox" id="confirm-radio2" >
+													<label for="confirm-radio2"></label>
+												</div>
+											</div>
+
+											<div class="switch-wrap d-flex justify-content-between">
+												<p>黑貓宅急便</p>
+												<div class="confirm-radio">
+													<input type="checkbox" id="confirm-radio3"  >
+													<label for="confirm-radio3"></label>
+												</div>
+											</div>
+										</ul>
+										<h6>
+											運費計算 <i id="truck" class="bi bi-truck"></i>
+										</h6>
+									
+										<select class="shipping_select">
+											<option value="1" selected>國家</option>
+											<option value="2">台灣</option>
+											<option value="4">美國</option>
+										</select> <select class="shipping_select">
+											<option value="1" selected>縣市</option>
+											<option value="2">台北市</option>
+											<option value="4">新北市</option>
+										</select> <input type="text" placeholder="郵遞區號"> <a
+											class="gray_btn" href="#">更新寄送地址</a>
+									</div>
+								</td>
+							</tr>
 							<tr class="out_button_area">
 								<td></td>
 								<td></td>
 								<td></td>
 								<td>
-									<div  class="checkout_btn_inner d-flex align-items-center">
-										 <a id="keepShopping"  class="primary-btn" href="${contextRoot}/FrontpageSeperate"><i class="bi bi-cart3"></i>&nbsp 繼續購物</a>
+									<div class="checkout_btn_inner d-flex align-items-center">
+										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a> <a
+											class="primary-btn" href="#">前往結帳</a>
 									</div>
 								</td>
 							</tr>
@@ -209,7 +274,7 @@
 			</div>
 		</div>
 	</section>
-	<!--================ End WishList Area  =================-->
+	<!--================End Cart Area =================-->
 
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
@@ -308,27 +373,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
 		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 		crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="js/gmaps.min.js"></script>
-	<script src="js/main.js"></script>
-
-
-
-
-
-
-
-
-	<!-- ========================================== js ============================================== -->
 	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -343,35 +387,61 @@
 	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
-	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>	
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="js/gmaps.min.js"></script>
+	<script src="js/main.js"></script>
 
-	<!-- ========================================== js ============================================== -->
-	
+			<!-------------------------------- 抓取購物車資料 --------------------------------->
 	<script>
 
-		$(".deleteFavor").click(function(){
-			var deleteFavor = $(this);
+		function getCartProduct(){
 			$.ajax({
-				url:$("#contextRoot").val() + "/deleteOneWishAjax",
-				data:{
-					wishId:$(this).data("wishid")
-				},
-				type:"get",
+
+				url:$("#contextRoot").val() + "/findMyWishList?memberId=101",
+				type:"post",
 				success:function(){
-					// console.log(deleteFavor.closest("tr"));
-					deleteFavor.closest("tr").remove();
+
 				}
-			});
+			})
+		}
+
+	</script>
+
+
+	<script>
+
+		$(".deleteCart").click(function(){
+			var deteteCart = $(this);
+			$.ajax({
+				url:$("#contextRoot").val() + "/DeleteCart",
+				data: {
+					memberid: $(this).data("memberid"),
+					productid: $(this).data("productid")
+				},
+				success: function () {
+					deteteCart.closest("tr").remove();
+				}
+			})
 			return false;
 		})
 
+
+
+
+
 	</script>
 	
-
-
-
-
-
+	
 </body>
 
 </html>

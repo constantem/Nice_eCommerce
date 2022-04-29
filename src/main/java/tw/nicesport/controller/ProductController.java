@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.CategoryBean;
+import tw.nicesport.model.Member;
 import tw.nicesport.model.ProductApi;
 import tw.nicesport.model.ProductBean;
 import tw.nicesport.model.ProductRepository;
@@ -423,6 +424,7 @@ public class ProductController {
 			mav.setViewName("/product/shopKeyWord");
 			return mav;
 		}
+		
 		
 		
 

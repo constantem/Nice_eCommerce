@@ -27,7 +27,6 @@ public class CoachService {
 		coachDao.save(coach);
 	}
 	
-	
 	public List<Coach> findAll() {
 		return coachDao.findAll();
 	}

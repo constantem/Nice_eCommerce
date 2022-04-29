@@ -29,7 +29,7 @@ import tw.nicesport.model.Member;
 import tw.nicesport.model.Room;
 import tw.nicesport.service.CourseService;
 import tw.nicesport.service.MemberService;
-import tw.nicesport.util.randomUtils;
+import tw.nicesport.util.RandomUtils;
 
 @Controller
 public class CourseController {
@@ -100,23 +100,23 @@ public class CourseController {
 		Course courseForAutoInput = new Course();
 		
 		courseForAutoInput.setCourseName(
-			courseNameArray[   randomUtils.getRandomIndex(courseNameArray.length)   ]
+			courseNameArray[   RandomUtils.getRandomIndex(courseNameArray.length)   ]
 		);
 		
 		courseForAutoInput.setCourseStartDate(
-				randomUtils.getRandomDate(2020, 2022)
+				RandomUtils.getRandomDate(2020, 2022)
 		);
 		
 		courseForAutoInput.setCourseClassAmount(
-				courseClassAmountArray[   randomUtils.getRandomIndex(courseClassAmountArray.length)   ]
+				courseClassAmountArray[   RandomUtils.getRandomIndex(courseClassAmountArray.length)   ]
 		);
 		
-		Coach coachForAutoInput = coachs.get(randomUtils.getRandomIndex(coachs.size()));
+		Coach coachForAutoInput = coachs.get(RandomUtils.getRandomIndex(coachs.size()));
 		
-		Room roomForAutoInput = rooms.get(randomUtils.getRandomIndex(rooms.size()));
+		Room roomForAutoInput = rooms.get(RandomUtils.getRandomIndex(rooms.size()));
 		
 		courseForAutoInput.setCoursePrice(
-				coursePriceArray[   randomUtils.getRandomIndex(coursePriceArray.length)   ]
+				coursePriceArray[   RandomUtils.getRandomIndex(coursePriceArray.length)   ]
 		);
 		
 		// 轉 JSON string

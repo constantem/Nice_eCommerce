@@ -291,12 +291,54 @@
 </aside>
 <!-- 左導覽列結束 -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous">
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
+<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
+<!-- 	crossorigin="anonymous"> -->
 <!-- </script> -->
-
 <script>
+	fetch("${contextRoot}/staff/role", {method: "GET"})
+	.then(function (response) {
+		console.log("response ========>|" + response);
+		console.log(response);
+		return response.json();
+	})
+	.then(function (roles) {
+		console.log("staff roles 前端 ========>|" + roles);
+		console.log(roles);
+		
+		const protectedItems = document.querySelectorAll(".isAuthenticatedAsStaff");
+		const openedItems = document.querySelectorAll(".notAuthenticatedAsStaff");
+		
+		console.log("protectedItems ========>|" + protectedItems);
+		console.log(protectedItems);
+		console.log("openedItems ========>|" + openedItems);
+		console.log(openedItems);
+		
+		if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
+			for (let elem of protectedItems) {
+				console.log(elem);
+			    elem.style.display = 'block';
+			}
+			for (let elem of openedItems) {
+				console.log(elem);
+			    elem.style.display = 'none';
+			}
+		} else {
+			for (let elem of protectedItems) {
+				console.log(elem);
+			    elem.style.display = 'none';
+			}
+			for (let elem of openedItems) {
+				console.log(elem);
+			    elem.style.display = 'block';
+			}
+		}
+	});
+
+</script>
+<!-- 
+<script>
+
 	$.ajax({
 		url: $("#contextRoot").val() + "/staff/role",
 		success: function (roles) {
@@ -312,3 +354,4 @@
 	});
 
 </script>
+ -->

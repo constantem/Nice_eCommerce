@@ -1,6 +1,7 @@
 package tw.nicesport.controller;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,8 @@ public class StaffLoginController {
            	System.out.println("後端 staff roles=======>|"+roles);
                return roles;
     	} else {
-    		return null;
+    		System.out.println("後端 staff roles=======>|null");
+    		return new HashSet<>();
     	}
     }
     

@@ -32,7 +32,7 @@ public class CustomSecurityConfig {
 	        super();
 	    }
 		
-		@Override
+		@Override //using an @Override of a method in the configurer, then the AuthenticationManagerBuilder is only used to build a "local" AuthenticationManager, which is a child of the global one.
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 		}
@@ -58,7 +58,10 @@ public class CustomSecurityConfig {
 			    .logout()
 		            .logoutUrl("/userLogout")
 		            .logoutSuccessUrl("/userLogin?logout")
+		            .invalidateHttpSession(false)
+		            .clearAuthentication(true)
 		            .deleteCookies("JSESSIONID")
+//		            .permitAll()
 		            
 				.and()
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
@@ -104,6 +107,8 @@ public class CustomSecurityConfig {
 			    .logout()
 		            .logoutUrl("/staffLogout")
 		            .logoutSuccessUrl("/staffLogin?logout")
+		            .invalidateHttpSession(false)
+		            .clearAuthentication(true)
 		            .deleteCookies("JSESSIONID")
 		            .permitAll()
 		            

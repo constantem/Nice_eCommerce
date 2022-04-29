@@ -2,6 +2,7 @@ package tw.nicesport.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,7 @@ import tw.nicesport.model.Employee;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.LoginService;
 import tw.nicesport.service.MemberService;
+import tw.nicesport.util.AuthenticationUtils;
 
 @Controller
 public class UserLoginController {
@@ -72,7 +74,8 @@ public class UserLoginController {
            	System.out.println("後端 user roles=======>|"+roles);
             return roles;
     	} else {
-    		return null;
+    		System.out.println("後端 user roles=======>|null");
+    		return new HashSet<>();
     	}
 
     }

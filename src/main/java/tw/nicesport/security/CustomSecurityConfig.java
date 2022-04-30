@@ -40,30 +40,48 @@ public class CustomSecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
-			http.antMatcher("/user*/**") // 符合 /user*/** 的 URL 才會被此 security filter 攔截
-
-				.authorizeRequests() 
-					.antMatchers("/userLogin*").permitAll()
-					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求不擋
-					.anyRequest().hasRole("USER") // 所有要以符合 /user*/** 的 URL 都要 USER 登入才能 access
-				
+			http
+				// 以下規定要被 "前台 security filter" 攔截的 url
+				.requestMatchers() 
+					.antMatchers("/user*/**")
+					.antMatchers("/info*/**") // 前台不需登入驗證的 url
+					.antMatchers("/") // 前台首頁
 				.and()
-				.formLogin() // 登入畫面要客製
+				
+				// 以下規定被攔截的 url 是否要被驗證擋
+				.authorizeRequests() 
+					// 以下 url 會被攔截, 但不必被驗證, 被攔截是因為需要 spring security tag
+					.antMatchers("/").permitAll() // 前台首頁
+					.antMatchers("/info*/**").permitAll()
+					
+					// 以下 url 為登入相關, 不必被驗證
+					.antMatchers("/userLogin*").permitAll()
+					
+					// 以下 url 為前端請求, 不必被驗證
+					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求
+					
+					///////////////////////////////////////////////////////
+					// 其他符合 "/user*/**" 的 url 需要被驗證, 且角色為 USER //
+					///////////////////////////////////////////////////////
+					.anyRequest().hasRole("USER") 
+				.and()
+				
+				// 客製登入畫面
+				.formLogin() 
 					.loginPage("/userLogin") // 登入 jsp 的 controller 轉跳
 					.loginProcessingUrl("/userLoginAuthenticate") // 登入 jsp 送出表單後的 controller 帳密驗證
 					.failureUrl("/userLogin?error")
-					.permitAll() //  logoutSuccessUrl(String) and the logoutUrl(String)
-		        
 				.and()
+				
+				// 客製登出 URL
 			    .logout()
 		            .logoutUrl("/userLogout")
 		            .logoutSuccessUrl("/userLogin?logout")
 		            .invalidateHttpSession(false)
 		            .clearAuthentication(true)
 		            .deleteCookies("JSESSIONID")
-//		            .permitAll()
-		            
 				.and()
+				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
 				
 		}
@@ -88,22 +106,39 @@ public class CustomSecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
-			http.antMatcher("/staff*/**") // 符合 /staff*/** 的 URL 才會被此 security filter 攔截
-					
-				.authorizeRequests() 
-					.antMatchers("/staffLogin*").permitAll() // 符合 /staff*/** 的前提下, 符合 /staffLogin* 的 URL 不擋
-					.antMatchers("/staff/role").permitAll() // 前端對後端的 role 請求不擋
-					.anyRequest().hasAnyRole("ADMIN", "EMPLOYEE") // 所有要以符合 /staff*/** 的 URL 都要 ADMIN 或 EMPLOYEE 登入才能 access
-					
+			http
+				// 以下規定要被 "後台 security filter" 攔截的 url
+				.requestMatchers() 
+					.antMatchers("/staff*/**")
+					.antMatchers("/backstage") // 後台首頁
 				.and()
-				.formLogin() // 登入畫面要客製
+				
+				// 以下規定被攔截的 url 是否要被驗證擋
+				.authorizeRequests() 
+					// 以下 url 會被攔截, 但不必被驗證, 被攔截是因為需要 spring security tag
+					.antMatchers("/backstage").permitAll() // 後台首頁
+					
+					// 以下 url 為登入相關, 不必被驗證
+					.antMatchers("/staffLogin*").permitAll() // 登入畫面
+					
+					// 以下 url 為前端請求, 不必被驗證
+					.antMatchers("/staff/role").permitAll() // 前端對後端的 role 請求不擋
+					
+					/////////////////////////////////////////////////////////////////////
+					// 其他符合 "/staff*/**" 的 url 需要被驗證, 且角色為 ADMIN 或 EMPLOYEE //
+					/////////////////////////////////////////////////////////////////////
+					.anyRequest().hasAnyRole("ADMIN", "EMPLOYEE") 
+				.and()
+				
+				// 客製登入畫面
+				.formLogin() 
 					.loginPage("/staffLogin") // 登入 jsp 的 controller 轉跳
 					.loginProcessingUrl("/staffLoginAuthenticate") // 登入 jsp 送出表單後的 controller 帳密驗證
 					.defaultSuccessUrl("/backstage")
 					.failureUrl("/staffLogin?error")
-					.permitAll() // 此客製化登入頁面不需登入
-		        
 				.and()
+				
+				// 客製登出 URL
 			    .logout()
 		            .logoutUrl("/staffLogout")
 		            .logoutSuccessUrl("/staffLogin?logout")
@@ -111,8 +146,8 @@ public class CustomSecurityConfig {
 		            .clearAuthentication(true)
 		            .deleteCookies("JSESSIONID")
 		            .permitAll()
-		            
 				.and()
+				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
 				
 		}

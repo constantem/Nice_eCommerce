@@ -1,8 +1,9 @@
 package tw.nicesport.config;
 
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class WebMvcConfigurer implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer {
+public class WebMvcAppConfig implements WebMvcConfigurer {
 	
     @Override
 	 public void addResourceHandlers(ResourceHandlerRegistry registry) {

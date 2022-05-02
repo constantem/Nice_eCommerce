@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +27,7 @@ public class EmployeeDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String idString) throws UsernameNotFoundException {
 
+		// 前端登入表單輸入的 String, 轉 entity Employee 的主鍵的型別 Integer
 		int idInt = Integer.parseInt(idString);
 		Integer idInteger;
 		if(!String.valueOf(idInt).equals(idString)) {
@@ -34,13 +36,28 @@ public class EmployeeDetailsService implements UserDetailsService {
 			idInteger = Integer.valueOf(idInt);
 		}
 		
+		// 先查出該 entity
 		Employee employee = employeeDao.findById(idInteger).orElseThrow(
 			()->new UsernameNotFoundException("id not found"));
 		 
+		// 取出等效 spring security username 的欄位
+		String usernameForAuth = Integer.toString(employee.getEmployee_id());
+		
+		// 取出等效 spring security password 的欄位
+		String passwordForAuth = employee.getPassword();
+		
+		// 取出等效 spring security authorities 的欄位
+		Collection<? extends GrantedAuthority> authoritiesForAuth;
+		if (employee.getPermission().contains("ADMIN")) {
+			authoritiesForAuth = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_EMPLOYEE");
+		} else {
+			authoritiesForAuth = AuthorityUtils.createAuthorityList("ROLE_EMPLOYEE");
+		}
+		
 		User user = new User(
-			Integer.toString(employee.getEmployee_id()),
-			employee.getPassword(),
-			UserAuthorityUtils.createAuthorities(employee)
+			usernameForAuth,
+			passwordForAuth,
+			authoritiesForAuth
 		);
 		
 		return user;

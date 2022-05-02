@@ -29,9 +29,9 @@
         <a class="navbar-link" 
         	href="#">
           <div id="staffImgContainer" class="user-avatar">
-            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
+            <img id="navStaffImg" src="https://avatars.dicebear.com/v2/initials/john-doe.svg" onerror="this.onerror=null; this.remove();" alt="John Doe" class="rounded-full">
           </div>
-          <div id="staffNameContainer" class="is-user-name"><span id="staffName">John Doe</span></div>
+          <div id="navStaffNameContainer" class="is-user-name"><span id="navStaffName">尚未登入</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
        
@@ -206,19 +206,26 @@
       </li>
       
       <!-- 下拉式選單5: 課程管理系統 -->
-      <li>
+      <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList')}">class="active"</c:if> >
         <a class="dropdown">
           <span class="icon"><i class="mdi mdi-view-list"></i></span>
           <span class="menu-item-label">課程管理</span>
-          <span class="icon"><i class="mdi mdi-plus"></i></span>
+          <span class="icon">
+          	<i 
+          		<c:choose>
+          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList')}">class="mdi mdi-minus"</c:when>
+          			<c:otherwise>class="mdi mdi-plus"</c:otherwise>
+          		</c:choose>
+          	></i>
+          </span>
         </a>
         <ul>
-          <li>
+          <li <c:if test="${activeLi == 'courseForm'}">class="active"</c:if> >
             <a href="${contextRoot}/course/form">
               <span>新增課程</span>
             </a>
           </li>
-          <li>
+          <li <c:if test="${activeLi == 'courseList'}">class="active"</c:if> >
             <a href="${contextRoot}/course/show/all">
               <span>課程列表</span>
             </a>
@@ -314,17 +321,23 @@
 		console.log("openedItems ========>|" + openedItems);
 		console.log(openedItems);
 		
-		if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
-			
-// 			fetch("${contextRoot}/staff/role", {method: "GET"})
-// 			.then(function (response) {
-// 				console.log("response ========>|" + response);
-// 				console.log(response);
-// 				return response.json();
-// 			})
-// 			.then(function (roles) {
+		if(roles.includes("ROLE_EMPLOYEE")) {
 				
-// 			});
+			fetch("${contextRoot}/staff/fullName", {method: "GET"})
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (profile) {
+				console.log(profile);
+				document.getElementById("navStaffName").textContent = profile.fullName;
+				console.log(profile.imgSrc);
+				if(profile.imgSrc != null) {
+					document.getElementById("navStaffImg").src = "${contextRoot}/upload/"+profile.imgSrc;
+				} else {
+					document.getElementById("navStaffImg").src = "";
+				}
+				
+			});
 			
 			for (let elem of protectedItems) {
 				console.log(elem);

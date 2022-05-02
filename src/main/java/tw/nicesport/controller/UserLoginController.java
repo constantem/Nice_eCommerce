@@ -33,7 +33,6 @@ import tw.nicesport.model.Employee;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.LoginService;
 import tw.nicesport.service.MemberService;
-import tw.nicesport.util.AuthenticationUtils;
 
 @Controller
 public class UserLoginController {

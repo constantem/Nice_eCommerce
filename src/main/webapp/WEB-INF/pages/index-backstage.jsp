@@ -39,6 +39,30 @@
   <meta property="twitter:image:width" content="1920">
   <meta property="twitter:image:height" content="960">
 
+  <!-- local style -->
+  <style>
+  	.grid-cols-4 {
+  		grid-template-columns:repeat(4,minmax(0,1fr))
+  	}
+  	@media (min-width:768px){
+		/* 原 global 內容 */
+  		.md\:space-y-0>:not([hidden])~:not([hidden]){
+  			--tw-space-y-reverse:0;margin-top:calc(0px * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0px * var(--tw-space-y-reverse))
+  		}
+  		.md\:flex-row{
+  			flex-direction:row
+  		}
+  		.md\:grid-cols-3{
+  			grid-template-columns:repeat(3,minmax(0,1fr))
+  		}
+  		
+  		/* local 客製內容 */
+  		.md\:grid-cols-4{
+  		grid-template-columns:repeat(4,minmax(0,1fr))
+  		}
+  	}
+  </style>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
   <script>
@@ -81,7 +105,7 @@
 
 	<!-- 原核心內容的 section 開始 -->
 	<section class="section main-section">
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-3 mb-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-4 mb-6">
       	
       	<!-- 管理系統1 -->
         <div class="card">

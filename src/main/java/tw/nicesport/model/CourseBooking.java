@@ -111,7 +111,12 @@ public class CourseBooking {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
-	
+
+	// toString
+	@Override
+	public String toString() {
+		return "CourseBooking [id=" + id + ", bookingStatus=" + bookingStatus + ", createdAt=" + createdAt
+				+ ", modifiedAt=" + modifiedAt + ", member=" + member + ", course=" + course + "]";
+	}	
 	
 }

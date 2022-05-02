@@ -1,7 +1,11 @@
 package tw.nicesport.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.nicesport.dto.UsernameAndPasswordWrapper;
 import tw.nicesport.model.Employee;
+import tw.nicesport.model.LoginERepository;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.LoginService;
 
@@ -51,6 +56,20 @@ public class StaffLoginController {
     		System.out.println("後端 staff roles=======>|null");
     		return new HashSet<>();
     	}
+    }
+    
+    @RequestMapping("/staff/fullName")
+    @ResponseBody
+    public Map<String,String> currentFullName(Principal principal) throws NumberFormatException, Exception {
+		String username = principal.getName();
+		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
+		String fullName = 
+				Objects.requireNonNullElse(employee.getLastName(), "") +
+				Objects.requireNonNullElse(employee.getFirstName(), "");
+		Map<String,String> profile = new HashMap<>();
+		profile.put("fullName", fullName);
+		profile.put("imgSrc", employee.getImg());
+		return profile;
     }
     
 	// 後端我(員工)的資料: 中間站

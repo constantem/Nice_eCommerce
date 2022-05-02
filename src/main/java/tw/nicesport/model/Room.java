@@ -159,6 +159,11 @@ public class Room {
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
-	
-	
+
+	// toString, 不可雙向(一方不可access多方)
+	@Override
+	public String toString() {
+		return "Room [roomNo=" + roomNo + ", roomName=" + roomName + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", roomSizeType_id=" + roomSizeType_id + ", roomSizeType=" + roomSizeType + "]";
+	}
 }

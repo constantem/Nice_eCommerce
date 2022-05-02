@@ -595,11 +595,9 @@ var totalElements;
 });
 
 
-
 $(document).on("click", "ul.pagination li a", function() {
         var data = $(this).attr('data');
 		let val = $(this).text();
-		console.log('val: ' + val);
 
 		if(val.toUpperCase() === "« FIRST") {
 			//跳到第一頁
@@ -665,10 +663,10 @@ function buildPagination(result) {
 			first = '<li><a aria-disabled style="pointer-events: none">« First</a></li>';
 		}
 		
-		// var next = '';
-		// var last = '';
+		var next = '';
+		var last = '';
 		if (pageNumber < totalPages) {
-			if(pageNumber !== totalPages - 1) {
+			if(pageNumber !== totalPages) {
 				next = '<li class="page-item"><a class="page-link">Next ›</a></li>';				
 				last = '<li class="page-item"><a class="page-link">Last »</a></li>';
 			}
@@ -698,7 +696,7 @@ function buildPagination(result) {
 	
 
 function fetchNotes(startPage) {
-		console.log('startPage: ' +startPage);
+		
 		/**
 		 * get data from Backend's REST API
 		 */
@@ -713,9 +711,9 @@ function fetchNotes(startPage) {
 	        success: function(result){
 	          $('#noteTable tbody').empty();
 	          // add table rows
-	          $.each(result.content, (idenx, value) => {
+	          $.each(result.content, (index, value) => {
 				var gender = value.gender=='M'?'男':'女';
-
+				console.log(result)
 				if(value.modifiedAt==null){
 					value.modifiedAt="";
 				}	
@@ -741,7 +739,6 @@ function fetchNotes(startPage) {
 			  
 
 	          if ($('ul.pagination li').length - 2 != result.totalPages){
-				  console.log("result.totalPages:"+result.totalPages)
 	        	  $('ul.pagination').empty();
 	              buildPagination(result);
 	          }
@@ -972,15 +969,15 @@ function fetchNotes(startPage) {
 				show_validate_msg("#firstName_update_input", "success", "");
 			}
 			//檢查信箱
-			var empEmail = $("#email_update_input").val();
-			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-			if(!regEmail.test(empEmail)){
-				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
-				show_validate_msg("#email_update_input", "error", "信箱格式不正確");
-				return false;
-			}else{
-				show_validate_msg("#email_update_input", "success", "");
-			}
+// 			var empEmail = $("#email_update_input").val();
+// 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+// 			if(!regEmail.test(empEmail)){
+// 				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
+// 				show_validate_msg("#email_update_input", "error", "信箱格式不正確");
+// 				return false;
+// 			}else{
+// 				show_validate_msg("#email_update_input", "success", "");
+// 			}
 			//檢查電話
 			var empPhone = $("#phone_update_input").val();
 			var regPhone =/^(09)[0-9]{8}$/;
@@ -999,7 +996,7 @@ function fetchNotes(startPage) {
 							type: "POST",
 							data: $("#empUpdateModal form").serialize(),
 							success: function (result) {
-								console.log(result)
+								
 								fetchNotes(0);
 								$("#empUpdateModal").modal("hide");
 								// to_page(currentPage);

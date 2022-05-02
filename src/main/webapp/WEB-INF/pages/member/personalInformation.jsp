@@ -4,14 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-
-
-
-<!-- 這個檔案是給你給你複製貼上用的, 請創一個 jsp 檔, 將此檔全部內容複製貼在該 jsp 檔 -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -44,10 +36,11 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	
 	<style type="text/css">
 	.t1{
 	margin:auto;
-	width:250px;
+	width:400px;
 	}
 	</style>
 </head>
@@ -127,10 +120,10 @@
 	<div class="t1">
 	<form action="${contextRoot}/member/showOneResult" method="post">
 	
-	<div class="field">
-		<label class="label">帳號:</label>
+	<div class="col-md-6 form-group p_star">
+		<label>帳號:</label>
 		<div class="control">
-			<input type="text" name="username" value="${username}">
+			<input type="text" class="form-control" name="username" value="${member.username}">
 		</div>
 	 <p class="help">
 		           
@@ -138,10 +131,10 @@
     </div>
 	
 	<!-- 欄位1 -->
-	<div class="field">
+	<div class="col-md-6 form-group p_star">
 		<label class="label">姓:</label>
-		<div class="control">
-			<input type="text" name="lastname" value="${lastname}">
+		<div class="t2">
+			<input type="text" class="form-control" name="lastname" value="${member.lastname}">
 		</div>
 	 <p class="help">
 		           
@@ -149,10 +142,10 @@
     </div>
 	
 	<!-- 欄位2 -->
-	<div class="field">
+	<div class="col-md-6 form-group p_star">
 		<label class="label">名:</label>
 		<div class="control">
-			<input type="text" name="firstname" value="${firstname}">
+			<input type="text" class="form-control" name="firstname" value="${member.firstname}">
 	 	</div>
 	 <p class="help">
 		           
@@ -160,10 +153,10 @@
     </div>
     
     <!-- 欄位3 -->
-    <div class="field">
+    <div class="col-md-6 form-group p_star">
 		<label class="label">生日:</label>
 		<div class="control">
-			<input type="text" name="birthdate" value="${birthdate}">
+			<input type="text" class="form-control" name="birthdate" value="${member.birthdate}">
 		</div>	
 	 <p class="help">
 		           
@@ -171,10 +164,10 @@
     </div>
     
     <!-- 欄位4 -->
-    <div class="field">
+    <div class="col-md-6 form-group p_star">
 		<label class="label">性別:</label>
 		<div class="control">
-			<input type="text" name="gender" value="${gender}">
+			<input type="text" class="form-control" name="gender" value="${member.gender}">
 	 	</div>
 	 <p class="help">
 		           
@@ -182,10 +175,10 @@
     </div>
     
     <!-- 欄位5 -->
-    <div class="field">
+    <div class="col-md-6 form-group p_star">
 		<label class="label">電話:</label>
 		<div class="control">
-			<input type="text" name="phone" value="${phone}">
+			<input type="text" class="form-control" name="phone" value="${member.phone}">
 		</div>
 	 <p class="help">
 		           
@@ -193,10 +186,10 @@
     </div>
     
     <!-- 欄位6 -->
-    <div class="field">
+    <div class="col-md-6 form-group p_star">
 		<label class="label">email:</label>
 		<div class="control">
-			<input type="text" name="email" value="${email}">
+			<input type="text" class="form-control" name="email" value="${member.email}">
 	 	</div>
 	 <p class="help">
 		           
@@ -204,10 +197,10 @@
     </div>
     
     <!-- 欄位7 -->
-    <div class="field">
+    <div class="col-md-6 form-group p_star">
 		<label class="label">住址:</label>
 		<div class="control">
-			<input type="text" name="address" value="${address}">
+			<input type="text" class="form-control" name="address" value="${member.address}">
 	 	</div>
 	 <p class="help">
 		           

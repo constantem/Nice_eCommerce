@@ -6,9 +6,8 @@
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
-
 <head>
-	<!-- Mobile Specific Meta -->
+<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
@@ -21,7 +20,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>登入</title>
+	<title>忘記密碼</title>
 
 	<!--
 		CSS
@@ -34,6 +33,18 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	
+	<style type="text/css">
+	.t1{
+	-ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        display: flex;
+    	justify-content: center; 
+    	align-items: center;
+    	margin: auto;
+	}
+	</style>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -52,9 +63,9 @@
 		});
 	</script>
 </head>
-
 <body>
-	<!-- variable -->
+
+<!-- variable -->
 	<input type="hidden" id="contextRoot" value="${contextRoot}">
 	
 	<!-- Start Header Area -->
@@ -74,96 +85,100 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-
-	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb">
+	
+	<!-- start banner Area -->
+	<section class="banner-area">
 		<div class="container">
-			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					<h1>登入/註冊</h1>
-					<nav class="d-flex align-items-center">
-						<a href="${contextRoot}/">首頁<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">登入/註冊</a>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Banner Area -->
-
-	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/login.jpg" alt="">
-						<div class="hover">
-							<h4>還不是會員嗎?</h4>
-							<p>別猶豫，趕緊</p>
-							<a class="primary-btn" href="${contextRoot}/member/register">
-								會員註冊
-							</a>
+			<div class="row fullscreen align-items-center justify-content-start">
+				<div class="col-lg-12">
+					<div class="active-banner-slider owl-carousel">
+						<!-- single-slide -->
+						<div class="row single-slide align-items-center d-flex">
+							<div class="col-lg-5 col-md-6">
+								<div class="banner-content">
+									<h1>Nike New <br>Collection!</h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+									<div class="add-bag d-flex align-items-center">
+										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase">Add to Bag</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="banner-img">
+									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
+								</div>
+							</div>
+						</div>
+						<!-- single-slide -->
+						<div class="row single-slide">
+							<div class="col-lg-5">
+								<div class="banner-content">
+									<h1>Nike New <br>Collection!</h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+									<div class="add-bag d-flex align-items-center">
+										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase">Add to Bag</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="banner-img">
+									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>已是會員</h3>
-						<c:if test="${param.error!=null}">
-							<span style="color:red;">查無帳號或密碼</span>
-						</c:if>
-						<c:if test="${param.logout!=null}">
-							<span style="color:orange;">登出狀態</span>
-						</c:if>
-						<!-- form:form 以支援 security defense -->
-						<form class="row login_form" 
-							action="${contextRoot}/userLoginAuthenticate" 
-							method="post">
-							
-							<div class="col-md-12 form-group">
-								<!-- name="username" 以搭配 spring security -->
-								<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'">
-							</div>
-							<div class="col-md-12 form-group">
-								<!-- name="password" 以搭配 spring security -->
-								<input type="password" class="form-control" id="password" name="password" placeholder="密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
-							</div>
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">記住登入</label>
-								</div>
-							</div>
-							
-							<!-- 登入一鍵輸入 -->
-							<div class="col-md-5 form-group">
-								<a id="first" class="genric-btn success circle">會員一</a>	
-							</div>
-							
-							<div class="col-md-12 form-group">
-											
-								<button type="submit" value="submit" class="primary-btn">登入</button>
-							</div>	
-							
-							</form>
-							
-							<!-- 忘記密碼 -->
-							<div class="col-md-12 form-group">
-							<form method="get" action="${contextRoot}/member/forget">
-								<button type="submit" value="忘記密碼？" class="primary-btn">忘記密碼？</button>
-							</form>
-							</div>		
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
-	<!--================End Login Box Area =================-->
+	<!-- End banner Area -->
+	
+	<div class="t1">
+		<div class="login_form_inner">
+			<h3>設定新密碼</h3>
+			<form class="row contact_form"
+				action="${contextRoot}"
+				method="get" novalidate="novalidate">
+							
+	<div class="col-md-12 form-group">
+         <label class="label">帳號</label>
 
+         <div class="control">
+         	${member.username}
+		<input type="hidden" name="username" id="username" value="${member.username}">
+         </div>
+         <p class="help">
+           
+         </p>
+    </div>
+   
+   <hr>
+   
+<!-- 			<div class="col-md-12 form-group"> -->
+				
+<!-- 				<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'"> -->
+<!-- 			</div> -->
+
+			<div class="col-md-12 form-group">
+				
+				<input type="password" class="form-control" id="password" name="password" placeholder="新密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
+			</div>
+			<div class="col-md-12 form-group">
+				<button type="submit" value="submit" class="primary-btn">確認</button>
+			<div class="creat_account"></div>
+			</div>
+			</form>
+		</div>
+	</div>
+	
+	<!--================End Login Box Area =================-->
+	
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
-
 
 	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -179,9 +194,16 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
-
+<!-- 	<script> -->
+<!--  		function io(){ -->
+<!--  		Swal.fire('修改成功').then( function(result){ -->
+<!--  	    	if(result.isConfirmed) { -->
+<%--  	    		window.location.href='${contextRoot}'; --%>
+<!-- 	    	} -->
+			
+<!--  	} -->
+	
+<!-- 	</script> -->
 </body>
-
 </html>

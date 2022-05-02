@@ -70,4 +70,12 @@ public class MemberService {
 		return memberDao.findAll();
 	}
 
+	public Member findByEmail(String email) {
+		Optional<Member> option = memberDao.findByEmail(email);
+
+		if (option.isPresent()) {
+			return option.get();
+		}
+		return null;
+	} 
 }

@@ -49,7 +49,7 @@ public class DiscountController {
 			  BindingResult br) {
 		ModelAndView mav = new ModelAndView();
 		discountService.insert(discount);
-		mav.setViewName("discount/insertSuccess");
+		mav.setViewName("redirect:/discount/viewDiscount");
 		return mav;
 	}
 	

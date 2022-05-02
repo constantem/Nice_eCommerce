@@ -79,6 +79,20 @@
                     </section>
                     <!-- End Banner Area -->
 
+
+                    <button id="btn">click</button>
+
+                    <script>
+                        $("#btn").click(function(){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                        })
+                    </script>
+                    
                     <div>
                         <form id="formDemo">
                             <p>用户名: <input name="username" type="text" /> </p>
@@ -101,12 +115,26 @@
                                     alert("success!!!");
                                 },
                                 error: function (e) {
-                                    alert("error!!!");
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href="">Why do I have this issue?</a>'
+                                    })
                                 },
                             }
                             )
                         });
 
+                    </script>
+
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href="">Why do I have this issue?</a>'
+                        })
                     </script>
 
 
@@ -127,6 +155,7 @@
                     <script src="${contextRoot}/resources/frontstage/js/jquery.countdown.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <!--gmaps Js-->
                     <script
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>

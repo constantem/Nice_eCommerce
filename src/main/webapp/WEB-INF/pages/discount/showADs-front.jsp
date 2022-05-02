@@ -72,18 +72,23 @@
 						border-left: 1px dashed #fff;
 					}
 
-					/* .take {
-						position: relative;
-						height: 100px;
-						width: 100px;
-						right: 0px;
-						font-size: 20px;
-						padding: 0 0 0 10px;
-					} */
+					.takeCoupon {
+						position: absolute;
+						color: black;
+						font-size: 15px;
+						width: 90px;
+						top: 50%;
+						right: -12%;
+						transform: translate(-50%, -50%);
+						line-height: 40px;
+						letter-spacing: 5px;
+						/* border: 1px solid #aaa; */
+						font-size: 30px
+					}
 
 					.coupon::after {
 						position: absolute;
-						content: "立即領取";
+						/* content: "立即領取"; */
 						color: black;
 						font-size: 26px;
 						width: 70px;
@@ -183,47 +188,103 @@
 
 								</div>
 
+
+								<!-- ====================================================(開始)領取優惠券================================================ -->
 								<div class="col-lg-4 offset-lg-1">
-									<a href="#">
-										<div id="coupon1" class="coupon">
-											50元
-											<div class="hover-text">母親節特輯</div>
-											<!-- <button class="take">領取</button> -->
-										</div>
-									</a>
-									<a href="#">
-										<div id="coupon2" class="coupon">
-											150元
-											<!-- <h3>母親節特輯</h3> -->
-											<!-- <button class="take">領取</button>-->
-										</div>
-									</a>
-									<a href="#">
-										<div id="coupon3" class="coupon">
-											250元
 
-										</div>
-									</a>
+									<div id="coupon1" class="coupon">
+										50元
+										<div style="position:absolute;right:310px;bottom:55px;width:-800px;height: 160px;
+																	 color:rgb(0, 0, 0);font-size:15px">母親節限定</div>
 
-									<a href="#">
-										<div id="coupon4" class="coupon">
-											350元
+										<a href="${contextRoot}/">
+											　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
+																	 color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
+										</a>
+									
+											<div class="takeCoupon">立即領取</div>
+									
+									</div>
 
-										</div>
-									</a>
 
-									<a href="#">
-										<div id="coupon5" class="coupon">
-											45000元
 
-										</div>
-									</a>
+									<div id="coupon2" class="coupon">
+										150元
+										<div style="position:absolute;right:310px;bottom:55px;width:-800px;height: 160px;
+																	 color:rgb(0, 0, 0);font-size:15px">端午節限定</div>
+
+										<a href="${contextRoot}/">
+											　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
+																	 color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
+										</a>
+									
+											<div class="takeCoupon">立即領取</div>
+										
+									</div>
+
+
+									<div id="coupon3" class="coupon">
+										250元
+										<div style="position:absolute;right:310px;bottom:55px;width:-800px;height: 160px;
+											color:rgb(0, 0, 0);font-size:15px">情人節限定</div>
+
+										<a href="${contextRoot}/">
+											　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
+											color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
+										</a>
+									
+											<div class="takeCoupon">立即領取</div>
+									
+									</div>
+
+
+
+									<div id="coupon4" class="coupon">
+										350元
+										<div style="position:absolute;right:310px;bottom:55px;width:-800px;height: 160px;
+											color:rgb(0, 0, 0);font-size:15px">中秋節限定</div>
+
+										<a href="${contextRoot}/">
+											　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
+											color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
+										</a>
+										
+											<div class="takeCoupon">立即領取</div>
+										
+									</div>
+
+
+									<div id="coupon5" class="coupon">
+										45000元
+										<div style="position:absolute;right:310px;bottom:55px;width:-800px;height: 160px;
+											color:rgb(0, 0, 0);font-size:15px">雙11限定</div>
+
+										<a href="${contextRoot}/">
+											　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
+											color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
+										</a>
+										
+											<div class="takeCoupon">立即領取</div>
+										
+									</div>
+
 								</div>
 
 							</div>
 						</div>
 					</div>
+					<!-- ====================================================(結束)領取優惠券================================================ -->
+					<script>
+						$(".takeCoupon").click(function () {
+							Swal.fire({
+								icon: 'success',
+								title: '領取成功',
+								text: '優惠券已存入個人帳戶!',
+								footer: '<a href="#">前往察看</a>'
+							})
 
+						})
+					</script>
 
 					<SCRIPT language="javascript">
 						var startDate = new Date();
@@ -231,8 +292,9 @@
 						var spantime = (endDate - startDate) / 1000;
 
 						function getString(dt) {
-							return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
-						}
+								return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
+						}	
+						
 						function cal() {
 							spantime--;
 							var d = Math.floor(spantime / (24 * 3600));
@@ -251,6 +313,7 @@
 							// 	$("#min").text(0);
 							// 	$("#sec").text(0);
 							// }
+
 						}
 
 						window.onload = function () {
@@ -260,7 +323,7 @@
 						}
 					</SCRIPT>
 
-				
+
 					<!-- ====================================進入網頁後開始計時start================================= -->
 					<!-- <div>
 					<span id="Check_Txt" style="color:rgb(156, 92, 103)">時間計數：<span id="Check_i">0天0小時0分0秒</span></span>
@@ -308,6 +371,7 @@
 					<script src="${contextRoot}/resources/frontstage/js/jquery.countdown.js"></script>
 					<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
 					<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+					<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 					<!--gmaps Js-->
 					<script
 						src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>

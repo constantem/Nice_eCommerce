@@ -2,12 +2,17 @@ package tw.nicesport.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,8 +21,16 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="discount")
+@JsonIdentityInfo( // 轉 JSON 時, A 中可以有 B, 但此 B 中不能再有 A 的設定
+	    generator = ObjectIdGenerators.PropertyGenerator.class, 
+	    property = "id", // 這邊要跟 java bean 的主鍵屬性一樣
+	    scope = Integer.class
+	)
 public class Discount implements Serializable{
 	//序列化(Serializable後端把資料轉成JSON)Spring會幫忙做，為了不忘記有這件事才打出來
 	
@@ -73,9 +86,27 @@ public class Discount implements Serializable{
 	private String endDate;
 	
 	
-	//private Integer createdAt;
+//	private String createdAt;
+//	
+//	private String modifiedAt;
 	
-	//private Integer modifiedAt;
+	@OneToMany(
+		mappedBy="discount",
+		cascade = {CascadeType.PERSIST,
+	              CascadeType.DETACH,
+	              CascadeType.MERGE,
+	              CascadeType.REFRESH}
+	)
+	private Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet = new HashSet<>();
+	
+	@OneToOne(
+		mappedBy="discount",
+		cascade = {CascadeType.PERSIST,
+	               CascadeType.DETACH,
+	               CascadeType.MERGE,
+	               CascadeType.REFRESH}
+	)
+	private AnnouncementBean announcementBean;
 	
 //	@DateTimeFormat(pattern ="yyyy/MM/dd HH:mm:ss")
 //	@Temporal(TemporalType.TIMESTAMP)
@@ -84,23 +115,6 @@ public class Discount implements Serializable{
 	
 	public Discount() {
 	}
-	
-	public Discount(String name, String description, String conditionCategory, Integer conditionPrice, 
-			String discountCategory, Integer discountPercent, Integer discountAmount, String startDate, 
-			String endDate) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.conditionCategory = conditionCategory;
-		this.conditionPrice = conditionPrice;
-		this.discountCategory = discountCategory;
-		this.discountPercent = discountPercent;
-		this.discountAmount = discountAmount;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
-
-	
 	
 	public Integer getId() {
 		return id;
@@ -180,6 +194,22 @@ public class Discount implements Serializable{
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public Set<MemberDiscountDetailBean> getMemberDiscountDetailBeanSet() {
+		return memberDiscountDetailBeanSet;
+	}
+
+	public void setMemberDiscountDetailBeanSet(Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet) {
+		this.memberDiscountDetailBeanSet = memberDiscountDetailBeanSet;
+	}
+	
+	public AnnouncementBean getAnnouncementBean() {
+		return announcementBean;
+	}
+
+	public void setAnnouncementBean(AnnouncementBean announcementBean) {
+		this.announcementBean = announcementBean;
 	}
 
 	@Override

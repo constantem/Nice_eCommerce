@@ -257,7 +257,7 @@
         <ul>
           <li>
             <a href="${contextRoot}/message/selectAll">
-              <span>列表</span>
+              <span>客服管理</span>
             </a>
           </li>
         </ul>

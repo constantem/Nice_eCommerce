@@ -25,6 +25,10 @@ public interface CustomerSupportDAO extends JpaRepository<CustomerBean, Integer>
 	//模糊搜尋
 	List<CustomerBean> findByServiceInfoLike(String findByServiceInfoLike);
 	
+	//email查詢本人資料
+	List<CustomerBean> findAllByName(String name);
+	
+
 	//刪除一筆
 //	@Modifying
 //	@Query(value="delete from CustomerSupport where id=#{id}", nativeQuery = true)

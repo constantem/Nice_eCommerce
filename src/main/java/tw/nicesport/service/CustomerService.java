@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +34,7 @@ public class CustomerService {
 //		return DAO.save(forms); //簡化版，直接回傳帶參數的回傳值
 	}
 	
+	
 	//透過id查詢
 	public CustomerBean findById(Integer id)
 	{
@@ -40,6 +45,14 @@ public class CustomerService {
 		return null;
 	}
 	
+	//讓email連結透過名稱查詢
+	public List<CustomerBean> findByName(String name)
+		{
+		List<CustomerBean> customerBeanList = dao.findAllByName(name);
+		return customerBeanList;
+			
+		}
+	
 	//一鍵查詢全部
 	public List<CustomerBean> findAllCustomer(){
 		return dao.findAll();
@@ -48,6 +61,15 @@ public class CustomerService {
 	//模糊搜尋
 	public List<CustomerBean> findByServiceInfoLike(String findByServiceInfoLike) {
 		return dao.findByServiceInfoLike("%"+findByServiceInfoLike+"%");
+	}
+	
+	//分頁功能
+	public Page<CustomerBean> findByPage(Integer pageNumber){
+		Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.DESC, "id");
+		
+		Page<CustomerBean> page = dao.findAll(pgb);
+		
+		return page;
 	}
 	
 	
@@ -73,6 +95,11 @@ public class CustomerService {
 	//取得最新資料，有排序方式
 	public CustomerBean getLastest() {
 		return dao.findFirstByOrderByIdDesc();
+	}
+
+
+	public List<CustomerBean> findAllByName(String name) {
+		return null;
 	}
 
 

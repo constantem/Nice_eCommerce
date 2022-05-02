@@ -68,6 +68,9 @@
 #keepShopping{
 	border-radius:5px;
 }
+#checkOut{
+	border-radius:5px;
+}
 
 
 
@@ -149,7 +152,7 @@
 									</div>
 								</td>
 								<td>
-									<h5>NT$ ${cartProduct.productBean.price}</h5>
+									<h5 class="cartPrice">NT$ ${cartProduct.productBean.price}</h5>
 								</td>
 								<td>
 									<div class="product_count">
@@ -219,7 +222,7 @@
 											<div class="switch-wrap d-flex justify-content-between">
 												<p>711交貨便</p>
 												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio1" checked>
+													<input type="checkbox" id="confirm-radio1" checked value="60">
 													<label for="confirm-radio1"></label>
 												</div>
 											</div>
@@ -227,7 +230,7 @@
 											<div class="switch-wrap d-flex justify-content-between">
 												<p>郵局寄送</p>
 												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio2" >
+													<input type="checkbox" id="confirm-radio2" value="120">
 													<label for="confirm-radio2"></label>
 												</div>
 											</div>
@@ -235,7 +238,7 @@
 											<div class="switch-wrap d-flex justify-content-between">
 												<p>黑貓宅急便</p>
 												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio3"  >
+													<input type="checkbox" id="confirm-radio3"  value="160" >
 													<label for="confirm-radio3"></label>
 												</div>
 											</div>
@@ -244,16 +247,16 @@
 											運費計算 <i id="truck" class="bi bi-truck"></i>
 										</h6>
 									
-										<select class="shipping_select">
-											<option value="1" selected>國家</option>
-											<option value="2">台灣</option>
-											<option value="4">美國</option>
-										</select> <select class="shipping_select">
-											<option value="1" selected>縣市</option>
-											<option value="2">台北市</option>
-											<option value="4">新北市</option>
-										</select> <input type="text" placeholder="郵遞區號"> <a
-											class="gray_btn" href="#">更新寄送地址</a>
+<!-- 										<select class="shipping_select"> -->
+<!-- 											<option value="1" selected>國家</option> -->
+<!-- 											<option value="2">台灣</option> -->
+<!-- 											<option value="4">美國</option> -->
+<!-- 										</select> <select class="shipping_select"> -->
+<!-- 											<option value="1" selected>縣市</option> -->
+<!-- 											<option value="2">台北市</option> -->
+<!-- 											<option value="4">新北市</option> -->
+<!-- 										</select> <input type="text" placeholder="郵遞區號"> <a -->
+<!-- 											class="gray_btn" href="#">更新寄送地址</a> -->
 									</div>
 								</td>
 							</tr>
@@ -263,8 +266,8 @@
 								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
-										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a> <a
-											class="primary-btn" href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
+										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a>
+										<a id="checkOut" class="primary-btn" href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
 									</div>
 								</td>
 							</tr>
@@ -395,6 +398,7 @@
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!--gmaps Js-->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
@@ -434,6 +438,23 @@
 			})
 			return false;
 		})
+
+		varifyCart();
+
+		function varifyCart (){
+			var a = $(".cartPrice").text();
+
+			if(a==null || a==""){
+				$("#checkOut").removeAttr("href","").text("無結帳商品").css("color","	#E0E0E0").click(function(){
+					Swal.fire({
+						icon: 'warning',
+						title: '目前購物車是空的喔!',
+						text: '去逛逛吧',
+						footer: '<a href="${contextRoot}/FrontpageSeperate"><i class="bi bi-arrow-right"></i>&nbsp前往購物商城</a>'
+						})
+				})
+			}
+		}
 
 
 

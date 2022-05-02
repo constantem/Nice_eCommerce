@@ -46,6 +46,26 @@
 					width: 100px;
 					height: 90px;
 				}
+				#last{
+					margin-top:25px;				
+				}
+				#first{
+					margin-top:25px;	
+				}
+				#phone{
+					margin-top:25px;	
+				}
+				#email{
+					margin-top:25px;	
+				}
+				#address{
+					margin-top:25px;	
+				}
+				#submitCheckOut{
+					border-radius:5px;															
+				}
+				
+				
 			</style>
 
 			<body>
@@ -78,10 +98,10 @@
 						<div class="container">
 							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 								<div class="col-first">
-									<h1>Checkout</h1>
+									<h1>結帳</h1>
 									<nav class="d-flex align-items-center">
-										<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-										<a href="single-product.html">Checkout</a>
+										<a href="index.html">購物車<span class="lnr lnr-arrow-right"></span></a>
+										<a href="single-product.html">完成訂單</a>
 									</nav>
 								</div>
 							</div>
@@ -143,7 +163,7 @@
 															有優惠卷?? <a href="#">點這裡新增優惠</a>
 														</h2>
 													</div>
-													<input type="text" placeholder="輸入優惠碼"> <a class="primary-btn" href="#">送出!</a>
+													<input  type="text" placeholder="輸入優惠碼"> <a id="submitCheckOut" class="primary-btn" href="#">送出!</a>
 												</div>
 											</div>
 											<div class="col-lg-4">
@@ -155,7 +175,7 @@
 														<c:set value="0" var="totalPrice" />
 														<c:set value="0" var="sum" />
 														<c:forEach var="cartProductList" items="${cartProductList}">
-															<li><a href="#">${cartProductList.productBean.productName} 
+															<li><a id="pdName" href="#">${cartProductList.productBean.productName} 
 																<span class="middle">x${cartProductList.quantity}
 																	</span> <span class="middle">$
 																		${cartProductList.productBean.price}</span></a>

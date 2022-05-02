@@ -257,9 +257,8 @@ button {
 #btnCart{
 width: 150px;
 height: 40px;
-
-
 }
+
 </style>
 
 <body>
@@ -437,7 +436,7 @@ height: 40px;
 						<h2 id="pdPrice">
 							NT $ <i class=""></i>${pdVal.price}</h2>
 						<ul class="list">
-							<li class="status"><a class="active" href="#"><span>商品類別</span>${pdVal.subCategory.name}</a></li>
+							<li class="status"><a class="active" href="${contextRoot}/FrontPageSearchBySubCategory?name=${pdVal.subCategory.name}"><span>商品類別</span>${pdVal.subCategory.name}</a></li>
 							<li class="status"><a href="#" id="stockStatus">${pdVal.stock.quantity}</a></li>
 						</ul>
 
@@ -792,7 +791,7 @@ height: 40px;
 
 									<input type="hidden" class="form-control" id="score" name="score"
 												placeholder="評分" onfocus="this.placeholder = ''"
-												onblur="this.placeholder = '您的姓名'">
+												onblur="this.placeholder = '您的姓名'" value="3">
 
 									<div class="col-md-12">
 										<div class="form-group">
@@ -1188,11 +1187,11 @@ height: 40px;
 											
 										
 											if(sc1 === "5"){
-												let getScore1 =  '<i class="fa fa-star"></i>'
-																+'<i class="fa fa-star"></i>'
-																+'<i class="fa fa-star"></i>'
-																+'<i class="fa fa-star"></i>'
-																+'<i class="fa fa-star"></i>';
+												let getScore1 =  '<i  class="fa fa-star"></i>'
+																+'<i  class="fa fa-star"></i>'
+																+'<i  class="fa fa-star"></i>'
+																+'<i  class="fa fa-star"></i>'
+																+'<i  class="fa fa-star"></i>';
 												$("#scoreBox").append(getScore1);
 											}else if(sc1 === "4"){
 												let getScore1 =  '<i class="fa fa-star"></i>'
@@ -1283,7 +1282,12 @@ height: 40px;
 											//顧客評論平均分數
 											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
 											var avgScore = (Math.round(totalScore/3))
-											$("#scoreAvg").text(avgScore + '.0')	
+											
+											if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
+												$("#scoreAvg").text(Math.round((parseInt(sc1)+1)/2) + '.0')	
+											}else if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
+												$("#scoreAvg").text(avgScore + '.0')
+											}
 									})
 								}
 							})
@@ -1311,6 +1315,8 @@ height: 40px;
 										$("#relImg"+(index+1)).attr("src", $("#contextRoot").val()+"/ProductTempImg/"+product.imgUrl)
 										$("#price"+(index+1)).text("NT$ " + product.price);
 										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
+
+								
 									
 									})
 								}
@@ -1336,21 +1342,48 @@ height: 40px;
 
 						$("#star1").click(function(){
 							$("#yourScore").text("評分1顆星");
+							$("#star1").css("color","chocolate")
+							$("#star2").css("color","")
+							$("#star3").css("color","")
+							$("#star4").css("color","")
+							$("#star5").css("color","")
+							
 						})
 						$("#star2").click(function(){
 							$("#yourScore").text("評分2顆星");
+							$("#star1").css("color","chocolate")
+							$("#star2").css("color","chocolate")
+							$("#star3").css("color","")
+							$("#star4").css("color","")
+							$("#star5").css("color","")
 						})
 						$("#star3").click(function(){
 							$("#yourScore").text("評分3顆星");
+							$("#star1").css("color","chocolate")
+							$("#star2").css("color","chocolate")
+							$("#star3").css("color","chocolate")
+							$("#star4").css("color","")
+							$("#star5").css("color","")
 						})
 						$("#star4").click(function(){
 							$("#yourScore").text("評分4顆星");
+							$("#star1").css("color","chocolate")
+							$("#star2").css("color","chocolate")
+							$("#star3").css("color","chocolate")
+							$("#star4").css("color","chocolate")
+							$("#star5").css("color","")
 						})
 						$("#star5").click(function(){
 							$("#yourScore").text("評分5顆星");
+							$("#star1").css("color","chocolate")
+							$("#star2").css("color","chocolate")
+							$("#star3").css("color","chocolate")
+							$("#star4").css("color","chocolate")
+							$("#star5").css("color","chocolate")
 						})
 
 					</script>
+
 
 					<script>
 						$("#star1").click(function(){

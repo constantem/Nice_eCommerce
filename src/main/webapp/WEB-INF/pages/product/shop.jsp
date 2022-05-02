@@ -354,48 +354,38 @@ button {
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#beauttyProduct" aria-expanded="false"
 							aria-controls="beauttyProduct"><span
-								class="lnr lnr-arrow-right"></span>運動服飾<span class="number">(65)</span></a>
+								class="lnr lnr-arrow-right"></span>鞋類<span class="number"></span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">運動長褲<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">運動外套<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">機能系列<span
-										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">個人用品<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">背包<span
-										class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=休閒鞋">休閒鞋<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=慢跑鞋">慢跑鞋<span
+										class="number"></span></a></li>
 							</ul></li>
 
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#healthProduct" aria-expanded="false"
 							aria-controls="healthProduct"><span
-								class="lnr lnr-arrow-right"></span>健身器材<span class="number">(29)</span></a>
+								class="lnr lnr-arrow-right"></span>健身用品<span class="number"></span></a>
 							<ul class="collapse" id="healthProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">啞鈴<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">大型健身器材<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">飛輪<span
-										class="number">(17)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身配件">健身配件<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身器材">健身器材<span
+										class="number"></span></a></li>
 							</ul></li>
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#homeAppliance" aria-expanded="false"
 							aria-controls="homeAppliance"><span
-								class="lnr lnr-arrow-right"></span>補充營養品<span class="number">(15)</span></a>
+								class="lnr lnr-arrow-right"></span>補充營養品<span class="number"></span></a>
 							<ul class="collapse" id="homeAppliance" data-toggle="collapse"
 								aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">乳清蛋白<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">蛋白營養棒<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">餅乾/點心<span
-										class="number">(17)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=乳清蛋白">乳清蛋白<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=高蛋白點心">高蛋白點心<span
+										class="number"></span></a></li>
 							</ul></li>
 
 					</ul>
@@ -406,21 +396,20 @@ button {
 					<div class="common-filter">
 						<div class="head">品牌</div>
 
-						<form action="${contextRoot}/FrontpageSearchByKeyword">
+						<form action="FrontpageSearchByKeyword">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="apple" name="brand" value="Nike"><label
-									for="apple">Nike<span>(29)</span></label></li>
+									for="apple">Nike<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="asus" name="brand" value="Addidas"><label
-									for="asus">Addidas<span>(29)</span></label></li>
+									for="asus">Addidas<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gionee" name="brand" value="Converse"><label
-									for="gionee">Converse<span>(19)</span></label></li>
+									for="gionee">Converse<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="micromax" name="brand" value="New Balance"><label
-									for="micromax">New Balance<span>(19)</span></label></li>
-
+									for="micromax">New Balance<span></span></label></li>
 
 								<li class="filter-list">關鍵字:&nbsp<input class=""
 									type="text" id="Keyword" name="brand"><label
@@ -437,8 +426,7 @@ button {
 					<div class="common-filter">
 						<div class="head">顏色</div>
 
-						<form action="FrontpageSeperateSortByColor">
-							<%-- 						<form action="FrontpageSeperateSortByColor?color=${color}"> --%>
+						<form action="FrontpageSeperateSortByColor?color=${color}">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="black" name="color" value="黑"><label
@@ -448,16 +436,18 @@ button {
 									for="balckleather">白<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="blackred" name="color" value="藍"><label
-									for="blackred">藍<span>(19)</span></label></li>
+									for="blackred">藍<span>(0)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gold" name="color" value="綠"><label
-									for="gold">綠<span>(0)</span></label></li>
+									for="gold">綠<span>(19)</span></label></li>
 							</ul>
 
 							<button id="btnColor" type="submit" value="搜尋">
 								<i class="bi bi-search"></i>
 							</button>
 						</form>
+
+
 
 					</div>
 					<!--=============================依照價格搜尋=================================== -->
@@ -510,7 +500,7 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<div id="pageUp">
+					<!-- <div id="pageUp">
 						<div class="filter-bar d-flex flex-wrap align-items-center">
 							<div class="sorting">
 								<div class="pagination">
@@ -528,7 +518,7 @@ button {
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 
@@ -539,7 +529,7 @@ button {
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 
-						<c:forEach items="${page.content}" var="prod">
+						<c:forEach items="${page.content}" var="prod" varStatus="status">
 							<!-- single product -->
 							<div class="col-lg-4 col-md-6">
 								<div class="single-product">
@@ -579,7 +569,7 @@ button {
 												<p class="hover-text">加入追蹤清單</p>
 											</a>
 
-											<a style="display:none" class="social-info removeWishList" href="#" > 
+											<a style="display:none" class="social-info removeWishList" href="" > 
 												<span style="color: #EA7500;" class="bi bi-heart-fill"></span>
 											   <p class="hover-text">取消追蹤清單</p>
 										   </a>
@@ -817,37 +807,6 @@ button {
 
 
 	<!-- 	======================================================================= -->
-	
-	<script>
-
-		$("#sortPage").change(function(){
-
-			var option = $(this).val();
-			if(option===1){
-				$.ajax({
-					url:$("#contextRoot").val()+ 'FrontpageSeperate',
-					type:"Get",
-					success:function(result){
-						if(result){
-							alert(1)
-						}
-					}
-				})
-			}else{
-
-				$.ajax({
-					url:$("#contextRoot").val()+ 'FrontpageSeperateSortByCreatedAt',
-					type:"Get",
-					success:function(result){
-						if(result){
-							alert(2)
-						}
-					}
-				})
-			}
-		})
-
-	</script>
 
 	<script>
 		
@@ -891,6 +850,30 @@ button {
 				}
 			}
 		});
+
+	</script>
+
+	<script>
+
+		$(".removeWishList").click(function(){
+			
+					$.ajax({
+						url:$("#conTextRoot").val() + "/deleteOneWishAjax",
+						data: {
+							wishId:$(this).data("wishid")
+						},
+						success:function(){
+								singleProductDiv.find(".addWishList").show();
+								singleProductDiv.find(".removeWishList").hide();
+						}
+					})
+				
+		})
+
+
+
+
+
 
 	</script>
 

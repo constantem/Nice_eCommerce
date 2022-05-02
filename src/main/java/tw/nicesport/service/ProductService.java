@@ -35,6 +35,9 @@ public class ProductService {
 		return pRes.findByColor(color);
 	}
 	
+	public List<ProductBean> findBySupplier(String supplier){
+		return pRes.findBySupplier(supplier);
+	}
 	
 	public List<ProductBean> findByProductNameLike(String brand){
 		String searchContent = "%"+ brand +"%";
@@ -75,7 +78,7 @@ public class ProductService {
 	}
 	
 	public List<ProductBean> findTop6ByOrderByCreatedAtDesc() {
-		return pRes.findTop6ByOrderByCreatedAtDesc();
+		return pRes.findLast6ByOrderByCreatedAtDesc();
 	}
 	
 	

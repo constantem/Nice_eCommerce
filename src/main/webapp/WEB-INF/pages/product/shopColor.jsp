@@ -337,59 +337,38 @@ button {
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#beauttyProduct" aria-expanded="false"
 							aria-controls="beauttyProduct"><span
-								class="lnr lnr-arrow-right"></span>運動服飾<span class="number">(65)</span></a>
+								class="lnr lnr-arrow-right"></span>鞋類<span class="number"></span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
-										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=休閒鞋">休閒鞋<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=慢跑鞋">慢跑鞋<span
+										class="number"></span></a></li>
 							</ul></li>
 
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#healthProduct" aria-expanded="false"
 							aria-controls="healthProduct"><span
-								class="lnr lnr-arrow-right"></span>健身器材<span class="number">(29)</span></a>
+								class="lnr lnr-arrow-right"></span>健身用品<span class="number"></span></a>
 							<ul class="collapse" id="healthProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
-										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身配件">健身配件<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身器材">健身器材<span
+										class="number"></span></a></li>
 							</ul></li>
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#homeAppliance" aria-expanded="false"
 							aria-controls="homeAppliance"><span
-								class="lnr lnr-arrow-right"></span>補充營養品<span class="number">(15)</span></a>
+								class="lnr lnr-arrow-right"></span>補充營養品<span class="number"></span></a>
 							<ul class="collapse" id="homeAppliance" data-toggle="collapse"
 								aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span
-										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat
-										Alternatives<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span
-										class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=乳清蛋白">乳清蛋白<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=高蛋白點心">高蛋白點心<span
+										class="number"></span></a></li>
 							</ul></li>
 
 					</ul>
@@ -404,16 +383,16 @@ button {
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="apple" name="brand" value="Nike"><label
-									for="apple">Nike<span>(29)</span></label></li>
+									for="apple">Nike<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="asus" name="brand" value="Addidas"><label
-									for="asus">Addidas<span>(29)</span></label></li>
+									for="asus">Addidas<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gionee" name="brand" value="Converse"><label
-									for="gionee">Converse<span>(19)</span></label></li>
+									for="gionee">Converse<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="micromax" name="brand" value="New Balance"><label
-									for="micromax">New Balance<span>(19)</span></label></li>
+									for="micromax">New Balance<span></span></label></li>
 
 								<li class="filter-list">關鍵字:&nbsp<input class=""
 									type="text" id="Keyword" name="brand"><label

@@ -40,6 +40,7 @@
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/discount/showADs-front">優惠券一覽</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/discount/showEvents-front">活動一覽</a></li>
 					</ul>
+				</li>
 				
 				<!-- 3. 商城 -->
 				<li class="nav-item submenu dropdown">
@@ -59,9 +60,12 @@
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/blog.html">交通方式</a></li>
 					</ul>
 				</li>
+				
+				<!--  登入測試 -->
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<li class="nav-item"><a class="nav-link" href="">USER 登入!</a></li>
 				</sec:authorize>
+				
 				<!-- 6. 會員中心 -->
 				<li class="nav-item submenu dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -118,9 +122,17 @@
 				</li>
 				
 				<!-- 7. 客服中心 -->
-				<li class="nav-item"><a class="nav-link" href="${contextRoot}/message/form">客服中心</a></li>
-			</ul>
-			
+				<li class="nav-item submenu dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+					 aria-expanded="false">客服中心</a>
+					<ul class="dropdown-menu">
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/ai">智慧客服</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/message/form">客服表單</a></li>
+					</ul>
+				</li>
+				
+			</ul> <!-- 上導覽列 ul 結束 -->
+		
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 購物車 -->
 				<li class="nav-item"><a href="${contextRoot}/user/myCart" class="cart"><span class=""><i style="font-size:120%; transition:0.4s"

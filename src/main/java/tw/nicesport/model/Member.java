@@ -114,6 +114,15 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL,mappedBy="member")
 	private CartBean cart;
 
+	@OneToMany(
+		mappedBy="member",
+		cascade = {CascadeType.PERSIST,
+		           CascadeType.DETACH,
+		           CascadeType.MERGE,
+		           CascadeType.REFRESH}
+	)
+	private Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet = new HashSet<>();
+	
 	// 建構子
 
 	public Member() {
@@ -259,5 +268,15 @@ public class Member {
 	public void setCart(CartBean cart) {
 		this.cart = cart;
 	}
+
+	public Set<MemberDiscountDetailBean> getMemberDiscountDetailBeanSet() {
+		return memberDiscountDetailBeanSet;
+	}
+
+	public void setMemberDiscountDetailBeanSet(Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet) {
+		this.memberDiscountDetailBeanSet = memberDiscountDetailBeanSet;
+	}
+	
+	
 	
 }

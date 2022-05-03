@@ -3,6 +3,13 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!------------------ link for icon -------------------->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<!----------------------------------------------------->	
+
+
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <input id="contextRoot" type="hidden" value="${pageContext.request.contextPath}">
@@ -10,7 +17,8 @@
 <nav class="navbar navbar-expand-lg navbar-light main_box">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<a class="navbar-brand logo_h" href="${contextRoot}/"><img src="${contextRoot}/resources/frontstage/img/logo.png" alt=""></a>
+		<a class="navbar-brand logo_h" href="${contextRoot}/"><img
+						src="${contextRoot}/img/LOGO5.png" alt=""></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="icon-bar"></span>
@@ -42,10 +50,7 @@
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/FrontpageSeperate">前往商城</a></li>
 					</ul>
 				</li>
-				
-				<!-- 4. 購物車 -->
-				<li class="nav-item"><a class="nav-link" href="">購物車</a></li>
-				
+			
 				<!-- 5. 課程 -->
 				<li class="nav-item submenu dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -127,12 +132,21 @@
 				</li>
 				
 			</ul> <!-- 上導覽列 ul 結束 -->
-
+		
+			<ul class="nav navbar-nav navbar-right">
+				<!-- 購物車 -->
+				<li class="nav-item"><a href="${contextRoot}/user/myCart" class="cart"><span class=""><i style="font-size:120%; transition:0.4s"
+				  onMouseOver="this.style.color='orange'" onMouseOut="this.style.color='black'" class="bi bi-cart4"></i></span></a></li>
+				  
+				<li class="nav-item">
+					<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+				</li>
+			</ul>
 			
 			<!-- 加插連後台按鈕 -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="nav-item">
-					<a href="${contextRoot}/backstage" class="genric-btn primary circle">後台</a>
+					<a  href="${contextRoot}/backstage" class="genric-btn primary circle">後台</a>
 				</li>
 			</ul>
 		</div>
@@ -147,6 +161,8 @@
 	$.ajax({
 		url: $("#contextRoot").val() + "/user/role",
 		success: function (roles) {
+			console.log("roles.length======>|"+roles.length+"|");
+			console.log("roles[0]======>|"+roles[0]+"|");
 			if(roles.length===1 && roles[0]=="ROLE_USER") {
 				$(".isAuthenticatedAsUser").show();
 				$(".notAuthenticatedAsUser").hide();

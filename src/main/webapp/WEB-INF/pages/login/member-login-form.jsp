@@ -144,9 +144,16 @@
 							<div class="col-md-12 form-group">
 											
 								<button type="submit" value="submit" class="primary-btn">登入</button>
-								<a href="#">忘記密碼？</a>
-							</div>
-						</form>
+							</div>	
+							
+							</form>
+							
+							<!-- 忘記密碼 -->
+							<div class="col-md-12 form-group">
+							<form method="get" action="${contextRoot}/member/forget">
+								<button type="submit" value="忘記密碼？" class="primary-btn">忘記密碼？</button>
+							</form>
+							</div>		
 					</div>
 				</div>
 			</div>
@@ -172,6 +179,9 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
+
 </body>
 
 </html>

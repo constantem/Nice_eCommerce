@@ -28,5 +28,9 @@ public class SubCategoryService {
 	public SubCategoryBean insertSubCategory(SubCategoryBean subBean) {
 		return subRepoImpl.save(subBean);
 	}
+	
+	public SubCategoryBean findByName(String name) {
+		return subRepoImpl.findByName(name);
+	}
 
 }

@@ -54,6 +54,16 @@
 
 
 <style>
+#pageUp{
+	padding-left: 170px;
+}	
+
+#pdimg{
+width:240px;
+height:250px
+}
+
+
 .inputPrice {
 	width: 50px;
 	height: 30px;
@@ -154,6 +164,60 @@ button {
 	background-color: #EA7500;
 	transition: 0.2s;
 }
+
+#inputPrice {
+	width: 40px;
+	height: 20px;
+}
+
+.images {
+	align-items: flex-start;
+	transition: transform 0.5s;
+	display: flex;
+}
+
+
+#img1 {
+	width: 800px;
+}
+
+#img2 {
+	width: 800px;
+}
+
+#img3 {
+	width: 800px;
+}
+
+#img4 {
+	width: 800px;
+}
+
+.window {
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+	overflow: hidden;
+}
+
+button {
+	width: 12px;
+	height: 12px;
+	border-radius: 150%;
+	margin: 0 3px;
+	border: none;
+}
+
+.red {
+	background: #84C1FF;
+}
+
+#heart:hover{
+	
+
+
+
+}
 </style>
 
 
@@ -166,7 +230,23 @@ button {
 		value="${pageContext.request.contextPath}">
 
 	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+
 	
 	
 	<!-- Start Banner Area -->
@@ -274,48 +354,38 @@ button {
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#beauttyProduct" aria-expanded="false"
 							aria-controls="beauttyProduct"><span
-								class="lnr lnr-arrow-right"></span>運動服飾<span class="number">(65)</span></a>
+								class="lnr lnr-arrow-right"></span>鞋類<span class="number"></span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">運動長褲<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">運動外套<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">機能系列<span
-										class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">個人用品<span class="number">(01)</span>
-								</a></li>
-								<li class="main-nav-list child"><a href="#">背包<span
-										class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=休閒鞋">休閒鞋<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=慢跑鞋">慢跑鞋<span
+										class="number"></span></a></li>
 							</ul></li>
 
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#healthProduct" aria-expanded="false"
 							aria-controls="healthProduct"><span
-								class="lnr lnr-arrow-right"></span>健身器材<span class="number">(29)</span></a>
+								class="lnr lnr-arrow-right"></span>健身用品<span class="number"></span></a>
 							<ul class="collapse" id="healthProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">啞鈴<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">大型健身器材<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">飛輪<span
-										class="number">(17)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身配件">健身配件<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=健身器材">健身器材<span
+										class="number"></span></a></li>
 							</ul></li>
 
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#homeAppliance" aria-expanded="false"
 							aria-controls="homeAppliance"><span
-								class="lnr lnr-arrow-right"></span>補充營養品<span class="number">(15)</span></a>
+								class="lnr lnr-arrow-right"></span>補充營養品<span class="number"></span></a>
 							<ul class="collapse" id="homeAppliance" data-toggle="collapse"
 								aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">乳清蛋白<span
-										class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">蛋白營養棒<span
-										class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">餅乾/點心<span
-										class="number">(17)</span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=乳清蛋白">乳清蛋白<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=高蛋白點心">高蛋白點心<span
+										class="number"></span></a></li>
 							</ul></li>
 
 					</ul>
@@ -326,21 +396,20 @@ button {
 					<div class="common-filter">
 						<div class="head">品牌</div>
 
-						<form action="${contextRoot}/FrontpageSearchByKeyword">
+						<form action="FrontpageSearchByKeyword">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="apple" name="brand" value="Nike"><label
-									for="apple">Nike<span>(29)</span></label></li>
+									for="apple">Nike<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="asus" name="brand" value="Addidas"><label
-									for="asus">Addidas<span>(29)</span></label></li>
+									for="asus">Addidas<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gionee" name="brand" value="Converse"><label
-									for="gionee">Converse<span>(19)</span></label></li>
+									for="gionee">Converse<span></span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="micromax" name="brand" value="New Balance"><label
-									for="micromax">New Balance<span>(19)</span></label></li>
-
+									for="micromax">New Balance<span></span></label></li>
 
 								<li class="filter-list">關鍵字:&nbsp<input class=""
 									type="text" id="Keyword" name="brand"><label
@@ -357,8 +426,7 @@ button {
 					<div class="common-filter">
 						<div class="head">顏色</div>
 
-						<form action="FrontpageSeperateSortByColor">
-							<%-- 						<form action="FrontpageSeperateSortByColor?color=${color}"> --%>
+						<form action="FrontpageSeperateSortByColor?color=${color}">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="black" name="color" value="黑"><label
@@ -368,10 +436,10 @@ button {
 									for="balckleather">白<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="blackred" name="color" value="藍"><label
-									for="blackred">藍<span>(19)</span></label></li>
+									for="blackred">藍<span>(0)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gold" name="color" value="綠"><label
-									for="gold">綠<span>(0)</span></label></li>
+									for="gold">綠<span>(19)</span></label></li>
 							</ul>
 
 							<button id="btnColor" type="submit" value="搜尋">
@@ -379,10 +447,12 @@ button {
 							</button>
 						</form>
 
+
+
 					</div>
 					<!--=============================依照價格搜尋=================================== -->
 					<form
-						action="/Nice_eCommerce/FrontpageSeperateSortByPriceBetween?startPrice=${prod.startPrice}&endPrice=${prod.endPrice}">
+						action="${contextRoot}/FrontpageSeperateSortByPriceBetween?startPrice=${prod.startPrice}&endPrice=${prod.endPrice}">
 						<div class="common-filter">
 							<div class="head">價格範圍</div>
 							<div class="">
@@ -430,15 +500,25 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<div class="pagination">
-						<a href="#" class="prev-arrow"><i
-							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
-							class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-							href="#" class="dot-dot"><i class="fa fa-ellipsis-h"
-							aria-hidden="true"></i></a> <a href="#">6</a> <a href="#"
-							class="next-arrow"><i class="fa fa-long-arrow-right"
-							aria-hidden="true"></i></a>
-					</div>
+					<!-- <div id="pageUp">
+						<div class="filter-bar d-flex flex-wrap align-items-center">
+							<div class="sorting">
+								<div class="pagination">
+									<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+										<c:choose>
+											<c:when test="${page.number != pageNumber-1}">
+												<a href="${contextRoot}/FrontpageSeperate?p=${pageNumber}"
+													class="">${pageNumber}</a>
+											</c:when>
+											<c:otherwise>
+												<c:out value="${pageNumber}"></c:out>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 
@@ -449,15 +529,16 @@ button {
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 
-						<c:forEach items="${page.content}" var="prod">
+						<c:forEach items="${page.content}" var="prod" varStatus="status">
 							<!-- single product -->
 							<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<img alt="picture"
-										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" />
+									<input class="productId" type="hidden" value="${prod.id}">
+									<a href="${contextRoot}/getOneProductShop${prod.id}"><img id="pdimg" alt="picture"
+										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" /></a>
 									<!-- 										ProductTempImg -->
 									<div id="product-details" class="product-details">
-										<h5 class="pdName">${prod.productName}</h5>
+										<a href="${contextRoot}/getOneProductShop${prod.id}"><h5 class="pdName">${prod.productName}</h5></a>
 										<div class="price">
 											<p class="pdPrice">
 												價格: NT<i class="bi bi-currency-dollar"></i>${prod.price}</p>
@@ -466,23 +547,36 @@ button {
 										</div>
 										<div class="prd-bottom">
 
-											<a href="" class="social-info"> <span class="ti-bag"></span>
-												<p class="hover-text">加入購物車</p>
-											</a>
+											<c:choose>
+												<c:when test="${prod.stock.quantity == 0}">
+													<a class="social-info"> 
+														<span style="font-size: 110%;" class="bi bi-cart-x"></span>
+														<p class="hover-text" style="color: red;">補貨中</p>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="${contextRoot}/user/addMyCartFromShop?productId=${prod.id}" class="social-info"> 
+														<span  class="bi bi-cart4"></span>
+														<p class="hover-text">加入購物車</p>
+													</a>
+												</c:otherwise>
+											</c:choose>
+
+
 											
-											 <a id="addWishList" href="insertProductToWishList?productId=${prod.id}&memberId=101" class="social-info"> <span
-												class="lnr lnr-heart"></span>
-												<p class="hover-text">加入願望清單</p>
+											 <a class="social-info addWishList" href="${contextRoot}/user/addMyWishListFromShop?productId=${prod.id}" > 
+											 	<span class="lnr lnr-heart"></span>
+												<p class="hover-text">加入追蹤清單</p>
 											</a>
-											
-<!-- 											 <a href="" class="social-info"> <span -->
-<!-- 												class="lnr lnr-sync"></span> -->
-<!-- 												<p class="hover-text">比較</p> -->
-<!-- 											</a> -->
+
+											<a style="display:none" class="social-info removeWishList" href="" > 
+												<span style="color: #EA7500;" class="bi bi-heart-fill"></span>
+											   <p class="hover-text">取消追蹤清單</p>
+										   </a>
 											
 											 <a
-												href="/Nice_eCommerce/getOneProductShop${prod.id}"
-												class="social-info"> <span class="lnr lnr-move"></span>
+												href="${contextRoot}/getOneProductShop${prod.id}"
+												class="social-info"> <span class="bi bi-info-lg"></span>
 												<p class="hover-text">更多商品資訊</p>
 											</a>
 
@@ -715,35 +809,75 @@ button {
 	<!-- 	======================================================================= -->
 
 	<script>
+		
+		console.log("準備開始抓");
 
-		$("#sortPage").change(function(){
-
-			var option = $(this).val();
-			if(option===1){
-				$.ajax({
-					url:$("#contextRoot").val()+ 'FrontpageSeperate',
-					type:"Get",
-					success:function(result){
-						if(result){
-							alert(1)
+		$.ajax({
+			url: $("#contextRoot").val() + "/user/role",
+			success: function(roles) {
+				console.log("有抓到東西");
+				console.log(roles);
+				if(roles.includes("ROLE_USER")) {
+					console.log("USER 登入中");
+					$.ajax({
+						url: $("#contextRoot").val() + "/user/memberId",
+						success: function (memberId) {
+							console.log("USER 登入中且拿到 member id");
+							$.each( $(".productId"),function (index, productIdInput) {
+								$.ajax({
+									url: $("#contextRoot").val() + "/user/myWishListByMemberIdForAjax",
+									data: {
+										"memberId": memberId,
+										"productId": $(productIdInput).val()},
+									success: function(status) {
+										let singleProductDiv = $(productIdInput).closest(".single-product");
+										if(status) { // 若已在 wishList
+											// 未加入
+											singleProductDiv.find(".addWishList").hide(); 
+											// 已加入
+											singleProductDiv.find(".removeWishList").show();
+										} else { // 尚未在 wishList
+											// 未加入
+											singleProductDiv.find(".addWishList").show();
+											// 已加入
+											singleProductDiv.find(".removeWishList").hide();
+										}
+									}
+								});
+							})
 						}
-					}
-				})
-			}else{
-
-				$.ajax({
-					url:$("#contextRoot").val()+ 'FrontpageSeperateSortByCreatedAt',
-					type:"Get",
-					success:function(result){
-						if(result){
-							alert(2)
-						}
-					}
-				})
+					});
+				}
 			}
-		})
+		});
 
 	</script>
+
+	<script>
+
+		$(".removeWishList").click(function(){
+			
+					$.ajax({
+						url:$("#conTextRoot").val() + "/deleteOneWishAjax",
+						data: {
+							wishId:$(this).data("wishid")
+						},
+						success:function(){
+								singleProductDiv.find(".addWishList").show();
+								singleProductDiv.find(".removeWishList").hide();
+						}
+					})
+				
+		})
+
+
+
+
+
+
+	</script>
+
+	
 
 
 

@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
@@ -24,6 +25,9 @@
 <link rel="mask-icon"
 	href="${contextRoot}/resources/backstage/safari-pinned-tab.svg"
 	color="#00b4b6" />
+	
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -101,137 +105,101 @@
 		    </header>
 		    <div class="card-content">
 		
-		<form:form action="${contextRoot}/member/add" modelAttribute="member">
+		<form action="${contextRoot}/member/add" method="post">
 			
 			<!-- 欄位1 -->
 			<div class="field">
-		         <label class="label">帳號:</label>
-		
-		         <div class="control">
-		         	${member.username}
-
-		         <form:input path="username" />
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
+				<label class="label">帳號:</label>
+	         <div class="control">
+	         	<input type="text" name="username" id="username" />
+	         </div>
+	         <p class="help"></p>            
+	       </div>
 
 			<!-- 欄位2 -->
 			<div class="field">
-		         <label class="label">密碼:</label>
-			        
-		         <div class="control">
-		        	 ${member.password}
-		         <form:input type="password" path="password" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
-			
+	         	<label class="label">密碼:</label>        
+       		  <div class="control">		        	
+		         <input type="text" name="password" id="password"/>
+			  </div>
+			  <p class="help"></p>				    				  
+			</div>			
 			
 			<!-- 欄位3 -->
 			<div class="field">
-			         <label class="label">姓:</label>
-			        
-			         <div class="control">
-			         ${member.lastname}
-			         <form:input path="lastname" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+	        	 <label class="label">姓:</label>			        
+	          <div class="control">			      
+		         <input type="text" name="lastname" id="lastname"/>
+			  </div>
+			  <p class="help"></p>				    				  
+			</div>
 			
 			<!-- 欄位4 -->
 			<div class="field">
-			         <label class="label">名:</label>
-			        
-			         <div class="control">
-			         ${member.firstname}
-			         <form:input path="firstname" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+		         <label class="label">名:</label>			        
+	       	  <div class="control">			         
+		   	      <input type="text" name="firstname" id="firstname"/>
+			  </div>
+			  <p class="help"></p>				    				  
+			</div>
 						
 			<!-- 欄位5 -->
 			<div class="field">
-		         <label class="label">生日:</label>
-			        
-		         <div class="control">
-		         ${member.birthdate}
-		         <form:input type="date" path="birthdate" />
+		         <label class="label">生日:</label>			        
+		         <div class="control">		       
+		         	<input type="text" name="birthdate" id="birthdate"/>
 				 </div>
-				 <p class="help">
-				    
-				 </p>
-				</div>
+				 <p class="help"></p>				    				 
+			</div>
 										
 			<!-- 欄位6 -->
 			<div class="field">
-		         <label class="label">性別: 
-        	 <input type="radio" name="gender" value="男">男
-        	 <input type="radio" name="gender" value="女">女
-       	 		</label> 
-	      		  <div class="control">
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+      		  	 <label class="label">性別:</label>              	 		 
+      		  <div class="control">	      		  
+      		  	 <input type="text" name="gender" id="gender"/>
+			  </div>
+				  <p class="help"></p>				    				  
+			</div>
 														
 			<!-- 欄位7 -->
 			<div class="field">
-			         <label class="label">電話:</label>
-			        
-			         <div class="control">
-			         ${member.phone}
-			         <form:input path="phone" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+		       	<label class="label">電話:</label>        
+	         <div class="control">		         
+		         <input type="text" name="phone" id="phone"/>
+			  </div>
+			 	 <p class="help"> </p>				    				 
+			</div>
 											
 			<!-- 欄位8 -->
 			<div class="field">
-			         <label class="label">Email:</label>
-			        
-			         <div class="control">
-			         ${member.email}
-			         <form:input path="email" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+	           	<label class="label">Email:</label>			        
+	         <div class="control">			       
+		         <input type="text" name="email" id="email"/>
+	    	</div>
+			 	<p class="help"></p>			    				  
+			</div>
 											
 			<!-- 欄位9 -->
 			<div class="field">
-			         <label class="label">住址:</label>
-			        
-			         <div class="control">
-			         ${member.address}
-			        <form:input path="address" />
-				  </div>
-				  <p class="help">
-				    
-				  </p>
-				</div>
+       		   	<label class="label">住址:</label>		        
+	         <div class="control">		         
+		        <input type="text" name="address" id="address"/>
+			 </div>
+				 <p class="help"></p>			    			  
+			</div>
+				
+				<!-- 按鍵 -->
+				
 				<div class="field grouped">
 		          <div class="control">
-		            <button type="submit" class="button green">
-		              申請
-		            </button>
+		            <button type="submit" class="button green">申請</button>
+		            <button type="button" class="button red" id="check">一鍵輸入</button>
 		          </div>	
-		        </div>				
+		        </div>		
+		       </form>		
 	        </div>
         </div>
-	</form:form>
-</section>
+	</section>
 		
 		<!-- 原核心內容的 section 結束 -->
 
@@ -286,6 +254,22 @@
 				'https://connect.facebook.net/en_US/fbevents.js');
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
+	</script>
+	
+	<script>
+	
+		$("#check").click(function() {
+			$("#username").attr("value", "qoo14789");
+			$("#password").attr("value", "likeqoo");
+			$("#lastname").attr("value", "今天");
+			$("#firstname").attr("value", "天氣好");
+			$("#birthdate").attr("value", "1989-06-13");
+			$("#gender").attr("value", "女");
+			$("#phone").attr("value", "0922666666");
+			$("#email").attr("value", "juice666@gmail.com");
+			$("#address").attr("value", "新北市三重區中正北路");
+		});
+		
 	</script>
 	<noscript>
 		<img height="1" width="1" style="display: none"

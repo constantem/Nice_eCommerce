@@ -44,7 +44,7 @@ public class ProductPageController {
 	
 	@GetMapping(path = "/ProductCartController.controller")
 	public String processProductCartController() {
-		return "/product/cart";
+		return "/Cart/cart";
 	}
 	
 	@GetMapping(path = "/ProductMyFavorController.controller")

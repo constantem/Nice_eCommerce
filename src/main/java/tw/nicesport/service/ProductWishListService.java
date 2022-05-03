@@ -15,4 +15,8 @@ public class ProductWishListService {
 	public void insert(ProductWishListBean myWishListBean) {
 		pwRes.save(myWishListBean);
 	}
+	
+	public void deleteWishList(Integer wishListId) {
+		pwRes.deleteById(wishListId);
+	}
 }

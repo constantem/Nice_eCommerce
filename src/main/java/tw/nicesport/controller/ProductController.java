@@ -443,7 +443,11 @@ public class ProductController {
 		public ModelAndView searchProductBySubCategory(ModelAndView mav,@RequestParam("name")String name) {
 			
 			SubCategoryBean subBean = subServic.findByName(name);
-			List<ProductBean> pdList = subBean.getPdList();
+			List<ProductBean> pdList = new ArrayList<>();
+			if(subBean != null) {
+				pdList = subBean.getPdList();
+			}
+			
 			List<StockBean> stock = stService.findAll();
 			
 			mav.getModel().put("pdList", pdList);

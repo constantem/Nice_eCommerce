@@ -136,4 +136,10 @@ public class RoomSizeType {
 		this.rooms = rooms;
 	}
 
+	// toString, 不可雙向(被 referenced 那方不可 access 外鍵那方)
+	@Override
+	public String toString() {
+		return "RoomSizeType [id=" + id + ", name=" + name + ", roomCapacity=" + roomCapacity + ", createdAt="
+				+ createdAt + ", modifiedAt=" + modifiedAt + "]";
+	}
 }

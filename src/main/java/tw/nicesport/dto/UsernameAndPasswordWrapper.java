@@ -35,6 +35,11 @@ public class UsernameAndPasswordWrapper {
 	public void setRemember(String remember) {
 		this.remember = remember;
 	}
-	
-	
+
+	// toString
+	@Override
+	public String toString() {
+		return "UsernameAndPasswordWrapper [username=" + username + ", password=" + password + ", remember=" + remember
+				+ "]";
+	}
 }

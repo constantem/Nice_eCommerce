@@ -23,5 +23,10 @@ public class CoachsAndRoomsContainer {
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-	
+
+	// toString
+	@Override
+	public String toString() {
+		return "CoachsAndRoomsContainer [coachs=" + coachs + ", rooms=" + rooms + "]";
+	}
 }

@@ -25,16 +25,24 @@ public class MemberDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+		// 先查出該 entity
 		Member member = memberDao.findByUsername(username).orElseThrow(
 			()->new UsernameNotFoundException("username not found"));
 		
-		List<GrantedAuthority> authorities = 
+		// 取出等效 spring security username 的欄位
+		String usernameForAuth = member.getUsername();
+		
+		// 取出等效 spring security password 的欄位
+		String passwordForAuth = member.getPassword();
+				
+		// 取出等效 spring security authorities 的欄位
+		List<GrantedAuthority> authoritiesForAuth = 
 				AuthorityUtils.createAuthorityList("ROLE_USER");
 		
 		User user = new User(
-			member.getUsername(),
-			member.getPassword(),
-			authorities
+			usernameForAuth,
+			passwordForAuth,
+			authoritiesForAuth
 		);
 		
 		return user;

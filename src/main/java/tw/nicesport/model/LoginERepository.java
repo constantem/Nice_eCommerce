@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface LoginERepository extends JpaRepository<Employee, Integer> {
 	
-	public Employee findFirstByOrderByEmployeeid(); // 會員登入驗證也會用
+	public Employee findFirstByOrderByEmployeeid();
 	
 //	public Optional<Employee> findByEmployeeid(Integer id);
 }

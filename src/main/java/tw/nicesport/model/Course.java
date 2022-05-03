@@ -64,10 +64,8 @@ public class Course {
 	private String courseName;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd") // spring mvc 前端給後端, 後端的 LocalDate 變數若要接到, 要加, 不然接不到, 會是 null
-//	@JsonFormat(pattern = "yyyy/MM/dd") 
 	@JsonFormat(pattern = "yyyy-MM-dd") // 前端 Stringify 要求的 String 格式(type="date")
 	@JsonSerialize(using = LocalDateSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
-//	@JsonDeserialize(using = LocalDateDeserializer.class) // 測試中
 	@Column(name="courseStartDate")
 	private LocalDate courseStartDate;
 	
@@ -80,18 +78,16 @@ public class Course {
 	@Column(name="coursePrice")
 	private Integer coursePrice;
 	
-//	@DateTimeFormat(iso = ISO.DATE_TIME)
-//	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@Column(name="courseStatus")
+	private Boolean courseStatus;
+	
 	@Column(name="createdAt", insertable = false, updatable = false) // 靠資料庫的 DEFAULT GETDATE() 來塞值
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 	private LocalDateTime createdAt;
 	
-//	@DateTimeFormat(iso = ISO.DATE_TIME)
-//	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@Column(name="modifiedAt")
 	private LocalDateTime modifiedAt;
 	
@@ -140,7 +136,8 @@ public class Course {
 			CascadeType.PERSIST,
 			CascadeType.DETACH,
 			CascadeType.MERGE,
-			CascadeType.REFRESH
+			CascadeType.REFRESH,
+			CascadeType.REMOVE // 測試刪 Course 一起刪 Booking
 		}
 	) // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
@@ -205,6 +202,14 @@ public class Course {
 		this.coursePrice = coursePrice;
 	}
 
+	public Boolean isCourseStatus() {
+		return courseStatus;
+	}
+
+	public void setCourseStatus(Boolean courseStatus) {
+		this.courseStatus = courseStatus;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -263,6 +268,15 @@ public class Course {
 
 	public void setCourseBookingSet(Set<CourseBooking> courseBookingSet) {
 		this.courseBookingSet = courseBookingSet;
+	}
+
+	// toString, 不可雙向(被 referenced 那方不可 access 外鍵那方)
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", courseName=" + courseName + ", courseStartDate=" + courseStartDate
+				+ ", courseClassAmount=" + courseClassAmount + ", coursePeriod=" + coursePeriod + ", coursePrice="
+				+ coursePrice + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", coachId=" + coachId
+				+ ", roomNo=" + roomNo + ", coach=" + coach + ", room=" + room + "]";
 	}
 
 }

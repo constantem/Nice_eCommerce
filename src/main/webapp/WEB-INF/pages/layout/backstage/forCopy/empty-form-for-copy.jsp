@@ -6,9 +6,7 @@
 
 
 
-
-<!-- 複製用, 核心內容留一個table -->
-
+<!-- 複製用, 核心內容留一個表單 -->
 
 
 
@@ -18,7 +16,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tables - Admin One Tailwind CSS Admin Dashboard</title>
+  <title>Forms - Admin One Tailwind CSS Admin Dashboard</title>
+
+  <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
   <!-- Tailwind is included -->
   <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
@@ -68,7 +69,7 @@
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>Admin</li>
-      <li>Tables</li>
+      <li>Forms</li>
     </ul>
     <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
       <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
@@ -77,11 +78,11 @@
   </div>
 </section>
 
-<!-- 核心內容標題 -->
+<!-- 標題 -->
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      Responsive Tables
+      Forms
     </h1>
     <button class="button light">Button</button>
   </div>
@@ -89,126 +90,99 @@
 
 <!-- 核心內容的 section 開始 -->
 <section class="section main-section">
-
-    <div class="card has-table">
-    
-      <!-- 表格標題 -->
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Clients
-        </p>
-        <a href="#" class="card-header-icon">
-          <span class="icon"><i class="mdi mdi-reload"></i></span>
-        </a>
-      </header>
-
-      <!-- 真的表格 -->
-      <div class="card-content">
-        <table>
-          
-          <!-- 表格表頭(th) -->
-          <thead>
-          <tr>
-            <th class="checkbox-cell">
-              <label class="checkbox">
-                <input type="checkbox">
-                <span class="check"></span>
-              </label>
-            </th>
-            <th class="image-cell"></th>
-            <th>Name</th>
-            <th>Company</th>
-            <th>City</th>
-            <th>Progress</th>
-            <th>Created</th>
-            <th></th>
-          </tr>
-          </thead>
-          
-          <!-- 表格內文(td) -->
-          <tbody>
-          <tr>
-            <td class="checkbox-cell">
-              <label class="checkbox">
-                <input type="checkbox">
-                <span class="check"></span>
-              </label>
-            </td>
-            <td class="image-cell">
-              <div class="image">
-                <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
+  <!-- 資訊卡1 -->
+  <div class="card mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+        Forms
+      </p>
+    </header>
+    <div class="card-content">
+      <form method="get">
+        <div class="field">
+          <label class="label">From</label>
+          <div class="field-body">
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" placeholder="Name">
+                <span class="icon left"><i class="mdi mdi-account"></i></span>
               </div>
-            </td>
-            <td data-label="Name">Rebecca Bauch</td>
-            <td data-label="Company">Daugherty-Daniel</td>
-            <td data-label="City">South Cory</td>
-            <td data-label="Progress" class="progress-cell">
-              <progress max="100" value="79">79</progress>
-            </td>
-            <td data-label="Created">
-              <small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
-            </td>
-            <td class="actions-cell">
-              <div class="buttons right nowrap">
-                <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                  <span class="icon"><i class="mdi mdi-eye"></i></span>
-                </button>
-                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                  <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="checkbox-cell">
-              <label class="checkbox">
-                <input type="checkbox">
-                <span class="check"></span>
-              </label>
-            </td>
-            <td class="image-cell">
-              <div class="image">
-                <img src="https://avatars.dicebear.com/v2/initials/felicita-yundt.svg" class="rounded-full">
-              </div>
-            </td>
-            <td data-label="Name">Felicita Yundt</td>
-            <td data-label="Company">Johns-Weissnat</td>
-            <td data-label="City">East Ariel</td>
-            <td data-label="Progress" class="progress-cell">
-              <progress max="100" value="67">67</progress>
-            </td>
-            <td data-label="Created">
-              <small class="text-gray-500" title="Jan 8, 2021">Jan 8, 2021</small>
-            </td>
-            <td class="actions-cell">
-              <div class="buttons right nowrap">
-                <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                  <span class="icon"><i class="mdi mdi-eye"></i></span>
-                </button>
-                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                  <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="table-pagination">
-          <div class="flex items-center justify-between">
-            <div class="buttons">
-              <button type="button" class="button active">1</button>
-              <button type="button" class="button">2</button>
-              <button type="button" class="button">3</button>
             </div>
-            <small>Page 1 of 3</small>
+            <div class="field">
+              <div class="control icons-left icons-right">
+                <input class="input" type="email" placeholder="Email" value="alex@smith.com">
+                <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                <span class="icon right"><i class="mdi mdi-check"></i></span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+              <div class="field addons">
+                <div class="control">
+                  <input class="input" value="+44" size="3" readonly>
+                </div>
+                <div class="control expanded">
+                  <input class="input" type="tel" placeholder="Your phone number">
+                </div>
+              </div>
+              <p class="help">Do not enter the first zero</p>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Department</label>
+          <div class="control">
+            <div class="select">
+              <select>
+                <option>Business development</option>
+                <option>Marketing</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="field">
+          <label class="label">Subject</label>
+
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. Partnership opportunity">
+          </div>
+          <p class="help">
+            This field is required
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="label">Question</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Explain how we can help you"></textarea>
+          </div>
+        </div>
+        <hr>
+
+        <div class="field grouped">
+          <div class="control">
+            <button type="submit" class="button green">
+              Submit
+            </button>
+          </div>
+          <div class="control">
+            <button type="reset" class="button red">
+              Reset
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 
 </section>
-<!-- 原核心內容的 section 結束 -->
+<!-- 核心內容的 section 結束 -->
 
 <!-- 插入頁腳 -->
 <jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
@@ -268,8 +242,6 @@
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1"/></noscript>
 
-<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
 </body>
 </html>

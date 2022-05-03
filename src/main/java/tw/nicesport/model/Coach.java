@@ -201,4 +201,12 @@ public class Coach {
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
+
+	// toString, 不可雙向(一方不可access多方)
+	@Override
+	public String toString() {
+		return "Coach [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", nickname=" + nickname
+				+ ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", address=" + address
+				+ ", hireDate=" + hireDate + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + "]";
+	}
 }

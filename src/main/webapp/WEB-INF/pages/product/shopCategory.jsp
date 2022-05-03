@@ -259,8 +259,6 @@ button {
 	</section>
 
 	<!-- End Banner Area -->
-	
-	
 
 
 	<!--=================================廣告輪播========================================== -->
@@ -463,7 +461,6 @@ button {
 				</div>
 			</div>
 
-
 			<div class="col-xl-9 col-lg-8 col-md-7">
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
@@ -486,6 +483,7 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
+					
 					<div class="pagination">
 						<a href="#" class="prev-arrow"><i
 							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
@@ -500,36 +498,37 @@ button {
 
 
 
+
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 
-						<c:forEach items="${prod}" var="prod">
+						<c:forEach items="${pdList}" var="pdList">
 							<!-- single product -->
-													<div class="col-lg-4 col-md-6">
+														<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<a href="${contextRoot}/getOneProductShop${prod.id}"><img id="pdimg" alt="picture"
-										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" /></a>
+									<a href="${contextRoot}/getOneProductShop${pdList.id}"><img id="pdimg" alt="picture"
+										src="${contextRoot}/ProductTempImg/${pdList.imgUrl}" width="112" /></a>
 									<!-- 										ProductTempImg -->
 									<div id="product-details" class="product-details">
-										<a href="${contextRoot}/getOneProductShop${prod.id}"><h5 class="pdName">${prod.productName}</h5></a>
+										<a href="${contextRoot}/getOneProductShop${pdList.id}"><h5 class="pdName">${pdList.productName}</h5></a>
 										<div class="price">
 											<p class="pdPrice">
-												價格: NT<i class="bi bi-currency-dollar"></i>${prod.price}</p>
+												價格: NT<i class="bi bi-currency-dollar"></i>${pdList.price}</p>
 
 											<!-- <h6 class="l-through">$210.00</h6> -->
 										</div>
 										<div class="prd-bottom">
 
 											<c:choose>
-												<c:when test="${prod.stock.quantity == 0}">
+												<c:when test="${pdList.stock.quantity == 0}">
 													<a class="social-info"> 
 														<span style="font-size: 110%;" class="bi bi-cart-x"></span>
 														<p class="hover-text" style="color: red;">補貨中</p>
 													</a>
 												</c:when>
 												<c:otherwise>
-													<a href="${contextRoot}/user/addMyCartFromShop?productId=${prod.id}" class="social-info"> 
+													<a href="${contextRoot}/user/addMyCartFromShop?productId=${pdList.id}" class="social-info"> 
 														<span  class="bi bi-cart4"></span>
 														<p class="hover-text">加入購物車</p>
 													</a>
@@ -538,7 +537,7 @@ button {
 
 
 											
-											 <a class="social-info addWishList" href="${contextRoot}/user/addMyWishListFromShop?productId=${prod.id}" > 
+											 <a class="social-info addWishList" href="${contextRoot}/user/addMyWishListFromShop?productId=${pdList.id}" > 
 											 	<span class="lnr lnr-heart"></span>
 												<p class="hover-text">加入追蹤清單</p>
 											</a>
@@ -549,10 +548,11 @@ button {
 										   </a>
 											
 											 <a
-												href="${contextRoot}/getOneProductShop${prod.id}"
+												href="${contextRoot}/getOneProductShop${pdList.id}"
 												class="social-info"> <span class="bi bi-info-lg"></span>
 												<p class="hover-text">更多商品資訊</p>
 											</a>
+
 
 										</div>
 									</div>
@@ -878,7 +878,6 @@ button {
 
 
 	<!-- 	======================================================================= -->
-
 
 
 

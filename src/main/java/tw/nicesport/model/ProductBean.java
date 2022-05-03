@@ -106,10 +106,10 @@ public class ProductBean implements Serializable {
 	@Column(name = "stock_id")
 	private String stock_id;
 
-	// 子類別
-	@Column(name = "subcategory_id")
-	@Transient
-	private Integer subcategory_id;
+//	// 子類別
+//	@Column(name = "subcategory_id")
+//	@Transient
+//	private Integer subcategory_id;
 
 	// 關聯 table
 
@@ -281,13 +281,13 @@ public class ProductBean implements Serializable {
 		this.stock_id = stock_id;
 	}
 
-	public Integer getSubcategory_id() {
-		return subcategory_id;
-	}
-
-	public void setSubcategory_id(Integer subcategory_id) {
-		this.subcategory_id = subcategory_id;
-	}
+//	public Integer getSubcategory_id() {
+//		return subcategory_id;
+//	}
+//
+//	public void setSubcategory_id(Integer subcategory_id) {
+//		this.subcategory_id = subcategory_id;
+//	}
 
 	// 關聯 table 的 getter, setter
 	
@@ -330,7 +330,7 @@ public class ProductBean implements Serializable {
 				+ Arrays.toString(img) + ", imgUrl=" + imgUrl + ", imgUrl_A=" + imgUrl_A + ", imgUrl_B=" + imgUrl_B
 				+ ", imgUrl_C=" + imgUrl_C + ", imgUrl_D=" + imgUrl_D + ", productDiscription=" + productDiscription
 				+ ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", stock_id=" + stock_id
-				+ ", subcategory_id=" + subcategory_id + ", subCategory=" + subCategory + ", stock=" + stock
+				+ ", subcategory_id=" + ", subCategory=" + subCategory + ", stock=" + stock
 				+ ", orderDetails=" + orderDetails + "]";
 	}
 	

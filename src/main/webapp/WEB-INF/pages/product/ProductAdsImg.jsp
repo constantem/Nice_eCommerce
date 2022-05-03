@@ -264,8 +264,8 @@ figure {
 					</div>
 					
 					<div class="input-group mb-3">
-						<input type="text" name="id" class="form-control"
-							id="input0" value=""> <label class="input-group-text"
+						<input hidden type="text" name="id" class="form-control"
+							id="input0" value=""> <label hidden class="input-group-text"
 							for="inputGroupFile02">編號</label>
 					</div>
 

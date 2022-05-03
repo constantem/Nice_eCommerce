@@ -215,7 +215,7 @@ public class ProductWishListController {
 	}
 	
 	
-	
+	// for show the product which is already in the wishList
 	@GetMapping("/user/myWishListByMemberIdForAjax")
 	@ResponseBody
 	public boolean findMyWishListForAjax(
@@ -232,7 +232,21 @@ public class ProductWishListController {
 		}
 		return false;
 	}
-
+	
+	// for delete the product which is already in the wishList
+	@GetMapping(value = "deleteOneWishFromShop")
+	public String deleteWishListFromShop(@RequestParam("productId")Integer productId,
+			@RequestParam("memberid")Integer memberId,@RequestParam("wishId") Integer wishId) {
+		Member member = memberService.findById(memberId);
+		Set<ProductWishListBean> productMyWishListSet = member.getProductMyWishListSet();
+		for (ProductWishListBean productWishListBean : productMyWishListSet) {
+			Integer thisProductId = productWishListBean.getProductBean().getId();
+			if(thisProductId == productId) {
+				pmfService.deleteWishList(wishId);
+			}
+		}
+		return "redirect:/FrontpageSeperate";
+	}
 
 
 	@GetMapping(value = "deleteOneWish")
@@ -241,6 +255,8 @@ public class ProductWishListController {
 
 		return "redirect:/user/myWishList";
 	}
+	
+	
 
 	// for ajax
 	@GetMapping(value = "/deleteOneWishAjax")
@@ -248,5 +264,23 @@ public class ProductWishListController {
 	public void deleteOneWishList(@RequestParam("wishId") Integer wishId) {
 		pmfService.deleteWishList(wishId);
 	}
+	
 
+	// for ajax remove wishList
+	@GetMapping(value = "/deleteOneWishAjaxForShop")
+	@ResponseBody
+	public boolean deleteOneWishListForShop(
+			@RequestParam("memberId")Integer memberId,
+			@RequestParam("productId") Integer productId) {
+		Member member  = memberService.findById(memberId);
+		Set<ProductWishListBean> productMyWishListSet = member.getProductMyWishListSet();
+		for(ProductWishListBean productWishListBean : productMyWishListSet ) {
+			Integer thisProductId = productWishListBean.getProductBean().getId();
+			if(thisProductId == productId) {
+				return true;
+			}
+		}
+		pmfService.deleteWishList(productId);
+		return false;
+	}
 }

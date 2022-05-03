@@ -81,14 +81,14 @@
 										<br>${discount.name}<br>${discount.description}</h1>
 									<p>活動期間：${discount.startDate}~${discount.endDate}</p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href="${contextRoot}/FrontpageSeperate"><span class="lnr lnr-cross"></span></a>
+										<a class="add-btn" href="${contextRoot}/discount/showADs-front"><span class="lnr lnr-cross"></span></a>
 										<span class="add-text text-uppercase">GO AHEAD</span>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<a href="${contextRoot}/FrontpageSeperate">
+									<a href="${contextRoot}/discount/showEvents-front">
 										<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/pika.png" alt=""></img>
 									</a>
 								</div>

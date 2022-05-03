@@ -166,6 +166,18 @@
           <div class="card-content">
           </div>
         </div>   
+        
+        <!-- 管理系統8 -->
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              活動管理
+            </p>
+          </header>
+          <div class="card-content">
+          </div>
+        </div>
       </div>
 
     </section>

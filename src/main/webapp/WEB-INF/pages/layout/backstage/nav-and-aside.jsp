@@ -263,6 +263,27 @@
         </ul>
       </li>
       
+            <!-- 下拉式選單8: 活動管理系統 -->
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="menu-item-label">活動管理</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="${contextRoot}/announcement/addAnnouncement">
+              <span>新增活動</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/announcement/viewAnnouncement">
+              <span>活動列表</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
     </ul> <!-- 分類項目結束 -->
     
     

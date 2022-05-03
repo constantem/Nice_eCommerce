@@ -79,6 +79,8 @@ public class DiscountService {
 		public List<Discount> queryAll() {
 			return discountDao.findAll();
 		}
+		
+		
 	
 
 

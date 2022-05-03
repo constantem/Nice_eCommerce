@@ -97,28 +97,6 @@ public class Employee {
 			createdAt = new Date();
 		}
 	}
-//
-//	@PrePersist // 在轉換到 PrePersist狀態以前去做的
-//	public void onCreate2() {
-//		if (createdAt == null) {
-//			createdAt = new Date();
-//		}
-//	}
-//
-//	@PrePersist // 在轉換到 PrePersist狀態以前去做的
-//	public void onCreate3() {
-//		if (modifiedAt == null) {
-//			modifiedAt = new Date();
-//		}
-//	}
-
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
 	public Integer getEmployee_id() {
 		return employeeid;
 	}

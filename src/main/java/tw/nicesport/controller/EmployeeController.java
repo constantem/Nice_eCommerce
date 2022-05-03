@@ -202,4 +202,13 @@ public class EmployeeController {
 
 		return map;
 	}
+	
+	@ResponseBody
+	@GetMapping("/empname")
+	public List<Employee>EmpName(){
+		List<Employee>list = employeeService.findAllEmp();
+		
+		return list;
+		
+	}
 }

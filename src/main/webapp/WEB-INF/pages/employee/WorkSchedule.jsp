@@ -44,8 +44,17 @@
   <meta property="twitter:image:src" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
   <meta property="twitter:image:width" content="1920">
   <meta property="twitter:image:height" content="960">
-
-
+<style>
+  table {
+    border: solid 2px rgb(117, 15, 20);
+    border-radius: 10px;
+    margin-bottom:0px;
+  }
+  
+  td {
+    border: solid 2px rgb(117, 15, 20);
+  }
+</style>
 <!-- 自訂 link, script -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -93,16 +102,21 @@
         <button class="button light">Button</button>
       </div>
     </section>
-
-			<div style="text-align:center">
+  </div>
+			<div style="text-align:center" id="divHidden">
 			<label>選擇日期</label><br>
 				<select id="idSelectYear" name="year"></select> <span>年</span> 
 				<select
 					id="idSelectMonth" name="month"></select> <span>月</span>
-					<input type="submit" value="確定" />		
+					<input type="submit" id="setDate" value="確定" />		
+					<input type="submit" id="test" value="test" />		
 			</div>
-	
-	
+
+      <div id="divText">
+    
+      </div>
+
+
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
@@ -139,7 +153,6 @@
         </footer>
       </div>
     </div>
-    </div>
 	
 	 <!-- Scripts below are for demo only -->
   <script type="text/javascript" src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
@@ -173,14 +186,15 @@
 		let yy, mm, d, dno, dd;
 
 		let docFrag = document.createDocumentFragment();
-		for (let i = 2010; i <= 2030; i++) { //新增年
+		for (let i = 2022; i <= 2100; i++) { //新增年
 			let opt = document.createElement("option");//  <option>13221345</option>
 			opt.value = i; // <option value="2010"></option>
 			opt.innerHTML = i; // <option value="2010"> 2010 </option>
 			docFrag.appendChild(opt);
 			//docFrag >>   <option value="2010"> 2010 </option><option value="2011"> 2011 </option>
 		}
-		theYear.appendChild(docFrag); //<select id="idSelectYear"> <option value="2010"> 2010 </option><option value="2011"> 2011 </option> </select>
+		theYear.appendChild(docFrag); 
+    //<select id="idSelectYear"> <option value="2010"> 2010 </option><option value="2011"> 2011 </option> </select>
 		//  console.log(`年${theYear.value}`);
 
 		docFrag = document.createDocumentFragment();
@@ -191,8 +205,7 @@
 			docFrag.appendChild(opt);
 		}
 		theMonth.appendChild(docFrag);
-
-		addDate();
+    
 		function addDate() {
 			yy = theYear.value;
 			mm = theMonth.value;
@@ -203,11 +216,208 @@
 			w = new Date(yy, mm, 1);
 			wno = w.getDate();
 		}
+
+    function showDate(){
+    let d = new Date(yy, mm, 0); //當月最後一天
+		let dno = d.getDate();
+		let w = new Date(yy, mm, 1);
+		let wno = w.getDate();
+		let theTable = document.createElement("table");
+    
+      //將年月隱藏在TABLE 裡面
+    let theInput_yyyy = document.createElement("input"); 
+
+    theInput_yyyy.setAttribute("type", "text");
+    theInput_yyyy.setAttribute("name", "year");
+    theInput_yyyy.setAttribute("value", yy);
+    theInput_yyyy.setAttribute("hidden", true);
+    theTable.appendChild(theInput_yyyy);
+ 
+    let theInputh_mm = document.createElement("input"); 
+
+    theInputh_mm.setAttribute("type", "text");
+    theInputh_mm.setAttribute("name", "month");
+    theInputh_mm.setAttribute("value", mm);
+    theInputh_mm.setAttribute("hidden", true);
+    theTable.appendChild(theInputh_mm);
+
+    theTable.setAttribute("id", "empAddModal");
+
+		divText.innerHTML = ""; //清空
+		docFrag = document.createDocumentFragment();
+
+		let theTr = document.createElement("tr");
+
+		//取星期
+		let week = w.getDay();
+		for (let i = 0; i <= dno; i++) {
+			let theTd = document.createElement("td");
+			if (i == 0) {
+				theTd.innerHTML = " ";
+				theTr.appendChild(theTd);
+				continue;
+			}
+			theTd.innerHTML = week;
+			switch (week) {
+			case 0:
+				theTd.innerHTML = "日";
+				break;
+			case 1:
+				theTd.innerHTML = "一";
+				break;
+			case 2:
+				theTd.innerHTML = "二";
+				break;
+			case 3:
+				theTd.innerHTML = "三";
+				break;
+			case 4:
+				theTd.innerHTML = "四";
+				break;
+			case 5:
+				theTd.innerHTML = "五";
+				break;
+			case 6:
+				theTd.innerHTML = "六";
+				break;
+			}
+			week++;
+			theTr.appendChild(theTd);
+			//docFrag.appendChild(theTd);
+			if (week == 7) {
+				week = 0;
+			}
+		}
+
+		let theTr2 = document.createElement("tr");
+		// docFrag.appendChild(theTr);
+		for (let i = 0; i <= dno; i++) {
+      let theInput = document.createElement("input");
+        theInput.setAttribute("type","hidden")
+        // theInput.setAttribute("hidden", true);
+        theInput.setAttribute("name","day")
+        theInput.setAttribute("value",i)
+
+			let theTd = document.createElement("td");
+			if (i == 0) {
+				theTd.innerHTML = " ";
+        
+				theTr2.appendChild(theTd);
+       
+				continue;
+			}
+			theTd.innerHTML = i;
+      theTd.appendChild(theInput)
+			// docFrag.appendChild(theTd);
+			theTr2.appendChild(theTd);
+		}
+		theTable.appendChild(theTr);
+		theTable.appendChild(theTr2);
+
+    $.ajax({
+      type:"GET",
+      url:"${contextRoot}/empname",
+      contentType:'application/json',
+      success:function(result){
+        let i =1;
+       $.each(result,(index,value)=>{
+      let emp_name = value.lastName+value.firstName;
+        
+                        
+      let theTr3 = document.createElement("tr");
+			let theTd = document.createElement("td");
+      let theInput = document.createElement("input");
+      let theBr = document.createElement("br");
+
+			theInput.setAttribute("type", "text");
+			theInput.setAttribute("name", "employee_id");
+      theInput.setAttribute("id", "employee_id");
+		  theInput.setAttribute("value", value.employee_id ,theBr);
+      
+      theTd.appendChild(theInput);
+      theTd.appendChild(theBr);
+
+			theInput = document.createElement("input");
+			theInput.setAttribute("type", "text");
+			theInput.setAttribute("name", "emp_name");
+		  theInput.setAttribute("value", emp_name);
+		  theInput.setAttribute("disabled", "true");
+      theTd.appendChild(theInput);
+
+			theTr3.appendChild(theTd);
+      
+      $.ajax({
+        type:"GET",
+        url:"${contextRoot}/ScheduleType",
+        contentType:'application/json',
+        success:function(result){
+  
+        for (let i = 1; i <= dno; i++) {       
+				let theTd1 = document.createElement("td");
+				let theSelect = document.createElement("select");
+        		theSelect.setAttribute("name","work_id")
+				theSelect.setAttribute("id","work_id"+"@"+value.employee_id+"_"+i)
+				theSelect.innerHTML += "<option value='0'>  </option>";
+
+        $.each(result,(index,value)=>{ 
+        theSelect.innerHTML += "<option value='" + value.workid +"'>" + value.schedule + "</option>";
+        
+        // console.log(theSelect.innerHTML += "<option value='" + value.workid +"'>" + value.schedule + "</option>")
+				theTd1.appendChild(theSelect);
+				theTr3.appendChild(theTd1);
+      })
+			}
+
+			theTable.appendChild(theTr3);
+                  }
+      })
+       })
+
+               }
+              
+    });
+
+    let form_ = document.createElement("form");
+    form_.appendChild(theTable);
+
+    docFrag.appendChild(form_);
+    divText.appendChild(docFrag)
+  }
+ 
+      $("#setDate").click(function(){
+        addDate(); //年 月 確定
+      
+      // document.getElementById("divText").innerHTML = "";
+      // document.getElementById("divHidden").style.visibility="hidden";
+      showDate() // showDate() 顯示日
+  		
+    })
+
+    
+      $("#test").click(function(){
+      	 console.log($("form").serialize());
+    $.ajax({
+  			url:"${contextRoot}/saveAll",
+  			type:"POST",
+  			//可以直接把empAddModal form裏的值構成json格式
+  			data:$("form").serialize(),
+  			success:function(message){
+          alert("123")
+//  					 alert(message);
+  			//   Swal.fire({
+  			//   icon: 'success',
+  			//   title: 'Your work has been saved',
+  			//   showConfirmButton: false,
+  			//   timer: 2000
+  			// })
+  			}
+  			
+  			});
+	
+    })
 	</script>
 	
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" /></noscript>
-
-
 
   <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

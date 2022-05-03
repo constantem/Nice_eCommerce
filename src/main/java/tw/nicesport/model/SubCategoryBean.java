@@ -1,7 +1,10 @@
 package tw.nicesport.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,6 +46,17 @@ public class SubCategoryBean implements Serializable {
 	@Column(name = "modifiedAt")
 	private String modifiedAt;
 	
+	@OneToMany(mappedBy = "subCategory")
+	private List<ProductBean> pdList = new ArrayList<ProductBean>(); 
+	
+	public List<ProductBean> getPdList() {
+		return pdList;
+	}
+
+	public void setPdList(List<ProductBean> pdList) {
+		this.pdList = pdList;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private CategoryBean category;

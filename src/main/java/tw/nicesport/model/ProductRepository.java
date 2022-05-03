@@ -9,9 +9,11 @@ public interface ProductRepository extends JpaRepository<ProductBean, Integer> {
 	List<ProductBean> findByPriceBetween(String startPrice, String endPrice);
 
 	List<ProductBean> findByColor(String color);
+	
+	List<ProductBean> findBySupplier(String supplier);
 
 	List<ProductBean> findByProductNameLike(String productName);
 	
-	List<ProductBean>findTop6ByOrderByCreatedAtDesc();
+	List<ProductBean>findLast6ByOrderByCreatedAtDesc();
 
 }

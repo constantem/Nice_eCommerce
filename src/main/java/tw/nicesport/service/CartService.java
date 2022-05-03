@@ -17,10 +17,18 @@ import tw.nicesport.model.CartRepository;
 @Service
 @Transactional  //去讀書
 public class CartService {
-
+	
 	@Autowired
 	private CartRepository cartDao;
-
+//	@Autowired
+//	private MemberService memberservice;
+	
+	
+	//創建購物車
+//	public void createCart(Member member) {
+////		Member member = memberservice.findById(memberId);
+////		cartDao.save(member);
+//	}
 	// insert資料
 	public void insert(CartBean cartBean) {
 		cartDao.save(cartBean);
@@ -37,11 +45,6 @@ public class CartService {
 		return null;
 	}
 
-//	// 用memberId搜尋
-//	public List<CartBean> findByMemberId(Integer memberid) {
-//		List<CartBean> cartBeanList = cartDao.findByMemberId(memberid);
-//		return cartBeanList;
-//	}
 
 	// 用ID刪除
 	public void deleteById(Integer cartId) {

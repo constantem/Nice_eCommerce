@@ -52,7 +52,7 @@
 </head>
 
 <style>
-#wishImg1{
+.wishImg1{
 	width: 100px;
 	height: 90px;
 }
@@ -60,22 +60,51 @@
 #deleteWishList{
 	width: 120%;
 }
+#addToCart{
+	margin-left: 0px;
+}
+.deleteFavor{
+	font-size: 18px;
+	color: 	#FF8C00;
 
+}
+.quantityStatus{
+	width: 155px;
+	text-align: center;
+}
 
+#keepShopping{
+	border-radius:5px;
+}
 
 
 </style>
 
 <body>
 
-	<!-- Start Header Area -->
-	
 <!-- 	為了讓body內也能使用contextRoot的值 -->
 	<input type="hidden" id="contextRoot"
 		value="${pageContext.request.contextPath}">
 
-	<!-- 上方導覽列 -->
-	<%@include file="FrontPageNavBar.jsp"%>
+<!-- 	<!-- 上方導覽列 -->
+<%-- 	<%@include file="FrontPageNavBar.jsp"%> --%>
+
+	   <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<!-- 插入上導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
 	<!-- End Header Area -->
 	
 
@@ -84,10 +113,10 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>我的追蹤清單</h1>
+                    <h1>${member.lastname} ${member.firstname} 的追蹤清單</h1>
                     <nav class="d-flex align-items-center">
                         <a href="${contextRoot}/FrontpageSeperate">購物商城<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">購物車</a>
+                        <a href="${contextRoot}/user/myCart">購物車</a>
                     </nav>
                 </div>
             </div>
@@ -104,20 +133,21 @@
 						<thead>
 							<tr>
 								<th scope="col">商品</th>
-								<th scope="col">單價</th>
-								<th scope="col">數量</th>
-								<th scope="col">小計</th>
-								<th scope="col">移除</th>
+								<th scope="col">價格</th>
+								<!-- <th scope="col">數量</th>
+								<th scope="col">小計</th> -->
+								<th scope="col"></th>
+								<th>刪除</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<c:forEach items="${productBeanList}" var="pdWish">
+							<c:forEach items="${productBeanList}" var="pdWish" varStatus="status">
 							<tr>
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img id="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt="">
+											<img class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
 											<p id="pdName1">${pdWish.productName}</p>
@@ -127,26 +157,31 @@
 								<td>
 									<h5 id="">NT$ ${pdWish.price}</h5>
 								</td>
-								<td>
-									<div class="product_count">
-										 <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-									</div>
+
+								<td hidden class="quantity" >
+									${pdWish.stock.quantity}
 								</td>
+							
 								<td>
-									<h5>NT$${pdWish.price}</h5>
+									<c:choose>
+										<c:when test="${pdWish.stock.quantity == 0}">
+											<a class="gray_btn quantityStatus" style="color: red;">補貨中</a>
+										</c:when>
+										<c:otherwise>
+											<a class="gray_btn quantityStatus" href="${contextRoot}/insertCartFromCartWishList?memberid=${member.memberid}&productid=${pdWish.id}&quantity=1">加入購物車</a>
+										</c:otherwise>
+									</c:choose>
 								</td>
+
 								<td>
-									<input type="checkbox" class="deleteWishList" name="productId">
+									<!-- <input type="checkbox" class="deleteWishList" name="productId"> -->
+									<a data-wishid="${wishIds[status.index]}" class="deleteFavor" href=""><i id="trash" class="bi bi-trash"></i></a>
 								</td>
+
 							</tr>
 							</c:forEach>
 							<tr class="bottom_button">
-								<td><a  id="deleteFavor" class="gray_btn" href="#">移除我的最愛</a></td>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td>
@@ -155,12 +190,7 @@
 							<tr>
 								<td></td>
 								<td></td>
-								<td>
-									<h5>小計</h5>
-								</td>
-								<td>
-									<h5>$2160.00</h5>
-								</td>
+						
 							</tr>
 
 							<tr class="out_button_area">
@@ -168,9 +198,8 @@
 								<td></td>
 								<td></td>
 								<td>
-									<div id="keepShopping" class="checkout_btn_inner d-flex align-items-center">
-										<a class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a> <a
-											class="primary-btn" href="#">前往結帳</a>
+									<div  class="checkout_btn_inner d-flex align-items-center">
+										 <a id="keepShopping"  class="primary-btn" href="${contextRoot}/FrontpageSeperate"><i class="bi bi-cart3"></i>&nbsp 繼續購物</a>
 									</div>
 								</td>
 							</tr>
@@ -292,29 +321,54 @@
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
 
+
+
+
+
+
+
+
+	<!-- ========================================== js ============================================== -->
+	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
+	<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+
+	<!-- ========================================== js ============================================== -->
+	
 	<script>
 
-		getWishList();
-
-		function getWishList(){
+		$(".deleteFavor").click(function(){
+			var deleteFavor = $(this);
 			$.ajax({
-				url:$("#contextRoot").val() + "/findMyWishList?memberId=101",
+				url:$("#contextRoot").val() + "/deleteOneWishAjax",
+				data:{
+					wishId:$(this).data("wishid")
+				},
 				type:"get",
-				success:function(list){
-					$.each(list,function(index,pdWish){
-// 						$("#pdName1").text(pdWish.productName)
-// 						$("#pdPrice1").text("NT$ " + pdWish.price)
-// 						$("#wishImg1").attr("src", $("#contextRoot").val()+"/ProductTempImg/"+pdWish.imgUrl)
-
-					})
+				success:function(){
+					// console.log(deleteFavor.closest("tr"));
+					deleteFavor.closest("tr").remove();
 				}
-			})
-		}
-
-
-
+			});
+			return false;
+		})
 
 	</script>
+	
+
+
 
 
 

@@ -3,9 +3,11 @@ package tw.nicesport.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.CategoryBean;
+import tw.nicesport.model.Member;
 import tw.nicesport.model.ProductApi;
 import tw.nicesport.model.ProductBean;
 import tw.nicesport.model.ProductRepository;
@@ -66,7 +69,13 @@ public class ProductController {
 	private CategoryService catService;
 	
 	@Autowired
+	private StockService stService;
+	
+	@Autowired
 	HttpServletRequest request;
+	
+	
+	
 	
 //	@Autowired
 //	private ServletContext servletContext;
@@ -92,7 +101,7 @@ public class ProductController {
 
 			ProductBean prodBean = new ProductBean();
 			
-			if (file.isEmpty()) {
+			if (file.isEmpty()||file1.isEmpty()||file2.isEmpty()||file3.isEmpty()||file4.isEmpty()) {
 				prodBean.setImg(null);
 				prodBean.setImgUrl(null);
 				prodBean.setImgUrl_A(null);
@@ -225,6 +234,7 @@ public class ProductController {
 		@RequestMapping(path = "/queryTopSixProduct.controller", method = RequestMethod.POST)
 		@ResponseBody
 		public List<ProductBean> queryTopSixProduct() {
+			System.out.println("安安你好");
 			return pService.findTop6ByOrderByCreatedAtDesc();
 		}
 		
@@ -296,14 +306,9 @@ public class ProductController {
 			String modDate = sdFormat.format(date);
 			prodBean.setModifiedAt(modDate);
 			
-			Date date1 = new Date();
-			SimpleDateFormat sdFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String creDate = sdFormat1.format(date1);
 			
 			prodBean.setSubCategory(subBean);
-			prodBean.setCreatedAt(creDate);
-			
-
+	
 			
 			pService.insert(prodBean);
 			mav.setViewName("redirect:/pageSeperate");
@@ -414,6 +419,15 @@ public class ProductController {
 			return mav;
 		}
 		
+		//依找商品供應商搜尋商品
+		public ModelAndView searcProductBySupplier(ModelAndView mav,@RequestParam("supplier")String supplier) {
+			List<ProductBean> prod = pService.findBySupplier(supplier);
+			
+			mav.getModel().put("prod", prod);
+			mav.setViewName("");
+			return mav;
+		}
+		
 		// 前台模糊搜尋功能
 		@RequestMapping(value="/FrontpageSearchByKeyword")
 		public ModelAndView searchProduct(ModelAndView mav,@RequestParam("brand") String brand) {
@@ -422,6 +436,31 @@ public class ProductController {
 			mav.getModel().put("prod", prod);
 			mav.setViewName("/product/shopKeyWord");
 			return mav;
+		}
+		
+		//依照商品類別搜尋
+		@RequestMapping(value = "/FrontPageSearchBySubCategory")
+		public ModelAndView searchProductBySubCategory(ModelAndView mav,@RequestParam("name")String name) {
+			
+			SubCategoryBean subBean = subServic.findByName(name);
+			List<ProductBean> pdList = subBean.getPdList();
+			List<StockBean> stock = stService.findAll();
+			
+			mav.getModel().put("pdList", pdList);
+			mav.getModel().put("stock", stock);
+			mav.setViewName("/product/shopCategory");
+			
+			return mav;
+		}
+		
+		//依照商品類別搜尋for ajax
+		@RequestMapping(value = "/FrontPageSearchBySubCategoryAjax")
+		@ResponseBody
+		public List<ProductBean> searchProductBySubCategoryAjax(@RequestParam("name")String name) {	
+			SubCategoryBean subBean = subServic.findByName(name);
+			List<ProductBean> pdList = subBean.getPdList();
+			
+			return pdList;
 		}
 		
 		

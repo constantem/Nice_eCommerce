@@ -311,7 +311,7 @@ figure {
 						<input id="modifiedAt" name="modifiedAt" class="input" type="text"
 							value="">
 						<input id="" name="createdAt" class="input"
-							type="hidden" value="">
+							type="hidden" value="${pdVal.createdAt}">
 					</div>
 				</div>
 
@@ -356,9 +356,7 @@ figure {
 		$(window).load(function() {
 
 			if ($("#quantity").text() < 50) {
-
 				$(this).css("color", "#FF3333")
-
 			} else {
 
 			}
@@ -377,6 +375,7 @@ figure {
 						+ "/queryAllSubCategory.controller",
 				type : 'post',
 				success : function(subcategories) {
+					$("#subcategorySelect").append('<option type="" value="${pdVal.subCategory.subcategory_id}">${pdVal.subCategory.name}</option>')
 					$.each(subcategories, function(index, subcategory) {
 						var newOption = $("<option></option>").val(
 								subcategory.subcategory_id).text(

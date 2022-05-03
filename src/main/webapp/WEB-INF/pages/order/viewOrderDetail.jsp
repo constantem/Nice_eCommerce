@@ -58,19 +58,31 @@
 </script>
 
 <style>
+#productTable{
+width: 1340px;
+margin-left: 150px;
+margin-bottom: 100px;
+margin-top: 50px;
+/* border: 1px solid black; */
+background-color: rgb(199, 222, 238);
+}
+
 #select {
 	width: 250px;
 }
 
 #leftBOX {
-	width: 800px;
+	width: 600px;
 	float: left;
+	margin-left: 150px;
 }
 
 #rightBOX {
-	width: 800px;
-	margin-left: 800px;
+	width: 600px;
+	margin-left: 900px;
 }
+
+
 </style>
 </head>
 
@@ -92,45 +104,43 @@
 						class="button light">返回訂單列表</button></a>
 			</div>
 		</section>
-		<div class="container">
-			<table>
+		<div class="container" id="tableDiv" >
+			<table id="productTable">
 				<thead>
 					<tr>
-						<th class="checkbox-cell"><label class="checkbox"> <input
-								type="checkbox"> <span class="check"></span>
-						</label></th>
+						
 						<th>產品圖片</th>
 						<th>產品名稱</th>
 						<th>數量</th>
 						<th>商品單價</th>
-						<th>商品總價</th>
+						<th>商品小計</th>
 						<th>修改時間</th>
-						<th></th>
 					</tr>
 
 				</thead>
+				<c:set value="0" var="totalPrice" />
+				<c:set value="0" var="sum" />
 				<c:forEach var="OrderDetail" items="${OrderDetailSet}">
 					<tbody>
 						<tr>
-							<td class="checkbox-cell"><label class="checkbox"> <input
-									type="checkbox"> <span class="check"></span>
-							</label>
+							
+							
 							<td><img alt="picture"
 								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
 								width="112" /></td>
 							<td id="productName" data-label="productName">${OrderDetail.productBean.productName}</td>
 							<td id="quantity" class="quantity" data-label="quantity">${OrderDetail.quantity}</td>
 							<td id="realPrice" class="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
-							<td id="totalPrice" data-label="totalPrice">${order.totalPrice}</td>
-							<td data-label="shippingFee" class="text-gray-500">${OrderDetail.modifiedAt}
+							<td id="totalPrice" data-label="totalPrice">${OrderDetail.quantity*OrderDetail.realPrice}</td>
+							<c:set value="${OrderDetail.quantity*OrderDetail.realPrice}"
+								var="totalPrice" />
+							<c:set value="${sum + totalPrice}" var="sum" />
+							<td data-label="modifiedAt" class="text-gray-500">${OrderDetail.modifiedAt}
 								目前資料庫沒有資料</td>
 						</tr>
 				</c:forEach>
 			</table>
 		</div>
-
-
-
 		<!-- 		<div class="buttons right nowrap"> -->
 
 		<%-- 			<input type="hidden" value="${OrdersBean.order_id}"> --%>
@@ -237,25 +247,19 @@
 
 						<!-- 						修改配送資訊 -->
 						<!-- 						判斷是否開按鈕 -->
-						<c:set var="orderStatus" scope="session" value="${order.orderStatus}" />
-						<c:if test="${orderStatus == 111}">
-<!-- 							<p> -->
-<%-- 								<c:out value="訂單狀態：已刪除僅限查閱" /> --%>
-						<!-- 						判斷是否開按鈕 -->
-							<div class="buttons right nowrap">
+						<div class="buttons right nowrap">
 
-								<input type="hidden" value="${OrdersBean.order_id}">
+							<input type="hidden" value="${OrdersBean.order_id}">
 
-								<button type="button" class="button blue"
-									id="order_UpdateShipInfo_btn" data-bs-toggle="modal"
-									data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-									onclick="updateShipInformation()">
-									<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-									<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
-								</button>
+							<button type="button" class="button blue"
+								id="order_UpdateShipInfo_btn" data-bs-toggle="modal"
+								data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+								onclick="updateShipInformation()">
+								<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+								<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
+							</button>
+						</div>
 
-							</div>
-						</c:if>
 						<!-- 						修改配送資訊 -->
 					</div>
 					<hr hidden="hidden" class="forEdit">
@@ -287,77 +291,89 @@
 		<div class="card-content">
 			<!-- ==================form:form表單開始================== -->
 			<!-- 				modelAttribute 就是JavaBean-->
-			<%-- 			<form:form id="springForm" --%>
-			<%-- 				action="${pageContext.request.contextPath}/orders/UpdateOrderState/" --%>
-			<%-- 				modelAttribute="order" method="POST"> --%>
+			<form:form id="springForm"
+				action="${pageContext.request.contextPath}/orders/UpdateOrderState/"
+				modelAttribute="order" method="POST">
 
-			<%-- 				<form:input hidden="hidden" path="order_id" --%>
-			<%-- 					value="${order.order_id}" /> --%>
+				<form:input hidden="hidden" path="order_id"
+					value="${order.order_id}" />
 
-			<!-- 				input 運費 -->
-			<!-- 				<div class="field"> -->
-			<%-- 					<form:label class="label" path="shippingFee">運費</form:label> --%>
+				<!-- 								商品小計 -->
+				<div class="field">
+					<label class="label">商品小計</label>
+					<div style="text-align: right" class="control">NT$ ${sum}</div>
+				</div>
+				<!-- 							input 運費 -->
+				<div class="field">
+					<form:label class="label" path="shippingFee">運費</form:label>
 
-			<!-- 					<div class="control"> -->
-			<%-- 						<span class="displayable">${order.shippingFee}</span> --%>
-			<%-- 						<form:input id="shippingFee" class="input inputable" --%>
-			<%-- 							hidden="hidden" type="text" path="shippingFee" --%>
-			<%-- 							value="${order.shippingFee}" /> --%>
-			<!-- 					</div> -->
-			<!-- 					<p class="help">*必填</p> -->
-			<!-- 					<p class="help"> -->
-			<%-- 						<form:errors style="color: red;" path="shippingFee" --%>
-			<%-- 							cssClass="error" /> --%>
-			<!-- 					</p> -->
-			<!-- 				</div> -->
-			<!-- 				<hr> -->
-			<!-- 				訂單出貨 -->
+					<div class="control">
+						<div style="text-align: right" class="displayable">NT$
+							${order.shippingFee}</div>
+						<form:input id="shippingFee" class="input inputable"
+							hidden="hidden" type="text" path="shippingFee"
+							value="${order.shippingFee}" />
+					</div>
+					<p class="help">*必填</p>
+					<p class="help">
+						<form:errors style="color: red;" path="shippingFee"
+							cssClass="error" />
+				</div>
+				<!-- 							訂單總價 -->
+				<div class="field">
+					<label class="label">訂單總價</label>
+					<div style="text-align: right" class="control">NT$
+						${sum+order.shippingFee}</div>
+				</div>
 
-			<!-- 				<div class="field"> -->
-			<!-- 					<label class="label">訂單出貨</label> -->
-			<!-- 					<div class="control"> -->
-			<!-- 						<select id="orderStatus"> -->
-			<!-- 							<option value="">訂單狀態</option> -->
-			<!-- 							<option value="等待付款">等待付款</option> -->
-			<!-- 							<option value="已出貨">已出貨</option> -->
+				<hr>
+				<!-- 				訂單出貨 -->
+				<div class="field">
+					<label class="label">訂單出貨</label>
+					<div class="control">
+						<select id="orderStatus">
+							<option value="">訂單狀態</option>
+							<option value="等待付款">等待付款</option>
+							<option value="已出貨">已出貨</option>
 
-			<!-- 						</select> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="field"> -->
-			<!-- 					<label class="label">時間戳記</label> -->
-			<!-- 					<div class="control"> -->
-			<%-- 						<small class="text-gray-500"> ${order.orderDate} --%>
-			<%-- 							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料 --%>
-			<!-- 						</small> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="buttons right nowrap"> -->
+						</select>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">時間戳記</label>
+					<div class="control">
+						<small class="text-gray-500"> ${order.orderDate}
+							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
+						</small>
+					</div>
+				</div>
+				<!-- 							按鈕 -->
+				<div class="buttons right nowrap">
 
-			<%-- 					<input type="hidden" value="${OrdersBean.order_id}"> --%>
+					<input type="hidden" value="${OrdersBean.order_id}">
 
-			<!-- 					<button type="button" class="button blue" -->
-			<!-- 						id="order_UpdateShipInfo_btn" data-bs-toggle="modal" -->
-			<!-- 						data-bs-target="#exampleModal" data-bs-whatever="@mdo" -->
-			<!-- 						onclick="updateShipInformation()"> -->
-			<%-- 						onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-			<!-- 						<span class="icon"><i class="mdi-update"></i></span>修改配送資訊 -->
-			<!-- 					</button> -->
+					<button type="button" class="button blue" id="order_ship_btn"
+						data-bs-toggle="modal" data-bs-target="#exampleModal"
+						data-bs-whatever="@mdo">
+						<!-- onclick="updateShipInformation()"> -->
+						<%-- onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
+						<span class="icon"><i class="mdi-update"></i></span>商品出貨！！
+					</button>
 
-			<!-- 				</div> -->
-			<!-- 				<hr hidden="hidden" class="forEdit"> -->
-			<!-- 									確認與取消修改按鈕 -->
-			<!-- 				<div hidden="hidden" class="field grouped forEdit"> -->
-			<!-- 					<div hidden="hidden" class="control forEdit"> -->
-			<!-- 						<button id="send" type="button" id="submit" class="button green">確認修改</button> -->
-			<!-- 					</div> -->
+				</div>
+				<hr hidden="hidden" class="forEdit">
+				<!-- 												確認與取消修改按鈕 -->
+				<div hidden="hidden" class="field grouped forEdit">
+					<div hidden="hidden" class="control forEdit">
+						<button id="send" type="button" id="submit" class="button green">確認修改</button>
+					</div>
 
-			<!-- 					<div hidden="hidden" class="control forEdit"> -->
-			<!-- 						<button id="cancel" type="button" class="button red">取消</button> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 									確認與取消修改按鈕 -->
-			<%-- 			</form:form> --%>
+					<div hidden="hidden" class="control forEdit">
+						<button id="cancel" type="button" class="button red">取消</button>
+					</div>
+				</div>
+				<!-- 												確認與取消修改按鈕 -->
+			</form:form>
 		</div>
 	</div>
 
@@ -380,14 +396,7 @@
 			alert(" 請注意!擅自修改可能發生不可預期的錯誤!");
 		}
 	</script>
-	<!-- 		==========================================計算總價============================================ -->
-	<script>
-		function totalPrice() {
-			alert($("#quantity").val())
-
-		}
-	</script>
-	<!-- 		==========================================開放修改============================================ -->
+	<!-- 		==========================================開放修改Info============================================ -->
 	<script>
 		$(document).ready(
 				function() { // Document is ready
@@ -439,9 +448,63 @@
 
 							}); // end of 取消 event
 				}); // end of document ready
-	</script>
+		</script>
 
-	<!-- 		==========================================開放修改============================================ -->
+	<!-- 		==========================================開放修改Info============================================ -->
+	<!-- 		==========================================開放修改Ship============================================ -->
+	<script>
+		$(document).ready(
+				function() { // Document is ready
+
+					$("#order_ship_btn").click(function() {
+						$("#order_ship_btn").hide();
+						$(".forEdit").show();
+
+						$("span.displayable").hide();
+						$(".inputable").show();
+						$("select").show();
+						$("option").show();
+					});
+					//送出
+					$("#send").click(function() {
+						confirm(" 即將送出修改!! ");
+						$("#springForm").submit();
+					});
+					// 取消
+					$("#cancel").click(
+							function() {
+								$("#order_ship_btn").show();
+								$(".forEdit").hide();
+
+								$.each($("input.inputable"),
+										function(index, thisInput) {
+											$(thisInput).val(
+													$(thisInput).siblings(
+															"span.displayable")
+															.text());
+										});
+
+								$.each($("select.inputable"), function(index,
+										thisSelect) {
+									const originalOption = $(thisSelect)
+											.siblings("span.displayable")
+											.text();
+									$(thisSelect).find(
+											"option:contains(" + originalOption
+													+ ")").prop("selected",
+											true).siblings().prop("selected",
+											false);
+								});
+
+								$("span.displayable").show();
+								$(".inputable").hide();
+								$("select").hide();
+								$("option").hide();
+
+							}); // end of 取消 event
+				}); // end of document ready
+	</script>
+	<!-- 		==========================================開放修改Ship============================================ -->
 
 	<!-- 		==========================================JavaScript區============================================ -->
 	<!-- 		==========================================AJAX============================================ -->

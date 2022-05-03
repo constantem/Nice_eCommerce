@@ -71,8 +71,14 @@
 }
 
 #insertDiv {
-	width: 500px;
+	width: 550px;
+	background-color: white;
 	margin-left: 350px;
+	padding: 30px;
+	margin-top: 20px;
+	filter: drop-shadow(7px 7px 7px #a1a0a0);
+	border-radius: 15px;
+	
 }
 
 #btn1 {
@@ -110,6 +116,7 @@
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
+
 </style>
 
 <body>
@@ -315,7 +322,7 @@
 <!-- 						</select> -->
 <!-- 					</div> -->
 
-					<br> <br> <input id="createSubcategory" name="name"
+					<input id="createSubcategory" name="name"
 						class="input" type="text" value="">
 				</div>
 			</form>

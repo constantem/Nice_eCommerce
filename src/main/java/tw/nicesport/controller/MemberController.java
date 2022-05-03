@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tw.nicesport.mail.MemberJavaMail;
 import ch.qos.logback.classic.Logger;
 import tw.nicesport.model.CartBean;
 import tw.nicesport.model.Member;
@@ -36,6 +37,9 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@Autowired
+	private MemberJavaMail membermail;
+
+  @Autowired
 	private CartService cartService;
 
 	@GetMapping("/member")
@@ -43,24 +47,7 @@ public class MemberController {
 		return "member/index";
 	}
 
-//	//方法1
-//	@RequestMapping("/foo")
-//	public String m1(Model model) {
-//		model.addAttribute("hello", "hello");
-//		model.addAttribute("hello2","Hello");
-//		return "jsp1";
-//	}
-//	
-//	//方法2
-//	@RequestMapping("/foo")
-//	public ModelAndView m1(ModelAndView mav) {
-//		mav.getModel().put("hello", "Hello");
-//		mav.getModel().put("hello2", "Hello2");
-//		mav.setViewName("jsp1");
-//		return mav;
-//	}
-
-	// 新增
+	// 後台新增
 	@GetMapping("/member/form")
 	public String memberForm(Model model) {
 		model.addAttribute("member", new Member());
@@ -83,7 +70,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 查詢部分
+	// 後台查詢部分
 	@GetMapping("/member/searchOne")
 	public String searchOne(Model model) {
 
@@ -101,7 +88,7 @@ public class MemberController {
 		return "member/showOneResult";
 	}
 
-	// 查詢全部
+	// 後台查詢全部
 	@GetMapping("/member/showAllResultDemo")
 	public ModelAndView showAllResult(ModelAndView model) {
 
@@ -111,7 +98,7 @@ public class MemberController {
 		return model;
 	}
 
-	// 刪除
+	// 後台刪除
 	@GetMapping("/member/delete")
 	public ModelAndView deleteMember(ModelAndView mav, @RequestParam("id") Integer member_id) {
 
@@ -122,7 +109,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 修改
+	// 後台修改
 	@GetMapping("/member/edit")
 	public String editMember(Model model, @RequestParam(name = "id") Integer id) {
 
@@ -132,7 +119,7 @@ public class MemberController {
 		return "member/editMember";
 	}
 	
-	@PostMapping("member/editMember")
+	@PostMapping("/member/editMember")
 	public ModelAndView editMemberPage(ModelAndView mav, @ModelAttribute(name = "Member") Member member,
 			BindingResult br) {
 
@@ -148,8 +135,8 @@ public class MemberController {
 	}
 	
 
-	// 模糊搜尋
-	@GetMapping("member/findAllByNameLike")
+	// 後台模糊搜尋
+	@GetMapping("/member/findAllByNameLike")
 	public ModelAndView findAllByNameLike(ModelAndView mav, @RequestParam("specificUsername") String specificUsername){
 		System.out.println("============================>"+specificUsername);
 		List<Member> allMem = memberService.findByUsernameContaining(specificUsername);
@@ -170,7 +157,7 @@ public class MemberController {
 		return "member/personalInformation";
 	}
 	
-	// 前台註冊
+	// 前台註冊(新增)
 	@GetMapping("/member/register")
 	public String memberRegister(Model model) {
 		model.addAttribute("member", new Member());
@@ -190,4 +177,69 @@ public class MemberController {
 
 		return mav;
 	}
+	
+	// 忘記密碼 ---------⓵按了忘記密碼跳轉至輸入email的頁面
+	@GetMapping("/member/forget")
+	public String forget(){
+		return "member/memberCheckEmail";
+	}
+	
+	// 忘記密碼 ---------⓶輸入email後按下確認就寄送信件至email(彈跳視窗:寄送成功)
+	@GetMapping("/member/sendMail") 
+	@ResponseBody
+	public String mail(@RequestParam("customerEmail") String customerEmail){
+		membermail.sendMail(customerEmail);
+		return "寄送成功";
+	}
+	
+	// 忘記密碼 ---------⓷畫面跳轉至登入頁面(在member/memberCheckEmail.jsp裡)
+	
+	
+	// 忘記密碼 ---------⓸email點開連結跳至輸入新密碼頁面
+	@GetMapping("/member/memberCheck")
+	public String checkPassword(){
+		return "login/memberForget";
+	}
+	
+	//前台會員修改資料(修改密碼)
+	@GetMapping("/member/editPassword")
+	public String editPassword(Model model, String email) {
+
+		Member member = memberService.findByEmail(email);
+		model.addAttribute("member", member);
+
+		return "member/editPassword";
+	}
+	
+	@PostMapping("/member/editPasswordCheck")
+	public ModelAndView editPasswordPage(ModelAndView mav, @ModelAttribute(name = "Member") Member member,
+			BindingResult br) {
+
+		mav.setViewName("member/test");
+
+		if (!br.hasErrors()) {
+//			https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.entity-persistence.saving-entites
+			memberService.save(member);
+			mav.setViewName("redirect:/member/editPassword");
+		}
+
+		return mav;
+	}
+	
+//	//方法1
+//	@RequestMapping("/foo")
+//	public String m1(Model model) {
+//		model.addAttribute("hello", "hello");
+//		model.addAttribute("hello2","Hello");
+//		return "jsp1";
+//	}
+//	
+//	//方法2
+//	@RequestMapping("/foo")
+//	public ModelAndView m1(ModelAndView mav) {
+//		mav.getModel().put("hello", "Hello");
+//		mav.getModel().put("hello2", "Hello2");
+//		mav.setViewName("jsp1");
+//		return mav;
+//	}
 }

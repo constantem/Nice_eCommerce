@@ -25,4 +25,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
 	// 會員登入驗證用
 	public Member findByUsernameAndPassword(String username, String password);
+
+	// 從email抓密碼修改用
+	public Optional<Member> findByEmail(String email);
 }

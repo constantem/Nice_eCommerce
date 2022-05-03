@@ -217,46 +217,7 @@
 			
 								<td>
 									<div class="shipping_box">
-										<ul class="list">
 
-											<div class="switch-wrap d-flex justify-content-between">
-												<p>711交貨便</p>
-												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio1" checked value="60">
-													<label for="confirm-radio1"></label>
-												</div>
-											</div>
-
-											<div class="switch-wrap d-flex justify-content-between">
-												<p>郵局寄送</p>
-												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio2" value="120">
-													<label for="confirm-radio2"></label>
-												</div>
-											</div>
-
-											<div class="switch-wrap d-flex justify-content-between">
-												<p>黑貓宅急便</p>
-												<div class="confirm-radio">
-													<input type="checkbox" id="confirm-radio3"  value="160" >
-													<label for="confirm-radio3"></label>
-												</div>
-											</div>
-										</ul>
-										<h6>
-											運費計算 <i id="truck" class="bi bi-truck"></i>
-										</h6>
-									
-<!-- 										<select class="shipping_select"> -->
-<!-- 											<option value="1" selected>國家</option> -->
-<!-- 											<option value="2">台灣</option> -->
-<!-- 											<option value="4">美國</option> -->
-<!-- 										</select> <select class="shipping_select"> -->
-<!-- 											<option value="1" selected>縣市</option> -->
-<!-- 											<option value="2">台北市</option> -->
-<!-- 											<option value="4">新北市</option> -->
-<!-- 										</select> <input type="text" placeholder="郵遞區號"> <a -->
-<!-- 											class="gray_btn" href="#">更新寄送地址</a> -->
 									</div>
 								</td>
 							</tr>

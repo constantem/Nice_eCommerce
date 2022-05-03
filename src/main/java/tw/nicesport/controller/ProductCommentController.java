@@ -55,4 +55,12 @@ public class ProductCommentController {
 		
 		 return list;
 	}
+	
+	//for 留言筆數
+	@PostMapping("/findAllCommentForLength")
+	@ResponseBody
+	public List<ProductCommentBean> findAllForLength(){ 
+			List<ProductCommentBean> lengh = pcrService.findAllForLength();
+			return lengh;
+	}
 }

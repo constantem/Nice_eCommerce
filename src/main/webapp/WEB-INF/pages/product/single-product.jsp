@@ -643,7 +643,7 @@ height: 40px;
 									<div class="box_total">
 										<h5>顧客評論</h5>
 										<h4 id="scoreAvg"></h4>
-										<h6>(03 則評論)</h6>
+										<h6 id="length"></h6>
 									</div>
 								</div>
 								<div class="col-6">
@@ -1280,15 +1280,35 @@ height: 40px;
 											}
 
 											//顧客評論平均分數
-											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
-											var avgScore = (Math.round(totalScore/3))
 											
-											if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
-												$("#scoreAvg").text(Math.round((parseInt(sc1)+1)/2) + '.0')	
-											}else if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
-												$("#scoreAvg").text(avgScore + '.0')
+											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
+											var avgScore = ((totalScore/3))
+											var newAvg = parseFloat(avgScore.toFixed(1))
+											var secondScore = (((parseInt(sc1)) + (parseInt(sc2))/2))
+											var c = parseFloat(secondScore.toFixed(1))
+											
+											if(sc2=="" & sc3==""){
+												$("#scoreAvg").text(Math.floor((parseInt(sc1))))	
+											}else if(sc3==""){
+												$("#scoreAvg").text(c)
+											}else{
+												$("#scoreAvg").text(newAvg)
 											}
 									})
+								}
+							})
+						}
+					</script>
+
+					<script>
+						countComment();
+						function countComment(){
+							$.ajax({
+								url:$("#contextRoot").val() + "/findAllCommentForLength",
+								type:"post",
+								success:function(length){
+									var a = length.length
+									$("#length").text('(' + a + "則評論)")
 								}
 							})
 						}

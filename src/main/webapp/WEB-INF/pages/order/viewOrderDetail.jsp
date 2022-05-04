@@ -99,7 +99,7 @@ background-color: rgb(199, 222, 238);
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">訂單資訊</h1>
 				<small class="text-gray-500"> 訂單編號：${order.orderStatus}
-					目前資料庫沒有資料 </small> <a
+					 </small> <a
 					href="${pageContext.request.contextPath}/orders/viewAllOrders"><button
 						class="button light">返回訂單列表</button></a>
 			</div>
@@ -123,8 +123,7 @@ background-color: rgb(199, 222, 238);
 				<c:forEach var="OrderDetail" items="${OrderDetailSet}">
 					<tbody>
 						<tr>
-							
-							
+												
 							<td><img alt="picture"
 								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
 								width="112" /></td>
@@ -136,7 +135,7 @@ background-color: rgb(199, 222, 238);
 								var="totalPrice" />
 							<c:set value="${sum + totalPrice}" var="sum" />
 							<td data-label="modifiedAt" class="text-gray-500">${OrderDetail.modifiedAt}
-								目前資料庫沒有資料</td>
+								</td>
 						</tr>
 				</c:forEach>
 			</table>
@@ -165,7 +164,7 @@ background-color: rgb(199, 222, 238);
 		<!-- 			</button> -->
 		<!-- 		</div> -->
 		<!-- 		<hr> -->
-		<!-- ==================================================================配送資料確認區================================================================== -->
+<!-- ==================================================================配送資料確認區================================================================== -->
 
 
 		<div class="card" id="leftBOX">
@@ -174,14 +173,15 @@ background-color: rgb(199, 222, 238);
 					<span class="icon"><i class="mdi mdi-account"></i></span> 配送資訊
 			</header>
 			<div class="card-content">
-				<!-- ==================form:form表單開始================== -->
+				<!-- ==================form表單開始================== -->
 				<!-- 				modelAttribute 就是JavaBean-->
+
 				<form:form id="springForm"
 					action="${pageContext.request.contextPath}/orders/UpdateOrderShipInfo/"
 					modelAttribute="order" method="POST">
 
-					<form:input hidden="hidden" path="order_id"
-						value="${order.order_id}" />
+					<form:input hidden="hidden" path="orderId"
+						value="${order.orderId}" />
 
 					<!-- input 收件人 -->
 					<div class="field">
@@ -232,16 +232,34 @@ background-color: rgb(199, 222, 238);
 
 					<div class="field">
 						<label class="label">訂單狀態</label>
-						<div class="control">
-							<small class="text-gray-500"> ${order.orderStatus}
-								目前資料庫沒有資料 </small>
-						</div>
+							<c:choose>
+   								 <c:when test="${order.orderStatus == 111}">
+   								    <div class="control">
+									<small class="text-gray-500">未出貨</small>
+									</div>
+ 								 </c:when>
+ 								 <c:when test="${order.orderStatus == 222}">
+   								    <div class="control">
+									<small class="text-gray-500">已出貨</small>
+									</div>
+ 								 </c:when>
+   								 <c:when test="${order.orderStatus == 999}">
+   								    <div class="control">
+									<small class="text-gray-500">訂單已刪除</small>
+									</div>  
+  							     </c:when>
+							     <c:otherwise>
+   								    <div class="control">
+									<small class="text-gray-500">資料庫沒有訂單狀態</small>
+									</div>
+   								 </c:otherwise>
+							</c:choose>
 					</div>
 					<div class="field">
 						<label class="label">時間戳記</label>
 						<div class="control">
 							<small class="text-gray-500"> ${order.orderDate}
-								</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
+								</p> 修改於 ${order.modifiedAt} 
 							</small>
 						</div>
 
@@ -249,8 +267,8 @@ background-color: rgb(199, 222, 238);
 						<!-- 						判斷是否開按鈕 -->
 						<div class="buttons right nowrap">
 
-							<input type="hidden" value="${OrdersBean.order_id}">
-
+							<input type="hidden" value="${OrdersBean.orderId}">
+						<div  <c:if test="${order.orderStatus==999||order.orderStatus==222}">hidden</c:if>>
 							<button type="button" class="button blue"
 								id="order_UpdateShipInfo_btn" data-bs-toggle="modal"
 								data-bs-target="#exampleModal" data-bs-whatever="@mdo"
@@ -258,6 +276,7 @@ background-color: rgb(199, 222, 238);
 								<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
 								<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
 							</button>
+							</div>
 						</div>
 
 						<!-- 						修改配送資訊 -->
@@ -266,11 +285,11 @@ background-color: rgb(199, 222, 238);
 					<!-- 					確認與取消修改按鈕 -->
 					<div hidden="hidden" class="field grouped forEdit">
 						<div hidden="hidden" class="control forEdit">
-							<button id="send" type="button" id="submit" class="button green">確認修改</button>
+							<button id="sendUpdateInfo" type="button" id="submit" class="button green">確認修改</button>
 						</div>
 
 						<div hidden="hidden" class="control forEdit">
-							<button id="cancel" type="button" class="button red">取消</button>
+							<button id="cancelUpdateInfo" type="button" class="button red">取消</button>
 						</div>
 					</div>
 					<!-- 					確認與取消修改按鈕 -->
@@ -279,8 +298,8 @@ background-color: rgb(199, 222, 238);
 		</div>
 	</div>
 
-	<!-- ==================================================================配送資料確認區================================================================== -->
-	<!-- ==================================================================訂單確認區================================================================== -->
+<!-- ==================================================================配送資料確認區================================================================== -->
+<!-- ==================================================================訂單確認區================================================================== -->
 	<div class="card" id="rightBOX">
 		<header class="card-header">
 			<p class="card-header-title">
@@ -291,12 +310,12 @@ background-color: rgb(199, 222, 238);
 		<div class="card-content">
 			<!-- ==================form:form表單開始================== -->
 			<!-- 				modelAttribute 就是JavaBean-->
-			<form:form id="springForm"
+			<form:form id="orderStatusForm"
 				action="${pageContext.request.contextPath}/orders/UpdateOrderState/"
 				modelAttribute="order" method="POST">
 
-				<form:input hidden="hidden" path="order_id"
-					value="${order.order_id}" />
+				<form:input hidden="hidden" path="orderId"
+					value="${order.orderId}" />
 
 				<!-- 								商品小計 -->
 				<div class="field">
@@ -329,13 +348,13 @@ background-color: rgb(199, 222, 238);
 				<hr>
 				<!-- 				訂單出貨 -->
 				<div class="field">
-					<label class="label">訂單出貨</label>
-					<div class="control">
-						<select id="orderStatus">
-							<option value="">訂單狀態</option>
-							<option value="等待付款">等待付款</option>
-							<option value="已出貨">已出貨</option>
-
+					<label class="label">訂單狀態</label>
+					<div  style="text-align: right" class="control">
+						<select name="orderStatus" disabled style="width:450px;height:40px" id="orderStatus" class="button green">
+							<option value="111" <c:if test="${order.orderStatus==111}"> selected </c:if>>未出貨</option>
+							<option value="222" <c:if test="${order.orderStatus==222}"> selected </c:if>>已出貨</option>
+							<option value="666" <c:if test="${order.orderStatus==666}"> selected </c:if>>顧客提出修改</option>
+							<option value="999" <c:if test="${order.orderStatus==999}"> selected </c:if>>已刪除</option>
 						</select>
 					</div>
 				</div>
@@ -343,33 +362,33 @@ background-color: rgb(199, 222, 238);
 					<label class="label">時間戳記</label>
 					<div class="control">
 						<small class="text-gray-500"> ${order.orderDate}
-							</p> 修改於 ${order.modifiedAt} 目前資料庫沒有資料
+							</p> 修改於 ${order.modifiedAt} 
 						</small>
 					</div>
 				</div>
 				<!-- 							按鈕 -->
 				<div class="buttons right nowrap">
 
-					<input type="hidden" value="${OrdersBean.order_id}">
-
+					<input type="hidden" value="${OrdersBean.orderId}">
+					<div  <c:if test="${order.orderStatus==999||order.orderStatus==222}">hidden</c:if>>
 					<button type="button" class="button blue" id="order_ship_btn"
 						data-bs-toggle="modal" data-bs-target="#exampleModal"
-						data-bs-whatever="@mdo">
+						data-bs-whatever="@mdo" >
 						<!-- onclick="updateShipInformation()"> -->
 						<%-- onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
 						<span class="icon"><i class="mdi-update"></i></span>商品出貨！！
 					</button>
-
+					</div>
 				</div>
 				<hr hidden="hidden" class="forEdit">
 				<!-- 												確認與取消修改按鈕 -->
 				<div hidden="hidden" class="field grouped forEdit">
 					<div hidden="hidden" class="control forEdit">
-						<button id="send" type="button" id="submit" class="button green">確認修改</button>
+						<button id="sendUpdateStatus" type="button" id="submit" class="button green">確認修改</button>
 					</div>
 
 					<div hidden="hidden" class="control forEdit">
-						<button id="cancel" type="button" class="button red">取消</button>
+						<button id="cancelUpdateStatus" type="button" class="button red">取消</button>
 					</div>
 				</div>
 				<!-- 												確認與取消修改按鈕 -->
@@ -400,53 +419,54 @@ background-color: rgb(199, 222, 238);
 	<script>
 		$(document).ready(
 				function() { // Document is ready
-
+					
 					$("#order_UpdateShipInfo_btn").click(function() {
+						let thisForm = $(this).closest("form");
 						$("#order_UpdateShipInfo_btn").hide();
-						$(".forEdit").show();
+						$(".forEdit", thisForm).show();
 
-						$("span.displayable").hide();
-						$(".inputable").show();
-						$("select").show();
-						$("option").show();
+						$("span.displayable", thisForm).hide();
+						$(".inputable", thisForm).show();
+						$("select", thisForm).show();
+						$("option", thisForm).show();
 					});
 					// 送出
-					$("#send").click(function() {
+					$("#sendUpdateInfo").click(function() {
 						confirm(" 即將送出修改!! ");
 						$("#springForm").submit();
 					});
 					// 取消
-					$("#cancel").click(
-							function() {
-								$("#order_UpdateShipInfo_btn").show();
-								$(".forEdit").hide();
+					$("#cancelUpdateInfo").click(function() {
+						let thisForm = $(this).closest("form");
+						$("#order_UpdateShipInfo_btn").show();
+						$(".forEdit", thisForm).hide();
 
-								$.each($("input.inputable"),
-										function(index, thisInput) {
-											$(thisInput).val(
-													$(thisInput).siblings(
-															"span.displayable")
-															.text());
-										});
-
-								$.each($("select.inputable"), function(index,
-										thisSelect) {
-									const originalOption = $(thisSelect)
-											.siblings("span.displayable")
-											.text();
-									$(thisSelect).find(
-											"option:contains(" + originalOption
-													+ ")").prop("selected",
-											true).siblings().prop("selected",
-											false);
+						$.each($("input.inputable"),
+								function(index, thisInput) {
+									$(thisInput).val(
+											$(thisInput).siblings(
+													"span.displayable")
+													.text());
 								});
 
-								$("span.displayable").show();
-								$(".inputable").hide();
-								$("select").hide();
-								$("option").hide();
+						$.each($("select.inputable", thisForm), function(index,
+								thisSelect) {
+							const originalOption = $(thisSelect)
+									.siblings("span.displayable")
+									.text();
+							$(thisSelect).find(
+									"option:contains(" + originalOption
+											+ ")").prop("selected",
+									true).siblings().prop("selected",
+									false);
+						});
 
-							}); // end of 取消 event
+						$("span.displayable", thisForm).show();
+						$(".inputable", thisForm).hide();
+						$("select", thisForm).hide();
+						$("option", thisForm).hide();
+
+					}); // end of 取消 event
 				}); // end of document ready
 		</script>
 
@@ -457,51 +477,52 @@ background-color: rgb(199, 222, 238);
 				function() { // Document is ready
 
 					$("#order_ship_btn").click(function() {
+						let thisForm = $(this).closest("form");
 						$("#order_ship_btn").hide();
-						$(".forEdit").show();
-
-						$("span.displayable").hide();
-						$(".inputable").show();
-						$("select").show();
-						$("option").show();
+						$(".forEdit", thisForm).show();
+						
+						$("#orderStatus").removeAttr("disabled");
+						$("span.displayable", thisForm).hide();
+						$(".inputable", thisForm).show();
+						$("select", thisForm).show();
+						$("option", thisForm).show();
 					});
 					//送出
-					$("#send").click(function() {
+					$("#sendUpdateStatus").click(function() {
 						confirm(" 即將送出修改!! ");
-						$("#springForm").submit();
+						$("#orderStatusForm").submit();
 					});
 					// 取消
-					$("#cancel").click(
-							function() {
-								$("#order_ship_btn").show();
-								$(".forEdit").hide();
+					$("#cancelUpdateStatus").click(function() {
+						let thisForm = $(this).closest("form");
+						$("#order_ship_btn").show();
+						$(".forEdit", thisForm).hide();
 
-								$.each($("input.inputable"),
-										function(index, thisInput) {
-											$(thisInput).val(
-													$(thisInput).siblings(
-															"span.displayable")
-															.text());
-										});
-
-								$.each($("select.inputable"), function(index,
-										thisSelect) {
-									const originalOption = $(thisSelect)
-											.siblings("span.displayable")
-											.text();
-									$(thisSelect).find(
-											"option:contains(" + originalOption
-													+ ")").prop("selected",
-											true).siblings().prop("selected",
-											false);
+						$.each($("input.inputable", thisForm),
+								function(index, thisInput) {
+									$(thisInput).val(
+											$(thisInput).siblings(
+													"span.displayable")
+													.text());
 								});
 
-								$("span.displayable").show();
-								$(".inputable").hide();
-								$("select").hide();
-								$("option").hide();
+						$.each($("select.inputable", thisForm), function(index,
+								thisSelect) {
+							const originalOption = $(thisSelect)
+									.siblings("span.displayable")
+									.text();
+							$(thisSelect).find(
+									"option:contains(" + originalOption
+											+ ")").prop("selected",
+									true).siblings().prop("selected",
+									false);
+						});
+							
+						$("span.displayable", thisForm).show();
+						$(".inputable", thisForm).hide();
+						$("option", thisForm).hide();
 
-							}); // end of 取消 event
+					}); // end of 取消 event
 				}); // end of document ready
 	</script>
 	<!-- 		==========================================開放修改Ship============================================ -->

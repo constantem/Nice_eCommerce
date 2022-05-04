@@ -1,6 +1,8 @@
 package tw.nicesport.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -100,7 +102,7 @@ public class Member {
 	
 	@OneToMany(mappedBy = "memberBean")
 	@JsonIgnore
-	private Set<OrdersBean> ordersBeanSet = new HashSet<OrdersBean>();
+	private List<OrdersBean> ordersBeanList = new ArrayList<OrdersBean>();
 	
 	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
@@ -245,12 +247,12 @@ public class Member {
 		this.courseBookingSet = courseBookingSet;
 	}
 
-	public Set<OrdersBean> getOrdersBeanSet() {
-		return ordersBeanSet;
+	public List<OrdersBean> getOrdersBeanList() {
+		return ordersBeanList;
 	}
 
-	public void setOrdersBeanSet(Set<OrdersBean> ordersBeanSet) {
-		this.ordersBeanSet = ordersBeanSet;
+	public void setOrdersBeanList(List<OrdersBean> ordersBeanSet) {
+		this.ordersBeanList = ordersBeanSet;
 	}
 
 	public Set<ProductWishListBean> getProductMyWishListSet() {

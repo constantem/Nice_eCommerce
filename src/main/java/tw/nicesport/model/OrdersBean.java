@@ -33,7 +33,7 @@ public class OrdersBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private Integer order_id; 
+	private Integer orderId; 
 	// 會員編號 外來鍵, 關聯 Member table (會員table) 的主鍵
 	@Transient
 	@Column(name = "member_id")
@@ -85,12 +85,12 @@ public class OrdersBean {
 	}
 	// GetSet
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 	public Integer getMemberId() {

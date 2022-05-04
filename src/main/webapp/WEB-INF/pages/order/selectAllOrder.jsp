@@ -123,7 +123,7 @@
 										class="rounded-full">
 								</div>
 							</td>
-							<td data-label="order_id">${OrdersBean.order_id}</td>
+							<td data-label="orderId">${OrdersBean.orderId}</td>
 							<td data-label="member_id">${OrdersBean.memberBean.username}</td>
 							<td data-label="orderDate">${OrdersBean.orderDate}</td>
 							<td data-label="totalPrice">${OrdersBean.totalPrice}</td>
@@ -151,12 +151,13 @@
 								<div class="buttons right nowrap">
 
 									
-									<input type="hidden" value="${OrdersBean.order_id}">
+									<input type="hidden" value="${OrdersBean.orderId}">
+<!-- 									檢視訂單明細按鈕 -->
 									<button type="button" class="button blue"
 										id="order_detail_btn" data-bs-toggle="modal"
 										data-bs-target="#exampleModal" data-bs-whatever="@mdo"
 										<%-- onclick = "findById('${OrdersBean.order_id}')"> --%>
-										onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.order_id}'">
+										onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.orderId}'">
 										<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
 									</button>
 									<button class="button small red --jb-modal"

@@ -162,11 +162,8 @@ figure {
 	<!--主要外層Div -->
 	<div id="app">
 
-		<!-- 上方導覽列 -->
-		<%@include file="TopBar.jsp"%>
-
-		<!-- 左側導覽列 -->
-		<%@include file="LeftBar.jsp"%>
+		<!-- 插入上導覽列與左導覽列 -->
+		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
 
 

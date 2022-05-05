@@ -443,7 +443,7 @@ height: 40px;
 						<!-- 						商品描述 -->
 						<p>${pdVal.productDiscription}</p>
 
-						<form method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
+						<form id="addToCartForm" method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
 
 							<input type="text" name="productid" hidden value="${pdVal.id}">
 
@@ -479,7 +479,7 @@ height: 40px;
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<!-- <a class="primary-btn" id="" href="#">加入購物車</a> -->
-							<button class="primary-btn" id="btnCart" type="submit">加入購物車</button>
+							<button  class="primary-btn" id="btnCart" type="button">加入購物車</button>
 						</form>
 
 <!-- 							加入願望清單 -->
@@ -1279,7 +1279,7 @@ height: 40px;
 												$("#scoreBox2").append(getScore3);		
 											}
 
-											//顧客評論平均分數
+											//計算顧客評論平均分數
 											
 											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
 											var avgScore = ((totalScore/3))
@@ -1300,6 +1300,7 @@ height: 40px;
 						}
 					</script>
 
+					<!--============================= ajax 取得評論總共筆數 ==================================-->
 					<script>
 						countComment();
 						function countComment(){
@@ -1314,7 +1315,7 @@ height: 40px;
 						}
 					</script>
 
-						<!--=========================================================================-->
+					<!--=======================================================================================-->
 
 					<script>
 						getProduct();
@@ -1427,6 +1428,26 @@ height: 40px;
 
 					<script>
 
+						$("#btnCart").click(function(){
+							Swal.fire({
+								title: '',
+								text: '',
+								backdrop:false,
+								width:200,
+								height:200,
+								timer:1000,
+								imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+								imageWidth: 120,
+								imageHeight: 120,
+								showConfirmButton:false,		
+						})
+								setTimeout("addToCartForm()",1300)
+						})
+
+						function addToCartForm(){
+							$("#addToCartForm").submit();
+						}
+
 						
 
 
@@ -1450,6 +1471,7 @@ height: 40px;
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 	<!-- ========================================================================================================= -->

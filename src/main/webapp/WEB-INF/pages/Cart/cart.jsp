@@ -75,6 +75,7 @@
 
 
 
+
 </style>
 
 <body>
@@ -113,7 +114,7 @@
                     <h1>${member.lastname} ${member.firstname} 購物車</h1>
                     <nav class="d-flex align-items-center">
                         <a href="${contextRoot}/FrontpageSeperate">購物商城<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="">前往結帳</a>
+                        <a href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
                     </nav>
                 </div>
             </div>
@@ -156,15 +157,25 @@
 								</td>
 								<td>
 									<div class="product_count">
-										<input type="text" name="qty" disabled id="sst"   maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
-                                            class="input-text qty">
-										<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
-                                            class="input-text qty">
 
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+										<!-- 修改商品數量 -->
+										<form id="updateQuantity" action="${contextRoot}/updateQuantity" method="get">
+											<input type="text" name="quantity" readonly  id="sst"  maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+												class="input-text qty">
+											<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+												class="input-text qty">
+											<input type="text" name="memberId" hidden value="${member.memberid}">	
+											<input type="text" hidden name="cartProductId" value="${cartProduct.cartProductId}">
+										</form>
+
+						
+                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                            class="increase items-count addQuantity" type="button"><i class="lnr lnr-chevron-up"></i></button>
+
+
+                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                            class="reduced items-count addQuantity" type="button"><i class="lnr lnr-chevron-down"></i></button>
+
 									</div>
 								</td>
 								<td>
@@ -379,7 +390,29 @@
 				}
 			})
 		}
+	</script>
 
+	<script>
+		$(".addQuantity").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				backdrop:false,
+				width:200,
+				height:200,
+				timer:1000,
+				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+		})
+			setTimeout("submitAddQuantity()",1300)
+			// submitAddQuantity();
+		})
+
+		function submitAddQuantity(){
+			$("#updateQuantity").submit();
+		}
 	</script>
 
 

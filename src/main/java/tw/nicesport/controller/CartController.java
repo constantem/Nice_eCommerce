@@ -300,6 +300,7 @@ public class CartController {
 		
 		
 		return null;
+	}
 
 //	@RequestMapping("/updateQuantity")
 //	public ModelAndView updateQuantity(

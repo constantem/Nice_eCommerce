@@ -34,9 +34,9 @@ public class WorkScheduleController {
 	private WorkScheduleRepository workschedulerepository;
 
 	@GetMapping("/employee/WorkSchedule")
-	public void WorkSchedule() {
+	public String WorkSchedule() {
+		return "employee/WorkSchedule";
 	}
-
 
 	@GetMapping("/WorkSchedule")
 	@ResponseBody

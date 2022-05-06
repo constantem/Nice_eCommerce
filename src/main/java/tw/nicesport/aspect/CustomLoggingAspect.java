@@ -172,7 +172,8 @@ public class CustomLoggingAspect {
         ServletRequestAttributes servletReqAttr = (ServletRequestAttributes) reqAttr; 
         HttpServletRequest request = servletReqAttr.getRequest(); 
         String handlerMethodUrl = request.getServletPath();
-        myLogger.info("║ 回傳物件:" + theResult.getClass().getSimpleName() + ", 由 URL:\"" + handlerMethodUrl +"\"");
+        String theResultPrinted = (theResult==null) ? null : theResult.getClass().getSimpleName();
+        myLogger.info("║ 回傳物件:" + theResultPrinted + ", 由 URL:\"" + handlerMethodUrl +"\"");
         myLogger.info("╚══════════════ 結束 ══════════════···");
     }
     
@@ -188,7 +189,8 @@ public class CustomLoggingAspect {
         ServletRequestAttributes servletReqAttr = (ServletRequestAttributes) reqAttr; 
         HttpServletRequest request = servletReqAttr.getRequest(); 
         String handlerMethodUrl = request.getServletPath();
-        myLogger.info("║ 回傳 jsp:\"" + theResult.getClass().getSimpleName() + "\", 由 URL:\"" + handlerMethodUrl +"\"");
+        String theResultPrinted = (theResult==null) ? null : theResult.getClass().getSimpleName();
+        myLogger.info("║ 回傳 jsp:\"" + theResultPrinted + "\", 由 URL:\"" + handlerMethodUrl +"\"");
         myLogger.info("╚══════════════ 結束 ══════════════···");
     }
     
@@ -201,7 +203,8 @@ public class CustomLoggingAspect {
       
         // 印出回傳值與方法名
     	String theMethod = theJoinPoint.getSignature().toShortString();
-        myLogger.info("   │ 回傳:" + theResult.getClass().getSimpleName() + ", 由方法: " + theMethod);
+    	String theResultPrinted = (theResult==null) ? null : theResult.getClass().getSimpleName();
+        myLogger.info("   │ 回傳:" + theResultPrinted + ", 由方法: " + theMethod);
         myLogger.info("   └────────────── 結束 ──────────────···");
     }
     
@@ -214,7 +217,8 @@ public class CustomLoggingAspect {
       
         // 印出回傳值與方法名
     	String theMethod = theJoinPoint.getSignature().toShortString();
-        myLogger.info("      ┊ 回傳:" + theResult.getClass().getSimpleName() + ", 由方法: " + theMethod);
+    	String theResultPrinted = (theResult==null) ? null : theResult.getClass().getSimpleName();
+        myLogger.info("      ┊ 回傳:" + theResultPrinted + ", 由方法: " + theMethod);
         myLogger.info("      ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄ 結束 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄···");
     }
 }

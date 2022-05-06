@@ -109,12 +109,14 @@
 	<!-- End banner Area -->
   <div>
    請輸入問題：
-   <input id="say" name="say" type="text" value="" size="80" onkeydown="keyin(event)"/> <!-- 按 enter 時呼叫 keyin() 回答 --> 
-   <input type="submit" value="送出" onclick="say()"/> <!-- 當送出按鈕按下，就呼叫 say() 函數回答 --> 
+   <input id="say" name="say" type="text" value="" size="80" onkeydown="keyin(event)" /> <!-- 按 enter 時呼叫 keyin() 回答 --> 
+   <input type="submit" value="送出" onclick="say()" id="clear"/> <!-- 當送出按鈕按下，就呼叫 say() 函數回答 --> 
   </div>
   <BR/>
-  <div id="dialogBox" style="width:95%; height:80%; overflow:auto; border:ridge 1px #888888; ">
+  <div id="dialogBox" style="width:95%; height:80%; overflow:auto; border:ridge 1px #888888;">
+
 >> Hola，mi amigo （amiga） 有甚麼我可以幫你/妳? 請告訴我你/妳的問題(產品問題&優惠活動&商品運送付款方式&商品退貨&會員相關) <BR /> 
+  <span id="msg"></span>
   </div>
   <script type="text/javascript">  
 /* 以下為本程式回答問題時使用的 Q&A 規則，例如對於以下 Q&A 規則物件
@@ -169,10 +171,9 @@ var qaList = [
 { Q:"難過", A:"別想它了|別難過|別想那麼多了|事情總是會解決的"},
 { Q:"高興", A:"不錯ㄚ|太棒了|這樣很好ㄚ"},
 { Q: "產品問題", A: "甚麼類型的產品呢?我們有鞋類、服飾類、健身器材、保健食品" },
-{ Q: "鞋類", A: "這是我們鞋類商品的連結" },
-{ Q: "服飾類", A: "這是我們服飾類商品的連結" },
-{ Q: "健身器材", A: "這是我們健身器材商品的連結" },
-{ Q: "保健食品", A: "這是我們保健食品商品的連結" },
+{ Q: "鞋類", A: "這是我們鞋類商品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B</a>"},
+{ Q: "健身用品", A: "這是我們健身用品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6</a>"},
+{ Q: "補充營養品", A: "這是我們保健食品商品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD</a>"},
 
 { Q: "優惠活動", A: "商品滿額優惠&周年慶&母親節活動"},
 { Q: "商品滿額優惠", A: "所有商品只要滿2000就送200優惠卷"},
@@ -198,6 +199,35 @@ var qaList = [
       return Math.floor(Math.random()*n);
     }
     
+//     function clear(){
+//     	document.getElementById("say").text("")
+//     }
+
+// 	clear();
+//     function clear(){
+//     setTimeout(function() {
+//     	  document.getElementById("dialogBox").innerHtml=">>123 Hola，mi amigo （amiga） 有甚麼我可以幫你/妳? 請告訴我你/妳的問題(產品問題&優惠活動&商品運送付款方式&商品退貨&會員相關)";
+//     	}, 3000);
+//     }
+
+	$(function(){
+		
+		t1 = setInterval("showAuto1()",130000);
+		t = setInterval("showAuto()",120000);
+		
+	})
+	
+	function showAuto(){
+	
+		$("#msg").text("親，如果其他問題對話將在10秒後結束");
+	} 
+	
+	
+	function showAuto1(){
+	
+		$("#msg").text("對話已結束");
+	} 
+	
     function say() { // 當送出鍵按下時，會呼叫這個函數進行回答動作
       append(document.getElementById("say").value); // 先將使用者輸入的問句放到「對話區」顯示。
       answer(); // 然後回答使用者的問題。
@@ -217,7 +247,7 @@ var qaList = [
     function answer() { // 回答問題
       setTimeout(function () { // 停頓 1 到 3 秒再回答問題 (因為若回答太快就不像人了，人打字需要時間)
         append(">> "+getAnswer());
-      }, 1000+random(2000));
+      }, 1000+random(10000));
     }
     
     function getAnswer() {
@@ -242,7 +272,15 @@ var qaList = [
        } catch (err) {}
       }
       return "然後呢？"; // 如果發生任何錯誤，就回答「然後呢？」來混過去。
-    }   
+    }
+    
+    $("#clear").click(function(){
+    	
+    	
+    	
+    	$("#say").val("");
+    	
+    })
   </script>
   <!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
@@ -258,6 +296,7 @@ var qaList = [
 	<script src="${contextRoot}/resources/frontstage/js/countdown.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>

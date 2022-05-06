@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,38 +43,19 @@ public class CustomerSupportController {
 
 	// 純寄送email
 	@GetMapping("/message/sendMail")
-	public String mail() {
+	public String mail(@RequestParam("id") Integer id) {
 		mail.SendMail();
 		return "Success";
 	}
 
-	// email裡的連結到本人表單
-	@GetMapping("/message/emailSelectOne")
-	public ModelAndView emailselectOnePage(ModelAndView mav, @RequestParam("name") String name) {
-
-		List<CustomerBean> allCus = csService.findAllByName(name);
-		;
-
-		mav.getModel().put("allCus", allCus);
-
-		mav.setViewName("customerSupport/selectAll");
-
-		return mav;
-	}
 
 	// 送出表單後查詢單筆資料
 	@GetMapping("/message/selectOne")
-	public ModelAndView selectOnePage(ModelAndView mav, ModelAndView mav1, @RequestParam("name") String name) {
-
-		List<CustomerBean> allCus = csService.findAllByName(name);
+	public ModelAndView selectOnePage(ModelAndView mav) {
 		
-		mav1.getModel().put("allCus", allCus);
-
-		CustomerBean lastMag = csService.getLastest();
+		CustomerBean lastMag = csService.findById(null);
 		mav.getModel().put("lastMag", lastMag);
-//		mav.addObject("lastMag", lastMag);
 		mav.setViewName("customerSupport/selectOne");
-		mav1.setViewName("customerSupport/selectAll");
 		return mav;
 	}
 
@@ -127,18 +109,20 @@ public class CustomerSupportController {
 	@RequestMapping("/message/insert")
 	public ModelAndView insertPage(@ModelAttribute(name = "CustomerBean") CustomerBean cs) {
 
+		cs.setProcessStatus("處理中");
+		
 		CustomerBean csb = csService.insert(cs); // insert不需有回傳值
 
 		ModelAndView mav = new ModelAndView();
 		CustomerBean csResult = csService.findById(csb.getId());
 		mav.getModel().put("csResult", csResult);
-		mav.setViewName("customerSupport/selectOne");// 重導到controller的方法
+		mav.setViewName("customerSupport/selectOne");
 		return mav;
 	}
 
 	// 導去修改畫面
-	@GetMapping("/message/editForm")
-	public ModelAndView editFormPage(ModelAndView mav, @RequestParam(name = "id") Integer id) {
+	@GetMapping("/message/editForm{id}")
+	public ModelAndView editFormPage(ModelAndView mav, @PathVariable Integer id) {
 
 		mav.getModel().put("id", id);// 抓到修改的對象的id
 
@@ -166,8 +150,8 @@ public class CustomerSupportController {
 		return mav;
 	}
 
-	@GetMapping("/message/delete")
-	public ModelAndView deletePage(ModelAndView mav, Integer id) {
+	@GetMapping("/message/delete{id}")
+	public ModelAndView deletePage(ModelAndView mav,@PathVariable Integer id) {
 		csService.deleteById(id);
 
 		mav.setViewName("redirect:/message/selectAll");

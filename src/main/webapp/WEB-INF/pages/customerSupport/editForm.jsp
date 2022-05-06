@@ -138,9 +138,20 @@
 												<td style="text-align:center">
 													${customerBean.modifiedAt} 
 <%-- 													<form:input type="hidden" path="modifiedAt" /> --%>
-												<td style="text-align:center"><form:button type="submit">確認修改</form:button>
+<%-- 												<td style="text-align:center"><form:button type="submit">確認修改</form:button> --%>
 			<%-- 									<a href="${contextRoot}/message/edit" onclick="return confirm('確認修改')">確認修改</a> --%>
-			
+														<td class="actions-cell">
+										<div class="buttons right nowrap">
+										
+										<form method="get"
+ 											action="${contextRoot}/message/editForm?id=${customerBean.id}">
+											<button class="edit"
+ 												data-target="sample-modal-2" type="submit">確認修改
+												<span class="icon"><i class="mdi mdi-eye"></i></span>
+											</button>
+ 										</form>
+										
+ 									</div>
 											</tr>
 											
 											
@@ -159,11 +170,33 @@
 											<td style="text-align:center">${customerBean.remark} 
 											<td style="text-align:center">${customerBean.createdAt} 
 											<td style="text-align:center">${customerBean.modifiedAt} 
-											<td style="text-align:center">
+
+ 								</td>
 										</tr>
 									</c:otherwise>
 								</c:choose>
-
+	<script type="text/javascript">
+	
+		$(".edit").click(function(){
+			Swal.fire({
+				  title: '確定要修改嗎?',
+				  text: "修改後無法再回復!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '是的, 我要修改!'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    Swal.fire(
+				      '已修改!',
+				      '資料已修改',
+				      '修改成功'
+				    )
+				  }
+				})
+		})
+	</script>
 							</c:forEach>
 											<td><input type="button" onClick="javascript:history.back()" value="回上頁"></td>
 							

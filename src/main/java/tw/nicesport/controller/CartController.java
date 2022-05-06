@@ -286,6 +286,21 @@ public class CartController {
 
 		return cartProductBean;
 	}
+
+	//使用優惠卷
+	@RequestMapping("/UseDiscount")
+	public Integer Discount (
+			@RequestParam("memberid") Integer memberid,
+			@RequestParam("total") Integer Subtotal,
+			@RequestParam("DiscountName") String discountName
+			) {
+		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
+		Member member = memberService.findById(memberid);
+		
+		
+		
+		return null;
+
 //	@RequestMapping("/updateQuantity")
 //	public ModelAndView updateQuantity(
 //			@RequestParam("productid") Integer productid,
@@ -298,7 +313,6 @@ public class CartController {
 //		productService.deleteById(product);
 //		return CartProductBean;
 //	}
-	
 	
 	//修改購物車商品數量並儲存
 	@RequestMapping("/updateQuantity")

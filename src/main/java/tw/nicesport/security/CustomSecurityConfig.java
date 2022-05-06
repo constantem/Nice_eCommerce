@@ -47,6 +47,12 @@ public class CustomSecurityConfig {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 		}
+		
+		@Bean("userAuthenticationManagerBean")
+		@Override
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
 	    
 		// Autowired 則可建立 global AuthenticationManager
 //		@Autowired
@@ -142,6 +148,12 @@ public class CustomSecurityConfig {
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(employeeDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+		}
+		
+		@Bean("staffAuthenticationManagerBean")
+		@Override
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
 		}
 		
 		// Autowired 則可建立 global AuthenticationManager

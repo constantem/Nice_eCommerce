@@ -52,6 +52,14 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta property="twitter:image:width" content="1920">
 <meta property="twitter:image:height" content="960">
 
+<style type="text/css">
+.ss {
+    color: #BEBEBE;
+    padding-bottom: 5px;
+    margin: 3px;
+ 	 }
+</style>
+
 <script async
 	src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
 <script>
@@ -111,36 +119,37 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<div class="field">
 				<label class="label">帳號:</label>
 	         <div class="control">
-	         	<input type="text" name="username" id="username" />
+	         	<input type="text" name="username" id="username" required/>
+	         
 	         </div>
-	         <p class="help"></p>            
+	         <p class="help">*必填</p>            
 	       </div>
 
 			<!-- 欄位2 -->
 			<div class="field">
-	         	<label class="label">密碼:</label>        
-       		  <div class="control">		        	
-		         <input type="text" name="password" id="password"/>
-			  </div>
-			  <p class="help"></p>				    				  
-			</div>			
+	         	<label class="label">密碼:</label>           	
+		     <div class="control">
+		         <input type="text" name="password" id="password" required/>   				  
+			</div>	
+			<p class="help">*必填</p>		
+			</div>
 			
 			<!-- 欄位3 -->
 			<div class="field">
 	        	 <label class="label">姓:</label>			        
 	          <div class="control">			      
-		         <input type="text" name="lastname" id="lastname"/>
+		         <input type="text" name="lastname" id="lastname" required/>
 			  </div>
-			  <p class="help"></p>				    				  
+			  <p class="help">*必填</p>				    				  
 			</div>
 			
 			<!-- 欄位4 -->
 			<div class="field">
 		         <label class="label">名:</label>			        
 	       	  <div class="control">			         
-		   	      <input type="text" name="firstname" id="firstname"/>
+		   	      <input type="text" name="firstname" id="firstname" onblur="checkName()" required/>
 			  </div>
-			  <p class="help"></p>				    				  
+			  <p class="help">*必填</p>				    				  
 			</div>
 						
 			<!-- 欄位5 -->
@@ -165,7 +174,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<div class="field">
 		       	<label class="label">電話:</label>        
 	         <div class="control">		         
-		         <input type="text" name="phone" id="phone"/>
+		         <input type="text" name="phone" id="phone" pattern="09\d{2}\-?\d{3}\-?\d{3}" required/>
 			  </div>
 			 	 <p class="help"> </p>				    				 
 			</div>
@@ -174,18 +183,18 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<div class="field">
 	           	<label class="label">Email:</label>			        
 	         <div class="control">			       
-		         <input type="text" name="email" id="email"/>
+		         <input type="text" name="email" id="email" required/>
 	    	</div>
-			 	<p class="help"></p>			    				  
+			 	<p class="help">*必填</p>			    				  
 			</div>
 											
 			<!-- 欄位9 -->
 			<div class="field">
        		   	<label class="label">住址:</label>		        
 	         <div class="control">		         
-		        <input type="text" name="address" id="address"/>
+		        <input type="text" name="address" id="address" required/>
 			 </div>
-				 <p class="help"></p>			    			  
+				 <p class="help">*必填</p>			    			  
 			</div>
 				
 				<!-- 按鍵 -->
@@ -271,6 +280,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		});
 		
 	</script>
+	
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />

@@ -6,8 +6,9 @@
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
+
 <head>
-<!-- Mobile Specific Meta -->
+	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
@@ -20,54 +21,26 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>忘記密碼</title>
-
+	<title>運動網</title>
 	<!--
 		CSS
 		============================================= -->
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-	
-	<style type="text/css">
-	.t1{
-	-ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
-        display: flex;
-    	justify-content: center; 
-    	align-items: center;
-    	margin: auto;
-	}
-	</style>
-	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function() {
-			$("#first").click(function() {
-				$.ajax({
-					url: $("#contextRoot").val() + "/userLoginAutoInputFirst",
-					success: function (member) {
-						$("#username").val(member.username);
-						$("#password").val(member.password);
-					}
-				});
-			});
-		});
-	</script>
 </head>
 <body>
 
-<!-- variable -->
-	<input type="hidden" id="contextRoot" value="${contextRoot}">
-	
+<body>
+
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -85,7 +58,7 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-	
+
 	<!-- start banner Area -->
 	<section class="banner-area">
 		<div class="container">
@@ -137,46 +110,154 @@
 	</section>
 	<!-- End banner Area -->
 	
-	<div class="t1">
-		<div class="login_form_inner">
-			<h3>設定新密碼</h3>
-			<form class="row contact_form"
-				action="${contextRoot}"
-				method="get" novalidate="novalidate">
-							
-	<div class="col-md-12 form-group">
-         <label class="label">帳號</label>
-
-         <div class="control">
-         	${member.username}
-		<input type="hidden" name="username" id="username" value="${member.username}">
-         </div>
-         <p class="help">
-           
-         </p>
+	 <div class="card-content">
+		    
+	      <form action="${contextRoot}/member/editRegister" method="post">
+	      
+	      	<!-- 欄位1 -->
+	       <div class="field">
+	         <label class="label">編號</label>
+	
+	         <div class="control">
+	         	${member.memberid}
+			<input type="hidden" name="memberid" id="memberid" value="${member.memberid}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	
+	      	<!-- 欄位2 -->
+	       <div class="field">
+	         <label class="label">帳號</label>
+	
+	         <div class="control">
+	         	${member.username}
+			<input type="hidden" name="username" id="username" value="${member.username}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位3 -->
+	       <div class="field">
+	         <label class="label">密碼</label>
+	         <div class="control">
+	           <input class="input" type="text" name="password" id="password" value="${member.password}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位4 -->
+	       <div class="field">
+	         <label class="label">姓</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="lastname" id="lastname" value="${member.lastname}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位5 -->
+	       <div class="field">
+	         <label class="label">名</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="firstname" id="firstname" value="${member.firstname}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	          
+	      	<!-- 欄位6 -->
+	       <div class="field">
+	         <label class="label">生日</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="birthdate" id="birthdate" value="${member.birthdate}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位7 -->
+	       <div class="field">
+	         <label class="label">性別</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="gender" id="gender" value="${member.gender}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位8 -->
+	       <div class="field">
+	         <label class="label">電話</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="phone" id="phone" value="${member.phone}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位9 -->
+	       <div class="field">
+	         <label class="label">email</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="email" id="email" value="${member.email}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	      	<!-- 欄位10 -->
+	       <div class="field">
+	         <label class="label">住址</label>
+	
+	         <div class="control">
+	           <input class="input" type="text" name="address" id="address" value="${member.address}">
+	         </div>
+	         <p class="help">
+	           
+	         </p>
+	       </div>
+	       
+	        <hr>
+	
+	        <div class="field grouped">
+	          <div class="control">
+	            <button type="submit" class="button green">
+	              確認
+	            </button>
+	          </div>
+	          <div class="control">
+	            <button type="reset" class="button red" id="reset">
+	              清除
+	            </button>
+	          </div>
+	          <div class="field grouped">
+	          <div class="control">
+	            <button type="submit" class="button green">
+	              返回
+	            </button>
+	          </div>
+	        </div>
+	        </div>
+	      </form>
     </div>
-   
-   <hr>
-   
-<!-- 			<div class="col-md-12 form-group"> -->
-				
-<!-- 				<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'"> -->
-<!-- 			</div> -->
-
-			<div class="col-md-12 form-group">
-				
-				<input type="password" class="form-control" id="password" name="password" placeholder="新密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
-			</div>
-			<div class="col-md-12 form-group">
-				<button type="submit" value="submit" class="primary-btn">確認</button>
-			<div class="creat_account"></div>
-			</div>
-			</form>
-		</div>
-	</div>
-	
-	<!--================End Login Box Area =================-->
-	
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
 
@@ -188,22 +269,12 @@
 	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/countdown.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
-	
-<!-- 	<script> -->
-<!--  		function io(){ -->
-<!--  		Swal.fire('修改成功').then( function(result){ -->
-<!--  	    	if(result.isConfirmed) { -->
-<%--  	    		window.location.href='${contextRoot}'; --%>
-<!-- 	    	} -->
-			
-<!--  	} -->
-	
-<!-- 	</script> -->
 </body>
 </html>

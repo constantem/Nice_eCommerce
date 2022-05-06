@@ -172,7 +172,7 @@ public class CustomLoggingAspect {
         ServletRequestAttributes servletReqAttr = (ServletRequestAttributes) reqAttr; 
         HttpServletRequest request = servletReqAttr.getRequest(); 
         String handlerMethodUrl = request.getServletPath();
-        myLogger.info("║ 回傳物件:" + theResult + ", 由 URL:\"" + handlerMethodUrl +"\"");
+        myLogger.info("║ 回傳物件:" + theResult.getClass().getSimpleName() + ", 由 URL:\"" + handlerMethodUrl +"\"");
         myLogger.info("╚══════════════ 結束 ══════════════···");
     }
     
@@ -188,7 +188,7 @@ public class CustomLoggingAspect {
         ServletRequestAttributes servletReqAttr = (ServletRequestAttributes) reqAttr; 
         HttpServletRequest request = servletReqAttr.getRequest(); 
         String handlerMethodUrl = request.getServletPath();
-        myLogger.info("║ 回傳 jsp:\"" + theResult + "\", 由 URL:\"" + handlerMethodUrl +"\"");
+        myLogger.info("║ 回傳 jsp:\"" + theResult.getClass().getSimpleName() + "\", 由 URL:\"" + handlerMethodUrl +"\"");
         myLogger.info("╚══════════════ 結束 ══════════════···");
     }
     
@@ -201,7 +201,7 @@ public class CustomLoggingAspect {
       
         // 印出回傳值與方法名
     	String theMethod = theJoinPoint.getSignature().toShortString();
-        myLogger.info("   │ 回傳:" + theResult + ", 由方法: " + theMethod);
+        myLogger.info("   │ 回傳:" + theResult.getClass().getSimpleName() + ", 由方法: " + theMethod);
         myLogger.info("   └────────────── 結束 ──────────────···");
     }
     
@@ -214,7 +214,7 @@ public class CustomLoggingAspect {
       
         // 印出回傳值與方法名
     	String theMethod = theJoinPoint.getSignature().toShortString();
-        myLogger.info("      ┊ 回傳:" + theResult + ", 由方法: " + theMethod);
+        myLogger.info("      ┊ 回傳:" + theResult.getClass().getSimpleName() + ", 由方法: " + theMethod);
         myLogger.info("      ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄ 結束 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄···");
     }
 }

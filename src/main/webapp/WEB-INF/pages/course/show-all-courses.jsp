@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
@@ -14,54 +13,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>首頁</title>
 
-<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<!-- 使用原生 https://materialdesignicons.com/ 的 icon-->
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
-<!-- Tailwind is included -->
+<!-- 使用原生 Tailwind css -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/backstage/css/main.css">
 
+<style>
+	.left{
+		justify-content:flex-start;
+	}
+</style>
 
-<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/resources/backstage/apple-touch-icon.png" />
+<!-- 網站頁籤 logo -->
 <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/resources/backstage/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/resources/backstage/favicon-16x16.png" />
-<link rel="mask-icon" href="${pageContext.request.contextPath}/resources/backstage/safari-pinned-tab.svg" color="#00b4b6" />
-
-<meta name="description" content="Admin One - free Tailwind dashboard">
-
-<meta property="og:url"
-	content="https://justboil.github.io/admin-one-tailwind/">
-<meta property="og:site_name" content="JustBoil.me">
-<meta property="og:title" content="Admin One HTML">
-<meta property="og:description"
-	content="Admin One - free Tailwind dashboard">
-<meta property="og:image"
-	content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1920">
-<meta property="og:image:height" content="960">
-
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Admin One HTML">
-<meta property="twitter:description"
-	content="Admin One - free Tailwind dashboard">
-<meta property="twitter:image:src"
-	content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-<meta property="twitter:image:width" content="1920">
-<meta property="twitter:image:height" content="960">
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async
-	src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag() {
-		dataLayer.push(arguments);
-	}
-	gtag('js', new Date());
-	gtag('config', 'UA-130795909-1');
-</script>
 
 <!--jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -89,7 +57,12 @@
 			// 取得按鈕上所標記的 course 的 id
 			const courseId = $(deleteBtn).data("id");
 			$("#deleteConfirmBtn").click(function () {
-				window.location.href=$("#contextRoot").val()+"/course/delete/"+courseId;	
+				$.ajax({
+					url: $("#contextRoot").val()+"/course/delete/"+courseId,
+					success: function () {
+						window.location.href = $("#contextRoot").val()+"/course/show/all";
+					}
+				});
 			});
 			
 		});
@@ -173,6 +146,7 @@
 		<ul>
 			<li>運動網</li>
 			<li>課程管理系統</li>
+			<li>課程列表</li>
 		</ul>
 		<a href="#" class="button blue"> <span class="icon"><i
 				class="mdi mdi-credit-card-outline"></i></span> <span>施工中</span>
@@ -204,13 +178,14 @@
 		</header>
 		<header class="card-header">
 			<p class="card-header-title">
-				<label class="checkbox">
+				<label class="checkbox" style="margin-right:10px;">
 					<input id="deleteAll" type="checkbox"> 
-					<span class="check"></span>
+					<span class="check" style="margin-right:10px;"></span>
 					全選
 				</label>
 				<button type="button" class="button small red --jb-modal-deleteAll" 
-					data-target="deleteAllConfirm-modal">
+					data-target="deleteAllConfirm-modal"
+					style="margin-right:10px;">
 					<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 				</button>
 			</p>
@@ -235,9 +210,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:set var="courses" value="${coursesForOnePage.content}" />
-					<c:set var="thisPageNumberZeroBased" value="${coursesForOnePage.number}" />
-					<c:set var="totalPages" value="${coursesForOnePage.totalPages}" />
+<%-- 					<c:set var="courses" value="${coursesForOnePage.content}" /> --%>
+<%-- 					<c:set var="thisPageNumberZeroBased" value="${coursesForOnePage.number}" /> --%>
+<%-- 					<c:set var="totalPages" value="${coursesForOnePage.totalPages}" /> --%>
 					<c:forEach items="${courses}" var="course">
 						<tr>
 							<td class="checkbox-cell">
@@ -248,9 +223,15 @@
 							</td>
 							<td class="image-cell">
 								<div class="image">
-									<img
-										src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg"
-										class="rounded-full">
+									<c:if test="${course.pictureBase64==null}">
+										<img class="rounded-full"
+											src="">
+									</c:if>
+									<c:if test="${course.pictureBase64!=null}">
+										<img class="rounded-full"
+											src="data:image/jpeg;base64, ${course.pictureBase64}">
+									</c:if>
+
 								</div>
 							</td>
 							<td data-label="courseName">${course.courseName}</td>

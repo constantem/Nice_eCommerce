@@ -584,7 +584,7 @@
   <!-- 自訂 JS -->
   <script>
 	
-var pageSize = 5;
+var pageSize = 3;
 var totalElements;
 
 	$(document).ready(function() {

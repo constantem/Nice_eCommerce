@@ -118,12 +118,13 @@
 
 	<!-- Start category Area -->
 	<div class="t1">
-	<form action="${contextRoot}/member/showOneResult" method="post">
+	<form action="${contextRoot}/member/editRegister" method="post">
 	
 	<div class="col-md-6 form-group p_star">
 		<label>帳號:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="username" value="${member.username}">
+			<input type="text" class="form-control" name="username" value="${member.username}" disabled>
+			<input type="text" hidden name="id" value="${member.memberid}" >
 		</div>
 	 <p class="help">
 		           
@@ -134,7 +135,7 @@
 	<div class="col-md-6 form-group p_star">
 		<label class="label">姓:</label>
 		<div class="t2">
-			<input type="text" class="form-control" name="lastname" value="${member.lastname}">
+			<input id="lastname" type="text" class="form-control" name="lastname" value="${member.lastname}" disabled>
 		</div>
 	 <p class="help">
 		           
@@ -145,7 +146,7 @@
 	<div class="col-md-6 form-group p_star">
 		<label class="label">名:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="firstname" value="${member.firstname}">
+			<input id="firstname" type="text" class="form-control" name="firstname" value="${member.firstname}" disabled>
 	 	</div>
 	 <p class="help">
 		           
@@ -156,7 +157,7 @@
     <div class="col-md-6 form-group p_star">
 		<label class="label">生日:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="birthdate" value="${member.birthdate}">
+			<input id="birthdate" type="text" class="form-control" name="birthdate" value="${member.birthdate}" disabled>
 		</div>	
 	 <p class="help">
 		           
@@ -167,7 +168,7 @@
     <div class="col-md-6 form-group p_star">
 		<label class="label">性別:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="gender" value="${member.gender}">
+			<input type="text" class="form-control" name="gender" value="${member.gender}" disabled>
 	 	</div>
 	 <p class="help">
 		           
@@ -178,7 +179,7 @@
     <div class="col-md-6 form-group p_star">
 		<label class="label">電話:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="phone" value="${member.phone}">
+			<input id="phone" type="text" class="form-control" name="phone" value="${member.phone}" disabled>
 		</div>
 	 <p class="help">
 		           
@@ -188,8 +189,8 @@
     <!-- 欄位6 -->
     <div class="col-md-6 form-group p_star">
 		<label class="label">email:</label>
-		<div class="control">
-			<input type="text" class="form-control" name="email" value="${member.email}">
+		<div class="control"> 
+			<input id="email" type="text" class="form-control" name="email" value="${member.email}" disabled>
 	 	</div>
 	 <p class="help">
 		           
@@ -200,14 +201,25 @@
     <div class="col-md-6 form-group p_star">
 		<label class="label">住址:</label>
 		<div class="control">
-			<input type="text" class="form-control" name="address" value="${member.address}">
+			<input id="address" type="text" class="form-control" name="address" value="${member.address}" disabled>
 	 	</div>
 	 <p class="help">
 		           
      </p>
     </div>
-	
+	<div class="col-md-12 form-group">
+		<button id="submit" type="submit" value="submit" class="primary-btn">送出</button>
+	</div>
 	</form>
+	
+		<div class="col-md-12 form-group">
+			<button id="fix" type="button" value="submit" class="primary-btn">修改</button>
+		</div>
+	
+	<form action="${contextRoot}/member/editRegister?id=${member.memberid}" method="get">
+		
+	</form>
+
 	</div>
 
 	<!-- 插入頁腳 -->
@@ -228,6 +240,21 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	
+	
+	<script>
+		$("#fix").click(function(){
+			$("#address").removeAttr("disabled","disabled")
+			$("#firstname").removeAttr("disabled","disabled")
+			$("#lastname").removeAttr("disabled","disabled")
+			$("#phone").removeAttr("disabled","disabled")
+			$("#email").removeAttr("disabled","disabled")
+			$("#birthdate").removeAttr("disabled","disabled")
+		})
+	
+	
+	
+	</script>
 </body>
 
 </html>

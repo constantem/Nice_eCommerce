@@ -4,12 +4,19 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +46,12 @@ public class MemberController {
 	@Autowired
 	private MemberJavaMail membermail;
 
-  @Autowired
+    @Autowired
 	private CartService cartService;
+  
+  	@Autowired
+  	@Qualifier("userAuthenticationManagerBean")
+  	private AuthenticationManager authManager;
 
 	@GetMapping("/member")
 	public String welcomIndex() {
@@ -147,14 +158,58 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 前台個人資料
+	// 前台個人資料(單純查詢show出個人資料)
 	@RequestMapping("/user/myProfileByMemberId")
 	public String showPersonalInformation(
-			@RequestParam("id") Integer memberid,
-			Model model) {
+			Model model,
+			@RequestParam("id") Integer memberid
+			) {
 		Member member = memberService.findById(memberid);
 		model.addAttribute("member", member);
 		return "member/personalInformation";
+	}
+	
+	// 前台修改(show出可修改的欄位)
+	@PostMapping("/member/editRegister")
+	public ModelAndView editRegister(
+			ModelAndView mav,
+			@RequestParam("lastname") String lastname,
+			@RequestParam("firstname") String firstname,
+			@RequestParam("phone") String phone,
+			@RequestParam("birthdate") String birthdate,
+			@RequestParam("email") String email,
+			@RequestParam("address") String address,
+			@RequestParam(name = "id") Integer id) {
+
+		Member member = memberService.findById(id);
+		member.setLastname(lastname);
+		member.setFirstname(firstname);
+		member.setEmail(email);
+		member.setAddress(address);
+		member.setBirthdate(birthdate);
+		member.setPhone(phone);
+		
+		memberService.save(member);
+		
+		mav.setViewName("redirect:/user/myProfileByMemberId?id=" + Integer.valueOf(id));
+		
+		return mav;
+	}
+	
+	// 前台修改(修改成功)
+	@PostMapping("/member/editRegisterSuccess")
+	public ModelAndView editRegisterPage(ModelAndView mav, @ModelAttribute(name = "Member") Member member,
+			BindingResult br) {
+
+		mav.setViewName("member/editRegister");
+
+		if (!br.hasErrors()) {
+//					https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.entity-persistence.saving-entites
+			memberService.save(member);
+			mav.setViewName("redirect:/member/editRegister");
+		}
+
+		return mav;
 	}
 	
 	// 前台註冊(新增)
@@ -164,6 +219,7 @@ public class MemberController {
 		return "member/register";
 	}
 
+	// 註冊成功(新增)
 	@RequestMapping("/member/registerAdd")
 	public ModelAndView register(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
 
@@ -178,6 +234,31 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 註冊成功按下返回，回到商城主頁(登入狀態)
+	@PostMapping("/member/registerSuccess")
+	public String registerSuccess(
+//			Model model, 
+//			@RequestParam("memberId") Integer memberId,
+//			@RequestParam("password") String newPassword,
+//			HttpServletRequest request
+			) {
+		
+//		// 更新密碼
+//		Member member = memberService.changePassword(memberId, newPassword);
+//		String username = member.getUsername();
+//		// 打包帳號密碼
+//		UsernamePasswordAuthenticationToken token 
+//			= new UsernamePasswordAuthenticationToken(username,newPassword);
+//		// 去資料庫驗證此帳密是否存在, 若存在, 回傳憑證
+//		Authentication auth = authManager.authenticate(token);
+//		// 帳號存 session
+//		SecurityContext context = SecurityContextHolder.getContext();
+//		context.setAuthentication(auth);
+//		HttpSession session = request.getSession(true);
+//		session.setAttribute("SPRING_SECURITY_CONTEXT", context);
+		return "index";
+	}
+	
 	// 忘記密碼 ---------⓵按了忘記密碼跳轉至輸入email的頁面
 	@GetMapping("/member/forget")
 	public String forget(){
@@ -187,43 +268,71 @@ public class MemberController {
 	// 忘記密碼 ---------⓶輸入email後按下確認就寄送信件至email(彈跳視窗:寄送成功)
 	@GetMapping("/member/sendMail") 
 	@ResponseBody
-	public String mail(@RequestParam("customerEmail") String customerEmail){
-		membermail.sendMail(customerEmail);
+	public String mail(
+			@RequestParam("customerEmail") String customerEmail, 
+			@RequestParam("memberId") Integer memberId, 
+			HttpSession session){
+		
+		membermail.sendMail(customerEmail, memberId);
 		return "寄送成功";
+	}
+	
+	// 暫時沒用到↓↓↓↓
+	@GetMapping("/member/findByEmail")
+	@ResponseBody
+	public Integer findByEmail(@RequestParam("customerEmail") String customerEmail) {
+		Member member = memberService.findByEmail(customerEmail);
+		if(member == null) {
+			return null;
+		} else {
+			return member.getMemberid();
+		}
 	}
 	
 	// 忘記密碼 ---------⓷畫面跳轉至登入頁面(在member/memberCheckEmail.jsp裡)
 	
 	
+	// 暫時沒用到↓↓↓↓
+	@PostMapping("/member/memberCheck")
+	public String checkPassword(Model model, String email, @RequestParam(name="password") String password, HttpSession session){
+		Member email1 = (Member) session.getAttribute("customerEmail");
+		
+		System.out.println(email1);
+		email1.setPassword(password);
+		memberService.save(email1);
+//		Member member = memberService.findByEmail(email);
+		return "member/memberCheckEmail";
+	}
+	
 	// 忘記密碼 ---------⓸email點開連結跳至輸入新密碼頁面
-	@GetMapping("/member/memberCheck")
-	public String checkPassword(){
-		return "login/memberForget";
+	@GetMapping("/member/changePasswordForm")
+	public String changePasswordForm(Model model, @RequestParam("memberId") Integer memberId) {
+		model.addAttribute("memberId", memberId);
+		return "login/changePasswordForm";
 	}
 	
-	//前台會員修改資料(修改密碼)
-	@GetMapping("/member/editPassword")
-	public String editPassword(Model model, String email) {
-
-		Member member = memberService.findByEmail(email);
-		model.addAttribute("member", member);
-
-		return "member/editPassword";
-	}
-	
-	@PostMapping("/member/editPasswordCheck")
-	public ModelAndView editPasswordPage(ModelAndView mav, @ModelAttribute(name = "Member") Member member,
-			BindingResult br) {
-
-		mav.setViewName("member/test");
-
-		if (!br.hasErrors()) {
-//			https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.entity-persistence.saving-entites
-			memberService.save(member);
-			mav.setViewName("redirect:/member/editPassword");
-		}
-
-		return mav;
+	// 取得新密碼後↓↓↓↓
+	@PostMapping("/member/changePassword")
+	public String changePassword(
+			Model model, 
+			@RequestParam("memberId") Integer memberId,
+			@RequestParam("password") String newPassword,
+			HttpServletRequest request) {
+		
+		// 更新密碼
+		Member member = memberService.changePassword(memberId, newPassword);
+		String username = member.getUsername();
+		// 打包帳號密碼
+		UsernamePasswordAuthenticationToken token 
+			= new UsernamePasswordAuthenticationToken(username,newPassword);
+		// 去資料庫驗證此帳密是否存在, 若存在, 回傳憑證
+		Authentication auth = authManager.authenticate(token);
+		// 帳號存 session
+		SecurityContext context = SecurityContextHolder.getContext();
+		context.setAuthentication(auth);
+		HttpSession session = request.getSession(true);
+		session.setAttribute("SPRING_SECURITY_CONTEXT", context);
+		return "index";
 	}
 	
 //	//方法1

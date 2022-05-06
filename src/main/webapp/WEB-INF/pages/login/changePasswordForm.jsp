@@ -3,6 +3,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
 <!-- Mobile Specific Meta -->
@@ -32,6 +34,17 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 	
+	<style type="text/css">
+	.t1{
+	-ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        display: flex;
+    	justify-content: center; 
+    	align-items: center;
+    	margin: auto;
+	}
+	</style>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -123,10 +136,38 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-	安安安安安安安
+	
+	<div class="t1">
+		<div class="login_form_inner">
+			<h3>設定新密碼</h3>
+			<form class="row contact_form" action="${contextRoot}/member/changePassword" method="post">
+							
+<!-- 	<div class="col-md-12 form-group"> -->
+<!--          <label class="label">帳號</label> -->
+
+         <div class="control">
+		<input type="hidden" name="memberId" id="memberId" value="${memberId}">
+         </div>
+         <p class="help"></p>
+         
+<!--     </div> -->
+
+		<div class="col-md-12 form-group">
+			
+			<input type="password" class="form-control" id="password" name="password" value="" placeholder="新密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = '新密碼'">
+		</div>
+		<div class="col-md-12 form-group">
+			<button type="submit" value="submit" class="primary-btn">確認</button>
+		<div class="creat_account"></div>
+		</div>
+		</form>
+	</div>
+</div>
+	
+	<!--================End Login Box Area =================-->
+	
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
-
 
 	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -142,5 +183,16 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+	
+<!-- 	<script> -->
+<!--  		function io(){ -->
+<!--  		Swal.fire('修改成功').then( function(result){ -->
+<!--  	    	if(result.isConfirmed) { -->
+<%--  	    		window.location.href='${contextRoot}'; --%>
+<!-- 	    	} -->
+			
+<!--  	} -->
+	
+<!-- 	</script> -->
 </body>
 </html>

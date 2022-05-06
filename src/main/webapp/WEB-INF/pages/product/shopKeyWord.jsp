@@ -49,6 +49,7 @@
 	href="${contextRoot}/resources/frontstage/css/main.css" />
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">	
 </head>
 
 
@@ -70,6 +71,19 @@
 	display: flex;
 }
 
+.pdimg:hover{
+	/* width: 100%;
+	height: 100%; */
+	transition: 0.5s;
+	filter: drop-shadow(4px 4px 4px #7B7B7B);
+	border-radius: 5px;
+
+}
+.pdimg{
+width:240px;
+height:250px;
+border-radius: 5px;
+}
 #img1 {
 	width: 800px;
 }
@@ -103,6 +117,16 @@ button {
 }
 
 #btnColor {
+	background-color: orange;
+	width: 37px;
+	height: 30px;
+	color: white;
+	margin-left: 8px;
+	border-radius: 5px;
+	margin-left: 185px;
+	border: none;
+}
+#btnKeyword{
 	background-color: orange;
 	width: 37px;
 	height: 30px;
@@ -339,6 +363,18 @@ button {
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#beauttyProduct" aria-expanded="false"
 							aria-controls="beauttyProduct"><span
+								class="lnr lnr-arrow-right"></span>上衣<span class="number"></span></a>
+							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
+								aria-expanded="false" aria-controls="beauttyProduct">
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=排汗衫">排汗衫<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=緊身衣">緊身衣<span
+										class="number"></span></a></li>
+							</ul></li>
+
+						<li class="main-nav-list"><a data-toggle="collapse"
+							href="#beauttyProduct" aria-expanded="false"
+							aria-controls="beauttyProduct"><span
 								class="lnr lnr-arrow-right"></span>鞋類<span class="number"></span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
@@ -381,7 +417,7 @@ button {
 					<div class="common-filter">
 						<div class="head">品牌</div>
 
-						<form action="FrontpageSearchByKeyword">
+						<form id="keyWordForm" action="FrontpageSearchByKeyword">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="apple" name="brand" value="Nike"><label
@@ -401,7 +437,7 @@ button {
 									for="micromax"><span></span></label></li>
 							</ul>
 
-							<button id="btnColor" type="submit" value="搜尋">
+							<button id="btnKeyword" type="button" value="搜尋">
 								<i class="bi bi-search"></i>
 							</button>
 						</form>
@@ -411,7 +447,7 @@ button {
 					<div class="common-filter">
 						<div class="head">顏色</div>
 
-						<form action="FrontpageSeperateSortByColor?color=${color}">
+						<form  id="colorForm" action="FrontpageSeperateSortByColor?color=${color}">
 							<ul>
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="black" name="color" value="黑"><label
@@ -427,7 +463,7 @@ button {
 									for="gold">綠<span>(19)</span></label></li>
 							</ul>
 
-							<button id="btnColor" type="submit" value="搜尋">
+							<button id="btnColor" type="button" value="搜尋">
 								<i class="bi bi-search"></i>
 							</button>
 						</form>
@@ -436,7 +472,7 @@ button {
 
 					</div>
 					<!--=============================依照價格搜尋=================================== -->
-					<form
+					<form id="priceForm"
 						action="/Nice_eCommerce/FrontpageSeperateSortByPriceBetween?startPrice=${startPrice}&endPrice=${endPrice}">
 						<div class="common-filter">
 							<div class="head">價格範圍</div>
@@ -451,7 +487,7 @@ button {
 									<span><i class="bi bi-currency-dollar"></i></span><input
 										name="endPrice" class="inputPrice" type="text">
 
-									<button id="btnPrice" type="submit" value="搜尋">
+									<button id="btnPrice" type="button" value="搜尋">
 										<i class="bi bi-search"></i>
 									</button>
 
@@ -472,12 +508,12 @@ button {
 <!-- 							<option value="1">按價格排序</option> -->
 <!-- 							<option value="2">按上架時間排序</option> -->
 <!-- 						</select> -->
-							<form method="get" action="${contextRoot}/FrontpageSeperate">
-								<button id="btnSort1" type="submit" value="">按價格排序</button>
-							</form>
-							<form method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
-								<button  id="btnSort2" type="submit" value="">按上架時間排序</button>
-							</form>
+						<form id="sortByPrice" method="get" action="${contextRoot}/FrontpageSeperate">
+							<button id="btnSort1" type="button" value="">按價格排序</button>
+						</form>
+						<form id="sortByDate" method="get" action="${contextRoot}/FrontpageSeperateSortByCreatedAt">
+							<button  id="btnSort2" type="button" value="">按上架時間排序</button>
+						</form>
 					</div>
 					
 					<!-- <div class="sorting mr-auto">
@@ -486,7 +522,7 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<div class="pagination">
+					<!-- <div class="pagination">
 						<a href="#" class="prev-arrow"><i
 							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
 							class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
@@ -494,7 +530,7 @@ button {
 							aria-hidden="true"></i></a> <a href="#">6</a> <a href="#"
 							class="next-arrow"><i class="fa fa-long-arrow-right"
 							aria-hidden="true"></i></a>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 
@@ -508,8 +544,10 @@ button {
 							<!-- single product -->
 													<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<a href="${contextRoot}/getOneProductShop${prod.id}"><img id="pdimg" alt="picture"
-										src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" /></a>
+									<a href="${contextRoot}/getOneProductShop${prod.id}">
+										<img class="pdimg" alt="picture" src="${contextRoot}/ProductTempImg/${prod.imgUrl}"  onmouseover="this.src=' ${contextRoot}/ProductTempImg/${prod.imgUrl_A} ';"
+										  onmouseout="this.src=' ${contextRoot}/ProductTempImg/${prod.imgUrl} ';" width="112" />
+									</a>
 									<!-- 										ProductTempImg -->
 									<div id="product-details" class="product-details">
 										<a href="${contextRoot}/getOneProductShop${prod.id}"><h5 class="pdName">${prod.productName}</h5></a>
@@ -529,7 +567,7 @@ button {
 													</a>
 												</c:when>
 												<c:otherwise>
-													<a href="${contextRoot}/user/addMyCartFromShop?productId=${prod.id}" class="social-info"> 
+													<a href="${contextRoot}/user/addMyCartFromShop?productId=${prod.id}" class="social-info addCart"> 
 														<span  class="bi bi-cart4"></span>
 														<p class="hover-text">加入購物車</p>
 													</a>
@@ -868,6 +906,144 @@ button {
 
 	</script>
 
+	<!-- 轉場效果 -->
+	<script>
+
+		$(".addWishList").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+		})
+
+		$(".addCart").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+		})
+
+		$("#btnPrice").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+
+			setTimeout("submitPriceForm()",1000)
+		})
+
+		function submitPriceForm(){
+			$("#priceForm").submit();
+		}
+
+		$("#btnColor").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+			setTimeout("submitColorForm()",1000)
+
+		})
+
+		function submitColorForm(){
+			$("#colorForm").submit();
+		}
+
+		$("#btnKeyword").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+			setTimeout("submitKeyWordForm()",1000)
+
+		})
+
+		function submitKeyWordForm(){
+			$("#keyWordForm").submit();
+		}
+
+		$("#btnSort1").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+			setTimeout("sortByPrice()",1000)
+
+		})
+
+		function sortByPrice(){
+			$("#sortByPrice").submit();
+		}
+
+		$("#btnSort2").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				width:200,
+				height:200,
+				timer:1800,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 120,
+				imageHeight: 120,
+				showConfirmButton:false,		
+			})
+			setTimeout("sortByDate()",1000)
+
+		})
+
+		function sortByDate(){
+			$("#sortByDate").submit();
+		}
+
+
+
+
+
+
+	</script>
+
 
 
 
@@ -899,6 +1075,7 @@ button {
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
 </body>
 

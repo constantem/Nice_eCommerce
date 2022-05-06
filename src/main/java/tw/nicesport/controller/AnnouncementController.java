@@ -31,11 +31,11 @@ public class AnnouncementController {
 		return "announcement/index";
 	}
 	
-	@GetMapping("/announcement/form")
-	public ModelAndView announcementForm() {
+	@GetMapping("/announcement/addAnnouncement")
+	public ModelAndView announcementAddAnnouncement() {
 		ModelAndView mav = new ModelAndView();
 		mav.getModel().put("announcement", new AnnouncementBean());
-		mav.setViewName("announcement/form");
+		mav.setViewName("announcement/addAnnouncement");
 		return mav;
 	}
 	
@@ -75,9 +75,9 @@ public class AnnouncementController {
 	@GetMapping("/announcement/viewAnnouncement")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<AnnouncementBean> page = announcementService.findByPage(pageNumber);
-		List<AnnouncementBean> announcements = page.getContent();
+//		List<AnnouncementBean> announcements = page.getContent();
 		mav.getModel().put("page", page);
-		mav.getModel().put("announcements", announcements);
+//		mav.getModel().put("announcements", announcements);
 		mav.setViewName("/announcement/viewAnnouncement");
 		
 		return mav;

@@ -286,6 +286,7 @@ public class CartController {
 
 		return cartProductBean;
 	}
+
 	//使用優惠卷
 	@RequestMapping("/UseDiscount")
 	public Integer Discount (
@@ -299,6 +300,30 @@ public class CartController {
 		
 		
 		return null;
+
+//	@RequestMapping("/updateQuantity")
+//	public ModelAndView updateQuantity(
+//			@RequestParam("productid") Integer productid,
+//			@RequestParam("memberid") Integer memberid, 
+//			@RequestParam("quantity") Integer quantity) {
+//		Member member = memberService.findById(memberid);
+//		CartBean cart = member.getCart();
+//		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+//			return null;
+//		productService.deleteById(product);
+//		return CartProductBean;
+//	}
+	
+	//修改購物車商品數量並儲存
+	@RequestMapping("/updateQuantity")
+	public String updateCart(@RequestParam("memberId") Integer memberId,
+			@RequestParam("cartProductId")Integer id,
+			@RequestParam("quantity") Integer quantity) {
+		
+		CartProductBean cartProductBean = cartProductService.findById(id);
+		cartProductBean.setQuantity(quantity);
+		cartProductService.updateOne(cartProductBean);
+		return "redirect:/user/myCartByMemberId?memberid=" + Integer.valueOf(memberId);
 	}
 
 

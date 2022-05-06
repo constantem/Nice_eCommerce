@@ -48,6 +48,11 @@
 	content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
 <meta property="twitter:image:width" content="1920">
 <meta property="twitter:image:height" content="960">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
 <style>
 td, input {
 	width: 100px
@@ -99,7 +104,7 @@ td, input {
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">查詢全部資料</h1>
-				<button class="button light">Button</button>
+				<button id="buttonalert" type="button" class="button light">Button</button>
 			</div>
 		</section>
 
@@ -110,7 +115,7 @@ td, input {
 			<div class="row justify-content-center">
 				<div class="col-9">
 					<div class="card">
-						<div class="card-header"></div>
+						<div class="card-header">
 						<div class="card-body">
 							<form action="${contextRoot}/message/findByServiceInfoLike">
 								特定問題查詢:<input id="inputSearch" class="input" type="text"
@@ -148,10 +153,32 @@ td, input {
 										<td style="text-align: center">${customerBean.remark}
 										<td style="text-align: center">${customerBean.createdAt}
 										<td style="text-align: center">${customerBean.modifiedAt}
-										<td style="text-align: center"><a
-											href="${contextRoot}/message/editForm?id=${customerBean.id}">修改</a>
-										<td style="text-align: center"><a
-											href="${contextRoot}/message/delete?id=${customerBean.id}">刪除</a>
+<!-- 										<td style="text-align: center"><a -->
+<%-- 											href="${contextRoot}/message/editForm?id=${customerBean.id}">修改</a> --%>
+<!-- 										<td style="text-align: center"><a -->
+<%-- 											href="${contextRoot}/message/delete?id=${customerBean.id}" class="delete">刪除</a> --%>
+										<td class="actions-cell">
+										<div class="buttons right nowrap">
+										<!-- 修改 -->
+										<form method="get"
+											action="${contextRoot}/message/editForm${customerBean.id}">
+											<button data-target="sample-modal-2" type="submit">
+												<span class="icon"><i class="mdi mdi-eye"></i></span>
+											</button>
+										</form>
+									</div>
+								</td>
+								<td style="text-align: center">
+								<!-- onclick="return confirm('確認刪除')" -->
+								<!-- 刪除 -->
+										<form id="deleteForm" method="get"
+											action="${contextRoot}/message/delete${customerBean.id}">
+											<button class="delete"
+												data-target="sample-modal" type="button">
+												<span class="icon"><i class="mdi mdi-trash-can"></i></span>
+											</button>
+										</form>
+								</td>
 									</tr>
 								</c:forEach>
 
@@ -160,6 +187,7 @@ td, input {
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 
@@ -232,6 +260,8 @@ td, input {
 	<script type="text/javascript"
 		src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
+
+
 	<script>
 		!function(f, b, e, v, n, t, s) {
 			if (f.fbq)
@@ -256,10 +286,44 @@ td, input {
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
+
+	<script type="text/javascript">
+	
+		$(".delete").click(function(){
+			Swal.fire({
+				  title: '確定要刪除嗎?',
+				  text: "刪除後無法再回復!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '是的, 我要刪除!'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    Swal.fire(
+				      '已刪除!',
+				      '資料已刪除',
+				      '刪除成功'
+				    )
+				setTimeout(deleteForm,1000)
+				  }
+				})
+				
+		})
+		
+		function deleteForm(){
+			
+			
+			$("#deleteForm").submit();
+		}
+		
+	</script>
+	
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
 	</noscript>
+
 
 	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 	<link rel="stylesheet"

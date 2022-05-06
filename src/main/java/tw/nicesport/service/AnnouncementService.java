@@ -50,7 +50,7 @@ public class AnnouncementService {
 	
 	//頁面
 	public Page<AnnouncementBean> findByPage(Integer pageNumber){
-		Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.ASC, "announcement_id");
+		Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.ASC, "id");
 		
 		Page<AnnouncementBean> page = announcementDao.findAll(pgb);
 		
@@ -64,8 +64,8 @@ public class AnnouncementService {
 //	
 		
 	//依ID刪除
-	public void deleteById(Integer announcement_id) {
-		announcementDao.deleteById(announcement_id);
+	public void deleteById(Integer id) {
+		announcementDao.deleteById(id);
 	}
 	
 	// 分頁功能

@@ -47,8 +47,7 @@
 	href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css" />
-<link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 </head>
 <style>
 .cartImg{
@@ -71,6 +70,16 @@
 #checkOut{
 	border-radius:5px;
 }
+.productName{
+	color:#003060;
+
+}
+.productName:hover{
+	color: #FF8C00;
+	transition: 0.3s;
+
+}
+
 
 
 
@@ -143,10 +152,10 @@
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
+											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt=""></a>
 										</div>
 										<div class="media-body">
-											<p>${cartProduct.productBean.productName}</p>
+											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><p class="productName">${cartProduct.productBean.productName}</p></a>
 										
 										</div>
 									</div>
@@ -156,15 +165,25 @@
 								</td>
 								<td>
 									<div class="product_count">
-										<input type="text" name="qty" disabled id="sst"   maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
-                                            class="input-text qty">
-										<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
-                                            class="input-text qty">
 
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+										<!-- 修改商品數量 -->
+										<form id="updateQuantity" action="${contextRoot}/updateQuantity" method="get">
+											<input type="text" name="quantity" readonly  id="sst"  maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+												class="input-text qty">
+											<input type="text" name="quantity" hidden id="sst" maxlength="12" value="${cartProduct.quantity}" title="Quantity:"
+												class="input-text qty">
+											<input type="text" name="memberId" hidden value="${member.memberid}">	
+											<input type="text" hidden name="cartProductId" value="${cartProduct.cartProductId}">
+										</form>
+
+						
+                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                            class="increase items-count addQuantity" type="button"><i class="lnr lnr-chevron-up"></i></button>
+
+
+                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                            class="reduced items-count addQuantity" type="button"><i class="lnr lnr-chevron-down"></i></button>
+
 									</div>
 								</td>
 								<td>
@@ -384,7 +403,29 @@
 				}
 			})
 		}
+	</script>
 
+	<script>
+		$(".addQuantity").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				backdrop:false,
+				width:230,
+				height:230,
+				timer:1000,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 150,
+				imageHeight: 150,
+				showConfirmButton:false,		
+		})
+			setTimeout("submitAddQuantity()",1300)
+			// submitAddQuantity();
+		})
+
+		function submitAddQuantity(){
+			$("#updateQuantity").submit();
+		}
 	</script>
 
 

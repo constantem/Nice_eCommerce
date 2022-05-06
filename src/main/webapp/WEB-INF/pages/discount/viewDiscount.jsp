@@ -133,6 +133,8 @@
 									<th>比例/定額折扣</th>
 									<th>折扣百分比</th>
 									<th>折扣金額</th>
+									<th>發放優惠券數量</th>
+									<th>當前優惠券數量</th>
 									<th>活動開始日</th>
 									<th>活動結束日</th>
 									<th>建立日期</th>
@@ -159,6 +161,8 @@
 										<td data-label="discountCategory">${discount.discountCategory}</td>
 										<td data-label="discountPercent">${discount.discountPercent}</td>
 										<td data-label="discountAmount">${discount.discountAmount}</td>
+										<td data-label="initialQuantity">${discount.initialQuantity}</td>
+										<td data-label="currentQuantity">${discount.currentQuantity}</td>
 										<td data-label="startDate">${discount.startDate}</td>
 										<td data-label="endDate">${discount.endDate}</td>
 										<td data-label="Created">

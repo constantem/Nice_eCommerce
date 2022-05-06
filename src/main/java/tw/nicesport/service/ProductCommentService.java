@@ -24,4 +24,8 @@ public class ProductCommentService {
 	public List<ProductCommentBean> findTopByOrderByIdDesc(){
 		return pcrRes.findTop3ByOrderByIdDesc();
 	}
+	
+	public List<ProductCommentBean> findAllForLength(){
+		return pcrRes.findAll();
+	}
 }

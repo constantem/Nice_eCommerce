@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="tw.nicesport.model.ProductBean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -37,99 +38,78 @@
 <!--
             CSS
             ============================================= -->
-<c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
+				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css" />
+				<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
+  
+			</head>
+  
+			<style>
+				.cartImg {
+					width: 100px;
+					height: 90px;
+				}
+				#last{
+					margin-top:25px;				
+				}
+				#first{
+					margin-top:25px;	
+				}
+				#phone{
+					margin-top:25px;	
+				}
+				#email{
+					margin-top:25px;	
+				}
+				#address{
+					margin-top:25px;	
+				}
+				#submitCheckOut{
+					border-radius:5px;															
+				}
 
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/linearicons.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/owl.carousel.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/font-awesome.min.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/themify-icons.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/nice-select.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
-<link rel="stylesheet"
-	href="${contextRoot}/resources/frontstage/css/main.css" />
-<link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
-</head>
-<style>
-.cartImg {
-	width: 100px;
-	height: 90px;
-}
-
-#last {
-	margin-top: 25px;
-}
-
-#first {
-	margin-top: 25px;
-}
-
-#phone {
-	margin-top: 25px;
-}
-
-#email {
-	margin-top: 25px;
-}
-
-#address {
-	margin-top: 25px;
-}
-
-#submitCheckOut {
-	border-radius: 5px;
-}
-
-#ship {
-	margin-left: 15px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-#shipCheck711 {
-	margin-right: 5px;
-}
-
-#shipCheckCat {
-	margin-right: 5px;
-	margin-left: 10px;
-}
-
-#shipCheckPost {
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.middle1 {
-	display: inline;
-}
-
-.middle2 {
-	display: inline;
-	position: absolute;
-	right: 150px;
-}
-
-.middle3 {
-	display: inline;
-	position: absolute;
-	right: 45px;
-}
-
-.truck {
-	font-size: 140%;
-	margin-right: 5px;
-	color: orange;
-}
-</style>
+				#ship{
+					margin-left: 15px;
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
+				#shipCheck711{
+					margin-right: 5px ;
+				}
+				#shipCheckCat{
+					margin-right: 5px ;
+					margin-left: 10px ;
+				}
+				#shipCheckPost{
+					margin-left: 5px ;
+					margin-right: 5px ;
+				}
+				.middle1{
+					display: inline;
+				}
+				.middle2{
+					display: inline;
+					position: absolute;
+					right: 150px;
+				}
+				.middle3{
+					display: inline;
+					position: absolute;
+					right: 45px;
+				}
+				.truck{
+					font-size: 140%;
+					margin-right: 5px;
+					color: orange;
+				}
+				
+			</style>
 
 <body>
 	<!-- Start Header Area -->
@@ -196,6 +176,36 @@
 									姓<span class="placeholder" data-placeholder="必填"></span> <input
 										type="text" class="form-control" value="${member.lastname}"
 										id="last" name="lastname">
+
+				<!-- 上方導覽列 -->
+				<%-- <%@include file="FrontPageNavBar.jsp" %> --%>
+					<!-- Start Header Area -->
+					<header class="header_area sticky-header">
+						<div class="main_menu">
+							<!-- 插入上導覽列 -->
+							<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
+						</div>
+						<div class="search_input" id="search_input_box">
+							<div class="container">
+								<form class="d-flex justify-content-between">
+									<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+									<button type="submit" class="btn"></button>
+									<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+								</form>
+							</div>
+						</div>
+					</header>
+					<!-- End Header Area -->
+					<!-- Start Banner Area -->
+					<section class="banner-area organic-breadcrumb">
+						<div class="container">
+							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+								<div class="col-first">
+									<h1>結帳</h1>
+									<nav class="d-flex align-items-center">
+										<a href="${contextRoot}/user/myCart">購物車<span class="lnr lnr-arrow-right"></span></a>
+										<a href="single-product.html">完成訂單</a>
+									</nav>
 
 								</div>
 								<div class="col-md-6 form-group p_star">
@@ -325,9 +335,134 @@
 									</div>
 								</div>
 
-
 								<!-- 							右方訂單瀏覽區 -->
 								<!-- <section class="checkout_area section_gap">
+=======
+					<!--================右邊框框 =================-->
+					<section class="checkout_area section_gap">
+						<div class="container">
+							<div class="returning_customer">							
+									<div class="billing_details">
+										<div class="row">
+											<div class="col-lg-8">
+												<h3>通訊地址</h3>
+											
+												<form id="orderForm" class="row contact_form"
+													action="${contextRoot}/insertOrder" method="post"
+													novalidate="novalidate">
+
+													<input type="hidden" value="${member.memberid}" name="memberid">
+													
+
+													<div class="col-md-6 form-group p_star">姓<span class="placeholder"
+															data-placeholder="必填"></span>
+														<input type="text" class="form-control"
+															value="${member.lastname}" id="last" name="lastname">
+
+													</div>
+													<div class="col-md-6 form-group p_star">名
+														<input type="text" class="form-control"
+															value="${member.firstname}" id="first" name="firstname">
+														<span class="placeholder" data-placeholder="必填"></span>
+													</div>
+
+													<div class="col-md-6 form-group p_star">連絡電話
+														<input type="text" class="form-control" id="phone"
+															value="${member.phone}" name="phone">
+														<span class="placeholder" data-placeholder="必填"></span>
+													</div>
+													<div class="col-md-6 form-group p_star">電子郵件
+														<input type="text" class="form-control" id="email"
+															value="${member.email}" name="email"> <span
+															class="placeholder" data-placeholder="必填"></span>
+													</div>
+													<div class="col-md-12 form-group p_star">郵遞區號
+														<input type="text" class="form-control" id="shipPostalCode"
+															name="shipPostalCode" value="">
+													</div>
+													<div class="col-md-12 form-group p_star">配送地址
+														<input type="text" class="form-control" id="address"
+															name="address" value="${member.address}">
+														<span class="placeholder" data-placeholder="必填"></span>
+													</div>
+
+												
+													
+													<div id="ship">
+														<i  class="bi bi-truck truck"></i>
+														<input id="shipCheck711" type="checkbox" value="60" name="">711交貨便
+														<input id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+														<input id="shipCheckPost" type="checkbox" value="180" name="">郵局
+														<input id="shippingFee" hidden  type="text" value="" name="shippingFee">
+													</div>
+													
+
+												
+													
+											</form>
+												<div class="cupon_area">
+													<div class="check_title">
+														<h2>
+															有優惠卷?? <a href="#">點這裡新增優惠</a>
+														</h2>
+													</div>
+													<input  type="text" placeholder="輸入優惠碼"> <a id="submitCheckOut" class="primary-btn" href="#">送出!</a>
+												</div>
+											</div>
+											<div class="col-lg-4">
+												<div class="order_box">
+													<h2>您的訂單</h2>
+													<ul class="list">
+														<!-- 取資料開始 -->
+														<li><a href="#">產品 <span>Total</span></a></li>
+														<c:set value="0" var="totalPrice" />
+														<c:set value="0" var="sum" />
+														<c:forEach var="cartProductList" items="${cartProductList}">
+															<li>
+																<span class="middle1">${cartProductList.productBean.productName} </span>
+																<span class="middle2">x&nbsp;${cartProductList.quantity}</span>
+																<span class="middle3">NT$&nbsp;${cartProductList.productBean.price}</span>
+															</li>
+														<c:set value="${cartProductList.quantity*cartProductList.productBean.price}"
+															var="totalPrice" />
+														<c:set value="${sum + totalPrice}" var="sum" />	
+														</c:forEach>
+													</ul>
+													<ul class="list list_2">
+														<li><a  href="#">小計 <span>NT$&nbsp;<span id="sum">${sum}</span></span></a></li>
+														<li><a id="" href="#">運費 <span class="shipFee" value=""></span></a></li>
+														<li><a href="#">總價 <span>NT$&nbsp;<span id="totalPrice"></span></span></a></li>
+													</ul>
+													<!-- <div class="payment_item">
+														<div class="radion_btn">
+															<input type="radio" id="f-option5" name="selector"> <label
+																for="f-option5">到店付款</label>
+															<div class="check"></div>
+														</div>
+														<p>到店付款 沒想好怎麼做</p>
+													</div> -->
+													<div class="payment_item active">
+														<div class="radion_btn">
+															<input type="radio" id="f-option6" name="selector"> <label
+																for="f-option6">某個金流PayPal或綠界 </label> <img
+																src="img/product/card.jpg" alt="">
+															<div class="check"></div>
+														</div>
+														<p>Pay via PayPal; you can pay with your credit card if
+															you donât have a PayPal account.</p>
+													</div>
+													<div class="creat_account">
+														<!-- <input type="checkbox" id="f-option4" name="selector">
+														<label for="f-option4">我已閱讀並接受 </label> <a href="#">使用者協議</a> -->
+													</div>
+													<a class="primary-btn" id="submitOrder" href="#">前往支付(目前直接接訂單新增)</a>
+												</div>
+											</div>
+											
+
+	<!-- 							右方訂單瀏覽區 -->
+					<!-- <section class="checkout_area section_gap">
+
 						<div class="container">
 							<div class="returning_customer">
 								<div class="cupon_area">
@@ -471,7 +606,10 @@
 							}); // end of document ready
 					</script>
 
+
 	<script>
+					<script>
+
 
 						$("#shipCheck711").click(function(){
 							$(".shipFee").text("NT$ 60");
@@ -561,3 +699,27 @@
 </body>
 
 </html>
+					<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
+					<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+						integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+						crossorigin="anonymous"></script>
+					<script
+						src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+					<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+					<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+					<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			</body>
+			<>
+
+			</html>
+

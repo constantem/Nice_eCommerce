@@ -18,7 +18,8 @@
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<a class="navbar-brand logo_h" href="${contextRoot}/"><img
-						src="${contextRoot}/img/LOGO5.png" alt=""></a>
+						src="${contextRoot}/img/shorten.png" alt=""></a>
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="icon-bar"></span>
@@ -97,7 +98,7 @@
 						</li>
 						<li class="nav-item isAuthenticatedAsUser">
 							<a class="nav-link" 
-								href="${contextRoot}/user/myDiscounts">
+								href="${contextRoot}/user/myDiscount">
 								我的優惠券
 							</a>
 						</li>

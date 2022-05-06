@@ -98,11 +98,8 @@
 	<div id="app">
 
 
-		<!-- 上方導覽列 -->
-		<%@include file="TopBar.jsp"%>
-
-		<!-- 左側導覽列 -->
-		<%@include file="LeftBar.jsp"%>
+		<!-- 插入上導覽列與左導覽列 -->
+		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
 
 
@@ -263,18 +260,15 @@
 			console.log(a);
 
 			$(".quantity").each(function() {
-
 				console.log($(this).text());
-
 				var a = $(this).text();
 
 				if (a < 50) {
-					$(this).css("color", "#FF0000").text("低庫存量警示");
+					$(this).css("color", "#FF8000").text("低庫存量警示");
 				}
 				
 				if (a == 0) {
 					$(this).css("color", "#FF0000").text("無庫存");
-
 				} else {
 
 				}

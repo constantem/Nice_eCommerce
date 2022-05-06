@@ -78,4 +78,11 @@ public class MemberService {
 		}
 		return null;
 	} 
+	
+	public Member changePassword(Integer memberId, String newPassword) {
+		Member member = memberDao.findById(memberId).get();
+		member.setPassword(newPassword);
+		return member;
+	}
 }
+

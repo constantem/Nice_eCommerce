@@ -107,7 +107,8 @@
 		</div>
 	</section>
 <!-- End Header Area -->
-	  <form class="row contact_form" action="${contextRoot}/userLogin" method="get" novalidate="novalidate">
+
+	  <form class="row contact_form" action="${contextRoot}/member/registerSuccess" method="post" novalidate="novalidate">
 		<h3>註冊成功</h3>
 			<div class="col-md-12 form-group">
 				<button type="submit" value="submit" class="primary-btn">返回</button>

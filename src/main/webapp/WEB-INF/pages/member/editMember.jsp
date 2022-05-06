@@ -105,7 +105,7 @@
 		    </header>
 		    <div class="card-content">
 		    
-		      <form action="${contextRoot}/member/editMember" method="post">
+		      <form action="${contextRoot}/member/editMember?id=${member.memberid}" method="post">
 		      
 		      	<!-- 欄位1 -->
 		       <div class="field">

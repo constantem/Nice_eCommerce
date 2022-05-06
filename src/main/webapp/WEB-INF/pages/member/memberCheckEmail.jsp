@@ -33,6 +33,10 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous">
+	</script>
 	
 	<style type="text/css">
 	.t1{
@@ -46,22 +50,6 @@
 	}
 	</style>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function() {
-			$("#first").click(function() {
-				$.ajax({
-					url: $("#contextRoot").val() + "/userLoginAutoInputFirst",
-					success: function (member) {
-						$("#username").val(member.username);
-						$("#password").val(member.password);
-					}
-				});
-			});
-		});
-	</script>
 </head>
 <body>
 
@@ -140,8 +128,9 @@
 	<div class="t1">
 		<div class="login_form_inner">
 			<h3>請輸入註冊信箱</h3>
-			<form class="row contact_form"
-				action="${contextRoot}/userLogin" method="get" novalidate="novalidate">
+			<form id="checkEmailForm" 
+				class="row contact_form"
+				action="${contextRoot}/member/sendMail" method="get" novalidate="novalidate">
 <!-- 			<div class="col-md-12 form-group"> -->
 				
 <!-- 				<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'"> -->
@@ -152,7 +141,7 @@
 				<input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="註冊信箱" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
 			</div>
 			<div class="col-md-12 form-group">
-				<button type="button" value="確認" class="primary-btn" id="forget" onclick="sendMail()">確認</button>
+				<button type="button" value="確認" class="primary-btn" id="forget">確認</button>
 			<div class="creat_account"></div>
 			</div>
 			</form>
@@ -181,35 +170,71 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
 	<script>
+		console.log("JS");
+		// 送表單按鈕綁click事件處理函式
+		$("#forget").click(function () {
+			
+			// 驗證 email 是否存在
+			$.ajax({
+				url: "${contextRoot}/member/findByEmail",
+				data: { "customerEmail": $("#customerEmail").val() },
+				type: "GET",
+				success: function(memberId) {
+					if(memberId!="") { // 不是 null, 有 member id
+						Swal.fire({
+							  title: "確定發送驗證信？",
+							  showConfirmButton: true,
+							  confirmButtonText: '將發送驗證信至信箱',
+							  showCancelButton: true,
+							  cancelButtonText: '取消',
+						}).then((result) => {
+							
+							if (result.isConfirmed) { // 若選寄送, 則送出表單
+								// 送出表單
+								$.ajax({
+									url: "${contextRoot}/member/sendMail",
+									data: { 
+										"customerEmail": $("#customerEmail").val(),
+										"memberId": memberId
+									},
+									type: "GET",
+									success: function(message) {
+										Swal.fire({
+											title: '已發送!', 
+											confirmButtonText: 'OK',
+											icon: 'success',
+										}).then( function(result){
+											if(result.isConfirmed) {
+												window.location.href='${contextRoot}/userLogin';
+											}
+										});
+									}
+								});
+
+							  
+							}
+						}); // 有 member id 的情況的 sweat alert 結束
+
+					} else { // 是 null, 無此 member id
+						Swal.fire({
+							  title: "請輸入正確信箱",
+							  showConfirmButton: true,
+							  confirmButtonText: 'OK',
+						});
+					}
+
+				}
+			});
+
+		});
+		
 		function sendMail() {
 			$.ajax({
 				url: "${contextRoot}/member/sendMail",
 				data: { "customerEmail": $("#customerEmail").val() },
 				type: "GET",
 				success: function(message) {
-					console.log("準備彈窗");
-					Swal.fire({
-						  title: '寄送成功拉拉拉~',
-						  showDenyButton: true,
-						  confirmButtonText: '將發送驗證信至信箱',
-						}).then((result) => {
-						  /* Read more about isConfirmed, isDenied below */
-						  if (result.isConfirmed) {
-						    Swal.fire({
-						    	title: '已發送!', 
-						    	text: '', 
-						    	confirmButtonText: 'OK',
-						    	icon: 'success'
-						    }).then( function(result){
-						    	if(result.isConfirmed) {
-						    		window.location.href='${contextRoot}/userLogin';
-						    	}
-						    });
-						    
-						  } else if (result.isDenied) {
-						    Swal.fire('Changes are not saved', '', 'info')
-						  }
-						})
+
 				}
 			});
 		}

@@ -81,6 +81,12 @@ public class Course {
 	@Column(name="courseStatus")
 	private Boolean courseStatus;
 	
+	@Column(name="picture")
+	private byte[] picture;
+	
+	@Transient
+	private String pictureBase64;
+	
 	@Column(name="createdAt", insertable = false, updatable = false) // 靠資料庫的 DEFAULT GETDATE() 來塞值
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
@@ -210,8 +216,28 @@ public class Course {
 		this.courseStatus = courseStatus;
 	}
 
+	public Boolean getCourseStatus() {
+		return courseStatus;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+	
+	public String getPictureBase64() {
+		return pictureBase64;
+	}
+
+	public void setPictureBase64(String pictureBase64) {
+		this.pictureBase64 = pictureBase64;
 	}
 
 	public void setCreatedAt(LocalDateTime createdAt) {

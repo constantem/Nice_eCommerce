@@ -163,7 +163,7 @@
 														<img class="img-fluid" src="${contextRoot}/img/adidas.jpg"
 															alt="">
 														<div class="hover">
-															<div>
+															<div hidden>
 																開始時間：<span id="start_pad"></span><br>
 																結束時間：<span id="end_pad"></span><br>
 															</div>

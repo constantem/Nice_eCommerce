@@ -85,6 +85,13 @@ public class Discount implements Serializable{
 	@Column(name="endDate")
 	private String endDate;
 	
+	//折價券發放數量
+	@Column(name="initialQuantity")
+	private Integer initialQuantity;
+	
+	//折價券當前數量
+	@Column(name="currentQuantity")
+	private Integer currentQuantity;
 	
 //	private String createdAt;
 //	
@@ -194,6 +201,24 @@ public class Discount implements Serializable{
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	
+	
+	public Integer getInitialQuantity() {
+		return initialQuantity;
+	}
+
+	public void setInitialQuantity(Integer initialQuantity) {
+		this.initialQuantity = initialQuantity;
+	}
+
+	public Integer getCurrentQuantity() {
+		return currentQuantity;
+	}
+
+	public void setCurrentQuantity(Integer currentQuantity) {
+		this.currentQuantity = currentQuantity;
 	}
 
 	public Set<MemberDiscountDetailBean> getMemberDiscountDetailBeanSet() {

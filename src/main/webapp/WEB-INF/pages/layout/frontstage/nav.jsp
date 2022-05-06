@@ -97,7 +97,7 @@
 						</li>
 						<li class="nav-item isAuthenticatedAsUser">
 							<a class="nav-link" 
-								href="${contextRoot}/user/myDiscounts">
+								href="${contextRoot}/user/myDiscount">
 								我的優惠券
 							</a>
 						</li>

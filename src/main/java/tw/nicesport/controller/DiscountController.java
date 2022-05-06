@@ -139,7 +139,21 @@ public class DiscountController {
 		return mav;
 	}
 	
-	
+	@RequestMapping("/user/myDiscountByMemberId")
+	public ModelAndView showMyDiscount(
+			ModelAndView mav,
+			@RequestParam("memberId") Integer memberId) {
+		// 接 memberId, 回傳 Discount list
+		List<Discount> discounts = discountService.findAllByMemberId(memberId);
+		mav.getModel().put("discounts", discounts);
+		for(Discount discount : discounts) {
+			System.out.println(discount.getName());
+		}
+		
+		mav.setViewName("discount/myDiscount");
+		
+		return mav;
+	}
 	
 	
 	

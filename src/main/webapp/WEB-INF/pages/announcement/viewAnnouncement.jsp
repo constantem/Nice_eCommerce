@@ -73,7 +73,7 @@
 							<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 								<ul>
 									<li>後台</li>
-									<li>優惠券列表</li>
+									<li>活動列表</li>
 								</ul>
 								<a href="https://justboil.me/" onclick="alert('Coming soon'); return false"
 									target="_blank" class="button blue">
@@ -87,7 +87,7 @@
 						<section class="is-hero-bar">
 							<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 								<h1 id="showTitle" class="title">
-									優惠券列表
+									活動列表
 								</h1>
 								<button class="button light">Button</button>
 							</div>
@@ -100,7 +100,7 @@
 								<header class="card-header">
 									<p class="card-header-title">
 										<span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-										優惠券
+										活動一覽
 									</p>
 									<a href="#" class="card-header-icon">
 										<span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -109,13 +109,6 @@
 								<div class="card-content">
 						</section>
 						<table>
-
-
-
-
-
-
-
 							<!-- 列表表頭 -->
 							<thead>
 								<tr>
@@ -127,15 +120,10 @@
 									</th>
 									<th>編號</th>
 									<th>活動名稱</th>
-									<th>優惠內容</th>
-									<th>有無門檻</th>
-									<th>低銷金額</th>
-									<th>比例/定額折扣</th>
-									<th>折扣百分比</th>
-									<th>折扣金額</th>
-									<th>活動開始日</th>
-									<th>活動結束日</th>
+									<th>活動描述</th>
+									<th>對應的優惠券</th>
 									<th>建立日期</th>
+									<th>修改日期</th>
 									<th>修改/刪除</th>
 								</tr>
 							</thead>
@@ -143,7 +131,7 @@
 							<!-- 列表內文 -->
 							<tbody>
 
-								<c:forEach var="discount" items="${discounts}">
+								<c:forEach var="announcement" items="${page.content}">
 									<tr>
 										<td class="checkbox-cell">
 											<label class="checkbox">
@@ -151,29 +139,26 @@
 												<span class="check"></span>
 											</label>
 										</td>
-										<td data-label="id">${discount.id}</td>
-										<td data-label="name">${discount.name}</td>
-										<td data-label="description">${discount.description}</td>
-										<td data-label="conditionCategory">${discount.conditionCategory}</td>
-										<td data-label="conditionPrice">${discount.conditionPrice}</td>
-										<td data-label="discountCategory">${discount.discountCategory}</td>
-										<td data-label="discountPercent">${discount.discountPercent}</td>
-										<td data-label="discountAmount">${discount.discountAmount}</td>
-										<td data-label="startDate">${discount.startDate}</td>
-										<td data-label="endDate">${discount.endDate}</td>
-										<td data-label="Created">
+										<td data-label="id">${announcement.id}</td>
+										<td data-label="title">${announcement.title}</td>
+										<td data-label="description">${announcement.description}</td>
+										<td data-label="discount_id">${announcement.discount.name}</td>
+										<td data-label="createdAt">
+											<small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
+										</td>
+										<td data-label="modifiedAt">
 											<small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
 										</td>
 										<td class="actions-cell">
 											<div class="buttons right nowrap">
-												<a href="${contextRoot}/discount/showEditDiscount?id=${discount.id}">
+												<a href="${contextRoot}/announcement/showEditAnnouncement?id=${announcement.id}">
 													<button class="button small green --jb-modal"
 														data-target="sample-modal-2" type="button">
 														<span class="icon"><i class="mdi mdi-pencil"></i></span>
 													</button>
 												</a>
-												<a onclick="return confirm('確定要刪掉人家嗎>w<')"
-													href="${contextRoot}/discount/deleteDiscount?id=${discount.id}">
+												<a onclick="return confirm('確定刪除嗎')"
+													href="${contextRoot}/announcement/deleteAnnouncement?id=${announcement.id}">
 													<button class="button small red --jb-modal"
 														data-target="sample-modal" type="button">
 														<span class="icon"><i class="mdi mdi-trash-can"></i></span>
@@ -192,7 +177,7 @@
 										<c:choose>
 											<c:when test="${page.number != pageNumber-1}">
 												<div class="buttons">
-													<a href="${contextRoot}/discount/viewDiscount?p=${pageNumber}">
+													<a href="${contextRoot}/announcement/viewAnnouncement?p=${pageNumber}">
 														<button type="button"
 															class="button active">${pageNumber}</button></a>
 												</div>

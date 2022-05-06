@@ -121,6 +121,15 @@ public class UserLoginController {
 		return "forward:/user/myOrdersByMemberId?id="+member.getMemberid();
 	}
 	
+	// 前端我的優惠券: 中間站
+	@RequestMapping("/user/myDiscount")
+	public String showMyDiscount(Principal principal, Model model) throws Exception {
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/myDiscountByMemberId?memberId="+member.getMemberid();
+	}
+	
+
 	// 前端商品加入追蹤清單: 中間站
 	@RequestMapping("/user/addMyWishList")
 	public String addMyWishList(
@@ -174,14 +183,6 @@ public class UserLoginController {
 		String username = principal.getName();
 		Member member = loginService.findMemberByUsername(username);
 		return "forward:/user/myWishListByMemberId?id="+member.getMemberid();
-	}
-	
-	// 前端我的優惠券: 中間站
-	@RequestMapping("/user/myDiscounts")
-	public String showMyDiscounts(Principal principal, Model model) throws Exception {
-		String username = principal.getName();
-		Member member = loginService.findMemberByUsername(username);
-		return "forward:/user/myDiscountsByMemberId?id="+member.getMemberid();
 	}
 	
 	// 前端我的課程: 中間站

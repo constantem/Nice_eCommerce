@@ -31,7 +31,9 @@
           <div id="staffImgContainer" class="user-avatar">
             <img id="navStaffImg" src="https://avatars.dicebear.com/v2/initials/john-doe.svg" onerror="this.onerror=null; this.remove();" alt="John Doe" class="rounded-full">
           </div>
-          <div id="navStaffNameContainer" class="is-user-name"><span id="navStaffName">尚未登入</span></div>
+          <div id="navStaffNameContainer" class="is-user-name">
+          	<span id="navStaffName">尚未登入</span>
+          </div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
        
@@ -228,6 +230,11 @@
           <li <c:if test="${activeLi == 'courseList'}">class="active"</c:if> >
             <a href="${contextRoot}/course/show/all">
               <span>課程列表</span>
+            </a>
+          </li>
+          <li <c:if test="${activeLi == 'coachList'}">class="active"</c:if> >
+            <a href="${contextRoot}/coach/listPage">
+              <span>教練列表</span>
             </a>
           </li>
         </ul>

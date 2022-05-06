@@ -277,11 +277,11 @@
 												id="totalPrice"></span></span></a></li>
 								</ul>
 								<div class="payment_item">
-									<div class="radion_btn">
-										<input type="radio" id="f-option5" name="selector"> <label
-											for="f-option5">到店付款</label>
-										<div class="check"></div>
-									</div>
+<!-- 									<div class="radion_btn"> -->
+<!-- 										<input type="radio" id="f-option5" name="selector"> <label -->
+<!-- 											for="f-option5">到店付款</label> -->
+<!-- 										<div class="check"></div> -->
+<!-- 									</div> -->
 									<a class="primary-btn" id="submitOrder" href="#"<c:if test="${order.orderStatus==111}"> selected </c:if>>到店付款</a>
 								</div>
 								<div class="payment_item active">

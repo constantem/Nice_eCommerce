@@ -109,19 +109,19 @@
 						<c:set value="0" var="sum" />
 				<c:forEach var="orderDetails" items="${OrderDetailList}">
 						<tbody>
-							<tr>
+							<tr style="padding-top: 50px">
 								<td>
 								<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}"><img alt="picture"
-								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
-								width="112" /></a>>
+								src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}"
+								width="112" /></a>
 								</td>
-								<td>
+								<td style="padding-top: 60px">
 									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
 								</td>
 								<td>
-									<h5>x ${orderDetails.quantity}</h5>
+									<h5 style="padding-top: 50px">x ${orderDetails.quantity}</h5>
 								</td>
-								<td>
+								<td style="padding-top: 60px">
 									<p>$&nbsp${orderDetails.productBean.price}</p>
 								</td>
 							</tr>

@@ -286,18 +286,20 @@ public class CartController {
 
 		return cartProductBean;
 	}
-//	@RequestMapping("/updateQuantity")
-//	public ModelAndView updateQuantity(
-//			@RequestParam("productid") Integer productid,
-//			@RequestParam("memberid") Integer memberid, 
-//			@RequestParam("quantity") Integer quantity) {
-//		Member member = memberService.findById(memberid);
-//		CartBean cart = member.getCart();
-//		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
-//			return null;
-//		productService.deleteById(product);
-//		return CartProductBean;
-//	}
+	//使用優惠卷
+	@RequestMapping("/UseDiscount")
+	public Integer Discount (
+			@RequestParam("memberid") Integer memberid,
+			@RequestParam("total") Integer Subtotal,
+			@RequestParam("DiscountName") String discountName
+			) {
+		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
+		Member member = memberService.findById(memberid);
+		
+		
+		
+		return null;
+	}
 
 
 

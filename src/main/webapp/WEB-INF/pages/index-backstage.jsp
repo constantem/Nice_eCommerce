@@ -13,31 +13,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>後台首頁</title>
 
-  <!-- Tailwind is included -->
-  <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
+  <!-- 使用原生 Tailwind css -->
   <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+  
+  <!-- 網站頁籤 logo -->
   <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
-  <link rel="mask-icon" href="${contextRoot}/resources/backstage/safari-pinned-tab.svg" color="#00b4b6" />
-
-  <meta name="description" content="Admin One - free Tailwind dashboard">
-
-  <meta property="og:url" content="https://justboil.github.io/admin-one-tailwind/">
-  <meta property="og:site_name" content="JustBoil.me">
-  <meta property="og:title" content="Admin One HTML">
-  <meta property="og:description" content="Admin One - free Tailwind dashboard">
-  <meta property="og:image" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1920">
-  <meta property="og:image:height" content="960">
-
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="Admin One HTML">
-  <meta property="twitter:description" content="Admin One - free Tailwind dashboard">
-  <meta property="twitter:image:src" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-  <meta property="twitter:image:width" content="1920">
-  <meta property="twitter:image:height" content="960">
 
   <!-- local style -->
   <style>

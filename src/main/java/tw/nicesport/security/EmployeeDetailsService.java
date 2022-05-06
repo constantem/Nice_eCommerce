@@ -48,7 +48,9 @@ public class EmployeeDetailsService implements UserDetailsService {
 		
 		// 取出等效 spring security authorities 的欄位
 		Collection<? extends GrantedAuthority> authoritiesForAuth;
-		if (employee.getPermission().contains("ADMIN")) {
+		if(employee.getPermission() == null) {
+			authoritiesForAuth = AuthorityUtils.createAuthorityList("ROLE_EMPLOYEE");
+		} else if (employee.getPermission().contains("ADMIN")) {
 			authoritiesForAuth = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_EMPLOYEE");
 		} else {
 			authoritiesForAuth = AuthorityUtils.createAuthorityList("ROLE_EMPLOYEE");

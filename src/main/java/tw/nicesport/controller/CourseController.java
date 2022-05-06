@@ -1,15 +1,23 @@
 package tw.nicesport.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +25,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,6 +52,9 @@ public class CourseController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	ServletContext servletContext; 
+	
 	@RequestMapping("/course/form")
 	public String showCourseForm(Model model) {
 		model.addAttribute( "course", new Course() );
@@ -57,28 +70,78 @@ public class CourseController {
 	@ResponseBody
 	public String courseCreated(
 			@Valid @ModelAttribute("course") Course course,
-			BindingResult br) {
+			BindingResult br,
+			@RequestParam("pictureFile") MultipartFile pictureFile) throws IOException {
 		
-		// 開發階段測試:
-		System.out.println(course.getCourseStartDate().toString());
+		// MultipartFile 轉 bytes, 若 fileName 為 null 或空, 則 bytes 為 null
+		byte[] bytes = multipartFileToBytes(pictureFile);
+		course.setPicture(bytes);
 		
 		if(br.hasErrors()) {
 			// 客製化 validator
 			return "驗證不通過";
 		}
 		
+		// course 中放入 coach, room, 並將 course 做 insert
 		Coach coach = courseService.getCoach(course.getCoachId());
 		Room room = courseService.getRoom(course.getRoomNo());
 		course.setCoach(coach);
 		course.setRoom(room);
-		
 		boolean status = courseService.createOneCourse(course);
 		
 		if(status) {
 			return "新增成功";
+		} else {
+			return "新增失敗";
+		}
+	}
+	
+	// fileName 沒有則回傳 null
+	private byte[] multipartFileToBytes(
+			MultipartFile multipartFile) throws IOException {
+		
+		// 檔名
+		String fileName = multipartFile.getOriginalFilename();
+		System.out.println("fileName===>"+fileName);
+		
+		// 檔名為空
+		if(fileName == null || fileName.trim().isEmpty()) {
+			return null;
 		}
 		
-		return "新增失敗";
+		// 從檔案變串流
+		InputStream inStream = multipartFile.getInputStream();
+		
+		// 從串流變 bytes
+		byte[] bytes = new byte[inStream.available()]; // 空的 bytes
+		inStream.read(bytes); // 從串流讀進 bytes
+		inStream.close();
+		
+		return bytes;
+	}
+	
+	private String toBase64(byte[] bytes) {
+		return Base64.getEncoder().encodeToString(bytes);
+	}
+	
+	private String upLoadImageAsTempFile(
+			@RequestParam("profileFile") MultipartFile profileFile) throws IllegalStateException, IOException {
+		
+		// 檔名
+		String fileName = profileFile.getOriginalFilename();
+		System.out.println("fileName===>"+fileName);
+		
+		// 暫存檔路徑
+		String tempSavedPath = 
+				servletContext.getRealPath("/") 
+				+ "resources/courseImg/" + fileName;
+		
+		// 串流變暫存檔
+		File tempSavedFile = new File(tempSavedPath);
+		profileFile.transferTo(tempSavedFile);
+		System.out.println("savedFile===>"+tempSavedFile);
+		
+		return fileName;
 	}
 	
 	@RequestMapping("/course/autoinput")
@@ -158,17 +221,48 @@ public class CourseController {
 	
 		// 查詢
 		Page<Course> coursesForOnePage = courseService.queryAllByPage(pageNum, pageSize, direction, property);
-		model.addAttribute("coursesForOnePage", coursesForOnePage);
-		System.out.println("總頁數"+coursesForOnePage.getTotalPages());
+
+		// Page 取出 List
+		List<Course> courses = coursesForOnePage.getContent();
+		
+		// 每個 POJO 將 bytes 轉 base64 String
+		for(Course course : courses) {
+			
+			if(course.getPicture()==null) {
+				course.setPictureBase64(null);
+				continue;
+			} 
+			
+			course.setPictureBase64(
+				Base64.getEncoder().encodeToString( course.getPicture() ) 
+			);
+		}
+		
+		// model
+		model.addAttribute("courses", courses);
+		model.addAttribute("totalPages", coursesForOnePage.getTotalPages());
+		model.addAttribute("thisPageNumberZeroBased", coursesForOnePage.getNumber());
 		model.addAttribute("activeLi", "courseList");
 		return "course/show-all-courses";
 	}
 	
+	// 後台
 	@RequestMapping("/course/show/{id}")
 	public String showOneCourse(
 			@PathVariable("id") Integer id,
 			Model model) {		
+		// POJO
 		Course course = courseService.queryById(id);
+		// 將 bytes 轉 base64 String
+			
+		if(course.getPicture()==null) {
+			course.setPictureBase64(null);
+		} else {
+			course.setPictureBase64(
+				Base64.getEncoder().encodeToString( course.getPicture() ) 
+			);
+		}
+
 		model.addAttribute("course", course);
 		CoachsAndRoomsContainer crContainer = courseService.getAllCoachAndRoom();
 		model.addAttribute( "coachs", crContainer.getCoachs() );
@@ -185,7 +279,7 @@ public class CourseController {
 		return "course/detail-a-course-front";
 	}
 	
-	// 前台 course detail (用 Ajax)
+	// 前台 course detail (用 Ajax) 
 	@RequestMapping("/course/detail/data")
 	@ResponseBody
 	public Course detailCourseJson(@RequestBody Integer id) {		
@@ -194,11 +288,25 @@ public class CourseController {
 
 	@RequestMapping("/course/update/{id}")
 	public String updateOneCourse(
+			@RequestParam("pictureFile") MultipartFile pictureFile,
 			@PathVariable("id") Integer id,
 			@Valid @ModelAttribute("course") Course course,
 			BindingResult br,
-			Model model) {	
+			Model model) throws IOException {	
 
+		// MultipartFile 轉 bytes, 若 fileName 為 null 或空, 則 bytes 為 null
+		byte[] bytes = multipartFileToBytes(pictureFile);
+		
+		// 若 bytesBase64 為 null, 則才考慮新檔
+		if( course.getPictureBase64()==null || course.getPictureBase64().trim().isEmpty() ) {
+			course.setPicture(bytes);
+		
+		// 若 bytesBase64 有值, 則用就檔
+		} else {
+			
+		}
+		
+		
 		if(br.hasErrors()) {
 			model.addAttribute("course", course);
 			CoachsAndRoomsContainer crContainer = courseService.getAllCoachAndRoom();

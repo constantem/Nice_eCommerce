@@ -25,4 +25,5 @@ public class WorkScheduleService {
 	public List<WorkSchedule> saveSchedule(List<WorkSchedule>workschedule) {
 		return WorkScheduleDao.saveAll(workschedule);
 	}
+	 
 }

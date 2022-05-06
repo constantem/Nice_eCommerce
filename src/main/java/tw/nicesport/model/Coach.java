@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -69,6 +70,12 @@ public class Coach {
 	@Column(name="hireDate")
 	private String hireDate;
 	
+	@Column(name="profile")
+	private byte[] profile;
+	
+	@Transient
+	private byte[] profileBase64;
+	
 	@Column(name="createdAt", insertable = false, updatable = false)
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
@@ -91,6 +98,7 @@ public class Coach {
 		}
 	)
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
+	@JsonIdentityReference(alwaysAsId = true) // 只顯示 id, List/Set 要加
 	private Set<Course> courses = new HashSet<>();
 	
 	///////////
@@ -174,6 +182,22 @@ public class Coach {
 
 	public void setHireDate(String hireDate) {
 		this.hireDate = hireDate;
+	}
+
+	public byte[] getProfile() {
+		return profile;
+	}
+
+	public void setProfile(byte[] profile) {
+		this.profile = profile;
+	}
+
+	public byte[] getProfileBase64() {
+		return profileBase64;
+	}
+
+	public void setProfileBase64(byte[] profileBase64) {
+		this.profileBase64 = profileBase64;
 	}
 
 	public LocalDateTime getCreatedAt() {

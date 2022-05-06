@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.Employee;
 import tw.nicesport.model.WorkSchedule;
+import tw.nicesport.model.WorkScheduleRepository;
 import tw.nicesport.service.WorkScheduleService;
 
 @Controller
@@ -28,21 +29,22 @@ public class WorkScheduleController {
 
 	@Autowired
 	private WorkScheduleService workscheduleservice;
+	
+	@Autowired
+	private WorkScheduleRepository workschedulerepository;
 
 	@GetMapping("/employee/WorkSchedule")
 	public void WorkSchedule() {
 	}
 
+
 	@GetMapping("/WorkSchedule")
 	@ResponseBody
-	public List<WorkSchedule> WorkScheduleAll() {
-
-		List<WorkSchedule> workschedule = workscheduleservice.findAllSchedule();
-
-		return workschedule;
+	public List<WorkSchedule> WorkScheduleDate(@RequestParam(name="year") String year ,@RequestParam(name="month") String month ) {
+		
+		return workschedulerepository.findDate(year, month);	
 	}
 
-//
 //	@PostMapping("/saveAll")
 //	@ResponseBody
 //	public void WorkScheduleSaveAll( HttpServletRequest request) {
@@ -101,11 +103,11 @@ public class WorkScheduleController {
 //					
 //					WorkS.setDay(tmpday); 
 //					
-//					//這邊我就不知道了,沒加會有紅紅的
+//					//沒加會有紅紅的
 //					@SuppressWarnings("deprecation")
 //					
 //					//將年月日組合,轉成日期型態 ,因為setWorkdate必須帶入型態為日期格式
-//					Date wd= new Date(yrar +"/"+ month+"/"+tmpday); //不知道為和DATE會這樣
+//					Date wd= new Date(yrar +"/"+ month+"/"+tmpday); //不知道為何DATE會這樣
 //					WorkS.setWorkdate(wd);
 //					//System.out.println(tmpday); 
 //					
@@ -122,12 +124,15 @@ public class WorkScheduleController {
 	@ResponseBody
 	public ModelAndView WorkScheduleSaveAll(ModelAndView mav,
 			@Valid @ModelAttribute(name = "WorkSchedule") WorkSchedule work, BindingResult br) {
-		System.out.println("work123" + work);
+		
 		List<WorkSchedule> list = new ArrayList<WorkSchedule>();
 		
 		// 針對 年月日跟班別處理
 		String ArrYear = work.getYear();
 		String ArrMonth = work.getMonth();
+		
+		workschedulerepository.delDate(ArrYear, ArrMonth);
+		System.out.println("work123" + work);
 		String[] ArrWorkId = work.getWork_id().split(",");
 		String[] ArrDay = work.getDay().split(",");
 		String[] ArrEmployeeid = work.getEmployee_id().split(",");
@@ -152,32 +157,17 @@ public class WorkScheduleController {
 				
 				WorkS.setWork_id(ArrWorkId[cnt]);
 				cnt++;
-//				if(ArrDay.length==28||ArrDay.length==30||ArrDay.length==31) {
-//					
-//					WorkS.setWork_id(ArrWorkId[y]);
-//				}
 				
-				list.add(WorkS);
-				workscheduleservice.saveSchedule(list);
+				list.add(WorkS);	
 			}
 			
 			}
+		workscheduleservice.saveSchedule(list);
 	
 
 		mav.getModel().put("work", work);
-		System.out.println("list:" + list);
-		// WorkSchedule test1 = new WorkSchedule();
-		// test1.setYear("2022");
 
-//		if(!br.hasErrors()) {
-
-//			System.out.println(list.size());
-		// list.add(new WorkSchedule("04","29",1002));
-		System.out.println("work123" + work);
-
-//			list.add(new WorkSchedule("04","29"));
 		mav.setViewName("employee/WorkSchedule");
-//		}
 		return mav;
 	}
 }

@@ -198,6 +198,11 @@
 								</td>
 							</tr>
 							<tr>
+							<div class="check_title">
+									<h2>
+										沒有優惠卷?? <a href="#">點這裡新增優惠</a>
+									</h2>
+							</div>
 								<td></td>
 								<td></td>
 								<td>

@@ -92,7 +92,6 @@
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
 		<div class="container">
-			<h3 class="title_confirmation">†升天†     ~謝謝你的斗內~     †升天†</h3>
 			<div class="order_details_table">
 				<h2>以下是您的訂單明細</h2>
 				
@@ -100,18 +99,24 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Product</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
+								<th scope="col"></th>
+								<th scope="col">產品名</th>
+								<th scope="col">數量</th>
+								<th scope="col">總計</th>
 							</tr>
 						</thead>
 						<c:set value="0" var="Subtotal" />
 						<c:set value="0" var="sum" />
-				<c:forEach var="orderDetails" items="${orderDetails}">
+				<c:forEach var="orderDetails" items="${OrderDetailList}">
 						<tbody>
 							<tr>
 								<td>
-									<p>${orderDetails.productBean.productName}</p>
+								<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}"><img alt="picture"
+								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
+								width="112" /></a>>
+								</td>
+								<td>
+									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
 								</td>
 								<td>
 									<h5>x ${orderDetails.quantity}</h5>
@@ -131,6 +136,8 @@
 									<h5></h5>
 								</td>
 								<td>
+								</td>
+								<td>
 									<p>$&nbsp${Subtotal}</p>
 								</td>
 							</tr>
@@ -142,6 +149,8 @@
 									<h5></h5>
 								</td>
 								<td>
+								</td>
+								<td>
 									<p>$&nbsp${order.shippingFee}</p>
 								</td>
 							</tr>
@@ -151,6 +160,8 @@
 								</td>
 								<td>
 									<h5></h5>
+								</td>
+								<td>
 								</td>
 								<td>
 									<p>NT$&nbsp${order.totalPrice}</p>
@@ -174,8 +185,8 @@
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
+			<hr>
 			
 			
 			</div>

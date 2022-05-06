@@ -45,6 +45,8 @@
 <meta property="twitter:image:width" content="1920">
 <meta property="twitter:image:height" content="960">
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async
 	src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
@@ -274,7 +276,7 @@ background-color: rgb(199, 222, 238);
 								data-bs-target="#exampleModal" data-bs-whatever="@mdo"
 								onclick="updateShipInformation()">
 								<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-								<span class="icon"><i class="mdi-update"></i></span>修改配送資訊
+								<span class="icon"><i class="mdi-message-outline"></i></span>修改配送資訊
 							</button>
 							</div>
 						</div>
@@ -406,13 +408,18 @@ background-color: rgb(199, 222, 238);
 	<script src="${contextRoot}/resources/js/main.min.js"></script>
 	<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
 	<script src="${contextRoot}/resources/js/bootstrap.bundle.min.js"></script>
+	
 	<!------------------------------ JS------------------------------------------------ -->
 
 
 	<!-- 		==========================================JavaScript區============================================ -->
 	<script>
 		function updateShipInformation() {
-			alert(" 請注意!擅自修改可能發生不可預期的錯誤!");
+			Swal.fire(
+					  '請注意!',
+					  '擅自修改可能發生不可預期的錯誤!',
+					  'warning'
+					)
 		}
 	</script>
 	<!-- 		==========================================開放修改Info============================================ -->

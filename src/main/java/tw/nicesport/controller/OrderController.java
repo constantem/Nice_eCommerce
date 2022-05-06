@@ -282,7 +282,7 @@ public class OrderController {
 		List<OrderDetailBean> orderDetails = order.getOrderDetail();
 		model.addAttribute("memberId",memberId);
 		model.addAttribute("order", order);
-		model.addAttribute("OrderDetailSet", orderDetails);
+		model.addAttribute("OrderDetailList", orderDetails);
 
 		return "/order/viewMyOrderDetail";
 	}

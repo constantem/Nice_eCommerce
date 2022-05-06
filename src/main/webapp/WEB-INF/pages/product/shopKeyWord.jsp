@@ -49,6 +49,7 @@
 	href="${contextRoot}/resources/frontstage/css/main.css" />
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">	
 </head>
 
 
@@ -362,6 +363,18 @@ button {
 						<li class="main-nav-list"><a data-toggle="collapse"
 							href="#beauttyProduct" aria-expanded="false"
 							aria-controls="beauttyProduct"><span
+								class="lnr lnr-arrow-right"></span>上衣<span class="number"></span></a>
+							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
+								aria-expanded="false" aria-controls="beauttyProduct">
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=排汗衫">排汗衫<span
+										class="number"></span></a></li>
+								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=緊身衣">緊身衣<span
+										class="number"></span></a></li>
+							</ul></li>
+
+						<li class="main-nav-list"><a data-toggle="collapse"
+							href="#beauttyProduct" aria-expanded="false"
+							aria-controls="beauttyProduct"><span
 								class="lnr lnr-arrow-right"></span>鞋類<span class="number"></span></a>
 							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
 								aria-expanded="false" aria-controls="beauttyProduct">
@@ -509,7 +522,7 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<div class="pagination">
+					<!-- <div class="pagination">
 						<a href="#" class="prev-arrow"><i
 							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
 							class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
@@ -517,7 +530,7 @@ button {
 							aria-hidden="true"></i></a> <a href="#">6</a> <a href="#"
 							class="next-arrow"><i class="fa fa-long-arrow-right"
 							aria-hidden="true"></i></a>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
 
@@ -903,7 +916,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -917,7 +930,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -931,7 +944,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -951,7 +964,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -971,7 +984,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -991,7 +1004,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		
@@ -1011,7 +1024,7 @@ button {
 				width:200,
 				height:200,
 				timer:1800,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
 				imageWidth: 120,
 				imageHeight: 120,
 				showConfirmButton:false,		

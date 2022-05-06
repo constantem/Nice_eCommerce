@@ -48,8 +48,7 @@
 	href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /><!-- css main1  -->
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 
 </head>
 
@@ -1433,12 +1432,12 @@ height: 40px;
 								title: '',
 								text: '',
 								backdrop:false,
-								width:200,
-								height:200,
+								width:230,
+								height:230,
 								timer:1000,
-								imageUrl: $("#contextRoot").val() + '/img/dot.gif',
-								imageWidth: 120,
-								imageHeight: 120,
+								imageUrl: $("#contextRoot").val() + '/img/load.gif',
+								imageWidth: 150,
+								imageHeight: 150,
 								showConfirmButton:false,		
 						})
 								setTimeout("addToCartForm()",1300)

@@ -47,8 +47,7 @@
 	href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css" />
-<link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 </head>
 <style>
 .cartImg{
@@ -70,6 +69,15 @@
 }
 #checkOut{
 	border-radius:5px;
+}
+.productName{
+	color:#003060;
+
+}
+.productName:hover{
+	color: #FF8C00;
+	transition: 0.3s;
+
 }
 
 
@@ -144,10 +152,10 @@
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
+											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt=""></a>
 										</div>
 										<div class="media-body">
-											<p>${cartProduct.productBean.productName}</p>
+											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><p class="productName">${cartProduct.productBean.productName}</p></a>
 										
 										</div>
 									</div>
@@ -398,12 +406,12 @@
 				title: '',
 				text: '',
 				backdrop:false,
-				width:200,
-				height:200,
+				width:230,
+				height:230,
 				timer:1000,
-				imageUrl: $("#contextRoot").val() + '/img/dot.gif',
-				imageWidth: 120,
-				imageHeight: 120,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 150,
+				imageHeight: 150,
 				showConfirmButton:false,		
 		})
 			setTimeout("submitAddQuantity()",1300)

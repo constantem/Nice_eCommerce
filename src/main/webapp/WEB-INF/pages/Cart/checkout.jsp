@@ -38,8 +38,7 @@
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css" />
-				<link rel="icon" type="image/png" sizes="32x32"
-					href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+				<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 			</head>
 			<style>
 				.cartImg {

@@ -38,8 +38,7 @@
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css" />
-				<link rel="icon" type="image/png" sizes="32x32"
-					href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+				<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 			</head>
 			<style>
 				.cartImg {
@@ -64,7 +63,41 @@
 				#submitCheckOut{
 					border-radius:5px;															
 				}
-				
+
+				#ship{
+					margin-left: 15px;
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
+				#shipCheck711{
+					margin-right: 5px ;
+				}
+				#shipCheckCat{
+					margin-right: 5px ;
+					margin-left: 10px ;
+				}
+				#shipCheckPost{
+					margin-left: 5px ;
+					margin-right: 5px ;
+				}
+				.middle1{
+					display: inline;
+				}
+				.middle2{
+					display: inline;
+					position: absolute;
+					right: 150px;
+				}
+				.middle3{
+					display: inline;
+					position: absolute;
+					right: 45px;
+				}
+				.truck{
+					font-size: 140%;
+					margin-right: 5px;
+					color: orange;
+				}
 				
 			</style>
 
@@ -100,7 +133,7 @@
 								<div class="col-first">
 									<h1>結帳</h1>
 									<nav class="d-flex align-items-center">
-										<a href="index.html">購物車<span class="lnr lnr-arrow-right"></span></a>
+										<a href="${contextRoot}/user/myCart">購物車<span class="lnr lnr-arrow-right"></span></a>
 										<a href="single-product.html">完成訂單</a>
 									</nav>
 								</div>
@@ -123,7 +156,7 @@
 													novalidate="novalidate">
 
 													<input type="hidden" value="${member.memberid}" name="memberid">
-													<input type="hidden" value="60" name="shippingFee">
+													
 
 													<div class="col-md-6 form-group p_star">姓<span class="placeholder"
 															data-placeholder="必填"></span>
@@ -156,7 +189,21 @@
 															name="address" value="${member.address}">
 														<span class="placeholder" data-placeholder="必填"></span>
 													</div>
-													</form>
+
+												
+													
+													<div id="ship">
+														<i  class="bi bi-truck truck"></i>
+														<input id="shipCheck711" type="checkbox" value="60" name="">711交貨便
+														<input id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+														<input id="shipCheckPost" type="checkbox" value="180" name="">郵局
+														<input id="shippingFee" hidden  type="text" value="" name="shippingFee">
+													</div>
+													
+
+												
+													
+											</form>
 												<div class="cupon_area">
 													<div class="check_title">
 														<h2>
@@ -175,10 +222,10 @@
 														<c:set value="0" var="totalPrice" />
 														<c:set value="0" var="sum" />
 														<c:forEach var="cartProductList" items="${cartProductList}">
-															<li><a id="pdName" href="#">${cartProductList.productBean.productName} 
-																<span class="middle">x${cartProductList.quantity}
-																	</span> <span class="middle">$
-																		${cartProductList.productBean.price}</span></a>
+															<li>
+																<span class="middle1">${cartProductList.productBean.productName} </span>
+																<span class="middle2">x&nbsp;${cartProductList.quantity}</span>
+																<span class="middle3">NT$&nbsp;${cartProductList.productBean.price}</span>
 															</li>
 														<c:set value="${cartProductList.quantity*cartProductList.productBean.price}"
 															var="totalPrice" />
@@ -186,18 +233,18 @@
 														</c:forEach>
 													</ul>
 													<ul class="list list_2">
-														<li><a href="#">小計 <span>$${sum}</span></a></li>
-														<li><a href="#">運費 <span value="60">$60</span></a></li>
-														<li><a href="#">總價 <span>$${sum+60}</span></a></li>
+														<li><a  href="#">小計 <span>NT$&nbsp;<span id="sum">${sum}</span></span></a></li>
+														<li><a id="" href="#">運費 <span class="shipFee" value=""></span></a></li>
+														<li><a href="#">總價 <span>NT$&nbsp;<span id="totalPrice"></span></span></a></li>
 													</ul>
-													<div class="payment_item">
+													<!-- <div class="payment_item">
 														<div class="radion_btn">
 															<input type="radio" id="f-option5" name="selector"> <label
 																for="f-option5">到店付款</label>
 															<div class="check"></div>
 														</div>
 														<p>到店付款 沒想好怎麼做</p>
-													</div>
+													</div> -->
 													<div class="payment_item active">
 														<div class="radion_btn">
 															<input type="radio" id="f-option6" name="selector"> <label
@@ -209,8 +256,8 @@
 															you donât have a PayPal account.</p>
 													</div>
 													<div class="creat_account">
-														<input type="checkbox" id="f-option4" name="selector">
-														<label for="f-option4">我已閱讀並接受 </label> <a href="#">使用者協議</a>
+														<!-- <input type="checkbox" id="f-option4" name="selector">
+														<label for="f-option4">我已閱讀並接受 </label> <a href="#">使用者協議</a> -->
 													</div>
 													<a class="primary-btn" id="submitOrder" href="#">前往支付(目前直接接訂單新增)</a>
 												</div>
@@ -230,13 +277,43 @@
 						</div>
 
 					</section> -->
+
+
+
 								<script>
 									$("#submitOrder").click(function () {
+										if($("#shippingFee").val()==""||$("#shippingFee").val()==null){
+							
+											Swal.fire({
+												icon: 'warning',
+												title: '請選擇運送方式',
+												})
+											return false;
+										}
+										else{
 										// confirm(" 即將送出修改!! ");
 										$("#orderForm").submit();
+										}
+									
 									});
 								</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 							</div>
+
+
 						</div>
 						</div>
 					</section>
@@ -344,6 +421,67 @@
 							}); // end of document ready
 					</script>
 
+					<script>
+
+						$("#shipCheck711").click(function(){
+							$(".shipFee").text("NT$ 60");
+							$("#shippingFee").val(60);
+							if($("#shipCheck711").prop('checked')){
+								$("#shipCheckCat").prop('checked',false)
+								$("#shipCheckPost").prop('checked',false)
+							}
+							var a = $("#sum").text();
+							var b = parseInt(a)
+							var shipFee = $("#shippingFee").val();
+							var shipNum = parseInt(shipFee)
+							var totalPrice = (b + shipNum)
+							$("#totalPrice").text(" " +totalPrice )
+						})
+
+						$("#shipCheckCat").click(function(){
+							$(".shipFee").text("NT$ 120");
+							$("#shippingFee").val(120);
+							if($("#shipCheckCat").prop('checked')){
+								$("#shipCheck711").prop('checked',false)
+								$("#shipCheckPost").prop('checked',false)
+							}
+							var a = $("#sum").text();
+							var b = parseInt(a)
+							var shipFee = $("#shippingFee").val();
+							var shipNum = parseInt(shipFee)
+							var totalPrice = (b + shipNum)
+							$("#totalPrice").text(" " +totalPrice )
+						})
+
+						$("#shipCheckPost").click(function(){
+							$(".shipFee").text("NT$ 160");
+							$("#shippingFee").val(160);
+							if($("#shipCheckPost").prop('checked')){
+								$("#shipCheck711").prop('checked',false)
+								$("#shipCheckCat").prop('checked',false)
+							}
+							var a = $("#sum").text();
+							var b = parseInt(a)
+							var shipFee = $("#shippingFee").val();
+							var shipNum = parseInt(shipFee)
+							var totalPrice = (b + shipNum)
+							$("#totalPrice").text(" " +totalPrice )
+						})
+
+
+
+					
+						
+
+				
+
+				
+
+						
+					
+
+					</script>
+
 					<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 					<script type="text/javascript"
 						src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
@@ -362,6 +500,7 @@
 					<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 					<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 					<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+					<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 			</body>
 			<>
 

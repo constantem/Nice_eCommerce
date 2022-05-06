@@ -85,40 +85,152 @@ public class CartController {
 		return mav;
 	}
 	
-	// 新增資料
-	@RequestMapping("/insertCart")
-	@ResponseBody
-	public CartProductBean insertCart(
-			@RequestParam("memberid") Integer memberid,
-			@RequestParam("productid") Integer productid, 
-			@RequestParam("quantity") Integer quantity) {
+//	從商品頁新增至購物車
+	@RequestMapping("/user/addMyCartFromSingleProductByMemberId")
+	public String insertCartSingleProduct(@RequestParam("memberid") Integer memberid,
+			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
 
 		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
 		Member member = memberService.findById(memberid);
 		// 找到屬於這個會員的購物車
 		CartBean cart = member.getCart();
-		// 找資料庫product的資料
-		ProductBean product = productService.findById(productid);
-
+	
+		// 現有的購物車明細
+		List<CartProductBean> existingCartProductBeanList = cart.getCartProductBeanList();
+		
 		// 創建購物車明細 準備insert資料
 		CartProductBean cartProductBean = new CartProductBean();
+		
+		// 如果商品已存在, 用現有的明細
+		boolean productExists = false;
+		for(CartProductBean thisCartProductBean : existingCartProductBeanList) {
+			if(thisCartProductBean.getProductBean().getId() == productid) {
+				productExists = true;
+				cartProductBean = thisCartProductBean;
+				break;
+			}
+		}
+		
+		// 如果商品不存在
+		if(!productExists) { 
+			// 找資料庫product的資料
+			ProductBean product = productService.findById(productid);
+			// insert購物車資料
+			cartProductBean.setCartBean(cart);
+			// insert商品資料
+			cartProductBean.setProductBean(product);
+			// insert商品數量
+			cartProductBean.setQuantity(quantity);
+			// 去存起來
+			cartProductService.insert(cartProductBean);
+			
+		// 如果商品已存在
+		} else { 
+			cartProductBean.setQuantity(cartProductBean.getQuantity()+quantity);
+			cartProductService.updateOne(cartProductBean);
+		}
+		
+		return "redirect:/getOneProductShop" + Integer.valueOf(productid);
 
-		// insert購物車資料
-		cartProductBean.setCartBean(cart);
-		// insert商品資料
-		cartProductBean.setProductBean(product);
-		// insert商品數量
-		cartProductBean.setQuantity(quantity);
-		// 去存起來
-
-//		cart.getCartProductBeanList().add(cartProductBean);//同步		
-//		System.out.println("==============================================" + cartProductBean);
-
-		cartProductService.insert(cartProductBean);
-
-		return cartProductBean;
 	}
+	
+//	從商城新增至購物車
+	@RequestMapping("/user/addMyCartFromShopByMemberId")
+	public String insertCartFromShop(@RequestParam("memberid") Integer memberid,
+			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
 
+		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
+		Member member = memberService.findById(memberid);
+		// 找到屬於這個會員的購物車
+		CartBean cart = member.getCart();
+	
+		// 現有的購物車明細
+		List<CartProductBean> existingCartProductBeanList = cart.getCartProductBeanList();
+		
+		// 創建購物車明細 準備insert資料
+		CartProductBean cartProductBean = new CartProductBean();
+		
+		// 如果商品已存在, 用現有的明細
+		boolean productExists = false;
+		for(CartProductBean thisCartProductBean : existingCartProductBeanList) {
+			if(thisCartProductBean.getProductBean().getId() == productid) {
+				productExists = true;
+				cartProductBean = thisCartProductBean;
+				break;
+			}
+		}
+		
+		// 如果商品不存在
+		if(!productExists) { 
+			// 找資料庫product的資料
+			ProductBean product = productService.findById(productid);
+			// insert購物車資料
+			cartProductBean.setCartBean(cart);
+			// insert商品資料
+			cartProductBean.setProductBean(product);
+			// insert商品數量
+			cartProductBean.setQuantity(quantity);
+			// 去存起來
+			cartProductService.insert(cartProductBean);
+			
+		// 如果商品已存在
+		} else { 
+			cartProductBean.setQuantity(cartProductBean.getQuantity()+quantity);
+			cartProductService.updateOne(cartProductBean);
+		}
+
+//		return "redirect:/user/myWishListByMemberId?id=" + Integer.valueOf(memberid);
+		return "redirect:/FrontpageSeperate";
+
+	}
+	
+	// 從願望清單新增資料至購物車
+	@RequestMapping("/insertCartFromCartWishList")
+	public String insertCartFromWishList(@RequestParam("memberid") Integer memberid,
+			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
+
+		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
+		Member member = memberService.findById(memberid);
+		// 找到屬於這個會員的購物車
+		CartBean cart = member.getCart();
+	
+		// 現有的購物車明細
+		List<CartProductBean> existingCartProductBeanList = cart.getCartProductBeanList();
+		
+		// 創建購物車明細 準備insert資料
+		CartProductBean cartProductBean = new CartProductBean();
+		
+		// 如果商品已存在, 用現有的明細
+		boolean productExists = false;
+		for(CartProductBean thisCartProductBean : existingCartProductBeanList) {
+			if(thisCartProductBean.getProductBean().getId() == productid) {
+				productExists = true;
+				cartProductBean = thisCartProductBean;
+				break;
+			}
+		}
+		
+		// 如果商品不存在
+		if(!productExists) { 
+			// 找資料庫product的資料
+			ProductBean product = productService.findById(productid);
+			// insert購物車資料
+			cartProductBean.setCartBean(cart);
+			// insert商品資料
+			cartProductBean.setProductBean(product);
+			// insert商品數量
+			cartProductBean.setQuantity(quantity);
+			// 去存起來
+			cartProductService.insert(cartProductBean);
+			
+		// 如果商品已存在
+		} else { 
+			cartProductBean.setQuantity(cartProductBean.getQuantity()+quantity);
+			cartProductService.updateOne(cartProductBean);
+		}
+
+		return "redirect:/user/myWishList";
+	}
 
 	// 刪除購物車內同商品的明細
 	@RequestMapping("/DeleteCart")
@@ -144,17 +256,60 @@ public class CartController {
 	}
 
 	// 更新購物車數量
-	@RequestMapping("/updateQuantity")
-	public ModelAndView updateQuantity(
-			@RequestParam("productid") Integer productid,
-			@RequestParam("memberid") Integer memberid, 
-			@RequestParam("quantity") Integer quantity) {
+	@RequestMapping("/updateIncreaseQuantity")
+	@ResponseBody
+	public CartProductBean updateIncreaseQuantity(
+			@RequestParam("memberid") Integer memberid,
+			@RequestParam("productid") Integer productid, 
+			@RequestParam("quantity") Integer quantity
+			) {
+
+		// 利用memberService去找購物車的JavaBean(因為有可能清空購物車後ID不同)(因為是外鍵)
 		Member member = memberService.findById(memberid);
+		// 找到屬於這個會員的購物車
 		CartBean cart = member.getCart();
-		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
-			return null;
+		// 找資料庫product的資料
+		ProductBean product = productService.findById(productid);
+
+		// 創建購物車明細 準備insert資料
+		CartProductBean cartProductBean = new CartProductBean();
+
+		// insert購物車資料
+		cartProductBean.setCartBean(cart);
+		// insert商品資料
+		cartProductBean.setProductBean(product);
+		// insert商品數量
+		cartProductBean.setQuantity(quantity+1);
+		// 去存起來
+
+		cartProductService.updateOne(cartProductBean);
+
+		return cartProductBean;
+	}
+//	@RequestMapping("/updateQuantity")
+//	public ModelAndView updateQuantity(
+//			@RequestParam("productid") Integer productid,
+//			@RequestParam("memberid") Integer memberid, 
+//			@RequestParam("quantity") Integer quantity) {
+//		Member member = memberService.findById(memberid);
+//		CartBean cart = member.getCart();
+//		List<CartProductBean> cartProductList = cart.getCartProductBeanList();
+//			return null;
 //		productService.deleteById(product);
 //		return CartProductBean;
+//	}
+	
+	
+	//修改購物車商品數量並儲存
+	@RequestMapping("/updateQuantity")
+	public String updateCart(@RequestParam("memberId") Integer memberId,
+			@RequestParam("cartProductId")Integer id,
+			@RequestParam("quantity") Integer quantity) {
+		
+		CartProductBean cartProductBean = cartProductService.findById(id);
+		cartProductBean.setQuantity(quantity);
+		cartProductService.updateOne(cartProductBean);
+		return "redirect:/user/myCartByMemberId?memberid=" + Integer.valueOf(memberId);
 	}
 
 

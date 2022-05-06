@@ -183,6 +183,11 @@
               <span>商品列表</span>
             </a>
           </li>
+          <li>
+            <a href="${contextRoot}/searchProductAds.controller">
+              <span>商品廣告輪播配置</span>
+            </a>
+          </li>
         </ul>
       </li>
       

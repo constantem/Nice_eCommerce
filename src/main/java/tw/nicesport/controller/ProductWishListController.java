@@ -115,66 +115,6 @@ public class ProductWishListController {
 		return "redirect:/FrontpageSeperate";
 	}
 
-//	從商城新增至購物車
-	@RequestMapping("/user/addMyCartFromShopByMemberId")
-	public String insertCartFromShop(@RequestParam("memberid") Integer memberid,
-			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
-
-		Member member = memberService.findById(memberid);
-		CartBean cart = member.getCart();
-		ProductBean product = pdService.findById(productid);
-		CartProductBean cartProductBean = new CartProductBean();
-
-		cartProductBean.setCartBean(cart);
-		cartProductBean.setProductBean(product);
-		cartProductBean.setQuantity(quantity);
-
-		cartProductService.insert(cartProductBean);
-
-//		return "redirect:/user/myWishListByMemberId?id=" + Integer.valueOf(memberid);
-		return "redirect:/FrontpageSeperate";
-
-	}
-
-//	從商品頁新增至購物車
-	@RequestMapping("/user/addMyCartFromSingleProductByMemberId")
-	public String insertCartSingleProduct(@RequestParam("memberid") Integer memberid,
-			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
-
-		Member member = memberService.findById(memberid);
-		CartBean cart = member.getCart();
-		ProductBean product = pdService.findById(productid);
-		CartProductBean cartProductBean = new CartProductBean();
-
-		cartProductBean.setCartBean(cart);
-		cartProductBean.setProductBean(product);
-		cartProductBean.setQuantity(quantity);
-
-		cartProductService.insert(cartProductBean);
-
-		return "redirect:/getOneProductShop" + Integer.valueOf(productid);
-
-	}
-	
-	// 從願望清單新增資料至購物車
-	@RequestMapping("/insertCartFromCartWishList")
-	public String insertCartFromWishList(@RequestParam("memberid") Integer memberid,
-			@RequestParam("productid") Integer productid, @RequestParam("quantity") Integer quantity) {
-
-		Member member = memberService.findById(memberid);
-		CartBean cart = member.getCart();
-		ProductBean product = pdService.findById(productid);
-		CartProductBean cartProductBean = new CartProductBean();
-
-		cartProductBean.setCartBean(cart);
-		cartProductBean.setProductBean(product);
-		cartProductBean.setQuantity(quantity);
-
-		cartProductService.insert(cartProductBean);
-
-		return "redirect:/user/myWishList";
-	}
-	
 	
 
 	// for ajax

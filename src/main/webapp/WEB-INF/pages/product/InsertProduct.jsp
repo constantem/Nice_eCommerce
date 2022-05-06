@@ -71,9 +71,10 @@
 }
 
 #insertDiv {
-	width: 550px;
+	width: 650px;
 	background-color: white;
 	margin-left: 350px;
+	margin: auto;
 	padding: 30px;
 	margin-top: 20px;
 	filter: drop-shadow(7px 7px 7px #a1a0a0);
@@ -82,8 +83,7 @@
 }
 
 #btn1 {
-	margin-left: 130px;
-	align: center;
+	margin-left: 150px;
 }
 
 #InputData {
@@ -132,11 +132,8 @@
 	<div id="app">
 
 
-		<!-- 上方導覽列 -->
-		<jsp:include page="TopBar.jsp" />
-
-		<!-- 左側導覽列 -->
-		<jsp:include page="LeftBar.jsp" />
+			<!-- 插入上導覽列與左導覽列 -->
+			<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
 
 

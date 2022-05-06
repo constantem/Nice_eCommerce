@@ -48,8 +48,7 @@
 	href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="${contextRoot}/resources/backstage/favicon1-32x32.png" /><!-- css main1  -->
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 
 </head>
 
@@ -443,7 +442,7 @@ height: 40px;
 						<!-- 						商品描述 -->
 						<p>${pdVal.productDiscription}</p>
 
-						<form method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
+						<form id="addToCartForm" method="get" action="${contextRoot}/user/addMyCartFromSingleProduct" >
 
 							<input type="text" name="productid" hidden value="${pdVal.id}">
 
@@ -479,7 +478,7 @@ height: 40px;
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<!-- <a class="primary-btn" id="" href="#">加入購物車</a> -->
-							<button class="primary-btn" id="btnCart" type="submit">加入購物車</button>
+							<button  class="primary-btn" id="btnCart" type="button">加入購物車</button>
 						</form>
 
 <!-- 							加入願望清單 -->
@@ -643,7 +642,7 @@ height: 40px;
 									<div class="box_total">
 										<h5>顧客評論</h5>
 										<h4 id="scoreAvg"></h4>
-										<h6>(03 則評論)</h6>
+										<h6 id="length"></h6>
 									</div>
 								</div>
 								<div class="col-6">
@@ -1279,14 +1278,20 @@ height: 40px;
 												$("#scoreBox2").append(getScore3);		
 											}
 
-											//顧客評論平均分數
-											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
-											var avgScore = (Math.round(totalScore/3))
+											//計算顧客評論平均分數
 											
-											if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
-												$("#scoreAvg").text(Math.round((parseInt(sc1)+1)/2) + '.0')	
-											}else if($("#scoreAvg").text()==null || $("#scoreAvg").text()==""){
-												$("#scoreAvg").text(avgScore + '.0')
+											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
+											var avgScore = ((totalScore/3))
+											var newAvg = parseFloat(avgScore.toFixed(1))
+											var secondScore = (((parseInt(sc1)) + (parseInt(sc2))/2))
+											var c = parseFloat(secondScore.toFixed(1))
+											
+											if(sc2=="" & sc3==""){
+												$("#scoreAvg").text(Math.floor((parseInt(sc1))))	
+											}else if(sc3==""){
+												$("#scoreAvg").text(c)
+											}else{
+												$("#scoreAvg").text(newAvg)
 											}
 									})
 								}
@@ -1294,7 +1299,22 @@ height: 40px;
 						}
 					</script>
 
-						<!--=========================================================================-->
+					<!--============================= ajax 取得評論總共筆數 ==================================-->
+					<script>
+						countComment();
+						function countComment(){
+							$.ajax({
+								url:$("#contextRoot").val() + "/findAllCommentForLength",
+								type:"post",
+								success:function(length){
+									var a = length.length
+									$("#length").text('(' + a + "則評論)")
+								}
+							})
+						}
+					</script>
+
+					<!--=======================================================================================-->
 
 					<script>
 						getProduct();
@@ -1407,6 +1427,26 @@ height: 40px;
 
 					<script>
 
+						$("#btnCart").click(function(){
+							Swal.fire({
+								title: '',
+								text: '',
+								backdrop:false,
+								width:230,
+								height:230,
+								timer:1000,
+								imageUrl: $("#contextRoot").val() + '/img/load.gif',
+								imageWidth: 150,
+								imageHeight: 150,
+								showConfirmButton:false,		
+						})
+								setTimeout("addToCartForm()",1300)
+						})
+
+						function addToCartForm(){
+							$("#addToCartForm").submit();
+						}
+
 						
 
 
@@ -1430,6 +1470,7 @@ height: 40px;
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 	<!-- ========================================================================================================= -->

@@ -88,7 +88,7 @@
                                         <img src="${contextRoot}/img/event/cat-post-1.png" alt="post">
                                         <div class="categories_details">
                                             <div class="categories_text">
-                                                <a href="blog-details.html">
+                                                <a href="${contextRoot}/FrontPageSearchBySubCategory?name=休閒鞋">
                                                     <h5>新品到貨</h5>
                                                 </a>
                                                 <div class="border_line"></div>
@@ -102,7 +102,7 @@
                                         <img src="${contextRoot}/img/event/cat-post-2.png" alt="post">
                                         <div class="categories_details">
                                             <div class="categories_text">
-                                                <a href="blog-details.html">
+                                                <a href="${contextRoot}/FrontPageSearchBySubCategory?name=慢跑鞋">
                                                     <h5>熱銷商品</h5>
                                                 </a>
                                                 <div class="border_line"></div>
@@ -116,7 +116,7 @@
                                         <img src="${contextRoot}/img/event/cat-post-3.jpg" alt="post">
                                         <div class="categories_details">
                                             <div class="categories_text">
-                                                <a href="blog-details.html">
+                                                <a href="${contextRoot}/FrontPageSearchBySubCategory?name=高蛋白點心">
                                                     <h5>來根燕麥棒?</h5>
                                                 </a>
                                                 <div class="border_line"></div>
@@ -137,6 +137,49 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="blog_left_sidebar">
+                                        <!-- =====================================foreach活動(開始)================================= -->
+                                        <c:forEach var="discount" items="${discounts}">
+                                            <article class="row blog_item">
+                                                <div class="col-md-3">
+                                                    <div class="blog_info text-right">
+                                                        <!-- <div class="post_tag">
+                                                            <a href="#">Food,</a>
+                                                            <a class="active" href="#">Technology,</a>
+                                                            <a href="#">Politics,</a>
+                                                            <a href="#">Lifestyle</a>
+                                                        </div> -->
+                                                        <ul class="blog_meta list">
+                                                            <li><a href="#">低消${discount.conditionPrice}<i
+                                                                        class="lnr lnr-arrow-right-circle"></i></a>
+                                                            </li>
+                                                            <li><a href="#">活動到${discount.endDate}止<i
+                                                                        class="lnr lnr-calendar-full"></i></a></li>
+                                                            <li><a href="#">優惠券僅剩${discount.currentQuantity}張<i
+                                                                        class="lnr lnr-eye"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="blog_post">
+                                                        <img src="${contextRoot}/img/event/valentine-${discount.id}.jpg" alt="">
+                                                        <!-- <img src="${discount.announcementBean.eventPicture}" alt=""> -->
+                                                        <div class="blog_details">
+                                                            <a href="${contextRoot}/discount/showEventsDetails-front?id=${discount.id}">
+                                                                <h2>${discount.announcementBean.title}</h2>
+                                                                <h5>${discount.description}</h5>
+                                                            </a>
+                                                            <p>${discount.announcementBean.description}</p>
+                                                            <a href="single-blog.html" class="white_bg_btn">View
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </c:forEach>
+                                        <!-- =====================================foreach活動(結束)================================= -->
+
+                                        <!-- =====================================一篇活動(開始)================================= -->
                                         <article class="row blog_item">
                                             <div class="col-md-3">
                                                 <div class="blog_info text-right">
@@ -173,6 +216,7 @@
                                                 </div>
                                             </div>
                                         </article>
+                                        <!-- =====================================一篇活動(結束)================================= -->
                                         <article class="row blog_item">
                                             <div class="col-md-3">
                                                 <div class="blog_info text-right">
@@ -281,42 +325,7 @@
                                                 </div>
                                             </div>
                                         </article>
-                                        <article class="row blog_item">
-                                            <div class="col-md-3">
-                                                <div class="blog_info text-right">
-                                                    <div class="post_tag">
-                                                        <a href="#">Food,</a>
-                                                        <a class="active" href="#">Technology,</a>
-                                                        <a href="#">Politics,</a>
-                                                        <a href="#">Lifestyle</a>
-                                                    </div>
-                                                    <ul class="blog_meta list">
-                                                        <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                                        <li><a href="#">12 Dec, 2018<i
-                                                                    class="lnr lnr-calendar-full"></i></a></li>
-                                                        <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="blog_post">
-                                                    <img src="img/blog/main-blog/m-blog-5.jpg" alt="">
-                                                    <div class="blog_details">
-                                                        <a href="single-blog.html">
-                                                            <h2>Telescopes 101</h2>
-                                                        </a>
-                                                        <p>MCSE boot camps have its supporters and its detractors. Some
-                                                            people do not
-                                                            understand why you should have to spend money on boot camp
-                                                            when you can get
-                                                            the MCSE study materials yourself at a fraction.</p>
-                                                        <a href="single-blog.html" class="white_bg_btn">View More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
+                                        <!-- ==================================頁面數字鈕(開始)============================== -->
                                         <nav class="blog-pagination justify-content-center d-flex">
                                             <ul class="pagination">
                                                 <li class="page-item">
@@ -340,6 +349,7 @@
                                                 </li>
                                             </ul>
                                         </nav>
+                                        <!-- ==================================頁面數字鈕(結束)============================== -->
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -356,7 +366,7 @@
                                             </div><!-- /input-group -->
                                             <div class="br"></div>
                                         </aside>
-                                       
+
                                         <aside class="single_sidebar_widget popular_post_widget">
                                             <h3 class="widget_title">您可能喜歡</h3>
                                             <div class="media post_item">
@@ -401,60 +411,12 @@
                                             <a href="#"><img class="img-fluid" src="img/blog/add.jpg" alt=""></a>
                                             <div class="br"></div>
                                         </aside>
-                                        <aside class="single_sidebar_widget post_category_widget">
-                                            <h4 class="widget_title">Post Catgories</h4>
-                                            <ul class="list cat-list">
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Technology</p>
-                                                        <p>37</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Lifestyle</p>
-                                                        <p>24</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Fashion</p>
-                                                        <p>59</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Art</p>
-                                                        <p>29</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Food</p>
-                                                        <p>15</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Architecture</p>
-                                                        <p>09</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="d-flex justify-content-between">
-                                                        <p>Adventure</p>
-                                                        <p>44</p>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="br"></div>
-                                        </aside>
                                         <aside class="single-sidebar-widget newsletter_widget">
-                                            <h4 class="widget_title">Newsletter</h4>
+                                            <h4 class="widget_title">優惠通知信件</h4>
                                             <p>
-                                                Here, I focus on a range of items and features that we use in life
-                                                without
-                                                giving them a second thought.
+                                                不想錯過最新的優惠資訊?<br>
+                                                輸入您的email<br>
+                                                獲取即時的優惠資訊
                                             </p>
                                             <div class="form-group d-flex flex-row">
                                                 <div class="input-group">
@@ -468,7 +430,7 @@
                                                 </div>
                                                 <a href="#" class="bbtns">Subcribe</a>
                                             </div>
-                                            <p class="text-bottom">You can unsubscribe at any time</p>
+                                            <p class="text-bottom">您可以隨時取消訂閱優惠信件</p>
                                             <div class="br"></div>
                                         </aside>
                                         <aside class="single-sidebar-widget tag_cloud_widget">
@@ -497,6 +459,25 @@
 
 
                     <button id="btn">click</button>
+                    <button id="info">click</button>
+
+
+                    <script>
+                        $("#info").click(function () {
+                            Swal.fire({
+                                html: true,
+                                title: 'Oops...',
+                                text: '優惠<br>內容' + '數量有限，先用先贏！/n 折$100 低消$1, 000<br>有效期限 \n<br>2022.05.05 - 2022.05.05<br>商品<br>僅適用於指定商品',
+                                // text: 'Something went wrong!',
+                                footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                        })
+                    </script>
+
+                    <!-- swal("Oops", "Line 1.\n line2.", "error"); -->
+                    <script>
+
+                    </script>
 
                     <script>
                         $("#btn").click(function () {
@@ -509,7 +490,7 @@
                         })
                     </script>
 
-                  
+
                     <script>
                         $("#submit").click(function () {
                             var json = $("#formDemo").serializeJSON();

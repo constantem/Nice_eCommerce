@@ -15,56 +15,39 @@
 					<!-- Tailwind is included -->
 					<!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
 					<link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
-					<link rel="apple-touch-icon" sizes="180x180"
-						href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+
 					<link rel="icon" type="image/png" sizes="32x32"
 						href="${contextRoot}/resources/backstage/favicon-32x32.png" />
 					<link rel="icon" type="image/png" sizes="16x16"
 						href="${contextRoot}/resources/backstage/favicon-16x16.png" />
-					<link rel="mask-icon" href="${contextRoot}/resources/backstage/safari-pinned-tab.svg"
-						color="#00b4b6" />
 
-					<meta name="description" content="Admin One - free Tailwind dashboard">
-
-					<meta property="og:url" content="https://justboil.github.io/admin-one-tailwind/">
-					<meta property="og:site_name" content="JustBoil.me">
-					<meta property="og:title" content="Admin One HTML">
-					<meta property="og:description" content="Admin One - free Tailwind dashboard">
-					<meta property="og:image"
-						content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-					<meta property="og:image:type" content="image/png">
-					<meta property="og:image:width" content="1920">
-					<meta property="og:image:height" content="960">
-
-					<meta property="twitter:card" content="summary_large_image">
-					<meta property="twitter:title" content="Admin One HTML">
-					<meta property="twitter:description" content="Admin One - free Tailwind dashboard">
-					<meta property="twitter:image:src"
-						content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-					<meta property="twitter:image:width" content="1920">
-					<meta property="twitter:image:height" content="960">
-
-					<!-- Global site tag (gtag.js) - Google Analytics -->
-					<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
-					<script>
-						window.dataLayer = window.dataLayer || [];
-						function gtag() {
-							dataLayer.push(arguments);
-						}
-						gtag('js', new Date());
-						gtag('config', 'UA-130795909-1');
-					</script>
 				</head>
 				<style>
+					@media (min-width:768px) {
+
+						.md\:grid-cols-1-2 {
+							grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)
+						}
+						.md\:grid-cols-2-1 {
+							grid-template-columns: 100px minmax(0, 2fr) minmax(0, 1fr) 100px
+						}
+
+						.md\:grid-cols-from-2 {
+							grid-column-start: 2;
+							grid-column-end: 3;
+						}
+
+					}
+
 					#showTitle {
 						margin: auto;
 					}
 
-					#wrap {
+					/* #wrap {
 						display: table;
 						width: 600px;
 						margin: auto;
-					}
+					} */
 
 					#content {
 						display: table-cell;
@@ -122,74 +105,114 @@
 						</section>
 
 						<section class="section main-section">
-							<!--     <div id="wrap"> -->
-							<!-- 	    <div id="sidebar" style="height:500px;">323232323</div> -->
-							<div id="wrap">
+							
+							<form:form 
+							method="POST" 
+							action="${contextRoot}/announcement/add"
+							modelAttribute="announcement"
+							enctype="multipart/form-data">
 
-								<div class="card-content">
-									<div class="field">
+							<div class="grid grid-cols-1 gap-6 md:grid-cols-2-1 mb-6">
+								<!-- 左資訊磚:  -->
+								<div class="card md:grid-cols-from-2">
+							
+									<div class="card-content">
+										<div class="field">
 
-										<div class="control">
-											<div class="select">
-												<table>
-													<form:form method="GET" action="${contextRoot}/announcement/add"
-														modelAttribute="announcement">
-														<%-- <form:input type="hidden" path="id"
-															value="${announcement.id}" /> --%>
-														<thead>
-															<tr>
-																<th>活動名稱</th>
-																<td class="inputCol" data-label="title">
-																	<form:input path="title" id="title" />
-																</td>
-															</tr>
-															<tr>
-																<th>活動內容</th>
-																<td data-label="description">
-																	<form:textarea rows="10" cols="40" path="description" />
-																</td>
-															</tr>
-															
-															<!-- <tr>
-																<th>對應的優惠券</th>
-																<td data-label="discount.name">
-																	<form:input path="discount.name" id="discount.name" />
-																</td>
-															</tr> -->
-															<!-- <tr>
-																<th>建立日期</th>
-																<td data-label="createdAt">
-																	<form:input type="date" path="createdAt"
-																		id="createdAt" />
-																</td>
-															</tr>
-															<tr>
-																<th>修改日期</th>
-																<td data-label="modifiedAt">
-																	<form:input type="date" path="modifiedAt"
-																		id="modifiedAt" />
-																</td>
-															</tr> -->
-														</thead>
-												</table>
+											<div class="control">
+												<div class="select">
+													<table>
+
+															<thead>
+																<tr>
+																	<th>活動名稱</th>
+																	<td class="inputCol" data-label="title">
+																		<form:input path="title" id="title" />
+																	</td>
+																</tr>
+																<tr>
+																	<th>活動內容</th>
+																	<td data-label="description">
+																		<form:textarea rows="10" cols="40"
+																			path="description" />
+																	</td>
+																</tr>
+																<tr>
+																	<th>對應優惠券</th>
+																	<td data-label="discount_id">
+																		<form:select path="discountId">
+																			<c:forEach items="${discounts}" var="discount">
+																				<form:option value="${discount.id}">
+																					${discount.name}</form:option>
+																			</c:forEach>
+																		</form:select>
+																	</td>
+																</tr>
+
+
+																<!-- <tr>
+																	<th>對應的優惠券</th>
+																	<td data-label="discount.name">
+																		<form:input path="discount.name" id="discount.name" />
+																	</td>
+																</tr> -->
+																<!-- <tr>
+																	<th>建立日期</th>
+																	<td data-label="createdAt">
+																		<form:input type="date" path="createdAt"
+																			id="createdAt" />
+																	</td>
+																</tr>
+																<tr>
+																	<th>修改日期</th>
+																	<td data-label="modifiedAt">
+																		<form:input type="date" path="modifiedAt"
+																			id="modifiedAt" />
+																	</td>
+																</tr> -->
+															</thead>
+													</table>
+												</div>
+											</div>
+										</div>
+										<tr>
+											<!-- <td data-label="add">  -->
+											<!-- <form:button>新增</form:button>  -->
+											<!-- </td> -->
+											<div>
+												<button id="btnInsert" type="submit" class="button green">新增</button>
+												<button id="btnNewInOneClick" type="button"
+													class="button blue">一鍵生成</button>
+												<button id="btnClear" type="button" class="button red">清除</button>
+											</div>
+										</tr>
+										
+
+									</div>
+								</div>
+
+								<!-- 右資訊磚: 放照片 -->
+								<div class="card">
+									<div class="card-content">
+										<div class="image">
+											<img id="imgDisplay" src="" alt="">
+										</div>
+										<div class="field">
+											<div class="field-body">
+												<div class="field file grouped">
+													<label class="control upload">
+														<a class="button blue">上傳</a>
+														<input id="fileInput" type="file" name="file">
+													</label>
+												</div>
+
 											</div>
 										</div>
 									</div>
-									<tr>
-										<!-- <td data-label="add">  -->
-										<!-- <form:button>新增</form:button>  -->
-										<!-- </td> -->
-										<div>
-											<button id="btnInsert" type="submit" class="button green">新增</button>
-											<button id="btnNewInOneClick" type="button"	class="button blue">一鍵生成</button>
-											<button id="btnClear" type="button" class="button red">清除</button>
-										</div>
-									</tr>
-									</form:form>
 
 								</div>
 							</div>
-
+							</form:form>
 							<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
 
@@ -200,31 +223,6 @@
 								src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
 							<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
-
-							<script>
-								!function (f, b, e, v, n, t, s) {
-									if (f.fbq)
-										return;
-									n = f.fbq = function () {
-										n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
-											.push(arguments)
-									};
-									if (!f._fbq)
-										f._fbq = n;
-									n.push = n;
-									n.loaded = !0;
-									n.version = '2.0';
-									n.queue = [];
-									t = b.createElement(e);
-									t.async = !0;
-									t.src = v;
-									s = b.getElementsByTagName(e)[0];
-									s.parentNode.insertBefore(t, s)
-								}(window, document, 'script',
-									'https://connect.facebook.net/en_US/fbevents.js');
-								fbq('init', '658339141622648');
-								fbq('track', 'PageView');
-							</script>
 
 							<!-- =====================一鑑生成欄位內容(開始)==================== -->
 							<script>
@@ -260,12 +258,13 @@
 							</script>
 							<!-- =====================清除輸入欄位內容(結束)==================== -->
 
-
-							<noscript>
-								<img height="1" width="1" style="display: none"
-									src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
-							</noscript>
-
+							<script>
+								// 上傳照片的change事件處理
+								$("#fileInput").change(function () {
+									let file = $(this)[0].files[0];
+									$("#imgDisplay")[0].src = (window.URL ? URL : webkitURL).createObjectURL( file );
+								});
+							</script>
 							<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 							<link rel="stylesheet"
 								href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

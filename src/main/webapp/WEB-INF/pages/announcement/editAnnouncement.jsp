@@ -12,50 +12,35 @@
 					<meta name="viewport" content="width=device-width, initial-scale=1">
 					<title>優惠活動</title>
 
-					<!-- Tailwind is included -->
-					<!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
-					<link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
-					<link rel="apple-touch-icon" sizes="180x180"
-						href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
+					<!-- 原生 icon -->
+					<link rel="stylesheet"
+						href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+					<!-- 原生 css -->
+					<link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
+
+					<!-- 網站 logo -->
 					<link rel="icon" type="image/png" sizes="32x32"
 						href="${contextRoot}/resources/backstage/favicon-32x32.png" />
 					<link rel="icon" type="image/png" sizes="16x16"
 						href="${contextRoot}/resources/backstage/favicon-16x16.png" />
-					<link rel="mask-icon" href="${contextRoot}/resources/backstage/safari-pinned-tab.svg"
-						color="#00b4b6" />
 
-					<meta name="description" content="Admin One - free Tailwind dashboard">
-
-					<meta property="og:url" content="https://justboil.github.io/admin-one-tailwind/">
-					<meta property="og:site_name" content="JustBoil.me">
-					<meta property="og:title" content="Admin One HTML">
-					<meta property="og:description" content="Admin One - free Tailwind dashboard">
-					<meta property="og:image"
-						content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-					<meta property="og:image:type" content="image/png">
-					<meta property="og:image:width" content="1920">
-					<meta property="og:image:height" content="960">
-
-					<meta property="twitter:card" content="summary_large_image">
-					<meta property="twitter:title" content="Admin One HTML">
-					<meta property="twitter:description" content="Admin One - free Tailwind dashboard">
-					<meta property="twitter:image:src"
-						content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
-					<meta property="twitter:image:width" content="1920">
-					<meta property="twitter:image:height" content="960">
-
-					<!-- Global site tag (gtag.js) - Google Analytics -->
-					<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
-					<script>
-						window.dataLayer = window.dataLayer || [];
-						function gtag() {
-							dataLayer.push(arguments);
-						}
-						gtag('js', new Date());
-						gtag('config', 'UA-130795909-1');
-					</script>
 				</head>
 				<style>
+					@media (min-width:768px) {
+
+						.md\:grid-cols-1-2 {
+							grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)
+						}
+						.md\:grid-cols-2-1 {
+							grid-template-columns: 100px minmax(0, 2fr) minmax(0, 1fr) 100px
+						}
+
+						.md\:grid-cols-from-2 {
+							grid-column-start: 2;
+							grid-column-end: 3;
+						}
+
+					}
 					#showTitle {
 						margin: auto;
 					}
@@ -114,56 +99,86 @@
 						</section>
 
 						<section class="section main-section"></section>
-						<div id="wrap">
 
-							<div class="card-content">
-								<div class="field">
-
-									<div class="control">
-										<div class="select">
-											<table>
-												<form:form method="POST"
-													action="${contextRoot}/announcement/sendEditAnnouncement"
-													modelAttribute="announcement">
-													<form:input type="hidden" path="id" value="${announcement.id}" />
-													<thead>
-														<tr>
-															<th >活動名稱</th>
-															<td data-label="title" >
-																<form:input path="title" />
-															</td>
-														</tr>
-														<tr>
-															<th>活動內容</th>
-															<td data-label="description" >
-																<form:textarea rows="10" cols="40" path="description" />
-															</td>
-														</tr>
-
-														<tr>
-															<th>對應的優惠券</th>
-															<td data-label="discount.name" >
-																<form:hidden  path="discount.name" />
-															</td>
-														</tr>
-
-														<tr>
-
-															<td data-label="edit">
-																<%-- <form:button>修改</form:button> --%>
-																	<button id="btn" type="submit" class="button green">修改</button>
-															</td>
-														</tr>
-													</thead>
-												</form:form>
-
-											</table>
-
+						<form:form 
+						method="POST"
+						action="${contextRoot}/announcement/sendEditAnnouncement"
+						modelAttribute="announcement"
+						enctype="multipart/form-data">
+						<form:input type="hidden" path="id" value="${announcement.id}" />
+						<div class="grid grid-cols-1 gap-6 md:grid-cols-2-1 mb-6">
+							<!-- 左資訊磚 -->
+							<div class="card md:grid-cols-from-2">
+								<div class="card-content">
+									<div class="field">
+	
+										<div class="control">
+											<div class="select">
+												<table>
+														<thead>
+															<tr>
+																<th >活動名稱</th>
+																<td data-label="title" >
+																	<form:input path="title" />
+																</td>
+															</tr>
+															<tr>
+																<th>活動內容</th>
+																<td data-label="description" >
+																	<form:textarea rows="10" cols="40" path="description" />
+																</td>
+															</tr>
+	
+															<tr>
+																<th>對應優惠券</th>
+																	<td data-label="discount_id">
+																		<form:select path="discountId">
+																			<c:forEach items="${discounts}" var="discount">
+																				<form:option value="${discount.id}">${discount.name}</form:option>
+																			</c:forEach>
+																		</form:select>
+																	</td>
+															</tr>
+	
+															<tr>
+	
+																<td data-label="edit">
+																		<button id="btn" type="submit" class="button green">修改</button>
+																</td>
+															</tr>
+														</thead>
+													
+	
+												</table>
+	
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+
+							<!-- 右資訊磚: 放照片 -->
+							<div class="card">
+								<div class="card-content">
+									<div class="image">
+										<img id="imgDisplay" src="data:image/png;base64, ${announcement.eventPictureBase64}" alt="">
+									</div>
+									<div class="field">
+										<div class="field-body">
+											<div class="field file grouped">
+												<label class="control upload">
+													<a class="button blue">上傳</a>
+													<input id="fileInput" type="file" name="file">
+												</label>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
 						</div>
+						</form:form>
 						</section>
 
 						<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
@@ -175,38 +190,16 @@
 						<script type="text/javascript"
 							src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
-						<script>
-							!function (f, b, e, v, n, t, s) {
-								if (f.fbq)
-									return;
-								n = f.fbq = function () {
-									n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
-										.push(arguments)
-								};
-								if (!f._fbq)
-									f._fbq = n;
-								n.push = n;
-								n.loaded = !0;
-								n.version = '2.0';
-								n.queue = [];
-								t = b.createElement(e);
-								t.async = !0;
-								t.src = v;
-								s = b.getElementsByTagName(e)[0];
-								s.parentNode.insertBefore(t, s)
-							}(window, document, 'script',
-								'https://connect.facebook.net/en_US/fbevents.js');
-							fbq('init', '658339141622648');
-							fbq('track', 'PageView');
-						</script>
-						<noscript>
-							<img height="1" width="1" style="display: none"
-								src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
-						</noscript>
 
-						<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-						<link rel="stylesheet"
-							href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+						<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
+
+						<script>
+							$("#fileInput").change(function () {
+								let file = $(this)[0].files[0];
+								$("#imgDisplay")[0].src = (window.URL ? URL : webkitURL).createObjectURL( file );
+							});
+						</script>
+
 
 
 

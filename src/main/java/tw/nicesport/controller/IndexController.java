@@ -20,7 +20,7 @@ public class IndexController {
 	// 跳轉前台首頁用
 	@RequestMapping("/")
 	public ModelAndView showIndex(ModelAndView mav)  {
-		List<Discount> discounts = discountService.findAllMessages();
+		List<Discount> discounts = discountService.findAll();
 		System.out.println("discount========>"+discounts);
 		mav.getModel().put("discounts", discounts);
 		mav.setViewName("index");

@@ -53,7 +53,7 @@ public class DiscountService {
 	}
 	
 	//找全部
-	public List<Discount> findAllMessages(){
+	public List<Discount> findAll(){
 		return discountDao.findAll();
 	}
 	

@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tw.nicesport.model.AnnouncementBean;
 import tw.nicesport.model.Course;
 import tw.nicesport.model.Discount;
+import tw.nicesport.service.AnnouncementService;
 import tw.nicesport.service.DiscountService;
 
 @Controller
@@ -30,6 +32,7 @@ public class DiscountController {
 	
 	@Autowired
 	private DiscountService discountService;
+	
 	
 	@GetMapping("/discount")
 	public String welcomIndex() {
@@ -101,21 +104,38 @@ public class DiscountController {
 //		}
 	
 	
-	//跳轉到前台頁面
+		//跳轉到前台活動頁面
 		@RequestMapping("/discount/showEvents-front")
 		public String showAllEventsInFront(Model model) {		
 			List<Discount> discounts = discountService.queryAll();
 			model.addAttribute("discounts", discounts);
 			return "discount/showEvents-front";
 		}
+		
+		//跳轉到前台活動詳情頁面
+		@RequestMapping("/discount/showEventsDetails-front")
+		public String showAllEventsDetailsInFront(Model model) {		
+			List<Discount> discounts = discountService.queryAll();
+			model.addAttribute("discounts", discounts);
+			return "discount/showEventsDetails-front";
+		}
+		
+		//前台活動取值
+		@GetMapping("/discount/showEventsDetails-front")
+		public ModelAndView showEvents(ModelAndView mav, @RequestParam(name = "id") Integer id) {
+			Discount dis = discountService.findById(id);
+			mav.addObject("dis",dis);
+			mav.setViewName("discount/showEventsDetails-front");
+			return mav;
+		} 
 	
-	//跳轉到前台頁面
-	@RequestMapping("/discount/showADs-front")
-	public String showAllADsInFront(Model model) {		
-		List<Discount> discounts = discountService.queryAll();
-		model.addAttribute("discounts", discounts);
-		return "discount/showADs-front";
-	}
+		//跳轉到前台廣告頁面
+		@RequestMapping("/discount/showADs-front")
+		public String showAllADsInFront(Model model) {		
+			List<Discount> discounts = discountService.queryAll();
+			model.addAttribute("discounts", discounts);
+			return "discount/showADs-front";
+		}
 	
 	@GetMapping("/discount/showEditDiscount")
 	public String editDiscount(Model model, @RequestParam(name="id") Integer id) {

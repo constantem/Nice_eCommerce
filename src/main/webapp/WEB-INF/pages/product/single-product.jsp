@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+
 <!DOCTYPE html>
 <html lang="en" class="">
 
@@ -258,6 +259,14 @@ width: 150px;
 height: 40px;
 }
 
+/* 
+.prodImg[src=""],img:not([src]){
+
+opacity:0;
+
+} */
+
+
 </style>
 
 <body>
@@ -398,7 +407,7 @@ height: 40px;
 						<div id="" class="single-prd-item ">
 							<!-- 圖片尺寸 width="480" height="440" -->
 							<ul>
-								<li><img id="mainPic"
+								<li><img  id="mainPic"
 									src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}"
 									alt="picture" id="productImg" width="480" height="440"></li>
 							</ul>
@@ -408,20 +417,22 @@ height: 40px;
 
 						<div class="d-flex justify-content-center">
 							<figure>
-								<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
+								<img onerror="this.style.display='none'" class="prodImg"  src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
 							</figure>
 
 							<figure>
-								<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
+								<img onerror="this.style.display='none'" class="prodImg"  src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}">
 							</figure>
 
 							<figure>
-								<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
+								<img onerror="this.style.display='none'" class="prodImg"  src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
 							</figure>
 
 							<figure>
-								<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}">
+								<img onerror="this.style.display='none'" class="prodImg"  src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
 							</figure>
+
+						
 
 						</div>
 
@@ -788,9 +799,7 @@ height: 40px;
 									
 									<input type="hidden" name="id" value="${pdVal.id}">
 
-									<input type="hidden" class="form-control" id="score" name="score"
-												placeholder="評分" onfocus="this.placeholder = ''"
-												onblur="this.placeholder = '您的姓名'" value="3">
+									<input type="text" hidden  class="form-control newScore" id="score" name="score" value="0">
 
 									<div class="col-md-12">
 										<div class="form-group">
@@ -1134,25 +1143,52 @@ height: 40px;
 
 					
 
-					<!--sweetalert 商品評論-->
+					<!--sweetalert 商品評論 / 判斷資訊是否完全-->
 					<script>
 
-						$("#btnComment").click(function(){
+						function sentComment(){
+								$("#commentForm").submit();
+							}
 							
-							Swal.fire({
-								position: 'center',
-								icon: 'success',
-								title: '感謝您的意見',
-								showConfirmButton: false,
-								timer: 2000
-								})
-									setTimeout(sentComment,1500)	
-									})
+							$("#btnComment").click(function(){
+								if($("#score").val()==0 || $("#score").val=="0"){
 
-								function sentComment(){
-									$("#commentForm").submit();
+									Swal.fire({
+										position: 'center',
+										icon: 'warning',
+										title: '請為商品評個分吧!',
+										showConfirmButton: false,
+										timer: 2000
+									})
+								
+								}else if($("#name").val()=="" || $("#name").val()==null){
+									Swal.fire({
+										position: 'center',
+										icon: 'warning',
+										title: '請輸入您的姓名!',
+										showConfirmButton: false,
+										timer: 2000
+									})
+								}else if($("#email").val()=="" || $("#email").val()==null){
+									Swal.fire({
+										position: 'center',
+										icon: 'warning',
+										title: '請輸入您的電子信箱!',
+										showConfirmButton: false,
+										timer: 2000
+									})
+								}else{
+									
+									Swal.fire({
+										position: 'center',
+										icon: 'success',
+										title: '感謝您的意見',
+										showConfirmButton: false,
+										timer: 2000
+									})
+									setTimeout("sentComment()",1500)
 								}
-										
+							})
 					</script>
 
 				
@@ -1161,10 +1197,9 @@ height: 40px;
 					<script>
 
 						getAllComment();
-
+						
 						function getAllComment(){
 							$.ajax({
-
 								url:$("#contextRoot").val() + "/findTopCommentById",
 								type:'post',
 								success:function(list){
@@ -1283,7 +1318,7 @@ height: 40px;
 											var totalScore = (parseInt(sc1)) + (parseInt(sc2)) + (parseInt(sc3))
 											var avgScore = ((totalScore/3))
 											var newAvg = parseFloat(avgScore.toFixed(1))
-											var secondScore = (((parseInt(sc1)) + (parseInt(sc2))/2))
+											var secondScore = (((parseInt(sc1)) + (parseInt(sc2)))/2)
 											var c = parseFloat(secondScore.toFixed(1))
 											
 											if(sc2=="" & sc3==""){
@@ -1334,10 +1369,7 @@ height: 40px;
 										$("#pdName"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
 										$("#relImg"+(index+1)).attr("src", $("#contextRoot").val()+"/ProductTempImg/"+product.imgUrl)
 										$("#price"+(index+1)).text("NT$ " + product.price);
-										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)
-
-								
-									
+										$("#ref"+(index+1)).attr("href", $("#contextRoot").val()+"/getOneProductShop"+product.id)	
 									})
 								}
 							})
@@ -1421,8 +1453,6 @@ height: 40px;
 						$("#star5").click(function(){
 							$("#score").val("5")
 						})
-
-						
 					</script>
 
 					<script>
@@ -1446,10 +1476,11 @@ height: 40px;
 						function addToCartForm(){
 							$("#addToCartForm").submit();
 						}
+					</script>
+
+					<script>
 
 						
-
-
 					</script>
 
 					<!--======================================================================-->

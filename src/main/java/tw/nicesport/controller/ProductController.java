@@ -98,26 +98,51 @@ public class ProductController {
 			String creDate = sdFormat.format(date);
 
 			System.out.println(file.isEmpty());
+			
+			String filePath = request.getServletContext().getRealPath("") + "\\ProductTempImg\\";
 
 			ProductBean prodBean = new ProductBean();
 			
-			if (file.isEmpty()||file1.isEmpty()||file2.isEmpty()||file3.isEmpty()||file4.isEmpty()) {
-				prodBean.setImg(null);
-				prodBean.setImgUrl(null);
-				prodBean.setImgUrl_A(null);
+			prodBean.setImg(file.getBytes());
+			
+			String fileName = file.getOriginalFilename(); // 文件名稱
+			String fileName1 = file1.getOriginalFilename();
+			String suffixName = fileName.substring(fileName.lastIndexOf("."));
+			String suffixName1 = fileName1.substring(fileName1.lastIndexOf(".")); // 後綴名
+			
+			fileName = UUID.randomUUID() + suffixName;
+			fileName1 = UUID.randomUUID() + suffixName1;
+			
+			File dest = new File(filePath + fileName);
+			File dest1 = new File(filePath + fileName1);
+			
+			if(!dest.getParentFile().exists()) {
+				dest1.getParentFile().mkdirs();
+				dest.getParentFile().mkdirs();
+			}try {
+				file.transferTo(dest);
+				file1.transferTo(dest1);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}	
+			prodBean.setImgUrl(fileName);
+			prodBean.setImgUrl_A(fileName1);
+			
+			
+			if (file2.isEmpty()||file3.isEmpty()||file4.isEmpty()) {
+//				prodBean.setImg(null);
+//				prodBean.setImgUrl(null);
+//				prodBean.setImgUrl_A(null);
 				prodBean.setImgUrl_B(null);
 				prodBean.setImgUrl_C(null);
 				prodBean.setImgUrl_D(null);
 			} else {
-				prodBean.setImg(file.getBytes());
-				String fileName = file.getOriginalFilename(); // 文件名稱
-				String fileName1 = file1.getOriginalFilename();
+				
 				String fileName2 = file2.getOriginalFilename();
 				String fileName3 = file3.getOriginalFilename();
 				String fileName4 = file4.getOriginalFilename();
 
-				String suffixName = fileName.substring(fileName.lastIndexOf("."));
-				String suffixName1 = fileName1.substring(fileName1.lastIndexOf(".")); // 後綴名
 				String suffixName2 = fileName2.substring(fileName2.lastIndexOf("."));
 				String suffixName3 = fileName3.substring(fileName3.lastIndexOf("."));
 				String suffixName4 = fileName4.substring(fileName4.lastIndexOf("."));
@@ -125,39 +150,28 @@ public class ProductController {
 				
 				System.out.println("servletContext getRealPath===========>" + request.getServletContext().getRealPath("") + "\\ProductTempImg\\");
 				
-				String filePath = request.getServletContext().getRealPath("") + "\\ProductTempImg\\";
-				
-				fileName = UUID.randomUUID() + suffixName;
-				fileName1 = UUID.randomUUID() + suffixName1;
 				fileName2 = UUID.randomUUID() + suffixName2;
 				fileName3 = UUID.randomUUID() + suffixName3;
 				fileName4 = UUID.randomUUID() + suffixName4;
 
-				File dest = new File(filePath + fileName);
-				File dest1 = new File(filePath + fileName1);
+				
 				File dest2 = new File(filePath + fileName2);
 				File dest3 = new File(filePath + fileName3);
 				File dest4 = new File(filePath + fileName4);
 
-				if (!dest.getParentFile().exists()) {
-
-					dest.getParentFile().mkdirs();
-					dest1.getParentFile().mkdirs();
+				if (!dest1.getParentFile().exists()) {
 					dest2.getParentFile().mkdirs();
 					dest3.getParentFile().mkdirs();
 					dest4.getParentFile().mkdirs();
 				}
 				try {
-					file.transferTo(dest);
-					file1.transferTo(dest1);
 					file2.transferTo(dest2);
 					file3.transferTo(dest3);
 					file4.transferTo(dest4);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-				prodBean.setImgUrl(fileName);
-				prodBean.setImgUrl_A(fileName1);
+				}	
+				
 				prodBean.setImgUrl_B(fileName2);
 				prodBean.setImgUrl_C(fileName3);
 				prodBean.setImgUrl_D(fileName4);

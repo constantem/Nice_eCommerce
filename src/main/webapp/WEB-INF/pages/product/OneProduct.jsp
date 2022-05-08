@@ -169,23 +169,22 @@ figure {
 				<label class="label">商品圖片</label>
 				<div class="image mx-auto">
 				
-					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}"
-						alt="picture" id="productImg">
+					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}" alt="picture" id="productImg">
 						
 					<figure>
-						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
+						<img  onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
 					</figure>
 
 					<figure>
-						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
 					</figure>
 
 					<figure>
-						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
 					</figure>
 
 					<figure>
-						<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_D}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_D}">
 					</figure>
 
 				</div>

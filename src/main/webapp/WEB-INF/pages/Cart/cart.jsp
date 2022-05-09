@@ -169,10 +169,11 @@
 
 						
                                         <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+										
                                             class="increase items-count addQuantity" type="button"><i class="lnr lnr-chevron-up"></i></button>
 
 
-                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                        <button  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value--;return false;"
                                             class="reduced items-count addQuantity" type="button"><i class="lnr lnr-chevron-down"></i></button>
 
 									</div>
@@ -399,16 +400,8 @@
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
 
-			<!-------------------------------- 抓取購物車資料 --------------------------------->
+			<!-------------------------------- 新增購物車 ajax --------------------------------->
 	<script>
-		function getCartProduct(){
-			$.ajax({
-				url:$("#contextRoot").val() + "/findMyWishList?memberId=101",
-				type:"post",
-				success:function(){
-				}
-			})
-		}
 
 		function UseDiscount(){
 			var subTotal=${total};

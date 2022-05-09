@@ -40,6 +40,11 @@ public class EmployeeDetailsService implements UserDetailsService {
 		Employee employee = employeeDao.findById(idInteger).orElseThrow(
 			()->new UsernameNotFoundException("id not found"));
 		 
+		// 剔除 Admin, Admin 有特別的 UserDetailsService 來處理
+		if(employee.getPermission().equals("ADMIN")) {
+			throw new UsernameNotFoundException("ROLE_ADMIN found instead of ROLE_EMPLOYEE");
+		}
+		
 		// 取出等效 spring security username 的欄位
 		String usernameForAuth = Integer.toString(employee.getEmployee_id());
 		

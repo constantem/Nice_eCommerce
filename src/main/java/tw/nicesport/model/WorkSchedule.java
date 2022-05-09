@@ -62,6 +62,7 @@ public class WorkSchedule {
 //		this.day = day;
 //		this.employeeid =employeeid;
 //	}
+	 
 	
 	public ScheduleType getScheduleType() {
 		return scheduleType;

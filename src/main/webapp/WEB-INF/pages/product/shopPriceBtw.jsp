@@ -225,6 +225,9 @@ button {
 .red {
 	background: #84C1FF;
 }
+.pageButton1{
+	margin-left: 120px;
+}
 </style>
 
 
@@ -461,6 +464,7 @@ button {
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gold" name="color" value="綠"><label
 									for="gold">綠<span>(19)</span></label></li>
+								<input class="pixel-radio" hidden type="text" id="gold" name="color" value="金">				
 							</ul>
 
 							<button id="btnColor" type="button" value="搜尋">
@@ -521,15 +525,26 @@ button {
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<!-- <div class="pagination">
-						<a href="#" class="prev-arrow"><i
-							class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <a href="#"
-							class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-							href="#" class="dot-dot"><i class="fa fa-ellipsis-h"
-							aria-hidden="true"></i></a> <a href="#">6</a> <a href="#"
-							class="next-arrow"><i class="fa fa-long-arrow-right"
-							aria-hidden="true"></i></a>
-					</div> -->
+			
+					<div class="pageButton1">
+						<div class="filter-bar d-flex flex-wrap align-items-center">
+							<div class="sorting">
+								<div class="pagination">
+									<c:forEach var="pageNumber" begin="1" end="${totalPages}">
+										<c:choose>
+											<c:when test="${page.number != pageNumber-1}">
+												<a href="${contextRoot}/FrontpageSeperateSortByPriceBetween?startPrice=${startPrice}&endPrice=${endPrice}&p=${pageNumber}"
+													class="">${pageNumber}</a>
+											</c:when>
+											<c:otherwise>
+												<c:out value="${pageNumber}"></c:out>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!-- End Filter Bar -->
 
@@ -540,7 +555,7 @@ button {
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 
-						<c:forEach items="${prod}" var="prod">
+						<c:forEach items="${prodListOnePage}" var="prod">
 							<!-- single product -->
 														<div class="col-lg-4 col-md-6">
 								<div class="single-product">
@@ -607,10 +622,10 @@ button {
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting">
 							<div class="pagination">
-								<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+								<c:forEach var="pageNumber" begin="1" end="${totalPages}">
 									<c:choose>
 										<c:when test="${page.number != pageNumber-1}">
-											<a href="${contextRoot}/FrontpageSeperate?p=${pageNumber}"
+											<a href="${contextRoot}/FrontpageSeperateSortByPriceBetween?startPrice=${startPrice}&endPrice=${endPrice}&p=${pageNumber}"
 												class="">${pageNumber}</a>
 										</c:when>
 										<c:otherwise>

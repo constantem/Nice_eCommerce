@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
@@ -109,7 +110,7 @@
 			<thead>
 				<tr>
 				<th class="checkbox-cell"><label class="checkbox">
-					<input type="checkbox" id="checkall"><span class="check"></span>
+					<input type="checkbox" id="checkall"><span class="check" οnclick="swapCheck()"></span>
 					</label></th>
 				<th class="image-cell"></th>
 					<th>編號</th>
@@ -144,10 +145,10 @@
 							<a href="${contextRoot}/member/edit?id=${member.memberid}">
 								<button class="button small green " type="button">
 								  <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-  									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+	 									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
 									</svg></span>
-                				</button>
-                			</a>	
+	               				</button>
+	               			</a>	
              			</td>
 						<td>
 							<a href="${contextRoot}/member/delete?id=${member.memberid}">
@@ -253,8 +254,39 @@
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
+	
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	//全選(可全選，無法刪除)
+	var isCheckAll = false;
+        function swapCheck() {
+            if (isCheckAll) {
+                $("input[type='checkbox']").each(function() {
+                    this.checked = false;
+                });
+                isCheckAll = false;
+            } else {
+                $("input[type='checkbox']").each(function() {
+                    this.checked = true;
+                });
+                isCheckAll = true;
+            }
+        }
 
-	<script>
+        function aa() {
+            var bb = "";
+            var temp = "";
+            var a = document.getElementsByName("user");
+            for (var i = 0; i < a.length; i++) {
+                if (a[i].checked) {
+                    temp = a[i].value;
+                    bb = bb + "," + temp;
+                }
+            }
+            document.getElementById("tempString").value = bb.substring(1,
+                    bb.length);
+        }
+	
  		$("#checkall").click(function(){
  			$(".checkitem").prop("checked", $(this).prop("checked"));
  		});
@@ -263,7 +295,8 @@
 			var flag = $(".checkitem:checked").length == $(".checkitem").length;
  			$("checkall").prop("checked", flag);
 		});
-
+ 		
+	//刪除談窗
  		function deleteMemberList(){
  			var memberlist ="";
  			var checkboxs =document.querySelectorAll("input[type=checkbox]:checked")
@@ -272,7 +305,7 @@
  				memberlist += "," + checkboxs[i].value;
  			}
 
- 			if(confirm("刪除嗎嗎嗎")){
+ 			if(confirm("確定刪除嗎?")){
  				$.ajax({
  					url:"${contextRoot}/member/delete",
 					

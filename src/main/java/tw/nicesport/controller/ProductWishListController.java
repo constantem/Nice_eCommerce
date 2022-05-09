@@ -115,6 +115,8 @@ public class ProductWishListController {
 		return "redirect:/FrontpageSeperate";
 	}
 
+	
+
 	// for ajax
 	@GetMapping("/findMyWishList")
 	@ResponseBody

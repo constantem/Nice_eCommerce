@@ -277,17 +277,69 @@ public class OrderController {
 //		memberBean.getOrdersBeanList()  
 		System.out.println("=================================================================="+ordersList);
 		//OrderService內的.findByPage()方法
-		Page<OrdersBean> page = OrderService.findByPage(pageNumber);
+//		Page<OrdersBean> page = OrderService.findByPage(pageNumber);
+		// 某頁的 list
+		List<OrdersBean> ordersListDESCOnePage = listOnePage(ordersListDESC, pageNumber-1, 3);
+		// 總頁數
+		int totalPages = totalPages(ordersListDESC, 3);
 		//ModelAndView準備傳到前端
-		mav.getModel().put("memberId",memberId);
-		mav.getModel().put("ordersList", ordersListDESC);
-		mav.getModel().put("page", page);
-				
+		mav.getModel().put("member",member);
+		mav.getModel().put("totalPages", totalPages);
+		mav.getModel().put("ordersList", ordersListDESCOnePage);
+//		mav.getModel().put("page", page);		
 		mav.setViewName("/order/myOrders");
 		
 		return mav;
-		
 	}
+	
+	// 總頁數(從1開始數)
+	private int totalPages(List<OrdersBean> ordersBeanList ,int pageSize) {
+		if(ordersBeanList == null) {
+			return 0;
+		}
+		if(ordersBeanList.isEmpty()) {
+			return 0;
+		}
+		Double listSizeDouble = Double.valueOf(ordersBeanList.size());
+		if( ( listSizeDouble % pageSize)==0 ) { // 若整除
+			return ordersBeanList.size() / pageSize;
+		} else { // 若非整除
+			return ordersBeanList.size() / pageSize + 1;
+		}
+	}
+	
+	// pageNumber 為從0開始數
+	private List<OrdersBean> listOnePage(List<OrdersBean> ordersBeanList, int pageNumber, int pageSize) {
+		
+		if(pageNumber < 0) {
+			return null;
+		} 
+		
+		if(pageSize < 1) {
+			return null;
+		}
+		
+		if(ordersBeanList==null) {
+			return null;
+		}
+		
+		if(ordersBeanList.isEmpty()) {
+			return null;
+		}
+		
+		int startIndex = pageSize * pageNumber;
+		int endIndex = startIndex + pageSize-1;
+		if(endIndex > ordersBeanList.size()-1 ) {
+			endIndex = ordersBeanList.size()-1;
+		}
+		List<OrdersBean> ordersBeanListOnePage = new ArrayList<>();
+		for(int i=startIndex; i<= endIndex; i++) {
+			ordersBeanListOnePage.add(ordersBeanList.get(i));
+		}
+		return ordersBeanListOnePage;
+	}
+	
+	
 	
 	//前台 我的訂單明細 功能
 	@RequestMapping("/user/myOrdersDetailByMemberId")
@@ -301,6 +353,7 @@ public class OrderController {
 
 		return "/order/viewMyOrderDetail";
 	}
+
 //	//前台 我的訂單明細 申請修改訂單功能
 //	@RequestMapping("/orders/UpdateOrderState")
 //	public String updateOneOederState(
@@ -317,6 +370,7 @@ public class OrderController {
 //		
 //		return "redirect:/orders/OrderDetail?id=" + id;
 //	}
+
 		
 	
 

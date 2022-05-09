@@ -34,13 +34,13 @@ public class WorkScheduleController {
 	private WorkScheduleRepository workschedulerepository;
 
 	@GetMapping("/employee/WorkSchedule")
-	public String WorkSchedule() {
+	public String workSchedule() {
 		return "employee/WorkSchedule";
 	}
 
 	@GetMapping("/WorkSchedule")
 	@ResponseBody
-	public List<WorkSchedule> WorkScheduleDate(@RequestParam(name="year") String year ,@RequestParam(name="month") String month ) {
+	public List<WorkSchedule> workScheduleDate(@RequestParam(name="year") String year ,@RequestParam(name="month") String month ) {
 		
 		return workschedulerepository.findDate(year, month);	
 	}
@@ -122,7 +122,7 @@ public class WorkScheduleController {
 
 	@PostMapping("/saveAll")
 	@ResponseBody
-	public ModelAndView WorkScheduleSaveAll(ModelAndView mav,
+	public ModelAndView workScheduleSaveAll(ModelAndView mav,
 			@Valid @ModelAttribute(name = "WorkSchedule") WorkSchedule work, BindingResult br) {
 		
 		List<WorkSchedule> list = new ArrayList<WorkSchedule>();
@@ -169,5 +169,18 @@ public class WorkScheduleController {
 
 		mav.setViewName("employee/WorkSchedule");
 		return mav;
+	}
+	
+	@GetMapping("/punchCardFindWork")
+	@ResponseBody
+	public List<WorkSchedule> punchCardFindWork(
+			@RequestParam(name="year") String year ,
+			@RequestParam(name="month") String month ,
+			@RequestParam(name="day") String day,
+			@RequestParam(name="employeeid") String employeeid){
+		
+		return workschedulerepository.findPunchCard(year,month,day,employeeid);
+		
+		
 	}
 }

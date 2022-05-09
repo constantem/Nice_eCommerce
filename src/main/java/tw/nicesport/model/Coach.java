@@ -74,7 +74,7 @@ public class Coach {
 	private byte[] profile;
 	
 	@Transient
-	private byte[] profileBase64;
+	private String profileBase64;
 	
 	@Column(name="createdAt", insertable = false, updatable = false)
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
@@ -192,11 +192,11 @@ public class Coach {
 		this.profile = profile;
 	}
 
-	public byte[] getProfileBase64() {
+	public String getProfileBase64() {
 		return profileBase64;
 	}
 
-	public void setProfileBase64(byte[] profileBase64) {
+	public void setProfileBase64(String profileBase64) {
 		this.profileBase64 = profileBase64;
 	}
 

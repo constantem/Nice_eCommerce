@@ -37,11 +37,25 @@ public class StaffLoginController {
 		return "login/employee-login-form";
 	}
 	
+	// 員工一一鍵輸入
 	@RequestMapping("/staffLoginAutoInputFirst")
 	@ResponseBody
-	public Employee employeeLoginAutoInput() {
-		System.out.println(loginService.findFirstEmployee());
-		return loginService.findFirstEmployee();
+	public Employee employeeLoginAutoInputFirst() {
+		return loginService.findOneOfTop3RoleEmployee(0);
+	}
+	
+	// 員工二一鍵輸入
+	@RequestMapping("/staffLoginAutoInputSecond")
+	@ResponseBody
+	public Employee employeeLoginAutoInputSecond() {
+		return loginService.findOneOfTop3RoleEmployee(1);
+	}
+	
+	// 員工三一鍵輸入
+	@RequestMapping("/staffLoginAutoInputThird")
+	@ResponseBody
+	public Employee employeeLoginAutoInputThird() {
+		return loginService.findOneOfTop3RoleEmployee(2);
 	}
 	
     @RequestMapping("/staff/role")

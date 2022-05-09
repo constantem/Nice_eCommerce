@@ -175,8 +175,9 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
-			<li>運動網</li>
+			<li>後台</li>
 			<li>課程管理系統</li>
+			<li>新增課程</li>
 		</ul>
 		<a href="#" class="button blue"> <span class="icon"><i
 				class="mdi mdi-credit-card-outline"></i></span> <span>施工中</span>

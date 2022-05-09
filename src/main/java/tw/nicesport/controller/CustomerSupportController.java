@@ -1,18 +1,18 @@
 package tw.nicesport.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.mail.JavaMail;
@@ -28,6 +28,27 @@ public class CustomerSupportController {
 	@Autowired
 	private JavaMail mail;
 
+	@RequestMapping("/pie")
+	@ResponseBody
+	public Map<String, Integer> pie() {
+		
+		List<CustomerBean> csbList = csService.findAllCustomer();//先找出所有資料
+		Map<String, Integer> map = new HashMap<String, Integer>();//將所有serviceInfos裝在HashMap的string型別的key裡
+		for(CustomerBean csb : csbList) {
+			String thisServiceInfo = csb.getServiceInfo();//因為是一筆一筆拿出來，每次拿到一筆後去比對是否在csbList的list裡已經有相同的問題
+			if( !map.containsKey(thisServiceInfo) ) {//拿到後比對，如果map裡沒有這個ServiceInfo就變成數量1
+				map.put(thisServiceInfo, 1);//拿到後比對，如果map裡沒有這個ServiceInfo就變成數量1
+			} else {//如果對比完成後已經有相同的
+				map.put(//在map物件裡放
+					thisServiceInfo,//這個已經有的key值的 
+					map.get(thisServiceInfo)+1//的值加一
+				);
+			}
+		}
+
+		return map;
+	}
+	
 	// 導去智慧客服畫面
 	@GetMapping("/ai")
 	public String ai() {

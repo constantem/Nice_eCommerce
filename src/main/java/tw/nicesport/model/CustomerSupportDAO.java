@@ -28,6 +28,9 @@ public interface CustomerSupportDAO extends JpaRepository<CustomerBean, Integer>
 	//email查詢本人資料
 	List<CustomerBean> findAllByName(String name);
 	
+	//圓餅圖查詢問題類型用
+	List<CustomerBean> findByServiceInfo(String findByServiceInfo);
+	
 
 	//刪除一筆
 //	@Modifying

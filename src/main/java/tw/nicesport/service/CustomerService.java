@@ -103,6 +103,11 @@ public class CustomerService {
 	}
 
 
+	public List<CustomerBean> findByServiceInfo(String findByServiceInfo) {
+		return dao.findByServiceInfo(findByServiceInfo);
+	}
+
+
 
 	
 	

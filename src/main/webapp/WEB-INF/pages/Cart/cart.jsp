@@ -54,7 +54,6 @@
 	width: 100px;
 	height: 90px;
 }
-
 .deleteCart{
 	margin-left: 10px;
 	font-size: 18px;
@@ -63,7 +62,6 @@
 #truck{
 	font-size: 110%;
 }
-
 #keepShopping{
 	border-radius:5px;
 }
@@ -72,18 +70,11 @@
 }
 .productName{
 	color:#003060;
-
 }
 .productName:hover{
 	color: #FF8C00;
 	transition: 0.3s;
-
 }
-
-
-
-
-
 </style>
 
 <body>
@@ -210,9 +201,9 @@
 								<td></td>
 								<td>
 									<div class="cupon_text d-flex align-items-center">
-										<input type="text" placeholder="優惠券代碼"> <a
-											class="primary-btn" href="#">使用</a> <a class="gray_btn"
-											href="#">更新優惠券代碼</a>
+										<input type="text" onchange="UseDiscount()" id="discountName" name="discountName" placeholder="優惠券代碼"> 
+										<a class="primary-btn" onclick="UseDiscount()" href="#">使用</a> 
+										<a class="gray_btn"	href="#">更新優惠券代碼</a>
 									</div>
 								</td>
 							</tr>
@@ -222,13 +213,23 @@
 										沒有優惠卷?? <a href="#">點這裡新增優惠</a>
 									</h2>
 							</div>
+							<tr>
+								<td></td>	
 								<td></td>
+								<td>
+									<h5>折扣金額</h5>
+								</td>		
+								<td id="userdiscountAmount">
+									<h5>NT$ 0</h5>
+								</td>
+							</tr>
+							<tr>		
 								<td></td>
+								<td></td>				
 								<td>
 									<h5>總金額</h5>
 								</td>
-								<td>
-								
+								<td id="subTotal">
 									<h5>NT$<c:out value="${total}"/></h5>
 								</td>
 							</tr>
@@ -246,13 +247,21 @@
 								</td>
 							</tr>
 							<tr class="out_button_area">
+								<!-- 準備傳後台的資料 -->
+								<form action="${contextRoot}/checkOut?memberid=${member.memberid}"
+									  method="post"
+									  id="checkOutForm">
+									  <input hidden name="memberid" value="${member.memberid}">
+									  <input hidden id="discountAmount" name="discountAmount" value=0>
+									  <input hidden id="memberDiscountDetailId" name="memberDiscountDetailId" value="">
+								</form>
 								<td></td>
 								<td></td>
 								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
 										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a>
-										<a id="checkOut" class="primary-btn" href="${contextRoot}/checkOut?memberid=${member.memberid}">前往結帳</a>
+										<a id="checkOut" class="primary-btn">前往結帳</a>
 									</div>
 								</td>
 							</tr>
@@ -392,17 +401,65 @@
 
 			<!-------------------------------- 抓取購物車資料 --------------------------------->
 	<script>
-
 		function getCartProduct(){
 			$.ajax({
-
 				url:$("#contextRoot").val() + "/findMyWishList?memberId=101",
 				type:"post",
 				success:function(){
-
 				}
 			})
 		}
+
+		function UseDiscount(){
+			var subTotal=${total};
+			$.ajax({
+				type: 'POST',
+				url:"${contextRoot}/UseDiscount?memberid=${member.memberid}&total=${total}&DiscountName="+ $("#discountName").val(),
+				success:function(map){
+					console.log(memberDiscountDetailId);
+					var discountamount;
+					var memberDiscountDetailId;
+
+					if(map == "") {
+						discountamount = "";
+						memberDiscountDetailId = "";
+					} else {
+						discountamount = map.discountamount;
+						memberDiscountDetailId = map.memberDiscountDetailId;
+					}
+					
+					console.log(discountamount);
+					console.log(subTotal);
+
+					if(discountamount == ""){
+						alert("輸入錯誤或沒有此折扣碼 請檢查")
+																	
+						$("#userdiscountAmount").html(
+							"<h5>NT$ 0</h5>");
+						$("#subTotal h5").text(
+							"NT$"+subTotal);
+						$("#discountAmount").attr("value",0)
+						// $("#checkOutForm").attr(action,"${contextRoot}/checkOut?memberid=${member.memberid}");  //修改form表單傳送的路徑
+					}else{										
+						$("#userdiscountAmount").html(
+							"<h5>NT$"+discountamount+"</h5>");
+							//.text(要更改的"純文字")
+						$("#subTotal h5").text(
+							"NT$"+(subTotal-discountamount));
+							//.attr(要更改的屬性,要更改的屬性值)
+						$("#discountAmount").val(discountamount);
+						$("#memberDiscountDetailId").val(memberDiscountDetailId);
+						// $("#checkOutForm").attr(action,"${contextRoot}/checkOutHaveDiscount?memberid=${member.memberid}");  //修改form表單傳送的路徑
+					}
+
+			}
+			})
+		}
+					//前往結帳按鈕 送出表單
+					$("#checkOut").click(function() {
+						$("#checkOutForm").submit();
+					});
+
 	</script>
 
 	<script>
@@ -422,7 +479,6 @@
 			setTimeout("submitAddQuantity()",1300)
 			// submitAddQuantity();
 		})
-
 		function submitAddQuantity(){
 			$("#updateQuantity").submit();
 		}
@@ -430,7 +486,6 @@
 
 
 	<script>
-
 		$(".deleteCart").click(function(){
 			var deteteCart = $(this);
 			$.ajax({
@@ -445,12 +500,9 @@
 			})
 			return false;
 		})
-
 		varifyCart();
-
 		function varifyCart (){
 			var a = $(".cartPrice").text();
-
 			if(a==null || a==""){
 				$("#checkOut").removeAttr("href","").text("無結帳商品").css("color","	#E0E0E0").click(function(){
 					Swal.fire({
@@ -462,11 +514,6 @@
 				})
 			}
 		}
-
-
-
-
-
 	</script>
 	
 	

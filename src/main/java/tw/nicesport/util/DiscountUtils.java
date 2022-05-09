@@ -11,7 +11,7 @@ public class DiscountUtils {
 	// 回傳 false, 代表總金額"不"符合折價門檻, 優惠券不可使用
 	// 回傳 null, 代表優惠券設定有誤, 無效的優惠券
 	public static Boolean isDiscountable(
-			int oldMoney, String conditionCategory, Integer conditionPrice) {
+			int oldMoney, String conditionCategory, Integer conditionPrice , Integer currentQuantity) {
 		
 		if(conditionCategory==null) {
 			return null;
@@ -23,21 +23,25 @@ public class DiscountUtils {
 			case WITH_THRESHOLD: // 有門檻
 				
 				// 無門檻值 
-				if( conditionPrice == null ) {
+				if( conditionPrice == null && currentQuantity > 0) {
 					return null;
 				}
 				
 				// 有門檻值, 且過門檻值
-				if( oldMoney >= conditionPrice ) {
+				if( oldMoney >= conditionPrice && currentQuantity > 0 ) {
 					return true;
 				// 沒過門檻值, 不適用折價券
 				} else {
 					return false;
-				}
+				} 
 				
 			/////////////////////////////////////////////////////////////
 			case WITHOUT_THRESHOLD: // 無門檻
-				return true;
+				if(currentQuantity > 0) {
+					return true;
+				} else {
+					return false;
+				}
 				
 			/////////////////////////////////////////////////////////////
 			default: // 若 conditionCategory 不是寫 "有門檻", "無門檻"
@@ -48,7 +52,7 @@ public class DiscountUtils {
 	
 	// 回傳折扣後的金額: 代表使用優惠券, 並獲得折價後的金額
 	// 回傳 null: 代表優惠券設定有誤, 無效的優惠券
-	private static Integer resultCalculator(
+	public static Integer resultCalculator(
 			int oldMoney, String discountCategory, Integer discountPercent, Integer discountAmount) {
 		
 		if(discountCategory == null) {

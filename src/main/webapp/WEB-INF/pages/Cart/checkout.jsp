@@ -190,7 +190,9 @@
 								novalidate="novalidate">
 
 								<input type="hidden" value="${member.memberid}" name="memberid">
-
+								<input type="hidden" value="${discountAmount}" name="discountAmount">
+								<input type="hidden" value="${memberDiscountDetailId}" name="memberDiscountDetailId">
+								
 
 								<div class="col-md-6 form-group p_star">
 									姓<span class="placeholder" data-placeholder="必填"></span> <input
@@ -269,8 +271,10 @@
 									</c:forEach>
 								</ul>
 								<ul class="list list_2">
+									<li><a href="#">折扣<span>NT$&nbsp;<span
+										id="discountAmount">${discountAmount}</span></span></a></li>
 									<li><a href="#">小計 <span>NT$&nbsp;<span
-												id="sum">${sum}</span></span></a></li>
+												id="sum">${sum-discountAmount}</span></span></a></li>
 									<li><a id="" href="#">運費 <span class="shipFee"
 											value=""></span></a></li>
 									<li><a href="#">總價 <span>NT$&nbsp;<span
@@ -310,34 +314,44 @@
           return actions.order.capture().then(function(orderData) {
             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
             const transaction = orderData.purchase_units[0].payments.captures[0];
-            alert("假的  都是假的  我眼睛業障重阿");
-           URL:  actions.redirect('thank_you.html');
+
+            let timerInterval
+            Swal.fire({
+              title: '訂單結帳完成!',
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+              }
+            })
+           
+            setTimeout("submitForm()",2000)
           });
         }
       }).render('#paypal-button-container');
+    </script>
+    
+    <script>
+    
+    	function submitForm(){
+    		 $("#orderForm").submit();    		
+    	}    
     </script>
 <!-- paypal按鈕 -->
 										
 									</div>
 								</div>
-
-
-								<!-- 							右方訂單瀏覽區 -->
-								<!-- <section class="checkout_area section_gap">
-						<div class="container">
-							<div class="returning_customer">
-								<div class="cupon_area">
-									<div class="check_title">
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</section> -->
-
-
-
 								<script>
 									$("#submitOrder").click(function () {
 										if($("#shippingFee").val()==""||$("#shippingFee").val()==null){
@@ -513,18 +527,6 @@
 							var totalPrice = (b + shipNum)
 							$("#totalPrice").text(" " +totalPrice )
 						})
-
-
-
-					
-						
-
-				
-
-				
-
-						
-					
 
 					</script>
 

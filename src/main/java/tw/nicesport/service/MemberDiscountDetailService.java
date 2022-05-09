@@ -26,5 +26,9 @@ public class MemberDiscountDetailService {
 		return memberDiscountDetailDao.findAll();
 	}
 	
+	public void deleteById(Integer id) {
+		memberDiscountDetailDao.deleteById(id); 
+	}
+	
 
 }

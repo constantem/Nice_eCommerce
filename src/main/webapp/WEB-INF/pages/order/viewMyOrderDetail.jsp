@@ -78,10 +78,9 @@
 						<div class="container">
 							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 								<div class="col-first">
-									<h1>†升天† 您的訂單已成立 †升天†</h1>
+									<h1>†升天† 您的訂單明細 †升天†</h1>
 									<nav class="d-flex align-items-center">
-										<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-										<a href="single-product.html">您的訂單已成立</a>
+										<a href="index.html">Home</span></a>
 									</nav>
 								</div>
 							</div>
@@ -99,10 +98,10 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col"></th>
-								<th scope="col">產品名</th>
+								<th scope="col">照片</th>
+								<th scope="col">產品</th>
 								<th scope="col">數量</th>
-								<th scope="col">總計</th>
+								<th scope="col">總價</th>
 							</tr>
 						</thead>
 						<c:set value="0" var="Subtotal" />
@@ -111,15 +110,15 @@
 						<tbody>
 							<tr style="padding-top: 50px">
 								<td>
-								<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}"><img alt="picture"
-								src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}"
-								width="112" /></a>
+									<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}">
+										<img alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
 								</td>
 								<td style="padding-top: 60px">
 									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+									<!-- ${orderDetails.productBean.productName}</p> -->
 								</td>
-								<td>
-									<h5 style="padding-top: 50px">x ${orderDetails.quantity}</h5>
+								<td style="padding-top: 60px">
+									<h5>x ${orderDetails.quantity}</h5>
 								</td>
 								<td style="padding-top: 60px">
 									<p>$&nbsp${orderDetails.productBean.price}</p>
@@ -130,15 +129,24 @@
 						</c:forEach>
 							<tr>
 								<td>
+									<h4>折扣金額</h4>
+								</td>
+								<td>									
+									<h5></h5>
+								</td>
+								<td>
+									<p>$&nbsp${discountAmount}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									<h4>小計</h4>
 								</td>
 								<td>
 									<h5></h5>
 								</td>
 								<td>
-								</td>
-								<td>
-									<p>$&nbsp${Subtotal}</p>
+									<p>$&nbsp${Subtotal-discountAmount}</p>
 								</td>
 							</tr>
 							<tr>
@@ -147,8 +155,6 @@
 								</td>
 								<td>
 									<h5></h5>
-								</td>
-								<td>
 								</td>
 								<td>
 									<p>$&nbsp${order.shippingFee}</p>
@@ -160,8 +166,6 @@
 								</td>
 								<td>
 									<h5></h5>
-								</td>
-								<td>
 								</td>
 								<td>
 									<p>NT$&nbsp${order.totalPrice}</p>
@@ -185,8 +189,8 @@
 					</div>
 				</div>
 			</div>
-			<div>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
 			<hr>
+			<div>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
 			
 			
 			</div>

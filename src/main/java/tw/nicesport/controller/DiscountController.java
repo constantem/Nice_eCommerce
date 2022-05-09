@@ -144,7 +144,7 @@ public class DiscountController {
 			ModelAndView mav,
 			@RequestParam("memberId") Integer memberId) {
 		// 接 memberId, 回傳 Discount list
-		List<Discount> discounts = discountService.findAllByMemberId(memberId);
+		List<Discount> discounts = discountService.findAllDiscountListByMemberId(memberId);
 		mav.getModel().put("discounts", discounts);
 		for(Discount discount : discounts) {
 			System.out.println(discount.getName());

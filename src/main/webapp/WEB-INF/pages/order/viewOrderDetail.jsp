@@ -439,8 +439,9 @@ background-color: rgb(199, 222, 238);
 					});
 					// 送出
 					$("#sendUpdateInfo").click(function() {
-						confirm(" 即將送出修改!! ");
-						$("#springForm").submit();
+						
+							$("#springForm").submit();
+						
 					});
 					// 取消
 					$("#cancelUpdateInfo").click(function() {
@@ -496,8 +497,30 @@ background-color: rgb(199, 222, 238);
 					});
 					//送出
 					$("#sendUpdateStatus").click(function() {
-						confirm(" 即將送出修改!! ");
-						$("#orderStatusForm").submit();
+						Swal.fire({
+							  title: '即將修改訂單狀態?',
+							  text: "出貨後將無法修改訂單!",
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonColor: '#3085d6',
+							  cancelButtonColor: '#d33',
+							  confirmButtonText: '出貨!',
+							  cancelButtonText: '取消'
+							}).then((result) => {
+							  if (result.isConfirmed) {
+							    Swal.fire(
+							      '出貨完成!',
+							      'success'
+							    )
+							    $("#orderStatusForm").submit();
+							  }else if(result.isDenied){
+								  Swal.fire(
+									'未出貨!',
+									'warning'
+									)
+							  }
+							})
+						
 					});
 					// 取消
 					$("#cancelUpdateStatus").click(function() {

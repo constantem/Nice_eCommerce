@@ -48,7 +48,8 @@ public class OrdersBean {
 	@Column(name = "shippingFee")
 	private Integer shippingFee;
 	// 所使用的優惠券的編號
-//	private int discount_id;
+	@Column(name = "discountAmount")
+	private Integer discountAmount;
 	// 最終總價
 	@Column(name = "totalPrice")
 	private Integer totalPrice;
@@ -123,6 +124,14 @@ public class OrdersBean {
 
 	public void setShippingFee(Integer shippingFee) {
 		this.shippingFee = shippingFee;
+	}
+	
+	public int getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(int discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
 	public Integer getTotalPrice() {

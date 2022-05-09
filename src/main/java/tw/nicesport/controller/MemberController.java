@@ -50,7 +50,6 @@ public class MemberController {
 	private CartService cartService;
   
   	@Autowired
-  	@Qualifier("userAuthenticationManagerBean")
   	private AuthenticationManager authManager;
 
 	@GetMapping("/member")

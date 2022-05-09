@@ -8,49 +8,52 @@
 <html lang="zxx" class="no-js">
 
 <head>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
-	<!-- Author Meta -->
-	<meta name="author" content="CodePixar">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>登入</title>
+<!-- Mobile Specific Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon-->
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+<!-- Author Meta -->
+<meta name="author" content="CodePixar">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
+<meta charset="UTF-8">
+<!-- Site Title -->
+<title>登入</title>
 
-	<!--
-		CSS
-		============================================= -->
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function() {
-			$("#first").click(function() {
-				$.ajax({
-					url: $("#contextRoot").val() + "/userLoginAutoInputFirst",
-					success: function (member) {
-						$("#username").val(member.username);
-						$("#password").val(member.password);
-					}
-				});
-			});
+<!--
+	CSS
+	============================================= -->
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+	//
+	$(".autoInputBtn").click(function() {
+		const numOneBased = $(this).data("num") ;
+		$.ajax({
+			url: $("#contextRoot").val() + "/userLoginAutoInput",
+			data: { number: numOneBased },
+			success: function (userAndPass) {
+				$("#username").val(userAndPass.username);
+				$("#password").val(userAndPass.password);
+			}
 		});
-	</script>
+	});
+});
+</script>
 </head>
 
 <body>
@@ -100,7 +103,7 @@
 						<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/login.jpg" alt="">
 						<div class="hover">
 							<h4>還不是會員嗎?</h4>
-							<p>別猶豫，趕緊</p>
+							<p>別再猶豫了，趕緊手刀</p>
 							<a class="primary-btn" href="${contextRoot}/member/register">
 								會員註冊
 							</a>
@@ -136,13 +139,38 @@
 								</div>
 							</div>
 							
+							
+							<c:forEach items="${oauthAuthUrls}" var="oauthAuthUrl">
+							<div class="col-md-12 form-group">
+								<a href="${oauthAuthUrl.value}">
+									<button type="button" class="primary-btn">${oauthAuthUrl.key}(壞掉)</button>
+								</a>
+							</div>
+							</c:forEach>
+								
 							<!-- 登入一鍵輸入 -->
-							<div class="col-md-5 form-group">
-								<a id="first" class="genric-btn success circle">會員一</a>	
+							<div class="col-md-12 form-group">
+								<button type="button"
+									data-num="1" 
+									class="genric-btn success circle autoInputBtn"
+									style="width:100px">
+									會員一
+								</button>
+								<button type="button"
+									data-num="2" 
+									class="genric-btn success circle autoInputBtn"
+									style="width:100px">
+									會員二
+								</button>
+								<button type="button" 
+									data-num="3" 
+									class="genric-btn success circle autoInputBtn"
+									style="width:100px">
+									會員三
+								</button>	
 							</div>
 							
 							<div class="col-md-12 form-group">
-											
 								<button type="submit" value="submit" class="primary-btn">登入</button>
 							</div>	
 							

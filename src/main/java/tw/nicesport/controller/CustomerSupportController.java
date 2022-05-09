@@ -28,11 +28,6 @@ public class CustomerSupportController {
 	@Autowired
 	private JavaMail mail;
 
-	@GetMapping("/")
-	public String welcomeIndex() {
-		return "index";
-	}
-
 	// 導去智慧客服畫面
 	@GetMapping("/ai")
 	public String ai() {

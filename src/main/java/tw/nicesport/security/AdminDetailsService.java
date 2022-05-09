@@ -18,8 +18,8 @@ import tw.nicesport.model.LoginERepository;
 import tw.nicesport.model.Member;
 import tw.nicesport.model.MemberRepository;
 
-@Service("employeeDetailsService")
-public class EmployeeDetailsService implements UserDetailsService {
+@Service("adminDetailsService")
+public class AdminDetailsService implements UserDetailsService {
 
 	@Autowired
 	private LoginERepository employeeDao;
@@ -40,9 +40,9 @@ public class EmployeeDetailsService implements UserDetailsService {
 		Employee employee = employeeDao.findById(idInteger).orElseThrow(
 			()->new UsernameNotFoundException("id not found"));
 		 
-		// 剔除 Admin, Admin 有特別的 UserDetailsService 來處理
-		if(employee.getPermission().equals("ADMIN")) {
-			throw new UsernameNotFoundException("ROLE_ADMIN found instead of ROLE_EMPLOYEE");
+		// 剔除 Employee 有特別的 UserDetailsService 來處理
+		if(!employee.getPermission().equals("ADMIN")) {
+			throw new UsernameNotFoundException("ROLE_EMPLOYEE found instead of ROLE_ADMIN");
 		}
 		
 		// 取出等效 spring security username 的欄位

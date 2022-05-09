@@ -84,5 +84,6 @@ public class MemberService {
 		member.setPassword(newPassword);
 		return member;
 	}
+	
 }
 

@@ -227,7 +227,7 @@ public class CourseController {
 		
 		// 每個 POJO 將 bytes 轉 base64 String
 		for(Course course : courses) {
-			
+			// null 不轉
 			if(course.getPicture()==null) {
 				course.setPictureBase64(null);
 				continue;
@@ -246,7 +246,7 @@ public class CourseController {
 		return "course/show-all-courses";
 	}
 	
-	// 後台
+	// 後台單一課程
 	@RequestMapping("/course/show/{id}")
 	public String showOneCourse(
 			@PathVariable("id") Integer id,
@@ -286,6 +286,7 @@ public class CourseController {
 		return courseService.queryById(id);
 	}
 
+	// 後台單一課程編輯
 	@RequestMapping("/course/update/{id}")
 	public String updateOneCourse(
 			@RequestParam("pictureFile") MultipartFile pictureFile,
@@ -297,13 +298,19 @@ public class CourseController {
 		// MultipartFile 轉 bytes, 若 fileName 為 null 或空, 則 bytes 為 null
 		byte[] bytes = multipartFileToBytes(pictureFile);
 		
-		// 若 bytesBase64 為 null, 則才考慮新檔
-		if( course.getPictureBase64()==null || course.getPictureBase64().trim().isEmpty() ) {
+		// 若 input file 有值, 則用此新圖
+		if( bytes!=null )  {
 			course.setPicture(bytes);
-		
-		// 若 bytesBase64 有值, 則用就檔
-		} else {
 			
+		// 若 input file 沒值, 用舊圖
+		} else {
+			if( !course.getPictureBase64().isEmpty() ) {
+				course.setPicture( 
+						Base64.getDecoder().decode( course.getPictureBase64() ) 
+					);
+			} else {
+				course.setPicture(null);
+			}
 		}
 		
 		

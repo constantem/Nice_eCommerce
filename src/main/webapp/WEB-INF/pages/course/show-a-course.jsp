@@ -48,7 +48,7 @@
   		}
   	}
 
-	.displayNone,.imgDisplayNone {
+	.displayNone,.imgDisplayNone,.imgEditNone {
 		display:none;
 	}
 
@@ -71,6 +71,9 @@
 	crossorigin="anonymous">
 </script>
 
+<!-- sweat alert 2 CDN -->	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 	$(document).ready(function() { // Document is ready
 
@@ -88,7 +91,15 @@
 
 		// 綁定"確認修改"按鈕的click事件處理函式
 		$("#sendBtn").click(function() {
-			$("#springForm").submit();
+			Swal.fire({
+				text: "確認修改？",
+				showConfirmButton: true,
+				showCancelButton: true,
+			}).then(function (result) {
+				if(result.isConfirmed) {
+					$("#editCourseForm").submit();
+				}
+			});
 		});
 
 		// 綁定"取消"按鈕的click事件處理函式 
@@ -108,25 +119,50 @@
 					.find("option:contains("+originalOption+")").prop("selected", true)
 					.siblings().prop("selected", false);
 			});
+			
+			// 消掉檔案上傳(input file)
+			$("#pictureUploadInput").val("");
+			// 沒照片要隱藏div
+			if( $("#originalPictureExists").val() != "true" ) {
+				$(".forImgDisplay").addClass("imgDisplayNone");
+			}
+			// 複製原照片至編輯模式照片
+			$("#pictureUploadDisplay").attr("src", 
+				$("#pictureOriginalDisplay").attr("src")
+			);
+			// 復原傳至後端的base64屬性至原來的值(回復撤除照片的影響)
+			$("#pictureBase64ToBackend").val(
+				$("#pictureBase64KeepOrig").val()
+			);
+			$(".forImgEdit").removeClass("imgEditNone");
+			
 		}); // end of 取消 event
 		
-		// "上傳"按鈕的change事件處理(必在編輯模式)
-		$("#pictureUploadBtn").change(function () {
-			const theFile = $(this)[0].files[0];
-			const mimeType = theFile.type;
+		///////////////////////////////////////////////////////
+		// 照片處理
+		///////////////////////////////////////////////////////
+		
+		// "上傳"input的change事件處理(必在編輯模式)
+		$("#pictureUploadInput").change(function () {
+
+			const inputFile = $( this )[0].files[0];
 			
 			// 若非照片檔===>編輯模式仍用原檔
-			if( !theFile.type.match(/image.*/) ){
+			const mimeType = inputFile.type;
+			if( !mimeType.match(/image.*/) ){
 				Swal.fire({
 					text: "請上傳照片！"
 				});
 				
 				// 上傳用的 input 清空
-				$("#pictureUploadInput").val("");
+				$( this ).val("");
 				
 				// 顯示用的 orginal img 不動
 				
-				// 顯示用的 edit img 不動
+				// 顯示用的 edit img 為 orignal img
+				$("#pictureUploadDisplay").attr("src", 
+					$("#pictureOriginalDisplay").attr("src")
+				);
 				
 				// 藏起來的未修改 input 不動
 				
@@ -141,15 +177,26 @@
 			
 			// 顯示用的 edit img 套用並顯示
 			$(".forImgDisplay").removeClass("imgDisplayNone");
-			$('#pictureUploadDisplay')[0].src = (window.URL ? URL : webkitURL).createObjectURL( theFile ); // firefox 用 window.URL, chrome 用 webkitURL
+			$(".forImgEdit").removeClass("imgEditNone");
+			$("#pictureUploadDisplay")[0].src = (window.URL ? URL : webkitURL).createObjectURL( inputFile ); // firefox 用 window.URL, chrome 用 webkitURL
 			
 			// 要傳去後端的原 field 清空
 			$("#pictureBase64").val("");
+		});
+		
+		// "撤除照片"按鈕的click事件處理
+		$("#takePictureOffBtn").click(function () {
+			// 消掉編輯模式的照片(img與input file)
+			$("#pictureUploadDisplay").attr("src", "");
+			$("#pictureBase64ToBackend").val("");
+			$("#pictureUploadInput").val("");
+			$(".forImgEdit").addClass("imgEditNone");
 		});
 
 		
 	}); // end of document ready
 </script>
+
 </head>
 <body>
 
@@ -166,7 +213,7 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
-			<li>運動網</li>
+			<li>後台</li>
 			<li>課程管理系統</li>
 			<li>課程列表</li>
 			<li>課程</li>
@@ -189,6 +236,13 @@
 
 <!-- 核心內容的 section 開始 -->
 <section class="section main-section">
+
+	<!-- form 表單開始 -->
+	<form:form id="editCourseForm"
+		action="${pageContext.request.contextPath}/course/update/${course.id}"
+		modelAttribute="course" 
+		method="POST"
+		enctype="multipart/form-data">
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-1-2 mb-6">
 		<!-- 左資訊磚 -->
 		<div class="card">
@@ -200,33 +254,35 @@
 		  </header>
 		  <div class="card-content">
 		  
+		  	<!-- 判斷是否有照片 -->
 		  	<input type="hidden" id="originalPictureExists" value="${course.pictureBase64!=null}">
+			<!-- 原照片 base64, 若撤下要復原用 -->
+			<input type="hidden" id="pictureBase64KeepOrig" value="${course.pictureBase64}">
+			<!-- 原照片 base64, 原封不動再傳回後端, 除非被撤下 -->
+			<input type="hidden" id="pictureBase64ToBackend" name="pictureBase64" value="${course.pictureBase64}">
 		    <!-- 照片本體 -->
-		    <div class="forImgDisplay image w-48 h-48 mx-auto imgDisplayNone">
+		    <div class="forDisplay forImgDisplay forImgEdit image w-48 h-48 mx-auto imgDisplayNone">
 		      <img id="pictureOriginalDisplay" src="data:image/png;base64, ${course.pictureBase64}" alt="" class="rounded-full">
 		    </div>
-		    <div class="forImgDisplay forEdit image w-48 h-48 mx-auto imgDisplayNone displayNone">
+		    <div class="forDisplay forImgDisplay forImgEdit forEdit image w-48 h-48 mx-auto imgDisplayNone displayNone">
 		      <img id="pictureUploadDisplay" src="data:image/png;base64, ${course.pictureBase64}" alt="" class="rounded-full">
 		    </div>
 			    
-			<hr class="forImgDisplay forEdit displayNone imgDisplayNone">
+			<hr class="forImgDisplay forEdit forImgEdit displayNone imgDisplayNone">
 		    
+		    <!-- input file 與原來的 original picture Base64 -->
     		<div class="field forEdit displayNone">
 			  <div class="field-body">
 			    <div class="field file grouped">
 			      <label class="upload control">
 			        <a id="pictureUploadBtn" class="button blue">
-			        	<c:if test="${course.pictureBase64!=null}">
-			        		重新上傳
-			        	</c:if>
-			          	<c:if test="${course.pictureBase64==null}">
-			        		上傳
-			        	</c:if>
+			        	上傳
 			        </a>
-			        <input type="hidden" id="originalPictureBase64" value="${course.pictureBase64}">
-			        <input type="hidden" id="pictureBase64" name="pictureBase64">
 			        <input id="pictureUploadInput" name="pictureFile" type="file">
 			      </label>
+			      <div class="control forImgEdit">
+			      	<button id="takePictureOffBtn" type="button" class="button red forImgDisplay imgDisplayNone">撤除照片</button>
+			      </div>
 			    </div>
 			  </div>
 			</div>
@@ -247,130 +303,126 @@
 				</div>
 			</header>
 			<div class="card-content">
-	
-				<!-- form 表單開始 -->
-				<form:form id="springForm"
-					action="${pageContext.request.contextPath}/course/update/${course.id}"
-					modelAttribute="course" method="POST">
-					<form:input hidden="hidden" path="id"
-						value="${course.id}" />
-	
-					<!-- input 輸入格1 -->
-					<div class="field">
-						<form:label class="label" path="courseName">課名</form:label>
-	
-						<div class="control">
-							<span class="forDisplay">${course.courseName}</span>
-							<form:input id="courseName" class="input forEdit displayNone"
-								type="text" path="courseName"
-								value="${course.courseName}" placeholder="例: 有氧舞蹈" />
-						</div>
-						<p class="help">*必填</p>
-						<p class="help">
-							<form:errors style="color: red;" path="courseName"
-								cssClass="error" />
-						</p>
+				<form:input hidden="hidden" path="id"
+					value="${course.id}" />
+
+				<!-- input 輸入格1 -->
+				<div class="field">
+					<form:label class="label" path="courseName">課名</form:label>
+
+					<div class="control">
+						<span class="forDisplay">${course.courseName}</span>
+						<form:input id="courseName" class="input forEdit displayNone"
+							type="text" path="courseName"
+							value="${course.courseName}" placeholder="例: 有氧舞蹈" />
 					</div>
-	
-					<!-- input 輸入格2 -->
-					<div class="field">
-						<form:label class="label" path="courseStartDate">開課日期</form:label>
-						<div class="control">
-							<span class="forDisplay">${course.courseStartDate}</span>
-							<form:input id="courseStartDate" class="input forEdit displayNone"
-								type="date" path="courseStartDate"
-								value="${course.courseStartDate}" placeholder="YYYY/MM/DD" />
-						</div>
-						<form:errors style="color: red;" path="courseStartDate"
+					<p class="help">*必填</p>
+					<p class="help">
+						<form:errors style="color: red;" path="courseName"
 							cssClass="error" />
+					</p>
+				</div>
+
+				<!-- input 輸入格2 -->
+				<div class="field">
+					<form:label class="label" path="courseStartDate">開課日期</form:label>
+					<div class="control">
+						<span class="forDisplay">${course.courseStartDate}</span>
+						<form:input id="courseStartDate" class="input forEdit displayNone"
+							type="date" path="courseStartDate"
+							value="${course.courseStartDate}" placeholder="YYYY/MM/DD" />
 					</div>
-	
-					<!-- input 輸入格3 -->
-					<div class="field">
-						<form:label class="label" path="courseClassAmount">堂數</form:label>
-						<div class="control">
-							<span class="forDisplay">${course.courseClassAmount}</span>
-							<form:input id="courseClassAmount" class="input forEdit displayNone"
-								type="text" path="courseClassAmount"
-								value="${course.courseClassAmount}" placeholder="24" />
-						</div>
-						<form:errors path="courseClassAmount" />
+					<form:errors style="color: red;" path="courseStartDate"
+						cssClass="error" />
+				</div>
+
+				<!-- input 輸入格3 -->
+				<div class="field">
+					<form:label class="label" path="courseClassAmount">堂數</form:label>
+					<div class="control">
+						<span class="forDisplay">${course.courseClassAmount}</span>
+						<form:input id="courseClassAmount" class="input forEdit displayNone"
+							type="text" path="courseClassAmount"
+							value="${course.courseClassAmount}" placeholder="24" />
 					</div>
-	
-					<!-- input 輸入格4 -->
-					<div class="field">
-						<form:label class="label" path="coursePeriod">時段</form:label>
-	
-						<div class="control">
-							<span class="forDisplay">${course.coursePeriod}</span>
-							<form:input id="coursePeriod" class="input forEdit displayNone"
-								type="text" path="coursePeriod"
-								value="${course.coursePeriod}" placeholder="" />
-						</div>
-						<form:errors path="coursePeriod" />
+					<form:errors path="courseClassAmount" />
+				</div>
+
+				<!-- input 輸入格4 -->
+				<div class="field">
+					<form:label class="label" path="coursePeriod">時段</form:label>
+
+					<div class="control">
+						<span class="forDisplay">${course.coursePeriod}</span>
+						<form:input id="coursePeriod" class="input forEdit displayNone"
+							type="text" path="coursePeriod"
+							value="${course.coursePeriod}" placeholder="" />
 					</div>
-	
-					<!-- select 下拉選項1 -->
-					<div class="field">
-						<form:label class="label" path="coachId">教練</form:label>
-						<div class="control">
-							<div class="select">
-								<span class="forDisplay">${course.coach.lastName}${course.coach.firstName}</span>
-								<form:select class="forEdit displayNone" path="coachId">
-									<c:forEach items="${coachs}" var="coach">
-										<form:option
-											value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
-									</c:forEach>
-								</form:select>
-							</div>
-						</div>
-					</div>
-	
-					<!-- select 下拉選項2 -->
-					<div class="field">
-						<form:label class="label" path="roomNo">教室</form:label>
-						<div class="control">
-							<div class="select">
-								<span class="forDisplay">${course.room.roomNo}${course.room.roomName}</span>
-								<form:select class="forEdit displayNone" path="roomNo">
-									<c:forEach items="${rooms}" var="room">
-										<form:option 
-											value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
-									</c:forEach>
-								</form:select>
-							</div>
+					<form:errors path="coursePeriod" />
+				</div>
+
+				<!-- select 下拉選項1 -->
+				<div class="field">
+					<form:label class="label" path="coachId">教練</form:label>
+					<div class="control">
+						<div class="select">
+							<span class="forDisplay">${course.coach.lastName}${course.coach.firstName}</span>
+							<form:select class="forEdit displayNone" path="coachId">
+								<c:forEach items="${coachs}" var="coach">
+									<form:option
+										value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
+								</c:forEach>
+							</form:select>
 						</div>
 					</div>
-	
-					<!-- input 輸入格5 -->
-					<div class="field">
-						<form:label class="label" path="coursePrice">價錢</form:label>
-	
-						<div class="control">
-							<span class="forDisplay">${course.coursePrice}</span>
-							<form:input class="input forEdit displayNone" type="text"
-								id="coursePrice" path="coursePrice"
-								value="${course.coursePrice}" placeholder="20000" />
-						</div>
-						<form:errors path="coursePrice" />
-					</div>
-	
-					<hr class="forEdit displayNone">
-	
-					<div class="field grouped forEdit displayNone">
-						<div class="control forEdit displayNone">
-							<button id="sendBtn" type="button" id="submit" class="button green">確認修改</button>
-						</div>
-						<div class="control forEdit displayNone">
-							<button id="cancelBtn" type="button" class="button red">取消</button>
+				</div>
+
+				<!-- select 下拉選項2 -->
+				<div class="field">
+					<form:label class="label" path="roomNo">教室</form:label>
+					<div class="control">
+						<div class="select">
+							<span class="forDisplay">${course.room.roomNo}${course.room.roomName}</span>
+							<form:select class="forEdit displayNone" path="roomNo">
+								<c:forEach items="${rooms}" var="room">
+									<form:option 
+										value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
+								</c:forEach>
+							</form:select>
 						</div>
 					</div>
+				</div>
+
+				<!-- input 輸入格5 -->
+				<div class="field">
+					<form:label class="label" path="coursePrice">價錢</form:label>
+
+					<div class="control">
+						<span class="forDisplay">${course.coursePrice}</span>
+						<form:input class="input forEdit displayNone" type="text"
+							id="coursePrice" path="coursePrice"
+							value="${course.coursePrice}" placeholder="20000" />
+					</div>
+					<form:errors path="coursePrice" />
+				</div>
+
+				<hr class="forEdit displayNone">
+
+				<div class="field grouped forEdit displayNone">
+					<div class="control forEdit displayNone">
+						<button id="sendBtn" type="button" id="submit" class="button green">確認修改</button>
+					</div>
+					<div class="control forEdit displayNone">
+						<button id="cancelBtn" type="button" class="button red">取消</button>
+					</div>
+				</div>
 	
-				</form:form>
+				
 			</div>
 		</div>
 
 	</div>
+	</form:form>
 </section>
 
 <!-- 插入頁腳 -->

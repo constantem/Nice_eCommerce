@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -15,16 +16,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan("tw.nicesport")
 public class CustomSecurityConfig {
 
-	
-	
 	/////////////////////////////////////////
 	//                                     //
 	//   spring security configuration 1   //
@@ -33,82 +36,78 @@ public class CustomSecurityConfig {
 	
 	@Configuration
 	@Order(1)
-	public static class MemberSecurityConfig extends WebSecurityConfigurerAdapter {
-
-		@Autowired @Qualifier("memberDetailsService")
-		private UserDetailsService memberDetailsService;
+	public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 		
-	    public MemberSecurityConfig() {
+		@Autowired @Qualifier("adminDetailsService")
+		private UserDetailsService adminDetailsService;
+		
+	    public AdminSecurityConfig() {
 	        super();
 	    }
 		
 	    // Override 則可建立 "local" AuthenticationManager, 為 a child of global AuthenticationManager
-		@Override 
+		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+			auth.userDetailsService(adminDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 		}
 		
-		@Bean("userAuthenticationManagerBean")
-		@Override
-		public AuthenticationManager authenticationManagerBean() throws Exception {
-			return super.authenticationManagerBean();
-		}
-	    
 		// Autowired 則可建立 global AuthenticationManager
 //		@Autowired
 //		public void initialize(AuthenticationManagerBuilder auth) throws Exception {
-//			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+//			auth.userDetailsService(employeeDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+//		}
+		
+//		@Bean("adminAuthenticationManagerBean")
+//		@Override
+//		public AuthenticationManager authenticationManagerBean() throws Exception {
+//			return super.authenticationManagerBean();
 //		}
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
 			http
-				// 以下規定要被 "前台 security filter" 攔截的 url
+				// 以下規定要被 "後台 security filter" 攔截的 url
 				.requestMatchers() 
-					.antMatchers("/user*/**")
-					.antMatchers("/info*/**") // 前台不需登入驗證的 url
-					.antMatchers("/") // 前台首頁
+					.antMatchers("/admin*/**")
 				.and()
 				
 				// 以下規定被攔截的 url 是否要被驗證擋
 				.authorizeRequests() 
 					// 以下 url 會被攔截, 但不必被驗證, 被攔截是因為需要 spring security tag
-					.antMatchers("/").permitAll() // 前台首頁
-					.antMatchers("/info*/**").permitAll()
+//					.antMatchers("/backstage").hasAnyRole("ADMIN", "EMPLOYEE") // 後台首頁
 					
 					// 以下 url 為登入相關, 不必被驗證
-					.antMatchers("/userLogin*").permitAll()
+					.antMatchers("/adminLogin*").permitAll() // 登入畫面
 					
 					// 以下 url 為前端請求, 不必被驗證
-					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求
+//					.antMatchers("/admin/role").permitAll() // 前端對後端的 role 請求不擋
+//					.antMatchers("/admin/fullName").permitAll() // 測試用
 					
-					///////////////////////////////////////////////////////
-					// 其他符合 "/user*/**" 的 url 需要被驗證, 且角色為 USER //
-					///////////////////////////////////////////////////////
-					.anyRequest().hasRole("USER") 
+					/////////////////////////////////////////////////////////////////////
+					// 其他符合 "/staff*/**" 的 url 需要被驗證, 且角色為 ADMIN 或 EMPLOYEE //
+					/////////////////////////////////////////////////////////////////////
+					.anyRequest().hasAnyRole("ADMIN") 
 				.and()
 				
 				// 客製登入畫面
 				.formLogin() 
-					.loginPage("/userLogin") // 登入 jsp 的 controller 轉跳
-					.loginProcessingUrl("/userLoginAuthenticate") // 登入 jsp 送出表單後的 controller 帳密驗證
-					.failureUrl("/userLogin?error")
+					.loginPage("/adminLogin") // 登入 jsp 的 controller 轉跳
+					.loginProcessingUrl("/adminLoginAuthenticate") // 登入 jsp 送出表單後的 controller 帳密驗證
+					.defaultSuccessUrl("/backstage")
+					.failureUrl("/adminLogin?error")
 				.and()
 				
 				// 客製登出 URL
 			    .logout()
-		            .logoutUrl("/userLogout")
-		            .logoutSuccessUrl("/userLogin?logout")
-		            .invalidateHttpSession(false)
-		            .clearAuthentication(true)
-//		            .deleteCookies("JSESSIONID")
+		            .logoutUrl("/staffLogout")
+		            .logoutSuccessUrl("/backstage")
 				.and()
-				
+
 				// 將 BasicAuthenticationFilter instance 加入 filter chain, 這樣進行 authenticate 時, 會套用一些 spring security 預設
 				.httpBasic()
 					// 客製 AuthenticationEntryPoint instance (cf.The default to use BasicAuthenticationEntryPoint with the realm "Spring Security Application")
-					.authenticationEntryPoint(authenticationEntryPointForUser())
+					.authenticationEntryPoint(adminAuthenticationEntryPoint())
 				.and()
 				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
@@ -117,15 +116,13 @@ public class CustomSecurityConfig {
 		
 		// 客製化的 AuthenticationEntryPoint instance, 改了 realm name
 	    @Bean
-	    public AuthenticationEntryPoint authenticationEntryPointForUser(){
+	    public AuthenticationEntryPoint adminAuthenticationEntryPoint(){
 	        BasicAuthenticationEntryPoint entryPoint = 
 	          new BasicAuthenticationEntryPoint();
-	        entryPoint.setRealmName("user realm");
+	        entryPoint.setRealmName("admin realm");
 	        return entryPoint;
 	    }
 	}
-	
-	
 	
 	/////////////////////////////////////////
 	//                                     //
@@ -150,18 +147,18 @@ public class CustomSecurityConfig {
 			auth.userDetailsService(employeeDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 		}
 		
-		@Bean("staffAuthenticationManagerBean")
-		@Override
-		public AuthenticationManager authenticationManagerBean() throws Exception {
-			return super.authenticationManagerBean();
-		}
-		
 		// Autowired 則可建立 global AuthenticationManager
 //		@Autowired
 //		public void initialize(AuthenticationManagerBuilder auth) throws Exception {
 //			auth.userDetailsService(employeeDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 //		}
-	    
+		
+//		@Bean("staffAuthenticationManagerBean")
+//		@Override
+//		public AuthenticationManager authenticationManagerBean() throws Exception {
+//			return super.authenticationManagerBean();
+//		}
+		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
@@ -201,16 +198,13 @@ public class CustomSecurityConfig {
 				// 客製登出 URL
 			    .logout()
 		            .logoutUrl("/staffLogout")
-		            .logoutSuccessUrl("/staffLogin?logout")
-		            .invalidateHttpSession(false)
-		            .clearAuthentication(true)
-//		            .deleteCookies("JSESSIONID")
+		            .logoutSuccessUrl("/backstage")
 				.and()
 
 				// 將 BasicAuthenticationFilter instance 加入 filter chain, 這樣進行 authenticate 時, 會套用一些 spring security 預設
 				.httpBasic()
 					// 客製 AuthenticationEntryPoint instance (cf.The default to use BasicAuthenticationEntryPoint with the realm "Spring Security Application")
-					.authenticationEntryPoint(authenticationEntryPointForStaff())
+					.authenticationEntryPoint(staffAuthenticationEntryPoint())
 				.and()
 				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
@@ -219,7 +213,7 @@ public class CustomSecurityConfig {
 		
 		// 客製化的 AuthenticationEntryPoint instance, 改了 realm name
 	    @Bean
-	    public AuthenticationEntryPoint authenticationEntryPointForStaff(){
+	    public AuthenticationEntryPoint staffAuthenticationEntryPoint(){
 	        BasicAuthenticationEntryPoint entryPoint = 
 	          new BasicAuthenticationEntryPoint();
 	        entryPoint.setRealmName("staff realm");
@@ -227,4 +221,148 @@ public class CustomSecurityConfig {
 	    }
 	}
 	
+	/////////////////////////////////////////
+	//                                     //
+	//   spring security configuration 3   //
+	//                                     //
+	/////////////////////////////////////////
+	
+	@Configuration
+	@Order(3)
+	public class SecurityConfig extends WebSecurityConfigurerAdapter {
+		
+	    @Autowired
+	    private OidcUserService oidcUserService;
+		
+//		@Autowired @Qualifier("userAuthenticationManagerBean")
+//		private AuthenticationManager authenticationManagerBean;
+//		
+//		@Override
+//		public AuthenticationManager authenticationManagerBean() throws Exception {
+//		    return authenticationManagerBean;
+//		}
+		
+	    @Override
+	    protected void configure(HttpSecurity http) throws Exception {
+	    	
+			http
+				// 以下規定要被 "前台 security filter" 攔截的 url
+				.requestMatchers()
+					.antMatchers("/google/**","/oauth2/authorization/google","/login/oauth2/code/google")
+				.and()
+				
+				// 以下規定被攔截的 url 是否要被驗證擋
+				.authorizeRequests()
+					.anyRequest().authenticated()
+				.and()
+				
+				// 第三方驗證
+				.oauth2Login()
+					.loginPage("/userLogin")
+					.failureUrl("/userLogin?error")           
+					.userInfoEndpoint()
+	            		.oidcUserService(oidcUserService);
+	        
+	        }
+	    
+	}
+	
+	/////////////////////////////////////////
+	//                                     //
+	//   spring security configuration 4   //
+	//                                     //
+	/////////////////////////////////////////
+	
+	@Configuration
+	@Order(4)
+	public static class MemberSecurityConfig extends WebSecurityConfigurerAdapter {
+
+		@Autowired @Qualifier("memberDetailsService")
+		private UserDetailsService memberDetailsService;
+		
+	    public MemberSecurityConfig() {
+	        super();
+	    }
+		
+	    // Override 則可建立 "local" AuthenticationManager, 為 a child of global AuthenticationManager
+		@Override 
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+		}
+		
+		// Autowired 則可建立 global AuthenticationManager
+//		@Autowired
+//		public void initialize(AuthenticationManagerBuilder auth) throws Exception {
+//			auth.userDetailsService(memberDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+//		}
+		
+		@Bean("userAuthenticationManagerBean")
+		@Primary
+		@Override
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
+	    
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			
+			http		
+				// 以下規定要被 "前台 security filter" 攔截的 url
+				.requestMatchers() 
+					.antMatchers("/user*/**")
+					.antMatchers("/info*/**") // 前台不需登入驗證的 url
+					.antMatchers("/") // 前台首頁
+				.and()
+				
+				// 以下規定被攔截的 url 是否要被驗證擋
+				.authorizeRequests() 
+					// 以下 url 會被攔截, 但不必被驗證, 被攔截是因為需要 spring security tag
+					.antMatchers("/").permitAll() // 前台首頁
+					.antMatchers("/info*/**").permitAll()
+					
+					// 以下 url 為登入相關, 不必被驗證
+					.antMatchers("/userLogin*").permitAll()
+					
+					// 以下 url 為前端請求, 不必被驗證
+					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求
+					
+					///////////////////////////////////////////////////////
+					// 其他符合 "/user*/**" 的 url 需要被驗證, 且角色為 USER //
+					///////////////////////////////////////////////////////
+					.anyRequest().hasRole("USER") 
+//					.anyRequest().permitAll()
+				.and()
+							
+				// 客製登入畫面
+				.formLogin() 
+					.loginPage("/userLogin") // 登入 jsp 的 controller 轉跳
+					.loginProcessingUrl("/userLoginAuthenticate") // 登入 jsp 送出表單後的 controller 帳密驗證
+					.failureUrl("/userLogin?error")
+				.and()
+				
+				// 客製登出 URL
+			    .logout()
+		            .logoutUrl("/userLogout")
+		            .logoutSuccessUrl("/userLogin?logout")
+				.and()
+				
+				// 將 BasicAuthenticationFilter instance 加入 filter chain, 這樣進行 authenticate 時, 會套用一些 spring security 預設
+				.httpBasic()
+					// 客製 AuthenticationEntryPoint instance (cf.The default to use BasicAuthenticationEntryPoint with the realm "Spring Security Application")
+					.authenticationEntryPoint(userAuthenticationEntryPoint())
+				.and()
+				
+		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
+				
+		}
+		
+		// 客製化的 AuthenticationEntryPoint instance, 改了 realm name
+	    @Bean
+	    public AuthenticationEntryPoint userAuthenticationEntryPoint(){
+	        BasicAuthenticationEntryPoint entryPoint = 
+	          new BasicAuthenticationEntryPoint();
+	        entryPoint.setRealmName("user realm");
+	        return entryPoint;
+	    }
+	}
 }

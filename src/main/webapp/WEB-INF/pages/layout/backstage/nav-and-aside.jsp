@@ -93,9 +93,9 @@
       </a>
       <!-- 加插連前台按鈕 -->
       <div class="navbar-item">
-        <a href="${contextRoot}/" class="button blue">
-          <span>前台</span>
-        </a>
+      	<button type="button" class="button blue --jb-modal" data-target="toFrontStage-modal">
+      		前台
+      	</button>
       </div>
 
     </div>
@@ -107,7 +107,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      運動網 <b class="font-black">後台</b>
+      Nice運動網 <b class="font-black">後台</b>
     </div>
   </div>
   <div class="menu is-menu-main">
@@ -213,14 +213,14 @@
       </li>
       
       <!-- 下拉式選單5: 課程管理系統 -->
-      <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList')}">class="active"</c:if> >
+      <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList')}">class="active"</c:if> >
         <a class="dropdown">
           <span class="icon"><i class="mdi mdi-view-list"></i></span>
           <span class="menu-item-label">課程管理</span>
           <span class="icon">
           	<i 
           		<c:choose>
-          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList')}">class="mdi mdi-minus"</c:when>
+          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList')}">class="mdi mdi-minus"</c:when>
           			<c:otherwise>class="mdi mdi-plus"</c:otherwise>
           		</c:choose>
           	></i>
@@ -331,39 +331,48 @@
 </aside>
 <!-- 左導覽列結束 -->
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
-<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
-<!-- 	crossorigin="anonymous"> -->
-<!-- </script> -->
+<!-- 前往前台彈窗 -->
+<div id="toFrontStage-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card" style="width:300px">
+    <header class="modal-card-head">
+      <p class="modal-card-title">(Demo Only)</p>
+    </header>
+    <section class="modal-card-body">
+      <p>即將<b>登出</b>並前往前台</p>
+    </section>
+    <footer class="modal-card-foot">
+	  <button class="button blue --jb-modal-close" onclick="location.href='${contextRoot}/'">登出並前往</button>
+      <button class="button --jb-modal-close">取消</button>
+    </footer>
+  </div>
+</div>
+
+<!-- 客製開啟彈窗的JS -->
+<script>
+
+</script>
+
+<!-- 請求當下登入狀態的JS -->
 <script>
 	fetch("${contextRoot}/staff/role", {method: "GET"})
 	.then(function (response) {
-		console.log("response ========>|" + response);
-		console.log(response);
 		return response.json();
 	})
 	.then(function (roles) {
 		console.log("staff roles 前端 ========>|" + roles);
-		console.log(roles);
 		
 		const protectedItems = document.querySelectorAll(".isAuthenticatedAsStaff");
 		const openedItems = document.querySelectorAll(".notAuthenticatedAsStaff");
 		
-		console.log("protectedItems ========>|" + protectedItems);
-		console.log(protectedItems);
-		console.log("openedItems ========>|" + openedItems);
-		console.log(openedItems);
-		
-		if(roles.includes("ROLE_EMPLOYEE")) {
+		if(roles.includes("ROLE_EMPLOYEE")) { // admin 也有 ROLE_EMPLOYEE, 所以這樣寫就可以
 				
 			fetch("${contextRoot}/staff/fullName", {method: "GET"})
 			.then(function (response) {
 				return response.json();
 			})
 			.then(function (profile) {
-				console.log(profile);
 				document.getElementById("navStaffName").textContent = profile.fullName;
-				console.log(profile.imgSrc);
 				if(profile.imgSrc != null) {
 					document.getElementById("navStaffImg").src = "${contextRoot}/upload/"+profile.imgSrc;
 				} else {
@@ -373,26 +382,26 @@
 			});
 			
 			for (let elem of protectedItems) {
-				console.log(elem);
 			    elem.style.display = 'block';
 			}
 			for (let elem of openedItems) {
-				console.log(elem);
 			    elem.style.display = 'none';
 			}
 		} else {
 			for (let elem of protectedItems) {
-				console.log(elem);
 			    elem.style.display = 'none';
 			}
 			for (let elem of openedItems) {
-				console.log(elem);
 			    elem.style.display = 'block';
 			}
 		}
 	});
 
 </script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
+<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
+<!-- 	crossorigin="anonymous"> -->
+<!-- </script> -->
 <!-- 
 <script>
 

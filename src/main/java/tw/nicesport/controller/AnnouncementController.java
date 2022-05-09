@@ -41,7 +41,7 @@ public class AnnouncementController {
 		return "announcement/index";
 	}
 	
-	@GetMapping("/announcement/addAnnouncement")
+	@GetMapping("/staff/announcement/addAnnouncement")
 	public ModelAndView announcementAddAnnouncement() {
 		ModelAndView mav = new ModelAndView();
 		List<Discount> discounts = discountService.findAll();
@@ -76,25 +76,18 @@ public class AnnouncementController {
 		announcementBean.setDiscount(discount);
 		// 新增活動(已綁定優惠券)
 		announcementService.insert(announcementBean);
-		mav.setViewName("redirect:/announcement/viewAnnouncement");
+		mav.setViewName("redirect:/staff/announcement/viewAnnouncement");
 		return mav;
 	}
 	
 	@GetMapping("announcement/deleteAnnouncement")
 	public ModelAndView deleteAnnouncement(ModelAndView mav, @RequestParam(name="id") Integer id) {
 		announcementService.deleteById(id);
-		mav.setViewName("redirect:/announcement/viewAnnouncement");
+		mav.setViewName("redirect:/staff/announcement/viewAnnouncement");
 		return mav;
 	}
-	
-	//頁面轉到view
-	@GetMapping(path = "/announcement/viewAnnouncement2")
-	public String processMainPage() {
-		return "/discount/viewAnnouncement";
-	}
-
-	
-	@GetMapping("/announcement/viewAnnouncement")
+		
+	@GetMapping("/staff/announcement/viewAnnouncement")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<AnnouncementBean> page = announcementService.findByPage(pageNumber);
 //		List<AnnouncementBean> announcements = page.getContent();
@@ -152,7 +145,7 @@ public class AnnouncementController {
 		// 修改活動
 		announcementService.update(ann);
 		
-		mav.setViewName("redirect:/announcement/viewAnnouncement");
+		mav.setViewName("redirect:/staff/announcement/viewAnnouncement");
 		
 		return mav;
 	}

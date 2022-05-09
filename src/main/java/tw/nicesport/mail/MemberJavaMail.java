@@ -21,7 +21,7 @@ public class MemberJavaMail {
 //	private String customerEmail = "eeit140777@gmail.com"; // 收件者郵箱
 	private String subject = "這樣還可以忘記"; // 標題
 	private String txt = "<h3>有木有成功啊啊啊:</h3><br>"
-			+ "http://localhost:8080/Nice_eCommerce/member/changePasswordForm"; // 內容
+			+ "http://localhost:8333/Nice_eCommerce/member/changePasswordForm"; // 內容
 	
 	public void sendMail(String customerEmail, Integer memberId) {
 		// ---------------------------------------------------------連線設定

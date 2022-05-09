@@ -14,7 +14,7 @@ public class ProductPageController {
 		return "/product/MainPage";
 	}
 	
-	@GetMapping(path = "/insertPdpage.controller")
+	@GetMapping(path = "/staff/insertPdpage.controller")
 	public String processInsertProductPage() {
 		
 		return "/product/InsertProduct";

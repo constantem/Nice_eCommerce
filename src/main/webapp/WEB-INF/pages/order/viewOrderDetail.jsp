@@ -102,7 +102,7 @@ background-color: rgb(199, 222, 238);
 				<h1 class="title">訂單資訊</h1>
 				<small class="text-gray-500"> 訂單編號：${order.orderStatus}
 					 </small> <a
-					href="${pageContext.request.contextPath}/orders/viewAllOrders"><button
+					href="${pageContext.request.contextPath}/staff/orders/viewAllOrders"><button
 						class="button light">返回訂單列表</button></a>
 			</div>
 		</section>

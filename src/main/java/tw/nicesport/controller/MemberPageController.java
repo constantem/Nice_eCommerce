@@ -30,7 +30,7 @@ public class MemberPageController {
 		return mav;
 	}
 	
-	@GetMapping("/member/showAllResult")
+	@GetMapping("/staff/member/showAllResult")
 	public ModelAndView viewMessages(ModelAndView mav,
 			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber) {
 		Page<Member> page= memberService.findByPage(pageNumber);

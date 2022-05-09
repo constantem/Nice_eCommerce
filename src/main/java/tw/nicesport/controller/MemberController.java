@@ -58,7 +58,7 @@ public class MemberController {
 	}
 
 	// 後台新增
-	@GetMapping("/member/form")
+	@GetMapping("/staff/member/form")
 	public String memberForm(Model model) {
 		model.addAttribute("member", new Member());
 		return "member/form";
@@ -114,7 +114,7 @@ public class MemberController {
 
 		memberService.deleteById(member_id);
 
-		mav.setViewName("redirect:/member/showAllResult");
+		mav.setViewName("redirect:/staff/member/showAllResult");
 
 		return mav;
 	}
@@ -138,7 +138,7 @@ public class MemberController {
 		if (!br.hasErrors()) {
 //			https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.entity-persistence.saving-entites
 			memberService.save(member);
-			mav.setViewName("redirect:/member/showAllResult");
+			mav.setViewName("redirect:/staff/member/showAllResult");
 		}
 
 		return mav;

@@ -116,7 +116,7 @@ public class ProductAdsController {
 		return "/product/ProductAdsImg";
 	}
 
-	@GetMapping("/searchProductAds.controller")
+	@GetMapping("/staff/searchProductAds.controller")
 	public ModelAndView searchAdsPhoto(ModelAndView mav) {
 		List<ProductAdsBean> prodAds = pAdsRes.findAll();
 
@@ -176,7 +176,7 @@ public class ProductAdsController {
 		
 		pAdsService.update(prodAdsBean);
 		
-		mav.setViewName("redirect:/searchProductAds.controller");
+		mav.setViewName("redirect:/staff/searchProductAds.controller");
 		
 		return mav;
 		

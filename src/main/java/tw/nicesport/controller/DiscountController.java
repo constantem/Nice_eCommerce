@@ -42,7 +42,7 @@ public class DiscountController {
 		return "discount/index";
 	}
 	
-	@GetMapping("/discount/form")
+	@GetMapping("/staff/discount/form")
 	public ModelAndView discountForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.getModel().put("discount", new Discount());
@@ -55,24 +55,17 @@ public class DiscountController {
 			  BindingResult br) {
 		ModelAndView mav = new ModelAndView();
 		discountService.insert(discount);
-		mav.setViewName("redirect:/discount/viewDiscount");
+		mav.setViewName("redirect:/staff/discount/viewDiscount");
 		return mav;
 	}
 	
 	@GetMapping("discount/deleteDiscount")
 	public ModelAndView deleteMessage(ModelAndView mav, @RequestParam(name="id") Integer id) {
 		discountService.deleteById(id);
-		mav.setViewName("redirect:/discount/viewDiscount");
+		mav.setViewName("redirect:/staff/discount/viewDiscount");
 		return mav;
 	}
-	
-	//頁面轉到view
-	@GetMapping(path = "/discount/viewDiscount2")
-	public String processMainPage() {
-		return "/discount/viewDiscount";
-	}
-	
-		
+			
 //	@GetMapping(value = "/discount/get/{id}")
 //	public Discount getCustomerById(@PathVariable Integer id) {
 //		Discount responseDis = discountService.findById(id);
@@ -83,7 +76,7 @@ public class DiscountController {
 //		return null;
 //	}
 	
-	@GetMapping("/discount/viewDiscount")
+	@GetMapping("/staff/discount/viewDiscount")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<Discount> page = discountService.findByPage(pageNumber);
 		List<Discount> discounts = page.getContent();
@@ -94,18 +87,6 @@ public class DiscountController {
 		
 		return mav;
 	}
-	
-	//pageNumber在service已經-1過，不需要再減
-//		@GetMapping("/discount/viewDiscount")
-//		public ModelAndView viewDiscountPage(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
-//			Page<Discount> page = discountService.findByPage(pageNumber);
-//			
-//			mav.getModel().put("page", page);
-//			//回傳的頁面
-//			mav.setViewName("/discount/viewDiscount");
-//			
-//			return mav;
-//		}
 	
 	//跳轉到前台優惠券一覽
 	@RequestMapping("/discount/showADs-front")
@@ -132,7 +113,7 @@ public class DiscountController {
 		//System.out.println(dis.getDiscountCategory());
 		discountService.update(dis);
 		
-		mav.setViewName("redirect:/discount/viewDiscount");
+		mav.setViewName("redirect:/staff/discount/viewDiscount");
 		
 		return mav;
 	}
@@ -142,7 +123,7 @@ public class DiscountController {
 			ModelAndView mav,
 			@RequestParam("memberId") Integer memberId) {
 		// 接 memberId, 回傳 Discount list
-		List<Discount> discounts = discountService.findAllByMemberId(memberId);
+		List<Discount> discounts = discountService.findAllDiscountListByMemberId(memberId);
 		List<Member> members = memberService.findAllMember();
 		Member member  = memberService.findById(memberId);
 		mav.getModel().put("discounts", discounts);

@@ -32,11 +32,11 @@
 					<span class="icon"><i class="mdi mdi-plus"></i></span>
 			</a>
 				<ul>
-					<li><a href="pageSeperate"> <span>查詢所有商品</span>
+					<li><a href="${contextRoot}/staff/pageSeperate"> <span>查詢所有商品</span>
 					</a></li>
-					<li><a href="insertPdpage.controller"> <span>上架商品</span>
+					<li><a href="${contextRoot}/staff/insertPdpage.controller"> <span>上架商品</span>
 					</a></li>
-					<li><a href="searchProductAds.controller"> <span>商品廣告輪播配置</span>
+					<li><a href="${contextRoot}/staff/searchProductAds.controller"> <span>商品廣告輪播配置</span>
 					</a></li>
 					
 

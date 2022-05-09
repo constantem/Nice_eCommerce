@@ -102,7 +102,7 @@
 				查詢特定會員:<input type="text" name="specificUsername">
 				<input type="submit" value="送出">
 			 
-			<action="${contextRoot}/member/showAllResult">
+			<action="${contextRoot}/staff/member/showAllResult">
 				<input type="submit" value="返回">
 			</form>
 
@@ -169,7 +169,7 @@
  					<c:choose> 
  						<c:when test="${page.number !=pageNumber-1 }">
  						<div class="buttons">
- 							<a href="${contextRoot}/member/showAllResult?p=${pageNumber}">
+ 							<a href="${contextRoot}/staff/member/showAllResult?p=${pageNumber}">
  							<button type="button" class="button active">${pageNumber}</button></a>
  						</div>
 						</c:when> 

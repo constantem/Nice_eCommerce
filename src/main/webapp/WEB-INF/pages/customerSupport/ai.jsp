@@ -171,9 +171,9 @@ var qaList = [
 { Q:"難過", A:"別想它了|別難過|別想那麼多了|事情總是會解決的"},
 { Q:"高興", A:"不錯ㄚ|太棒了|這樣很好ㄚ"},
 { Q: "產品問題", A: "甚麼類型的產品呢?我們有鞋類、服飾類、健身器材、保健食品" },
-{ Q: "鞋類", A: "這是我們鞋類商品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B</a>"},
-{ Q: "健身用品", A: "這是我們健身用品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6</a>"},
-{ Q: "補充營養品", A: "這是我們保健食品商品的連結<p><a href='http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD'>http://localhost:8080/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD</a>"},
+{ Q: "鞋類", A: "這是我們鞋類商品的連結<p><a href='http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B'>http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%BC%91%E9%96%92%E9%9E%8B</a>"},
+{ Q: "健身用品", A: "這是我們健身用品的連結<p><a href='http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6'>http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E5%81%A5%E8%BA%AB%E9%85%8D%E4%BB%B6</a>"},
+{ Q: "補充營養品", A: "這是我們保健食品商品的連結<p><a href='http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD'>http://localhost:8333/Nice_eCommerce/FrontPageSearchBySubCategory?name=%E4%B9%B3%E6%B8%85%E8%9B%8B%E7%99%BD</a>"},
 
 { Q: "優惠活動", A: "商品滿額優惠&周年慶&母親節活動"},
 { Q: "商品滿額優惠", A: "所有商品只要滿2000就送200優惠卷"},

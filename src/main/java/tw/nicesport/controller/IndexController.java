@@ -33,7 +33,7 @@ public class IndexController {
 			HttpServletRequest request) throws ServletException {
 		
 		// 首頁優惠券輪播
-		List<Discount> discounts = discountService.findAllMessages();
+		List<Discount> discounts = discountService.findAll();
 		model.addAttribute("discounts", discounts);
 		
 		/////////////// 首頁強制後台角色登出 /////////////////

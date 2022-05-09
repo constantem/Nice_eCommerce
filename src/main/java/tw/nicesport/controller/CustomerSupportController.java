@@ -75,7 +75,7 @@ public class CustomerSupportController {
 		return mav;
 	}
 
-	@GetMapping("/message/selectAll")
+	@GetMapping("/staff/message/selectAll")
 	public ModelAndView selectAllPage(ModelAndView mav,
 			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber) {
 
@@ -162,7 +162,7 @@ public class CustomerSupportController {
 		// 資料庫查詢, 查詢完, 給前端
 		List<CustomerBean> allCus = csService.findAllCustomer();
 		mav.getModel().put("allCus", allCus);
-		mav.setViewName("redirect:/message/selectAll");
+		mav.setViewName("redirect:/staff/message/selectAll");
 		return mav;
 	}
 
@@ -170,7 +170,7 @@ public class CustomerSupportController {
 	public ModelAndView deletePage(ModelAndView mav,@PathVariable Integer id) {
 		csService.deleteById(id);
 
-		mav.setViewName("redirect:/message/selectAll");
+		mav.setViewName("redirect:/staff/message/selectAll");
 
 		return mav;
 	}

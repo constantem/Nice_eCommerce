@@ -326,7 +326,7 @@ public class ProductController {
 	
 			
 			pService.insert(prodBean);
-			mav.setViewName("redirect:/pageSeperate");
+			mav.setViewName("redirect:/staff/pageSeperate");
 
 			return mav;
 		}
@@ -378,10 +378,10 @@ public class ProductController {
 		public String deleteOneProduct(@PathVariable Integer product_id) {
 			pApi.delProductById(product_id);
 //			return "/product/MainPage";
-			return "redirect:/pageSeperate";
+			return "redirect:/staff/pageSeperate";
 		}
 
-		@GetMapping(value = "/pageSeperate")
+		@GetMapping(value = "/staff/pageSeperate")
 		public ModelAndView viewProduct(ModelAndView mav,
 				@RequestParam(name = "p", defaultValue = "1") Integer pageNumber) {
 			Page<ProductBean> page = pService.findByPage(pageNumber);

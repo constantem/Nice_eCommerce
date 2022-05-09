@@ -78,9 +78,10 @@
 						<div class="container">
 							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 								<div class="col-first">
-									<h1>†升天† 您的訂單明細 †升天†</h1>
+									<h1>†升天† 您的訂單已成立 †升天†</h1>
 									<nav class="d-flex align-items-center">
-										<a href="index.html">Home</span></a>
+										<a href="#">Home</a>
+										
 									</nav>
 								</div>
 							</div>
@@ -134,24 +135,33 @@
 								<td>									
 									<h5></h5>
 								</td>
+								<td>									
+									<h5></h5>
+								</td>
 								<td>
-									<p>$&nbsp${discountAmount}</p>
+									<p>$&nbsp${order.discountAmount}</p>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<h4>小計</h4>
 								</td>
+								<td>									
+									<h5></h5>
+								</td>
 								<td>
 									<h5></h5>
 								</td>
 								<td>
-									<p>$&nbsp${Subtotal-discountAmount}</p>
+									<p>$&nbsp${Subtotal-order.discountAmount}</p>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<h4>運費</h4>
+								</td>
+								<td>									
+									<h5></h5>
 								</td>
 								<td>
 									<h5></h5>
@@ -164,6 +174,9 @@
 								<td>
 									<h4>訂單總價</h4>
 								</td>
+								<td>									
+									<h5></h5>
+								</td>
 								<td>
 									<h5></h5>
 								</td>
@@ -175,8 +188,7 @@
 					</table>
 				</div>
 				<hr>
-				<div>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
-			<div class="row order_d_inner">
+				<div class="row order_d_inner">
 				<div class="col-lg-4">
 					<div class="details_item">
 						<h4>配送明細</h4>
@@ -190,7 +202,6 @@
 				</div>
 			</div>
 			<hr>
-			<div>////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</div>
 			
 			
 			</div>

@@ -96,6 +96,7 @@
 
 #shipCheck711 {
 	margin-right: 5px;
+	margin-left: 5px;
 }
 
 #shipCheckCat {
@@ -106,6 +107,10 @@
 #shipCheckPost {
 	margin-left: 5px;
 	margin-right: 5px;
+}
+#shipCheckStore{
+	
+	margin-right:5px;
 }
 
 .middle1 {
@@ -227,11 +232,16 @@
 
 
 								<div id="ship">
-									<i class="bi bi-truck truck"></i> <input id="shipCheck711"
-										type="checkbox" value="60" name="">711交貨便 <input
-										id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+									<i class="bi bi-truck truck"></i>
+									<input id="shipCheckStore" type="checkbox" checked value="" name="">到店付款
+
+									<input id="shipCheck711" type="checkbox" value="60" name="">711交貨便
+
+									<input id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+
 									<input id="shipCheckPost" type="checkbox" value="180" name="">郵局
-									<input id="shippingFee" hidden type="text" value=""
+									
+									<input id="shippingFee" hidden type="text" value="30"
 										name="shippingFee">
 								</div>
 
@@ -268,13 +278,15 @@
 										<c:set value="${sum + totalPrice}" var="sum" />
 									</c:forEach>
 								</ul>
+
+								<!-- <c:set value="${(sum + totalPrice)}" var="finalPrice"></c:set> -->
 								<ul class="list list_2">
 									<li><a href="#">小計 <span>NT$&nbsp;<span
 												id="sum">${sum}</span></span></a></li>
 									<li><a id="" href="#">運費 <span class="shipFee"
-											value=""></span></a></li>
+											value="">NT$ 30</span> </a></li>
 									<li><a href="#">總價 <span>NT$&nbsp;<span
-												id="totalPrice"></span></span></a></li>
+												id="totalPrice">${sum + 30}</span></span></a></li>
 								</ul>
 								<div class="payment_item">
 <!-- 									<div class="radion_btn"> -->
@@ -468,13 +480,14 @@
 					</script>
 
 	<script>
-
+						
 						$("#shipCheck711").click(function(){
 							$(".shipFee").text("NT$ 60");
 							$("#shippingFee").val(60);
 							if($("#shipCheck711").prop('checked')){
 								$("#shipCheckCat").prop('checked',false)
 								$("#shipCheckPost").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -490,6 +503,7 @@
 							if($("#shipCheckCat").prop('checked')){
 								$("#shipCheck711").prop('checked',false)
 								$("#shipCheckPost").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -505,6 +519,7 @@
 							if($("#shipCheckPost").prop('checked')){
 								$("#shipCheck711").prop('checked',false)
 								$("#shipCheckCat").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -513,6 +528,29 @@
 							var totalPrice = (b + shipNum)
 							$("#totalPrice").text(" " +totalPrice )
 						})
+
+						$("#shipCheckStore").click(function(){
+							$(".shipFee").text("NT$ 30");
+							$("#shippingFee").val(30);
+							if($("#shipCheckStore").prop('checked')){
+								$("#shipCheck711").prop('checked',false)
+								$("#shipCheckCat").prop('checked',false)
+								$("#shipCheckPost").prop('checked',false)
+							}
+							var a = $("#sum").text();
+							var b = parseInt(a)
+							var shipFee = $("#shippingFee").val();
+							var shipNum = parseInt(shipFee)
+							var totalPrice = (b + shipNum)
+							$("#totalPrice").text(" " +totalPrice )
+						})
+
+
+						function totalPrice(){
+
+						}
+
+
 
 
 

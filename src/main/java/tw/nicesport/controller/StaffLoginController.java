@@ -91,6 +91,14 @@ public class StaffLoginController {
 	public String showMyProfile(Principal principal, Model model) throws Exception {
 		String username = principal.getName();
 		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
-		return "forward:/staff/myProfileByEmployeeId?id="+employee.getEmployee_id();
+		return "forward:/staff/myProfileByEmployeeId?employeeid="+employee.getEmployee_id();
+	}
+	
+	// 後端我的打卡: 中間站
+	@RequestMapping("/staff/PunchCardSystem")
+	public String showPunchCardSystem(Principal principal, Model model) throws Exception {
+		String username = principal.getName();
+		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
+		return "forward:/staff/PunchCardSystemByEmployeeId?employeeid="+employee.getEmployee_id();
 	}
 }

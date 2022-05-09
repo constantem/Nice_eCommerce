@@ -413,8 +413,8 @@
 			    <div class="col-sm-10">
 			      <label class="radio-inline">	 
 					<select class="form-control" name="permission" id="permission_add_input">
-						<option>一般權限</option>
-						<option>超級管理員權限</option>
+						<option>EMPLOYEE</option>
+						<!-- <option>超級管理員權限</option> -->
 					</select>
 				  </label>
 			    </div>
@@ -542,8 +542,8 @@
 			    <div class="col-sm-10">
 			      <label class="radio-inline">	 
 					<select class="form-control" name="permission" id="permission_update_input">
-						<option>一般權限</option>
-						<option>超級管理員權限</option>
+						<option>EMPLOYEE</option>
+						<!-- <option>超級管理員權限</option> -->
 					</select>
 				  </label>
 			    </div>
@@ -1066,10 +1066,7 @@ function fetchNotes(startPage) {
 						}
 					});
 				}
-			}
-
-				
-
+			}	
 			function inquireEmp(id){
 				$("#empInquireModal").modal({
 			});

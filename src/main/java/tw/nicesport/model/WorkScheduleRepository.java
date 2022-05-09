@@ -25,5 +25,13 @@ public interface WorkScheduleRepository extends JpaRepository<WorkSchedule, Inte
 	@Query(value = "delete workSchedule where year=:year and month=:month",nativeQuery=true)
 	void delDate(@Param ("year")String year, @Param ("month")String month);
 	
-
+	
+	@Query(value = "select * ,(select schedule from scheduleType st where st.work_id=ws.work_id) as work_name  from workSchedule ws  where year=:year and month=:month and day=:day and employee_id=:employee_id ",nativeQuery=true)
+	List<WorkSchedule> findPunchCard(
+			@Param ("year")String year,
+			@Param ("month")String month,
+			@Param ("day")String day,
+			@Param ("employee_id")String employeeid
+			
+			);
 }

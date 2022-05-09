@@ -1,5 +1,6 @@
 package tw.nicesport.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +24,34 @@ public class LoginService {
 	@Autowired
 	private LoginERepository employeeDao;
 	
-//	public boolean authenticateMember(String username, String password) {
-//		Member member = memberDao.findByUsername(username);
-//		
-//		if( 
-//			member!=null // 有此帳號
-//			&& member.getPassword().equals(password) // 密碼正確
-//		) { 
-//			return true;
-//		}
-//		
-//		return false;
+//	// ROLE_USER 一鍵輸入用
+//	public Member findFirstMember() {
+//		return memberDao.findFirstByOrderByMemberid();
 //	}
 	
-	public Member findFirstMember() {
-		return memberDao.findFirstByOrderByMemberid();
+	// ROLE_USER 一鍵輸入用
+	public Member findOneOfTop3Member(int numZeroBased) {
+		return memberDao.findTop3ByOrderByMemberid().get(numZeroBased);
 	}
 	
-	public Employee findFirstEmployee() {
-		return employeeDao.findFirstByOrderByEmployeeid();
+	// ROLE_EMPLOYEE 一鍵輸入用
+	public Employee findOneOfTop3RoleEmployee(int numZeroBased) {
+		List<Employee> employees = employeeDao.findTop3ByOrderByIdWhereRoleEmployee();
+		
+		if(employees==null) {
+			return null;
+		}
+		
+		if( employees.size()<(numZeroBased+1) ) {
+			return null;
+		}
+		
+		return employees.get(numZeroBased);
+	}
+	
+	// ROLE_ADMIN 一鍵輸入用
+	public Employee findAdmin() {
+		return employeeDao.findAdmin();
 	}
 	
 	public boolean authenticateEmployee(Integer id, String password) {
@@ -61,6 +71,13 @@ public class LoginService {
 		Optional<Member> memberOpt = memberDao.findByUsername(username);
 		Member member = memberOpt.orElseThrow(
 			() -> new Exception("查無 Member===>|"+username+"|的資訊.")
+        );
+		return member;
+	}
+	
+	public Member findMemberByEmail(String email) throws Exception {
+		Member member = memberDao.findByEmail(email).orElseThrow(
+			() -> new Exception("查無 Member===>|"+email+"|的資訊.")
         );
 		return member;
 	}

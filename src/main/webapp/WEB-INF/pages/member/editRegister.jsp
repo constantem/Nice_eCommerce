@@ -21,7 +21,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>運動網</title>
+	<title>修改個人資料</title>
 	<!--
 		CSS
 		============================================= -->

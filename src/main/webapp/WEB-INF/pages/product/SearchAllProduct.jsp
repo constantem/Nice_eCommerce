@@ -88,6 +88,37 @@
 #functionTitle {
 	margin: auto;
 }
+
+.blink {
+    animation-duration: 1s;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    81% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 </style>
 <body>
 
@@ -215,11 +246,11 @@
 				<div
 					class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
 					<div class="flex items-center justify-start space-x-3">
-						<div>Nice eCommerce</div>
+						<div></div>
 
 						<div>
 							<p>
-								, All Right Reserved.<a href="" target="_blank"></a>
+								<a href="" target="_blank"></a>
 							</p>
 						</div>
 					</div>
@@ -269,6 +300,7 @@
 				
 				if (a == 0) {
 					$(this).css("color", "#FF0000").text("無庫存");
+					$(this).attr("class","blink")
 				} else {
 
 				}

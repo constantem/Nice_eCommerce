@@ -81,6 +81,9 @@
 #orderStatus {
 	width:155PX;
 }
+
+
+
 </style>
 
 <body>
@@ -119,7 +122,7 @@
 			<div
 				class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>${member.lastname}${member.firstname} 的追蹤清單</h1>
+					<h1>${member.lastname}${member.firstname} 的歷史訂單</h1>
 					<nav class="d-flex align-items-center">
 						<a href="${contextRoot}/FrontpageSeperate">購物商城<span
 							class="lnr lnr-arrow-right"></span></a> <a
@@ -152,7 +155,7 @@
 						</thead>
 
 						<tbody>
-							<c:forEach items="${page.content}" var="ordersList"
+							<c:forEach items="${ordersList}" var="ordersList"
 								varStatus="status">
 								<tr>
 									<td>
@@ -183,15 +186,19 @@
     							  		  <td><h5 id="">資料庫沒有訂單狀態</h5></td>
    									 </c:otherwise>
 									</c:choose>
+									<td></td>
+									<td></td>
+									<td></td>
+								
+
 									<td>
 									<input type="hidden" value="${ordersList.orderId}">
-									
-									<button type="button" class="button blue" id="order_detail_btn"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"
-										data-bs-whatever="@mdo"
-										onclick="location.href='${contextRoot}/user/myOrdersDetailByMemberId?orderId=${ordersList.orderId}&memberId=${memberId}'">
-										<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
-									</button>
+										<button type="button" class="gray_btn" id="order_detail_btn"
+											data-bs-toggle="modal" data-bs-target="#exampleModal"
+											data-bs-whatever="@mdo"
+											onclick="location.href='${contextRoot}/user/myOrdersDetailByMemberId?orderId=${ordersList.orderId}&memberId=${member.memberid}'">
+											<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
+										</button>
 									</td>
 
 
@@ -223,27 +230,27 @@
 
 							</tr>
 							<!-- 		分頁頁數物件 -->
-		<div id="page" align="center">
-			<div class="table-pagination">
-				<div class="flex items-center ">
-					<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-						<c:choose>
-							<c:when test="${page.number != pageNumber-1}">
-								<div class="buttons">
-									<a href="${contextRoot}/user/myOrdersByMemberId?id=${memberId}&p=${pageNumber}"><button
-											type="button" class="button active">${pageNumber}</button></a>
-									&nbsp&nbsp
+
+							<div class="pageButton">
+								<div class="filter-bar d-flex flex-wrap align-items-center">
+									<div class="sorting">
+										<div class="pagination">
+											<c:forEach var="pageNumber" begin="1" end="${totalPages}">
+												<c:choose>
+													<c:when test="${page.number != pageNumber-1}">
+														<a href="${contextRoot}/user/myOrdersByMemberId?id=${member.memberid}&p=${pageNumber}"
+															class="">${pageNumber}</a>
+													</c:when>
+													<c:otherwise>
+														<c:out value="${pageNumber}"></c:out>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</div>
+									</div>
 								</div>
-							</c:when>
-							<c:otherwise>
-								<c:out value="${pageNumber}"></c:out>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
-		<!-- 		分頁物件 -->
+							</div>
+
 							<tr class="out_button_area">
 								<td></td>
 								<td></td>

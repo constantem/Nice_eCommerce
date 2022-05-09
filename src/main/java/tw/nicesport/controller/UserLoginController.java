@@ -2,19 +2,24 @@ package tw.nicesport.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ResolvableType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,20 +47,62 @@ public class UserLoginController {
 	
 	@Autowired
 	private MemberService memberService;
-		
+	
+	// 第三方登入所使用 dao
+	@Autowired
+	private ClientRegistrationRepository clientRegistrationRepository;
+
+	// 第三方登入的 url 的前半段
+	private static String authorizationRequestBaseUri = "oauth2/authorization";
+
+	// 多個第三方, 其存登入用 url 的 map
+	Map<String, String> oauthAuthUrls = new HashMap<>();
+	
 	//// 會員登入 ////
 	
-	@RequestMapping(value = "/userLogin", method = RequestMethod.GET) // GET /login/member
+	@RequestMapping(value = "/userLogin", method = RequestMethod.GET) // GET /userLogin
 	public String showMemberLoginForm(Model model) {
+		
+		// form:form 使用
 		model.addAttribute("usernameAndPasswordWrapper", new UsernameAndPasswordWrapper());
+		
+		// 取得所有第三方登入驗證用的 url
+	    Iterable<ClientRegistration> clientRegistrations = null;
+	    ResolvableType type = ResolvableType.forInstance(clientRegistrationRepository).as(Iterable.class);
+	    if (	type != ResolvableType.NONE 
+	    		&& 
+	    		ClientRegistration.class.isAssignableFrom(type.resolveGenerics()[0])
+	    	) {
+	        clientRegistrations = (Iterable<ClientRegistration>) clientRegistrationRepository;
+	    }
+
+	    for(ClientRegistration registration : clientRegistrations) {
+	    	oauthAuthUrls.put(
+	    		registration.getClientName(), 
+	    		authorizationRequestBaseUri + "/" + registration.getRegistrationId()
+	    	);
+	    	System.out.println("key");
+	    	System.out.println(registration.getClientName());
+	    	System.out.println("value");
+	    	System.out.println(authorizationRequestBaseUri + "/" + registration.getRegistrationId());
+	    }
+	    clientRegistrations.forEach(registration -> 
+	      oauthAuthUrls.put(registration.getClientName(), 
+	      authorizationRequestBaseUri + "/" + registration.getRegistrationId()));
+	    
+	    model.addAttribute("oauthAuthUrls", oauthAuthUrls);
+		
 		return "login/member-login-form";
 	}
 	
-	@RequestMapping("/userLoginAutoInputFirst")
+	@RequestMapping("/userLoginAutoInput")
 	@ResponseBody
-	public Member memberLoginAutoInput() {
-		System.out.println(loginService.findFirstMember());
-		return loginService.findFirstMember();
+	public UsernameAndPasswordWrapper memberLoginAutoInput(@RequestParam("number") int numOneBased) {
+		Member member = loginService.findOneOfTop3Member(numOneBased-1);
+		UsernameAndPasswordWrapper userAndPass = new UsernameAndPasswordWrapper();
+		userAndPass.setUsername( member.getUsername() );
+		userAndPass.setPassword( member.getPassword() );
+		return userAndPass;
 	}
 	
     @RequestMapping("/user/memberUsername")
@@ -221,5 +268,52 @@ public class UserLoginController {
 		}
 		
 		return "course/list-all-courses-front";
+	}
+	
+	//// 前往後台並會員登出 ////
+	@RequestMapping("/user/logoutAndToBackstage")
+	public String logoutAndToBackstage(HttpServletRequest request) throws ServletException {
+		request.logout();
+		return "redirect:/";
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////                                            ////////////
+	////////////                  第三方登入                  ////////////
+	////////////                                            ////////////
+	/////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////
+	
+
+	@RequestMapping(value = "/oauthLogin", method = RequestMethod.GET) // GET /oauthLogin
+	public String getLoginPage(Model model) {
+		
+		// 取得所有第三方登入驗證用的 url
+	    Iterable<ClientRegistration> clientRegistrations = null;
+	    ResolvableType type = ResolvableType.forInstance(clientRegistrationRepository).as(Iterable.class);
+	    if (	type != ResolvableType.NONE 
+	    		&& 
+	    		ClientRegistration.class.isAssignableFrom(type.resolveGenerics()[0])
+	    	) {
+	        clientRegistrations = (Iterable<ClientRegistration>) clientRegistrationRepository;
+	    }
+
+	    for(ClientRegistration registration : clientRegistrations) {
+	    	oauthAuthUrls.put(
+	    		registration.getClientName(), 
+	    		authorizationRequestBaseUri + "/" + registration.getRegistrationId()
+	    	);
+	    	System.out.println("key");
+	    	System.out.println(registration.getClientName());
+	    	System.out.println("value");
+	    	System.out.println(authorizationRequestBaseUri + "/" + registration.getRegistrationId());
+	    }
+	    clientRegistrations.forEach(registration -> 
+	      oauthAuthUrls.put(registration.getClientName(), 
+	      authorizationRequestBaseUri + "/" + registration.getRegistrationId()));
+	    
+	    model.addAttribute("oauthAuthUrls", oauthAuthUrls);
+		return "login/member-login-form";
 	}
 }

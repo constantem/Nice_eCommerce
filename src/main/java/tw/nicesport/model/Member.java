@@ -26,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import tw.nicesport.security.UserType;
+
 import javax.persistence.Table;
 
 
@@ -89,6 +91,10 @@ public class Member {
 	// 住址
 	@Column(name="address")
 	private String address;
+	
+	// 第三方登入的提供商
+	@Column(name="userType")
+	private UserType userType;
 	
 	// 建立日期
 //	@Column(name="createAt")
@@ -212,6 +218,14 @@ public class Member {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType google) {
+		this.userType = google;
 	}
 
 	@Override

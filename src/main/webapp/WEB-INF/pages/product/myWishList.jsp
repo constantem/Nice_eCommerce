@@ -76,6 +76,16 @@
 #keepShopping{
 	border-radius:5px;
 }
+.productName{
+	color:#003060;
+
+}
+.productName:hover{
+	color: #FF8C00;
+	transition: 0.3s;
+
+}
+
 
 
 </style>
@@ -147,10 +157,10 @@
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt="">
+											<a href="${contextRoot}/getOneProductShop${pdWish.id}"><img class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt=""></a>
 										</div>
 										<div class="media-body">
-											<p id="pdName1">${pdWish.productName}</p>
+											<a href="${contextRoot}/getOneProductShop${pdWish.id}"><p class="productName" id="pdName1">${pdWish.productName}</p></a>
 										</div>
 									</div>
 								</td>
@@ -168,7 +178,7 @@
 											<a class="gray_btn quantityStatus" style="color: red;">補貨中</a>
 										</c:when>
 										<c:otherwise>
-											<a class="gray_btn quantityStatus" href="${contextRoot}/insertCartFromCartWishList?memberid=${member.memberid}&productid=${pdWish.id}&quantity=1">加入購物車</a>
+											<a class="gray_btn quantityStatus addToCart" href="${contextRoot}/insertCartFromCartWishList?memberid=${member.memberid}&productid=${pdWish.id}&quantity=1">加入購物車</a>
 										</c:otherwise>
 									</c:choose>
 								</td>
@@ -344,6 +354,7 @@
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/vendor/popper.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- ========================================== js ============================================== -->
 	
@@ -363,6 +374,21 @@
 				}
 			});
 			return false;
+		})
+
+		$(".addToCart").click(function(){
+			Swal.fire({
+				title: '',
+				text: '',
+				backdrop:false,
+				width:230,
+				height:230,
+				timer:1000,
+				imageUrl: $("#contextRoot").val() + '/img/load.gif',
+				imageWidth: 150,
+				imageHeight: 150,
+				showConfirmButton:false,		
+			})
 		})
 
 	</script>

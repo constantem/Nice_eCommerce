@@ -82,6 +82,10 @@
 	
 }
 
+ #photoLabel{
+	color: red;
+} 
+
 #btn1 {
 	margin-left: 150px;
 }
@@ -104,7 +108,7 @@
 }
 
 .imgTag {
-	margin-right: 400px;
+	margin-right: 500px;
 	color: #2894FF;
 }
 
@@ -115,6 +119,11 @@
 #img1 {
 	margin-top: 10px;
 	margin-bottom: 15px;
+}
+.lb{
+	margin-right: 500px;
+	color: #2894FF	;
+
 }
 
 </style>
@@ -233,17 +242,25 @@
 						</div>
 
 						<div class="field">
-							<label class="label">商品照片</label>
+							<label  class="label">商品照片</label>
+							<label id="photoLabel">(最少選擇兩張商品照)</label>
 							<div class="control">
-								<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp
-									商品主圖</span> <input id="img1" name="img" class="input" type="file"
-									value="">
+								<span class="imgTag"><i class="bi bi-images"></i>&nbsp
+									商品主圖</span>
+							    <input id="img1" name="img" class="input" type="file" value="">
+
 								<hr>
-								<input id="img" name="imgUrl_A" class="input" type="file"
-									value=""> <input id="img" name="imgUrl_B" class="input"
-									type="file" value=""> <input id="img" name="imgUrl_C"
-									class="input" type="file" value=""> <input id="img"
-									name="imgUrl_D" class="input" type="file" value="">
+								<label class="lb">商品照A</label>
+								<input id="img" name="imgUrl_A" class="input imgA" type="file" value="">
+								
+								</i><label class="lb">商品照B</label>
+								<input id="img" name="imgUrl_B" class="input imgB" type="file" value="">
+
+								<label class="lb">商品照C</label>
+								<input id="img" name="imgUrl_C" class="input imgC" type="file" value="">
+
+								<label class="lb">商品照D</label>
+								<input id="img" name="imgUrl_D" class="input imgD" type="file" value="">
 							</div>
 						</div>
 
@@ -352,11 +369,11 @@
 		<div
 			class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
 			<div class="flex items-center justify-start space-x-3">
-				<div>Nice eCommerce</div>
+				<div></div>
 
 				<div>
 					<p>
-						, All Right Reserved.<a href="" target="_blank"></a>
+						<a href="" target="_blank"></a>
 					</p>
 				</div>
 			</div>
@@ -406,18 +423,71 @@
 
 	<!--sweetalert 新增商品-->
 	<script>
-		$("#btn1").click(function(){
+		// $("#btn1").click(function(){
 
-			Swal.fire(
+		// 	Swal.fire(
+		// 		'新增成功!',
+		// 		'',
+		// 		'success'
+		// 		)		
+		// 	setTimeout(insert,1800)	
+		// })
+		function insert () {
+				$("#insertForm").submit()
+    			}
+
+
+		$("#btn1").click(function(){
+			if($("#productName").val()=="" || $("#productName").val()==null){
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: '商品名稱不可空白',
+					showConfirmButton: false,
+					timer: 2000
+				})
+			}else if($("#price").val()=="" || $("#price").val()==null){
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: '商品價格不可空白',
+					showConfirmButton: false,
+					timer: 2000
+				})
+			}else if($("#quantity").val()=="" || $("#quantity").val()==null){
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: '商品庫存數量不可空白',
+					showConfirmButton: false,
+					timer: 2000
+				})
+			}else if($("#img1").val()=="" || $("#img1").val()==null){
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: '商品照不可空白',
+					showConfirmButton: false,
+					timer: 2000
+				})
+			}else if($(".imgA").val()=="" || $(".imgA").val()==null){
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: '至少選擇二張商品照片',
+					showConfirmButton: false,
+					timer: 2000
+				})
+			}
+			else{
+				Swal.fire(
 				'新增成功!',
 				'',
 				'success'
 				)		
-			setTimeout(insert,1800)	
-		})
-		function insert () {
-				$("#insertForm").submit()
-    			}
+			setTimeout("insert()",1500)	
+			}
+		})		
 	</script>
 
 
@@ -529,7 +599,32 @@
 				}
 			});
 		}
+
+
+		// vaPhoto();
+		// function vaPhoto(){
+
+		// 	if($(".imgA").val() == "" || $(".imgA").val()== null ){
+				
+		// 	}else{
+		// 		$("#photoLabel").attr("hidden","hidden")
+		// 	}
+		// }
+
+		$(".imgA").change(function(){
+			if($(".imgA").val() == "" || $(".imgA").val()== null
+			 &&$("#img1").val()=="" || $("#img1").val()==null
+			){
+				
+			}else{
+				$("#photoLabel").text("");
+			}
+		})
+
+	
 	</script>
+
+	
 
 
 

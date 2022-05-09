@@ -50,7 +50,6 @@ public class MemberController {
 	private CartService cartService;
   
   	@Autowired
-  	@Qualifier("userAuthenticationManagerBean")
   	private AuthenticationManager authManager;
 
 	@GetMapping("/member")
@@ -99,7 +98,7 @@ public class MemberController {
 		return "member/showOneResult";
 	}
 
-	// 後台查詢全部
+	// 後台查詢全部(暫時沒用到↓↓↓↓)
 	@GetMapping("/member/showAllResultDemo")
 	public ModelAndView showAllResult(ModelAndView model) {
 
@@ -216,48 +215,48 @@ public class MemberController {
 	@GetMapping("/member/register")
 	public String memberRegister(Model model) {
 		model.addAttribute("member", new Member());
-		return "member/register";
+
+		return "/member/register";
 	}
 
 	// 註冊成功(新增)
 	@RequestMapping("/member/registerAdd")
-	public ModelAndView register(ModelAndView mav, @ModelAttribute(name = "member") Member member) {
+	@ResponseBody
+	public String register(
+			@ModelAttribute(name = "member") Member member,
+			HttpServletRequest request) {
 
-		memberService.save(member);
+		Member memberRegistered = memberService.save(member);
 //		===================================================
 		CartBean cart = new CartBean();  //新增購物車 By:Z功
-		cart.setMember(member);//新增購物車 By:Z功
+		cart.setMember(memberRegistered);//新增購物車 By:Z功
 		cartService.insert(cart);//新增購物車 By:Z功
 //		===================================================
-		mav.setViewName("member/registerSuccess");
-
-		return mav;
+		
+		
+		
+//		=============將帳號存入Session, 變登入狀態===========
+		// 打包帳號密碼
+		UsernamePasswordAuthenticationToken token 
+		= new UsernamePasswordAuthenticationToken(memberRegistered.getUsername(),memberRegistered.getPassword());
+		// 去資料庫驗證此帳密是否存在, 若存在, 回傳憑證
+		Authentication auth = authManager.authenticate(token);
+		// 帳號存 session
+		SecurityContext context = SecurityContextHolder.getContext();
+		context.setAuthentication(auth);
+		HttpSession session = request.getSession(true);
+		session.setAttribute("SPRING_SECURITY_CONTEXT", context);
+//		===================================================
+		
+		
+		
+		return "註冊成功";
+		
+//		if(br.hasError()) {
+//			return "註冊失敗";
+//		}
 	}
 	
-	// 註冊成功按下返回，回到商城主頁(登入狀態)
-	@PostMapping("/member/registerSuccess")
-	public String registerSuccess(
-//			Model model, 
-//			@RequestParam("memberId") Integer memberId,
-//			@RequestParam("password") String newPassword,
-//			HttpServletRequest request
-			) {
-		
-//		// 更新密碼
-//		Member member = memberService.changePassword(memberId, newPassword);
-//		String username = member.getUsername();
-//		// 打包帳號密碼
-//		UsernamePasswordAuthenticationToken token 
-//			= new UsernamePasswordAuthenticationToken(username,newPassword);
-//		// 去資料庫驗證此帳密是否存在, 若存在, 回傳憑證
-//		Authentication auth = authManager.authenticate(token);
-//		// 帳號存 session
-//		SecurityContext context = SecurityContextHolder.getContext();
-//		context.setAuthentication(auth);
-//		HttpSession session = request.getSession(true);
-//		session.setAttribute("SPRING_SECURITY_CONTEXT", context);
-		return "index";
-	}
 	
 	// 忘記密碼 ---------⓵按了忘記密碼跳轉至輸入email的頁面
 	@GetMapping("/member/forget")

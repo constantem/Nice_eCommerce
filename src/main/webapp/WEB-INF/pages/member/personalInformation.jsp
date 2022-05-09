@@ -118,103 +118,82 @@
 
 	<!-- Start category Area -->
 	<div class="t1">
-	<form action="${contextRoot}/member/editRegister" method="post">
-	
-	<div class="col-md-6 form-group p_star">
-		<label>帳號:</label>
-		<div class="control">
-			<input type="text" class="form-control" name="username" value="${member.username}" disabled>
-			<input type="text" hidden name="id" value="${member.memberid}" >
-		</div>
-	 <p class="help">
-		           
-     </p>
-    </div>
+	<form class="row contact_form" action="${contextRoot}/member/editRegister" method="post">
 	
 	<!-- 欄位1 -->
 	<div class="col-md-6 form-group p_star">
-		<label class="label">姓:</label>
-		<div class="t2">
-			<input id="lastname" type="text" class="form-control" name="lastname" value="${member.lastname}" disabled>
-		</div>
-	 <p class="help">
-		           
-     </p>
+		<label >帳號:</label>
+			<input type="text" class="form-control" name="username" value="${member.username}" disabled >
+			<input type="text" hidden name="id" value="${member.memberid}" >
+	
     </div>
 	
 	<!-- 欄位2 -->
-	<div class="col-md-6 form-group p_star">
-		<label class="label">名:</label>
-		<div class="control">
-			<input id="firstname" type="text" class="form-control" name="firstname" value="${member.firstname}" disabled>
+	
+	 <div class="col-md-6 form-group p_star">
+		<label class="label">email:</label>
+		<div class="control"> 
+			<input id="email" type="text" class="form-control" name="email" value="${member.email}" disabled>
 	 	</div>
-	 <p class="help">
-		           
-     </p>
+	 
     </div>
-    
-    <!-- 欄位3 -->
-    <div class="col-md-6 form-group p_star">
-		<label class="label">生日:</label>
-		<div class="control">
-			<input id="birthdate" type="text" class="form-control" name="birthdate" value="${member.birthdate}" disabled>
-		</div>	
-	 <p class="help">
-		           
-     </p>
+	
+	<!-- 欄位3 -->
+	<div class="col-md-6 form-group p_star">
+		<label class="label">
+		姓:
+		</label>
+			<input id="lastname" type="text" class="form-control" name="lastname" value="${member.lastname}" disabled>
+
     </div>
     
     <!-- 欄位4 -->
     <div class="col-md-6 form-group p_star">
-		<label class="label">性別:</label>
-		<div class="control">
-			<input type="text" class="form-control" name="gender" value="${member.gender}" disabled>
-	 	</div>
-	 <p class="help">
-		           
-     </p>
+		<label class="label">名:</label>
+			<input id="firstname" type="text" class="form-control" name="firstname" value="${member.firstname}" disabled>
+	
     </div>
     
     <!-- 欄位5 -->
+    <div class="col-md-6 form-group p_star">
+		<label class="label">生日:</label>
+			<input id="birthdate" type="text" class="form-control" name="birthdate" value="${member.birthdate}" disabled>
+	
+    </div>
+    
+    <!-- 欄位6 -->
     <div class="col-md-6 form-group p_star">
 		<label class="label">電話:</label>
 		<div class="control">
 			<input id="phone" type="text" class="form-control" name="phone" value="${member.phone}" disabled>
 		</div>
-	 <p class="help">
-		           
-     </p>
+	 
     </div>
     
-    <!-- 欄位6 -->
+    <!-- 欄位7 -->  
     <div class="col-md-6 form-group p_star">
-		<label class="label">email:</label>
-		<div class="control"> 
-			<input id="email" type="text" class="form-control" name="email" value="${member.email}" disabled>
+		<label class="label">性別:</label>
+		<div class="control">
+			<input id="gender" type="text" class="form-control" name="gender" value="${member.gender}" disabled>
 	 	</div>
-	 <p class="help">
-		           
-     </p>
+	 
     </div>
     
-    <!-- 欄位7 -->
+    <!-- 欄位8 -->
     <div class="col-md-6 form-group p_star">
 		<label class="label">住址:</label>
 		<div class="control">
 			<input id="address" type="text" class="form-control" name="address" value="${member.address}" disabled>
 	 	</div>
-	 <p class="help">
-		           
-     </p>
+	 
     </div>
-	<div class="col-md-12 form-group">
-		<button id="submit" type="submit" value="submit" class="primary-btn">送出</button>
+    
+    <!-- 按鈕們 -->
+    <div class="col-md-12 form-group">
+		<button id="editBtn" type="button" value="submit" class="primary-btn">修改</button>
+		<button id="submitBtn" hidden type="submit" value="submit" class="primary-btn">送出</button>
 	</div>
 	</form>
-	
-		<div class="col-md-12 form-group">
-			<button id="fix" type="button" value="submit" class="primary-btn">修改</button>
-		</div>
 	
 	<form action="${contextRoot}/member/editRegister?id=${member.memberid}" method="get">
 		
@@ -243,13 +222,17 @@
 	
 	
 	<script>
-		$("#fix").click(function(){
+	
+		// 修改按鈕事件處理(按下修改才會show出送出按鈕)
+		$("#editBtn").click(function(){
+			$("#submitBtn").prop("hidden",false);
 			$("#address").removeAttr("disabled","disabled")
 			$("#firstname").removeAttr("disabled","disabled")
 			$("#lastname").removeAttr("disabled","disabled")
 			$("#phone").removeAttr("disabled","disabled")
 			$("#email").removeAttr("disabled","disabled")
 			$("#birthdate").removeAttr("disabled","disabled")
+			$("#gender").removeAttr("disabled","disabled")
 		})
 	
 	

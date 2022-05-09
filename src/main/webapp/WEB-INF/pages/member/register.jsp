@@ -23,7 +23,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>運動網</title>
+<title>Nice運動網</title>
 <!--
 		CSS
 		============================================= -->
@@ -139,28 +139,28 @@
 			<div class="returning_customer">
 				<div class="check_title">
 					<h2>
-						你是忘記了還是害怕想起來? <a href="#">要進來了喔</a>
+						你是忘記了還是害怕想起來? <a href="${contextRoot}/userLogin">要進來了喔</a>
 					</h2>
 				</div>
-				<p>如果你忘記了，那讓我們來新增你的記憶，如果你只是害怕想起來，那讓我們來幫助你吧!</p>
-				<%--                 <form class="row contact_form" action="#" method="post" novalidate="novalidate"> --%>
-				<!--                     <div class="col-md-6 form-group p_star"> -->
-				<!--                         <input type="text" class="form-control" id="name" name="name"> -->
-				<!--                         <span class="placeholder" data-placeholder="Username or Email"></span> -->
-				<!--                     </div> -->
-				<!--                     <div class="col-md-6 form-group p_star"> -->
-				<!--                         <input type="password" class="form-control" id="password" name="password"> -->
-				<!--                         <span class="placeholder" data-placeholder="Password"></span> -->
-				<!--                     </div> -->
-				<!--                     <div class="col-md-12 form-group"> -->
-				<!--                         <button type="submit" value="submit" class="primary-btn">login</button> -->
-				<!--                         <div class="creat_account"> -->
-				<!--                             <input type="checkbox" id="f-option" name="selector"> -->
-				<!--                             <label for="f-option">會記得你的</label> -->
-				<!--                         </div> -->
-				<!--                         <a class="lost_pass" href="#">忘記密碼?Are you 87?</a> -->
-				<!--                     </div> -->
-				<%--                 </form> --%>
+<!-- 				<p>如果你忘記了，那讓我們來新增你的記憶，如果你只是害怕想起來，那讓我們來幫助你吧!</p> -->
+<%-- 	                <form class="row contact_form" action="${contextRoot}/userLoginAuthenticate" method="post" novalidate="novalidate"> --%>
+<!-- 	                    <div class="col-md-6 form-group p_star"> -->
+<!-- 	                        <input type="text" class="form-control" id="name" name="name"> -->
+<!-- 	                        <span class="placeholder" data-placeholder="Username or Email"></span> -->
+<!-- 	                    </div> -->
+<!-- 	                    <div class="col-md-6 form-group p_star"> -->
+<!-- 	                        <input type="password" class="form-control" id="password" name="password"> -->
+<!-- 	                        <span class="placeholder" data-placeholder="Password"></span> -->
+<!-- 	                    </div> -->
+<!-- 	                    <div class="col-md-12 form-group"> -->
+<!-- 	                        <button type="submit" value="submit" class="primary-btn">login</button> -->
+<!-- 	                        <div class="creat_account"> -->
+<!-- 	                            <input type="checkbox" id="f-option" name="selector"> -->
+<!-- 	                            <label for="f-option">We will remember you</label> -->
+<!-- 	                        </div> -->
+	                        <a class="lost_pass" href="${contextRoot}/member/forget">忘記密碼?</a>
+<!-- 	                    </div> -->
+<%-- 	                </form> --%>
 			</div>
 
 			<!-- 註冊表單 -->
@@ -168,59 +168,58 @@
 				<div class="row">
 					<div class="col-lg-8">
 						<h3>加入我們</h3>
-						<form class="row contact_form"
+						<form id="registerForm"
+							class="row contact_form"
 							action="${contextRoot}/member/registerAdd"
 							method="post" novalidate="novalidate">
 
 							<div class="col-md-6 form-group p_star">
 								<input type="text" class="form-control" id="username"
-									name="username" placeholder="Username"> <span
-									class="placeholder"></span>
+									name="username" placeholder="Username" required> 
+								<span class="placeholder"></span>
 							</div>
 
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="password"
-									name="password" placeholder="Password"> <span
-									class="placeholder"></span>
+								<input type="password" class="form-control" id="password"
+									name="password" placeholder="Password" required> 
+								<span class="placeholder"></span>
 							</div>
 
 							<div class="col-md-6 form-group p_star">
 								<input type="text" class="form-control" id="lastname"
-									name="lastname" placeholder="Last name"> <span
-									class="placeholder"></span>
+									name="lastname" placeholder="Last name" required>
+								<span class="placeholder"></span>
 							</div>
 
 							<div class="col-md-6 form-group p_star">
 								<input type="text" class="form-control" id="firstname"
-									name="firstname" placeholder="First name"> <span
-									class="placeholder"></span>
+									name="firstname" placeholder="First name" required> 
+								<span class="placeholder"></span>
 							</div>
 
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="phone" name="phone"
-									placeholder="Phone"> <span class="placeholder"></span>
+								<input type="text" class="form-control" id="phone" 
+									name="phone" placeholder="Phone" pattern="09\d{2}\-?\d{3}\-?\d{3}" required>
 							</div>
 
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="email" name="email"
-									placeholder="Email"> <span class="placeholder"></span>
+								<input type="email" class="form-control" id="email" 
+									name="email" placeholder="Email" required>
+							    <span class="placeholder"></span>
 							</div>
 
 							<div class="col-md-12 form-group p_star">
-								<!--  <label class="label">性別: -->
-								<!--  <input type="radio" id="gender" name="gender" value="男">男 -->
 								<input type="text" class="form-control" id="gender"
 									name="gender" placeholder="Gender">
-								<!--  </label> -->
 							</div>
 
 							<div class="col-md-12 form-group p_star">
 								<input type="text" class="form-control" id="address"
-									name="address" placeholder="Address"> <span
-									class="placeholder"></span>
+									name="address" placeholder="Address" required>
+								<span class="placeholder"></span>
 							</div>
 
-							<div class="col-md-12 form-group">
+							<div class="col-md-6 form-group">
 								<input type="date" class="form-control" id="birthdate"
 									name="birthdate" placeholder="Birthdate">
 							</div>
@@ -230,7 +229,7 @@
 							<!-- 按鍵 -->
 
 						<div class="col-md-12 form-group">
-							<button type="submit" value="submit" class="primary-btn">註冊</button>
+							<button id="sendBtn" type="button" value="submit" class="primary-btn">註冊</button>
 							<button type="button" class="primary-btn" id="register">
 								一鍵輸入</button>
 							<div class="creat_account"></div>
@@ -274,6 +273,9 @@
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 
+<!-- sweet alert CDN -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<!-- 一鍵註冊 -->
 	<script type="text/javascript">
 		$("#register").click(function() {
@@ -286,6 +288,36 @@
 			$("#phone").attr("value", "0986153274");
 			$("#email").attr("value", "zxcvb@gmail.com");
 			$("#address").attr("value", "台北市大安區信義路2段");
+		});
+	</script>
+	
+	<script>
+		$("#sendBtn").click(function () {
+			console.log($("#registerForm"));
+			console.log($("#registerForm")[0]);
+			console.log( new FormData($("#registerForm")[0]) );
+			$.ajax({
+				method: "POST",
+				url: "${contextRoot}/member/registerAdd",
+				data: new FormData($("#registerForm")[0]),
+				contentType:false,
+				processData:false,
+				success: function (status) {
+					if(status=="註冊成功") {
+						Swal.fire({
+							icon: 'success',
+							title: "註冊成功", 
+						}).then(function (result) {
+							if(result.isConfirmed) {
+								window.location.href = "${contextRoot}/";
+							}
+						});
+					} else if(status=="註冊失敗") {
+						// 顯現紅字
+					}
+				}
+				
+			});
 		});
 	</script>
 </body>

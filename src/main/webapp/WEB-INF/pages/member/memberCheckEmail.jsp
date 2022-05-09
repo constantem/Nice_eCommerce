@@ -20,7 +20,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>忘記密碼</title>
+	<title>Nice運動網</title>
 
 	<!--
 		CSS

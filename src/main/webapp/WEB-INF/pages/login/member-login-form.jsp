@@ -177,11 +177,11 @@ $(document).ready(function() {
 							</form>
 							
 							<!-- 忘記密碼 -->
-							<div class="col-md-12 form-group">
-							<form method="get" action="${contextRoot}/member/forget">
-								<button type="submit" value="忘記密碼？" class="primary-btn">忘記密碼？</button>
+							<form class="row login_form" method="get" action="${contextRoot}/member/forget">
+								<div class="col-md-12 form-group">
+									<button type="submit" value="忘記密碼？" class="primary-btn">忘記密碼？</button>
+								</div>		
 							</form>
-							</div>		
 					</div>
 				</div>
 			</div>

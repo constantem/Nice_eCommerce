@@ -99,10 +99,7 @@ public class Discount implements Serializable{
 	
 	@OneToMany(
 		mappedBy="discount",
-		cascade = {CascadeType.PERSIST,
-	              CascadeType.DETACH,
-	              CascadeType.MERGE,
-	              CascadeType.REFRESH}
+		cascade = CascadeType.ALL
 	)
 	private Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet = new HashSet<>();
 	

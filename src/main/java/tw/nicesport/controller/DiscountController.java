@@ -21,15 +21,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import tw.nicesport.model.Course;
+import tw.nicesport.model.AnnouncementBean;
 import tw.nicesport.model.Discount;
+import tw.nicesport.model.Member;
+import tw.nicesport.service.AnnouncementService;
 import tw.nicesport.service.DiscountService;
+import tw.nicesport.service.MemberService;
 
 @Controller
 public class DiscountController {
 	
 	@Autowired
 	private DiscountService discountService;
+	@Autowired
+	private MemberService memberService;
+	
 	
 	@GetMapping("/discount")
 	public String welcomIndex() {
@@ -84,6 +90,7 @@ public class DiscountController {
 		mav.getModel().put("page", page);
 		mav.getModel().put("discounts", discounts);
 		mav.setViewName("/discount/viewDiscount");
+		System.out.println("page");
 		
 		return mav;
 	}
@@ -100,16 +107,7 @@ public class DiscountController {
 //			return mav;
 //		}
 	
-	
-	//跳轉到前台頁面
-		@RequestMapping("/discount/showEvents-front")
-		public String showAllEventsInFront(Model model) {		
-			List<Discount> discounts = discountService.queryAll();
-			model.addAttribute("discounts", discounts);
-			return "discount/showEvents-front";
-		}
-	
-	//跳轉到前台頁面
+	//跳轉到前台優惠券一覽
 	@RequestMapping("/discount/showADs-front")
 	public String showAllADsInFront(Model model) {		
 		List<Discount> discounts = discountService.queryAll();
@@ -144,8 +142,11 @@ public class DiscountController {
 			ModelAndView mav,
 			@RequestParam("memberId") Integer memberId) {
 		// 接 memberId, 回傳 Discount list
-		List<Discount> discounts = discountService.findAllDiscountListByMemberId(memberId);
+		List<Discount> discounts = discountService.findAllByMemberId(memberId);
+		List<Member> members = memberService.findAllMember();
+		Member member  = memberService.findById(memberId);
 		mav.getModel().put("discounts", discounts);
+		mav.getModel().put("memberId",memberId);
 		for(Discount discount : discounts) {
 			System.out.println(discount.getName());
 		}

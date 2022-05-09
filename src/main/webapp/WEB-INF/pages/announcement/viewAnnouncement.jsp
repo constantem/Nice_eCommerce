@@ -122,6 +122,7 @@
 									<th>活動名稱</th>
 									<th>活動描述</th>
 									<th>對應的優惠券</th>
+									<th>上傳的圖片</th>
 									<th>建立日期</th>
 									<th>修改日期</th>
 									<th>修改/刪除</th>
@@ -143,6 +144,7 @@
 										<td data-label="title">${announcement.title}</td>
 										<td data-label="description">${announcement.description}</td>
 										<td data-label="discount_id">${announcement.discount.name}</td>
+										<td data-label="discount_id">${announcement.eventPicture}</td>
 										<td data-label="createdAt">
 											<small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
 										</td>

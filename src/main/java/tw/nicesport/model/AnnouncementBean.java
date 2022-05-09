@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -36,16 +37,22 @@ public class AnnouncementBean {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name="eventPicture")
+	private byte[] eventPicture;
+	
+	@Transient
+	private String eventPictureBase64; // bytes 轉 String 前端才認得, 此屬性不跟資料庫連動
+	
 	@Column(name = "createdAt")
 	private String createdAt;
 	
 	@Column(name = "modifiedAt")
 	private String modifiedAt;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST,
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.REFRESH})
+	@Transient
+	private Integer discountId;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="discount_id")
 	private Discount discount;
 
@@ -73,6 +80,22 @@ public class AnnouncementBean {
 		this.description = description;
 	}
 
+	public byte[] getEventPicture() {
+		return eventPicture;
+	}
+
+	public void setEventPicture(byte[] eventPicture) {
+		this.eventPicture = eventPicture;
+	}
+
+	public String getEventPictureBase64() {
+		return eventPictureBase64;
+	}
+
+	public void setEventPictureBase64(String eventPictureBase64) {
+		this.eventPictureBase64 = eventPictureBase64;
+	}
+
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -95,6 +118,14 @@ public class AnnouncementBean {
 
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
+	}
+
+	public Integer getDiscountId() {
+		return discountId;
+	}
+
+	public void setDiscountId(Integer discountId) {
+		this.discountId = discountId;
 	}
 	
 	

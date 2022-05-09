@@ -46,7 +46,6 @@ public class IndexController {
 //            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
             }
     	}
-		///////////////////////////////////////////////////
 		
 		return "index";
 	}

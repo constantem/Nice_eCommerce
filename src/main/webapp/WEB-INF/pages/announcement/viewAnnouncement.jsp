@@ -179,7 +179,7 @@
 										<c:choose>
 											<c:when test="${page.number != pageNumber-1}">
 												<div class="buttons">
-													<a href="${contextRoot}/announcement/viewAnnouncement?p=${pageNumber}">
+													<a href="${contextRoot}/staff/announcement/viewAnnouncement?p=${pageNumber}">
 														<button type="button"
 															class="button active">${pageNumber}</button></a>
 												</div>

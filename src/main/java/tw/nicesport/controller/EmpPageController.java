@@ -39,7 +39,7 @@ public class EmpPageController {
 	}
 
 	// 再了解內容
-	@GetMapping("/employee/viewEmployee")
+	@GetMapping("/admin/employee/viewEmployee")
 	public ModelAndView viewEmployee(ModelAndView mav,
 			@RequestParam(name = "pn", defaultValue = "1") Integer pageNumber) {
 

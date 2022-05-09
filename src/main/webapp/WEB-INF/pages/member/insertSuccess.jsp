@@ -83,7 +83,7 @@
 
 	<!-- 原核心內容的 section 開始 -->
 	新增成功
-	<form action="${contextRoot}/member/showAllResult" method="get">
+	<form action="${contextRoot}/staff/member/showAllResult" method="get">
 	<div class="field grouped">
         <div class="control">
           <button type="submit" class="button green">

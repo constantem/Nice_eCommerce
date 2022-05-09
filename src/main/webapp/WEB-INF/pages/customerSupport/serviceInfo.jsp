@@ -110,7 +110,7 @@ td, input {
 								特定問題查詢:<input id="inputSearch" class="input" type="text" name="findByServiceInfoLike">
 								<input type="submit" value="送出">
 							</form>
-							<form action="${contextRoot}/message/selectAll">
+							<form action="${contextRoot}/staff/message/selectAll">
 								<input type="submit" value="返回">
 							</form>
 							<table border="1">
@@ -184,7 +184,7 @@ td, input {
 						<c:choose>
 							<c:when test="${page.number != pageNumber-1}">
 								<div class="buttons">
-									<a href="${contextRoot}/message/selectAll?p=${pageNumber}"><button
+									<a href="${contextRoot}/staff/message/selectAll?p=${pageNumber}"><button
 											type="button" class="button active">${pageNumber}</button></a>
 									&nbsp&nbsp&nbsp&nbsp&nbsp
 								</div>

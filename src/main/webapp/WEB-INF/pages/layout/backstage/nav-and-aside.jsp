@@ -132,12 +132,12 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/member/form">
+            <a href="${contextRoot}/staff/member/form">
               <span>新增會員</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/member/showAllResult">
+            <a href="${contextRoot}/staff/member/showAllResult">
               <span>會員列表</span>
             </a>
           </li>
@@ -148,17 +148,27 @@
       <li>
         <a class="dropdown">
           <span class="icon"><i class="mdi mdi-view-list"></i></span>
-          <span class="menu-item-label">優惠券管理</span>
+          <span class="menu-item-label">活動及優惠券管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/discount/form">
+            <a href="${contextRoot}/staff/announcement/addAnnouncement">
+              <span>新增活動</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/staff/announcement/viewAnnouncement">
+              <span>活動列表</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/staff/discount/form">
               <span>新增優惠券</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/discount/viewDiscount">
+            <a href="${contextRoot}/staff/discount/viewDiscount">
               <span>優惠券列表</span>
             </a>
           </li>
@@ -174,17 +184,17 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/insertPdpage.controller">
+            <a href="${contextRoot}/staff/insertPdpage.controller">
               <span>新增商品</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/pageSeperate">
+            <a href="${contextRoot}/staff/pageSeperate">
               <span>商品列表</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/searchProductAds.controller">
+            <a href="${contextRoot}/staff/searchProductAds.controller">
               <span>商品廣告輪播配置</span>
             </a>
           </li>
@@ -200,12 +210,7 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/">
-              <span>新增訂單</span>
-            </a>
-          </li>
-          <li>
-            <a href="${contextRoot}/orders/viewAllOrders">
+            <a href="${contextRoot}/staff/orders/viewAllOrders">
               <span>訂單列表</span>
             </a>
           </li>
@@ -254,12 +259,12 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/employee/viewEmployee">
+            <a href="${contextRoot}/admin/employee/viewEmployee">
               <span>員工列表</span>
             </a>
           </li>
           <li>
-            <a href="${contextRoot}/employee/WorkSchedule">
+            <a href="${contextRoot}/admin/employee/WorkSchedule">
               <span>排班系統</span>
             </a>
           </li>
@@ -280,29 +285,8 @@
         </a>
         <ul>
           <li>
-            <a href="${contextRoot}/message/selectAll">
+            <a href="${contextRoot}/staff/message/selectAll">
               <span>客服管理</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      
-            <!-- 下拉式選單8: 活動管理系統 -->
-      <li>
-        <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
-          <span class="menu-item-label">活動管理</span>
-          <span class="icon"><i class="mdi mdi-plus"></i></span>
-        </a>
-        <ul>
-          <li>
-            <a href="${contextRoot}/announcement/addAnnouncement">
-              <span>新增活動</span>
-            </a>
-          </li>
-          <li>
-            <a href="${contextRoot}/announcement/viewAnnouncement">
-              <span>活動列表</span>
             </a>
           </li>
         </ul>

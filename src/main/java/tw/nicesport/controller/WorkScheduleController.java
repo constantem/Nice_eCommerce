@@ -33,7 +33,7 @@ public class WorkScheduleController {
 	@Autowired
 	private WorkScheduleRepository workschedulerepository;
 
-	@GetMapping("/employee/WorkSchedule")
+	@GetMapping("/admin/employee/WorkSchedule")
 	public String workSchedule() {
 		return "employee/WorkSchedule";
 	}

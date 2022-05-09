@@ -67,15 +67,15 @@
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					 aria-expanded="false">會員中心</a>
 					<ul class="dropdown-menu">
-						<sec:authorize access="!isAuthenticated()">
+<%-- 						<sec:authorize access="!isAuthenticated()"> --%>
 							<li class="nav-item notAuthenticatedAsUser">
 								<a class="nav-link" href="${contextRoot}/userLogin">
 									註冊/登入
 								</a>
 							</li>
-						</sec:authorize>
+<%-- 						</sec:authorize> --%>
 
-						<sec:authorize access="isAuthenticated()">
+<%-- 						<sec:authorize access="isAuthenticated()"> --%>
 							<li class="nav-item isAuthenticatedAsUser">
 								<a class="nav-link" 
 									href="${contextRoot}/user/myProfile">
@@ -117,7 +117,7 @@
 									</a>
 								</form>
 							</li>
-						</sec:authorize>
+<%-- 						</sec:authorize> --%>
 
 					</ul>
 				</li>
@@ -162,21 +162,21 @@
 <!-- sweat alert 2 CDN -->	
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	// 會員中心在登入中與非登入中不一樣
-// 	$.ajax({
-// 		url: $("#contextRoot").val() + "/user/role",
-// 		success: function (roles) {
-// 			console.log("roles.length======>|"+roles.length+"|");
-// 			console.log("roles[0]======>|"+roles[0]+"|");
-// 			if(roles.length===1 && roles[0]=="ROLE_USER") {
-// 				$(".isAuthenticatedAsUser").show();
-// 				$(".notAuthenticatedAsUser").hide();
-// 			} else {
-// 				$(".isAuthenticatedAsUser").hide();
-// 				$(".notAuthenticatedAsUser").show();
-// 			}
-// 		}
-// 	});
+	//會員中心在登入中與非登入中不一樣
+	$.ajax({
+		url: $("#contextRoot").val() + "/user/role",
+		success: function (roles) {
+			console.log("roles.length======>|"+roles.length+"|");
+			console.log("roles[0]======>|"+roles[0]+"|");
+			if(roles.length===1 && roles[0]=="ROLE_USER") {
+				$(".isAuthenticatedAsUser").show();
+				$(".notAuthenticatedAsUser").hide();
+			} else {
+				$(".isAuthenticatedAsUser").hide();
+				$(".notAuthenticatedAsUser").show();
+			}
+		}
+	});
 	
 	// 前往後台的彈窗
 	$("#toBackstageBtn").click(function () {

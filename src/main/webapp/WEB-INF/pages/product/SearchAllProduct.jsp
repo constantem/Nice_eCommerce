@@ -227,7 +227,7 @@
 							<c:choose>
 								<c:when test="${page.number != pageNumber-1}">
 									<div class="buttons">
-										<a href="${contextRoot}/pageSeperate?p=${pageNumber}"><button
+										<a href="${contextRoot}/staff/pageSeperate?p=${pageNumber}"><button
 												type="button" class="button active">${pageNumber}</button></a>
 										&nbsp&nbsp
 									</div>

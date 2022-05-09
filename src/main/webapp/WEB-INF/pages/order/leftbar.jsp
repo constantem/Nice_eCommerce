@@ -15,7 +15,7 @@
     <p class="menu-label">第一小框(英文會全大寫)</p>
     <ul class="menu-list">
       <li class="--set-active-index-html">
-        <a href="/Nice_eCommerce/orders/viewAllOrders">        
+        <a href="/Nice_eCommerce/staff/orders/viewAllOrders">        
           <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
           <span class="menu-item-label">第一個選項  目前會跳回這頁</span>
         </a>

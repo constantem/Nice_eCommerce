@@ -251,7 +251,7 @@ $(document).ready(function() {
 						<c:choose>
 							<c:when test="${page.number != pageNumber-1}">
 								<div class="buttons">
-									<a href="${contextRoot}/message/selectAll?p=${pageNumber}"><button
+									<a href="${contextRoot}/staff/message/selectAll?p=${pageNumber}"><button
 											type="button" class="button active">${pageNumber}</button></a>
 									&nbsp&nbsp&nbsp&nbsp&nbsp
 								</div>

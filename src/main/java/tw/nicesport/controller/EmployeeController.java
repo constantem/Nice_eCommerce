@@ -90,7 +90,7 @@ public class EmployeeController {
 
 		employeeService.deleteById(id);
 
-		mav.setViewName("redirect:/employee/viewEmployee");
+		mav.setViewName("redirect:/admin/employee/viewEmployee");
 
 		return mav;
 	}
@@ -99,7 +99,7 @@ public class EmployeeController {
 	public ModelAndView deleteChoice(ModelAndView mav ,@RequestParam(name = "employee_id")Integer[] id) {
 		employeeService.deleteChoice(Arrays.asList(id));
 		
-		mav.setViewName("redirect:/employee/viewEmployee");
+		mav.setViewName("redirect:/admin/employee/viewEmployee");
 		
 		return mav;
 	}

@@ -60,7 +60,7 @@ public class OrderController {
 	}
 	//宣告進入路徑
 	//@RequestParam 去取得值 沒有的話預設"1"
-	@GetMapping("/orders/viewAllOrders")
+	@GetMapping("/staff/orders/viewAllOrders")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		//import springframework 的Page 分頁物件  
 		//OrderService內的.findByPage()方法

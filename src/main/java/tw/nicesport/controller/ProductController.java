@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.CategoryBean;
 import tw.nicesport.model.Member;
+import tw.nicesport.model.OrdersBean;
 import tw.nicesport.model.ProductApi;
 import tw.nicesport.model.ProductBean;
 import tw.nicesport.model.ProductRepository;
@@ -415,10 +416,21 @@ public class ProductController {
 		// 前台按照商品價格範圍搜尋
 		@GetMapping(value = "FrontpageSeperateSortByPriceBetween")
 		public ModelAndView viewShopProductPriceBetween(ModelAndView mav,@RequestParam("startPrice") String startPrice,
-				@RequestParam("endPrice") String endPrice) {
+				@RequestParam("endPrice") String endPrice,@RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		List<ProductBean> prod = pService.findByPriceBetween(startPrice,endPrice);
+		
+		List<ProductBean> pdList = new ArrayList<>();
+		
+		for(int i =0;i<=prod.size()-1;i++) {
+			pdList.add(prod.get(prod.size()-1-i));
+		}
+		
+		List<ProductBean> prodListOnePage = listOnePage(pdList, pageNumber-1, 5);
+		int totalPages = totalPages(pdList, 5);
 
 			mav.getModel().put("prod", prod);
+			mav.getModel().put("prodListOnePage", prodListOnePage);
+			mav.getModel().put("totalPages", totalPages);
 			mav.setViewName("/product/shopPriceBtw");
 			return mav;
 		}
@@ -444,10 +456,22 @@ public class ProductController {
 		
 		// 前台模糊搜尋功能
 		@RequestMapping(value="/FrontpageSearchByKeyword")
-		public ModelAndView searchProduct(ModelAndView mav,@RequestParam("brand") String brand) {
+		public ModelAndView searchProduct(ModelAndView mav,@RequestParam(name="p", defaultValue = "1") Integer pageNumber,
+				@RequestParam("brand") String brand) {
 			List<ProductBean> prod = pService.findByProductNameLike(brand);
+			
+			List<ProductBean> pdList = new ArrayList<>();
+			
+			for(int i =0;i<=prod.size()-1;i++) {
+				pdList.add(prod.get(prod.size()-1-i));
+			}
+			
+			List<ProductBean> prodListOnePage = listOnePage(pdList, pageNumber-1, 5);
+			int totalPages = totalPages(pdList, 5);
 
 			mav.getModel().put("prod", prod);
+			mav.getModel().put("prodListOnePage", prodListOnePage);
+			mav.getModel().put("totalPages", totalPages);
 			mav.setViewName("/product/shopKeyWord");
 			return mav;
 		}
@@ -460,7 +484,7 @@ public class ProductController {
 			List<ProductBean> pdList = new ArrayList<>();
 			if(subBean != null) {
 				pdList = subBean.getPdList();
-			}
+			}                 
 			
 			List<StockBean> stock = stService.findAll();
 			
@@ -480,6 +504,53 @@ public class ProductController {
 			
 			return pdList;
 		}
+		
+		private int totalPages(List<ProductBean> prodBeanList ,int pageSize) {
+			if(prodBeanList == null) {
+				return 0;
+			}
+			if(prodBeanList.isEmpty()) {
+				return 0;
+			}
+			Double listSizeDouble = Double.valueOf(prodBeanList.size());
+			if( ( listSizeDouble % pageSize)==0 ) { // 若整除
+				return prodBeanList.size() / pageSize;
+			} else { // 若非整除
+				return prodBeanList.size() / pageSize + 1;
+			}
+		}
+		
+		// pageNumber 為從0開始數
+		private List<ProductBean> listOnePage(List<ProductBean> prodBeanList, int pageNumber, int pageSize) {
+			
+			if(pageNumber < 0) {
+				return null;
+			} 
+			
+			if(pageSize < 1) {
+				return null;
+			}
+			
+			if(prodBeanList==null) {
+				return null;
+			}
+			
+			if(prodBeanList.isEmpty()) {
+				return null;
+			}
+			
+			int startIndex = pageSize * pageNumber;
+			int endIndex = startIndex + pageSize-1;
+			if(endIndex > prodBeanList.size()-1 ) {
+				endIndex = prodBeanList.size()-1;
+			}
+			List<ProductBean> prodBeanListOnePage = new ArrayList<>();
+			for(int i=startIndex; i<= endIndex; i++) {
+				prodBeanListOnePage.add(prodBeanList.get(i));
+			}
+			return prodBeanListOnePage;
+		}
+		
 		
 		
 

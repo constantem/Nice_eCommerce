@@ -457,6 +457,8 @@ button {
 								<li class="filter-list"><input class="pixel-radio"
 									type="radio" id="gold" name="color" value="綠"><label
 									for="gold">綠<span>(19)</span></label></li>
+
+								<input class="pixel-radio" hidden type="text" id="gold" name="color" value="金">	
 							</ul>
 
 							<button id="btnColor" type="button" value="搜尋">

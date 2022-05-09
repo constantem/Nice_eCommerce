@@ -382,7 +382,7 @@ figure {
 	<!--=============================================================================================== -->
 
 	
-<%-- 			<c:forEach items="${prodAds}" var="prodAds"> --%>
+			<c:forEach items="${prodAds}" var="prodAds"> 
 
 				<div class="adBox" class="card-content">
 					<label class="label"><i class="bi bi-badge-ad-fill"></i>&nbsp
@@ -421,7 +421,7 @@ figure {
 					</figure>
 				</div>
 
-<%-- 			</c:forEach> --%>
+ 			</c:forEach>
 		</div>
 
 

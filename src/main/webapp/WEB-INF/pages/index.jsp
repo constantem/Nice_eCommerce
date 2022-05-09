@@ -88,7 +88,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<a href="${contextRoot}/discount/showEvents-front">
+									<a href="${contextRoot}/announcement/showEvents-front">
 										<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/pika.png" alt=""></img>
 									</a>
 								</div>

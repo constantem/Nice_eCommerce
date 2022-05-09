@@ -43,30 +43,7 @@
 					<link rel="icon" type="image/png" sizes="32x32"
 						href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
 				</head>
-				<style>
-					.cartImg {
-						width: 100px;
-						height: 90px;
-					}
 
-					.deleteCart {
-						margin-left: 10px;
-						font-size: 18px;
-						color: #FF8C00;
-					}
-
-					#truck {
-						font-size: 110%;
-					}
-
-					#keepShopping {
-						border-radius: 5px;
-					}
-
-					#checkOut {
-						border-radius: 5px;
-					}
-				</style>
 
 				<body>
 
@@ -139,8 +116,20 @@
 														<td data-label="title">${discount.name}</td>
 														<td data-label="conditionPrice">${discount.conditionPrice}</td>
 														<td data-label="discountAmount">${discount.discountAmount}</td>
-														<td data-label="discountPercent">${discount.discountPercent
-															/10}折</td>
+														<td data-label="discountPercent">
+															<c:if test="${discount.discountPercent==null}">
+																
+															</c:if>
+															<c:if test="${discount.discountPercent!=null}">
+																<c:if test="${discount.discountPercent%10==0}">
+																	<fmt:formatNumber value="${discount.discountPercent/10}" maxFractionDigits="0"/>
+																	折
+																</c:if>
+																<c:if test="${discount.discountPercent%10!=0}">
+																	${discount.discountPercent}折
+																</c:if>
+															</c:if>
+														</td>
 														<td data-label="validDate">${discount.startDate}~<span
 																style="color: #F75000;">${discount.endDate}</span></td>
 
@@ -152,7 +141,7 @@
 										<ol style="list-style-type: circle">
 											<li>優惠券名稱/代碼：即是您輸入優惠券代碼的名稱</li>
 											<li>請留意使用期限，逾期失效!</li>
-											<li>更多相關優惠，請查閱<a href="${contextRoot}/discount/showEvents-front">活動公告</a>
+											<li>更多相關優惠，請查閱<a href="${contextRoot}/announcement/showEvents-front">活動公告</a>
 											</li>
 										</ol>
 									</div>

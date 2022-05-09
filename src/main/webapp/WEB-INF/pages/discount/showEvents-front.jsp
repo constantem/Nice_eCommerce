@@ -3,6 +3,7 @@
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
             <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+                
 
                 <!DOCTYPE html>
                 <html lang="zxx" class="no-js">
@@ -138,7 +139,7 @@
                                 <div class="col-lg-8">
                                     <div class="blog_left_sidebar">
                                         <!-- =====================================foreach活動(開始)================================= -->
-                                        <c:forEach var="discount" items="${discounts}">
+                                        <c:forEach var="announcement" items="${announcements}">
                                             <article class="row blog_item">
                                                 <div class="col-md-3">
                                                     <div class="blog_info text-right">
@@ -149,12 +150,12 @@
                                                             <a href="#">Lifestyle</a>
                                                         </div> -->
                                                         <ul class="blog_meta list">
-                                                            <li><a href="#">低消${discount.conditionPrice}<i
+                                                            <li><a href="#">低消${announcement.discount.conditionPrice}<i
                                                                         class="lnr lnr-arrow-right-circle"></i></a>
                                                             </li>
-                                                            <li><a href="#">活動到${discount.endDate}止<i
+                                                            <li><a href="#">活動到${announcement.discount.endDate}止<i
                                                                         class="lnr lnr-calendar-full"></i></a></li>
-                                                            <li><a href="#">優惠券僅剩${discount.currentQuantity}張<i
+                                                            <li><a href="#">優惠券僅剩${announcement.discount.currentQuantity}張<i
                                                                         class="lnr lnr-eye"></i></a>
                                                             </li>
                                                         </ul>
@@ -162,14 +163,18 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="blog_post">
-                                                        <img src="${contextRoot}/img/event/valentine-${discount.id}.jpg" alt="">
-                                                        <!-- <img src="${discount.announcementBean.eventPicture}" alt=""> -->
+                                                        <img src="data:image/png;base64,${announcement.eventPictureBase64}" alt="">
+                                                        <!-- <ul>
+                                                            <li><img id=""
+                                                                src="data:image/png;base64,${announcement.eventPictureBase64}"
+                                                                alt="picture" id="productImg" width="480" height="440"></li>
+                                                        </ul> -->
                                                         <div class="blog_details">
-                                                            <a href="${contextRoot}/discount/showEventsDetails-front?id=${discount.id}">
-                                                                <h2>${discount.announcementBean.title}</h2>
-                                                                <h5>${discount.description}</h5>
+                                                            <a href="${contextRoot}/announcement/showEventsDetails-front?id=${announcement.id}">
+                                                                <h2>${announcement.title}</h2>
+                                                                <h5>${announcement.discount.description}</h5>
                                                             </a>
-                                                            <p>${discount.announcementBean.description}</p>
+                                                            <p>${announcement.description}</p>
                                                             <a href="single-blog.html" class="white_bg_btn">View
                                                                 More</a>
                                                         </div>
@@ -217,114 +222,7 @@
                                             </div>
                                         </article>
                                         <!-- =====================================一篇活動(結束)================================= -->
-                                        <article class="row blog_item">
-                                            <div class="col-md-3">
-                                                <div class="blog_info text-right">
-                                                    <div class="post_tag">
-                                                        <a href="#">Food,</a>
-                                                        <a class="active" href="#">Technology,</a>
-                                                        <a href="#">Politics,</a>
-                                                        <a href="#">Lifestyle</a>
-                                                    </div>
-                                                    <ul class="blog_meta list">
-                                                        <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                                        <li><a href="#">12 Dec, 2018<i
-                                                                    class="lnr lnr-calendar-full"></i></a></li>
-                                                        <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="blog_post">
-                                                    <img src="${contextRoot}/img/event/dragonboat-1.jpg" alt="">
-                                                    <div class="blog_details">
-                                                        <a href="single-blog.html">
-                                                            <h2>The Basics Of Buying A Telescope</h2>
-                                                        </a>
-                                                        <p>MCSE boot camps have its supporters and its detractors. Some
-                                                            people do not
-                                                            understand why you should have to spend money on boot camp
-                                                            when you can get
-                                                            the MCSE study materials yourself at a fraction.</p>
-                                                        <a href="single-blog.html" class="white_bg_btn">View More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <article class="row blog_item">
-                                            <div class="col-md-3">
-                                                <div class="blog_info text-right">
-                                                    <div class="post_tag">
-                                                        <a href="#">Food,</a>
-                                                        <a class="active" href="#">Technology,</a>
-                                                        <a href="#">Politics,</a>
-                                                        <a href="#">Lifestyle</a>
-                                                    </div>
-                                                    <ul class="blog_meta list">
-                                                        <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                                        <li><a href="#">12 Dec, 2018<i
-                                                                    class="lnr lnr-calendar-full"></i></a></li>
-                                                        <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="blog_post">
-                                                    <img src="${contextRoot}/img/event/noon-3.jpg" alt="">
-                                                    <div class="blog_details">
-                                                        <a href="single-blog.html">
-                                                            <h2>The Glossary Of Telescopes</h2>
-                                                        </a>
-                                                        <p>MCSE boot camps have its supporters and its detractors. Some
-                                                            people do not
-                                                            understand why you should have to spend money on boot camp
-                                                            when you can get
-                                                            the MCSE study materials yourself at a fraction.</p>
-                                                        <a href="single-blog.html" class="white_bg_btn">View More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <article class="row blog_item">
-                                            <div class="col-md-3">
-                                                <div class="blog_info text-right">
-                                                    <div class="post_tag">
-                                                        <a href="#">Food,</a>
-                                                        <a class="active" href="#">Technology,</a>
-                                                        <a href="#">Politics,</a>
-                                                        <a href="#">Lifestyle</a>
-                                                    </div>
-                                                    <ul class="blog_meta list">
-                                                        <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                                        <li><a href="#">12 Dec, 2018<i
-                                                                    class="lnr lnr-calendar-full"></i></a></li>
-                                                        <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="blog_post">
-                                                    <img src="${contextRoot}/img/event/NewYear-4.jpg" alt="">
-                                                    <div class="blog_details">
-                                                        <a href="single-blog.html">
-                                                            <h2>The Night Sky</h2>
-                                                        </a>
-                                                        <p>MCSE boot camps have its supporters and its detractors. Some
-                                                            people do not
-                                                            understand why you should have to spend money on boot camp
-                                                            when you can get
-                                                            the MCSE study materials yourself at a fraction.</p>
-                                                        <a href="single-blog.html" class="white_bg_btn">View More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
+                                        
                                         <!-- ==================================頁面數字鈕(開始)============================== -->
                                         <nav class="blog-pagination justify-content-center d-flex">
                                             <ul class="pagination">

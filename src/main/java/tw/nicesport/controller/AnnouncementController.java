@@ -92,17 +92,7 @@ public class AnnouncementController {
 	public String processMainPage() {
 		return "/discount/viewAnnouncement";
 	}
-	
-		
-//	@GetMapping(value = "/discount/get/{id}")
-//	public Discount getCustomerById(@PathVariable Integer id) {
-//		Discount responseDis = discountService.findById(id);
-//		
-//		if(responseDis.isPresent()) {
-//			return responseDis.get();
-//		}
-//		return null;
-//	}
+
 	
 	@GetMapping("/announcement/viewAnnouncement")
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
@@ -115,41 +105,12 @@ public class AnnouncementController {
 		return mav;
 	}
 	
-	//pageNumber在service已經-1過，不需要再減
-//		@GetMapping("/discount/viewDiscount")
-//		public ModelAndView viewDiscountPage(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
-//			Page<Discount> page = discountService.findByPage(pageNumber);
-//			
-//			mav.getModel().put("page", page);
-//			//回傳的頁面
-//			mav.setViewName("/discount/viewDiscount");
-//			
-//			return mav;
-//		}
-	
-	
-	//跳轉到前台頁面
-//		@RequestMapping("/discount/showEvents-front")
-//		public String showAllEventsInFront(Model model) {		
-//			List<Discount> discounts = discountService.queryAll();
-//			model.addAttribute("discounts", discounts);
-//			return "discount/showEvents-front";
-//		}
-	
-	//跳轉到前台頁面
-//	@RequestMapping("/discount/showADs-front")
-//	public String showAllADsInFront(Model model) {		
-//		List<Discount> discounts = discountService.queryAll();
-//		model.addAttribute("discounts", discounts);
-//		return "discount/showADs-front";
-//	}
-	
 	@GetMapping("/announcement/showEditAnnouncement")
 	public String editAnnouncement(Model model, @RequestParam(name="id") Integer id) {
 		
 		// 單一活動
 		AnnouncementBean ann = announcementService.findById(id);
-		// 此活動的 bytes 要轉 String
+		// 此活動照片的 bytes 要轉 String
 		if(ann.getEventPicture() != null) { // 
 			ann.setEventPictureBase64(
 					Base64.getEncoder().encodeToString( ann.getEventPicture() )
@@ -202,8 +163,37 @@ public class AnnouncementController {
 //		return "ajax-messages";
 //	}
 	
+	/////////////////////////////////////////前台活動//////////////////////////////////////////////
+	//跳轉到前台活動頁面
+	@RequestMapping("/announcement/showEvents-front")
+	public String showAllEventsInFront(Model model) {		
+		List<AnnouncementBean> announcements = announcementService.findAllAnnouncement();
+		// list中每個活動照片的 bytes 要轉 String
+		for(AnnouncementBean ann : announcements) {
+			if(ann.getEventPicture() != null) { // 
+				ann.setEventPictureBase64(
+						Base64.getEncoder().encodeToString( ann.getEventPicture() )
+				);
+			} 
+		}
+
+		model.addAttribute("announcements", announcements);
+		return "discount/showEvents-front";
+	}
 	
-	
-	
-	
+	//跳轉到前台活動詳情頁面
+	@GetMapping("/announcement/showEventsDetails-front")
+	public ModelAndView showEvents(ModelAndView mav, @RequestParam(name = "id") Integer id) {
+		AnnouncementBean announcement = announcementService.findById(id);
+		// 此活動照片的 bytes 要轉 String
+		if(announcement.getEventPicture() != null) { 
+			announcement.setEventPictureBase64(
+					Base64.getEncoder().encodeToString( announcement.getEventPicture() )
+				);
+		} 
+		mav.addObject("announcement",announcement);
+		mav.setViewName("discount/showEventsDetails-front");
+		return mav;
+	} 
+
 }

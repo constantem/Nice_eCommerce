@@ -1,6 +1,7 @@
 package tw.nicesport.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -88,8 +89,8 @@ public class DiscountService {
 		return discountDao.findAll();
 	}
 	
-	// 給 member id, 回傳 Discount list
-	public List<Discount> findAllByMemberId(Integer memberId){
+	// 給 member id, 回傳 Discount DiscountListByMemberId
+	public List<Discount> findAllDiscountListByMemberId(Integer memberId){
 		Optional<Member> memberOpt = memberDao.findById(memberId);
 		Member member = null;
 		if(memberOpt.isPresent()) {
@@ -102,6 +103,19 @@ public class DiscountService {
 			return discounts;
 		} else {
 			return new ArrayList<>();
+		}
+	}
+	
+	// 給 member id, 回傳 Discount list
+	public Set<MemberDiscountDetailBean> findAllByMemberId(Integer memberId){
+		Optional<Member> memberOpt = memberDao.findById(memberId);
+		Member member = null;
+		if(memberOpt.isPresent()) {
+			member = memberOpt.get();
+			Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet = member.getMemberDiscountDetailBeanSet();
+			return memberDiscountDetailBeanSet;
+		} else {
+			return new HashSet<>();
 		}
 	}
 	

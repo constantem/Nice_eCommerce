@@ -104,7 +104,7 @@ td, input {
 			<div class="row justify-content-center">
 				<div class="col-9">
 					<div class="card">
-						<div class="card-header">客服表單</div>
+						<div class="card-header"></div>
 						<div class="card-body">
 							<form action="${contextRoot}/message/findByServiceInfoLike">
 								特定問題查詢:<input id="inputSearch" class="input" type="text" name="findByServiceInfoLike">

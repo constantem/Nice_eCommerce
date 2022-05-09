@@ -100,23 +100,29 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Product</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
+								<th scope="col">照片</th>
+								<th scope="col">產品</th>
+								<th scope="col">數量</th>
+								<th scope="col">總價</th>
 							</tr>
 						</thead>
 						<c:set value="0" var="Subtotal" />
 						<c:set value="0" var="sum" />
 				<c:forEach var="orderDetails" items="${orderDetails}">
 						<tbody>
-							<tr>
+							<tr style="padding-top: 50px">
 								<td>
-									<p>${orderDetails.productBean.productName}</p>
+									<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}">
+										<img alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
 								</td>
-								<td>
+								<td style="padding-top: 60px">
+									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+									<!-- ${orderDetails.productBean.productName}</p> -->
+								</td>
+								<td style="padding-top: 60px">
 									<h5>x ${orderDetails.quantity}</h5>
 								</td>
-								<td>
+								<td style="padding-top: 60px">
 									<p>$&nbsp${orderDetails.productBean.price}</p>
 								</td>
 							</tr>
@@ -125,13 +131,24 @@
 						</c:forEach>
 							<tr>
 								<td>
+									<h4>折扣金額</h4>
+								</td>
+								<td>									
+									<h5></h5>
+								</td>
+								<td>
+									<p>$&nbsp${discountAmount}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									<h4>小計</h4>
 								</td>
 								<td>
 									<h5></h5>
 								</td>
 								<td>
-									<p>$&nbsp${Subtotal}</p>
+									<p>$&nbsp${Subtotal-discountAmount}</p>
 								</td>
 							</tr>
 							<tr>

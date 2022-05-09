@@ -1,9 +1,17 @@
 package tw.nicesport.controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,36 +27,47 @@ public class IndexController {
 	
 	// 跳轉前台首頁用
 	@RequestMapping("/")
-	public ModelAndView showIndex(ModelAndView mav)  {
-		List<Discount> discounts = discountService.findAll();
-		System.out.println("discount========>"+discounts);
-		mav.getModel().put("discounts", discounts);
-		mav.setViewName("index");
+	public String showIndex(
+			Model model, 
+			Authentication authentication,
+			HttpServletRequest request) throws ServletException {
 		
-		return mav;
+		// 首頁優惠券輪播
+		List<Discount> discounts = discountService.findAllMessages();
+		model.addAttribute("discounts", discounts);
+		
+		/////////////// 首頁強制後台角色登出 /////////////////
+		if(authentication!=null) { // 沒登入時, authentication 為 null
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+
+            if(roles.contains("ROLE_EMPLOYEE")) { // 後台角色登入中, 包含 admin(也有 "ROLE_EMPLOYEE")
+            	request.logout(); // 登出後台角色, 以利前台再登入
+//            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
+            }
+    	}
+		
+		return "index";
 	}
-	
-	// 測試跳轉前台首頁用
-//	@RequestMapping("/")
-//	public String showFrontstageHomePage() {
-//		return "redirect:/resources/frontstage/index.html";
-//	}
 	
 	// 跳轉前台首頁用
 	@RequestMapping("/backstage")
-	public String showBackstageHomePage() {
+	public String showBackstageHomePage(
+			Authentication authentication,
+			HttpServletRequest request) throws ServletException {
+		
+		// 後台首頁強制前台角色登出
+		if(authentication!=null) { // 沒登入時, authentication 為 null
+        	Set<String> roles = authentication.getAuthorities().stream()
+              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+
+            if(roles.contains("ROLE_USER")) { // 前台角色登入中
+            	request.logout(); // 登出前台角色, 以利後台再登入
+//            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
+            }
+    	}
+		
 		return "index-backstage";
 	}
-	
-//	// jsp:include 要 include 上與左導覽列用
-//	@RequestMapping("/layout/navAndAside")
-//	public String showNavAndAside() {
-//		return "/layout/nav-and-aside";
-//	}
-	
-//	// jsp:include 要 include 上與左導覽列用
-//	@RequestMapping("/layout/underConstruction")
-//	public String showUnderContruction() {
-//		return "layout/underconstruction";
-//	}
+
 }

@@ -19,7 +19,7 @@
 
 <!-- 使用原生 Tailwind css -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/backstage/css/main.css">
+	href="${contextRoot}/resources/backstage/css/main.css">
 
 <style>
 	.left{
@@ -28,8 +28,15 @@
 </style>
 
 <!-- 網站頁籤 logo -->
-<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/resources/backstage/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/resources/backstage/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
+
+<!-- 原生 js, 負責 nav 的動態變動與彈窗的動態變動 -->
+<script type="text/javascript" 
+	src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"
+	defer>
+</script>
+
 
 <!--jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -144,7 +151,7 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
-			<li>運動網</li>
+			<li>後台</li>
 			<li>課程管理系統</li>
 			<li>課程列表</li>
 		</ul>
@@ -352,7 +359,5 @@
 
 </div>
 
-<!-- 原生 js, 負責 nav 的動態變動與彈窗的動態變動 -->
-<script type="text/javascript" src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 </body>
 </html>

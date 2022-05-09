@@ -34,6 +34,7 @@ import tw.nicesport.model.OrdersBean;
 import tw.nicesport.model.ProductBean;
 import tw.nicesport.model.Room;
 import tw.nicesport.service.CartProductService;
+import tw.nicesport.service.MemberDiscountDetailService;
 import tw.nicesport.service.MemberService;
 import tw.nicesport.service.OrderService;
 import tw.nicesport.service.OrderdDetailService;
@@ -50,6 +51,8 @@ public class OrderController {
 	private MemberService memberService;
 	@Autowired
 	private CartProductService cartProductService;
+	@Autowired
+	private MemberDiscountDetailService memberDiscountDetailService;
 	
 	@GetMapping("/order")
 	public String welcomIndex() {
@@ -80,9 +83,11 @@ public class OrderController {
 				@RequestParam("lastname") String lastname,
 				@RequestParam("firstname") String firstname, 
 				@RequestParam("email") String email,
-				@RequestParam("shipPostalCode") String shipPostalCode,
-				@RequestParam("address") String address,
-				@RequestParam("shippingFee") Integer shippingFee
+				@RequestParam("shipPostalCode") String shipPostalCode, //
+				@RequestParam("address") String address, //配送地址				
+				@RequestParam("shippingFee") Integer shippingFee,  //運費
+				@RequestParam("discountAmount")Integer discountAmount, //最終折價金額
+				@RequestParam(name="memberDiscountDetailId",required=false)Integer memberDiscountDetailId    //折價卷明細的ID
 				) {
 			
 			
@@ -162,7 +167,9 @@ public class OrderController {
 //				OrderService.insert(ordersBeanRequest);
 			}
 //			總價加上運費
-			totalPrice = totalPrice + shippingFee;
+			System.out.println(discountAmount);
+			totalPrice = totalPrice + shippingFee - discountAmount;
+			ordersBeanRequest.setDiscountAmount(discountAmount);
 			ordersBeanRequest.setTotalPrice(totalPrice);
 			OrderService.insert(ordersBeanRequest);
 //			=========================================================新增OrderDetail區  結束=========================================================
@@ -175,19 +182,27 @@ public class OrderController {
 					// 用CartId刪掉此筆資料
 					cartProductService.deleteByBean(cartProductBean);
 				}
-
+			
 			}
 //			=========================================================清除購物車明細  結束=========================================================
+//			=========================================================清除優惠卷  開始=========================================================
+			if(memberDiscountDetailId != null) {
+				memberDiscountDetailService.deleteById(memberDiscountDetailId);
+			}
+//			=========================================================清除優惠卷  結束=========================================================
 			
-		return "redirect:/Cart/Orderconfirmation?orderId="+orderId;
+		return "redirect:/Cart/Orderconfirmation?orderId="+ orderId + "&discountAmount=" + discountAmount;
 		}
 	
 	//前台訂單確認畫面
 		@GetMapping("/Cart/Orderconfirmation")
-	public String OrderConfirmation(Model model,@RequestParam(name ="orderId") Integer id) {
+	public String OrderConfirmation(Model model,@RequestParam(name ="orderId") Integer id,@RequestParam("discountAmount")Integer discountAmount) {
+			//用orderId去找此筆訂單
 			OrdersBean order = OrderService.findById(id);
+			//找出此筆訂單的明細
 			List<OrderDetailBean> orderDetails = order.getOrderDetail();
-			
+			//打包送到前端
+			model.addAttribute("discountAmount", discountAmount);
 			model.addAttribute("order", order);
 			model.addAttribute("orderDetails", orderDetails);
 							
@@ -262,17 +277,69 @@ public class OrderController {
 //		memberBean.getOrdersBeanList()  
 		System.out.println("=================================================================="+ordersList);
 		//OrderService內的.findByPage()方法
-		Page<OrdersBean> page = OrderService.findByPage(pageNumber);
+//		Page<OrdersBean> page = OrderService.findByPage(pageNumber);
+		// 某頁的 list
+		List<OrdersBean> ordersListDESCOnePage = listOnePage(ordersListDESC, pageNumber-1, 3);
+		// 總頁數
+		int totalPages = totalPages(ordersListDESC, 3);
 		//ModelAndView準備傳到前端
-		mav.getModel().put("memberId",memberId);
-		mav.getModel().put("ordersList", ordersListDESC);
-		mav.getModel().put("page", page);
-				
+		mav.getModel().put("member",member);
+		mav.getModel().put("totalPages", totalPages);
+		mav.getModel().put("ordersList", ordersListDESCOnePage);
+//		mav.getModel().put("page", page);		
 		mav.setViewName("/order/myOrders");
 		
 		return mav;
-		
 	}
+	
+	// 總頁數(從1開始數)
+	private int totalPages(List<OrdersBean> ordersBeanList ,int pageSize) {
+		if(ordersBeanList == null) {
+			return 0;
+		}
+		if(ordersBeanList.isEmpty()) {
+			return 0;
+		}
+		Double listSizeDouble = Double.valueOf(ordersBeanList.size());
+		if( ( listSizeDouble % pageSize)==0 ) { // 若整除
+			return ordersBeanList.size() / pageSize;
+		} else { // 若非整除
+			return ordersBeanList.size() / pageSize + 1;
+		}
+	}
+	
+	// pageNumber 為從0開始數
+	private List<OrdersBean> listOnePage(List<OrdersBean> ordersBeanList, int pageNumber, int pageSize) {
+		
+		if(pageNumber < 0) {
+			return null;
+		} 
+		
+		if(pageSize < 1) {
+			return null;
+		}
+		
+		if(ordersBeanList==null) {
+			return null;
+		}
+		
+		if(ordersBeanList.isEmpty()) {
+			return null;
+		}
+		
+		int startIndex = pageSize * pageNumber;
+		int endIndex = startIndex + pageSize-1;
+		if(endIndex > ordersBeanList.size()-1 ) {
+			endIndex = ordersBeanList.size()-1;
+		}
+		List<OrdersBean> ordersBeanListOnePage = new ArrayList<>();
+		for(int i=startIndex; i<= endIndex; i++) {
+			ordersBeanListOnePage.add(ordersBeanList.get(i));
+		}
+		return ordersBeanListOnePage;
+	}
+	
+	
 	
 	//前台 我的訂單明細 功能
 	@RequestMapping("/user/myOrdersDetailByMemberId")
@@ -286,6 +353,24 @@ public class OrderController {
 
 		return "/order/viewMyOrderDetail";
 	}
+
+//	//前台 我的訂單明細 申請修改訂單功能
+//	@RequestMapping("/orders/UpdateOrderState")
+//	public String updateOneOederState(
+//			@ModelAttribute("order") OrdersBean ordersBean,Model model){
+//		System.out.println(ordersBean.getOrderStatus());
+//		Integer id = ordersBean.getOrderId();
+//		OrdersBean originalOrdersBean = OrderService.findById(id);
+//		//把要更新的資料一個一個用set方法塞進去更新  ordersBean.getShipName()會拿到前端送過來的資料裡面的ShipName
+//		//如果沒有set到的話資料都是null  會直接改到資料庫的資料
+//		originalOrdersBean.setShippingFee(ordersBean.getShippingFee());
+//		originalOrdersBean.setOrderStatus(ordersBean.getOrderStatus());
+//		OrderService.updateOne(originalOrdersBean);
+//		model.addAttribute("ordersBean", ordersBean);
+//		
+//		return "redirect:/orders/OrderDetail?id=" + id;
+//	}
+
 		
 	
 

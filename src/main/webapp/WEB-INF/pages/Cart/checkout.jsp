@@ -96,6 +96,7 @@
 
 #shipCheck711 {
 	margin-right: 5px;
+	margin-left: 5px;
 }
 
 #shipCheckCat {
@@ -106,6 +107,10 @@
 #shipCheckPost {
 	margin-left: 5px;
 	margin-right: 5px;
+}
+#shipCheckStore{
+	
+	margin-right:5px;
 }
 
 .middle1 {
@@ -190,7 +195,9 @@
 								novalidate="novalidate">
 
 								<input type="hidden" value="${member.memberid}" name="memberid">
-
+								<input type="hidden" value="${discountAmount}" name="discountAmount">
+								<input type="hidden" value="${memberDiscountDetailId}" name="memberDiscountDetailId">
+								
 
 								<div class="col-md-6 form-group p_star">
 									姓<span class="placeholder" data-placeholder="必填"></span> <input
@@ -227,11 +234,16 @@
 
 
 								<div id="ship">
-									<i class="bi bi-truck truck"></i> <input id="shipCheck711"
-										type="checkbox" value="60" name="">711交貨便 <input
-										id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+									<i class="bi bi-truck truck"></i>
+									<input id="shipCheckStore" type="checkbox" checked value="" name="">到店付款
+
+									<input id="shipCheck711" type="checkbox" value="60" name="">711交貨便
+
+									<input id="shipCheckCat" type="checkbox" value="120" name="">黑貓宅急便
+
 									<input id="shipCheckPost" type="checkbox" value="180" name="">郵局
-									<input id="shippingFee" hidden type="text" value=""
+									
+									<input id="shippingFee" hidden type="text" value="30"
 										name="shippingFee">
 								</div>
 
@@ -268,13 +280,17 @@
 										<c:set value="${sum + totalPrice}" var="sum" />
 									</c:forEach>
 								</ul>
+
+								<!-- <c:set value="${(sum + totalPrice)}" var="finalPrice"></c:set> -->
 								<ul class="list list_2">
+									<li><a href="#">折扣<span>NT$&nbsp;<span
+										id="discountAmount">${discountAmount}</span></span></a></li>
 									<li><a href="#">小計 <span>NT$&nbsp;<span
-												id="sum">${sum}</span></span></a></li>
+												id="sum">${sum-discountAmount}</span></span></a></li>
 									<li><a id="" href="#">運費 <span class="shipFee"
-											value=""></span></a></li>
+											value="">NT$ 30</span> </a></li>
 									<li><a href="#">總價 <span>NT$&nbsp;<span
-												id="totalPrice"></span></span></a></li>
+												id="totalPrice">${sum + 30}</span></span></a></li>
 								</ul>
 								<div class="payment_item">
 <!-- 									<div class="radion_btn"> -->
@@ -310,34 +326,44 @@
           return actions.order.capture().then(function(orderData) {
             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
             const transaction = orderData.purchase_units[0].payments.captures[0];
-            alert("假的  都是假的  我眼睛業障重阿");
-           URL:  actions.redirect('thank_you.html');
+
+            let timerInterval
+            Swal.fire({
+              title: '訂單結帳完成!',
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+              }
+            })
+           
+            setTimeout("submitForm()",2000)
           });
         }
       }).render('#paypal-button-container');
+    </script>
+    
+    <script>
+    
+    	function submitForm(){
+    		 $("#orderForm").submit();    		
+    	}    
     </script>
 <!-- paypal按鈕 -->
 										
 									</div>
 								</div>
-
-
-								<!-- 							右方訂單瀏覽區 -->
-								<!-- <section class="checkout_area section_gap">
-						<div class="container">
-							<div class="returning_customer">
-								<div class="cupon_area">
-									<div class="check_title">
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</section> -->
-
-
-
 								<script>
 									$("#submitOrder").click(function () {
 										if($("#shippingFee").val()==""||$("#shippingFee").val()==null){
@@ -468,13 +494,14 @@
 					</script>
 
 	<script>
-
+						
 						$("#shipCheck711").click(function(){
 							$(".shipFee").text("NT$ 60");
 							$("#shippingFee").val(60);
 							if($("#shipCheck711").prop('checked')){
 								$("#shipCheckCat").prop('checked',false)
 								$("#shipCheckPost").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -490,6 +517,7 @@
 							if($("#shipCheckCat").prop('checked')){
 								$("#shipCheck711").prop('checked',false)
 								$("#shipCheckPost").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -505,6 +533,7 @@
 							if($("#shipCheckPost").prop('checked')){
 								$("#shipCheck711").prop('checked',false)
 								$("#shipCheckCat").prop('checked',false)
+								$("#shipCheckStore").prop('checked',false)
 							}
 							var a = $("#sum").text();
 							var b = parseInt(a)
@@ -514,17 +543,21 @@
 							$("#totalPrice").text(" " +totalPrice )
 						})
 
-
-
-					
-						
-
-				
-
-				
-
-						
-					
+						$("#shipCheckStore").click(function(){
+							$(".shipFee").text("NT$ 30");
+							$("#shippingFee").val(30);
+							if($("#shipCheckStore").prop('checked')){
+								$("#shipCheck711").prop('checked',false)
+								$("#shipCheckCat").prop('checked',false)
+								$("#shipCheckPost").prop('checked',false)
+							}
+							var a = $("#sum").text();
+							var b = parseInt(a)
+							var shipFee = $("#shippingFee").val();
+							var shipNum = parseInt(shipFee)
+							var totalPrice = (b + shipNum)
+							$("#totalPrice").text(" " +totalPrice )
+						})
 
 					</script>
 

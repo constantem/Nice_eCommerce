@@ -101,7 +101,7 @@
 								<th scope="col">照片</th>
 								<th scope="col">產品</th>
 								<th scope="col">數量</th>
-								<th scope="col">總價</th>
+								<th scope="col">單價</th>
 							</tr>
 						</thead>
 						<c:set value="0" var="Subtotal" />
@@ -111,20 +111,29 @@
 							<tr style="padding-top: 50px">
 								<td>
 									<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}">
-										<img alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
+										<img onerror="this.src='${contextRoot}/img/out.png'" alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
 								</td>
 								<td style="padding-top: 60px">
-									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+
+								<c:choose>
+									<c:when test="${orderDetails.productBean.productName==null}">
+										<p style="color: red;" >此商品已下架</p>
+									</c:when>
+									<c:otherwise>
+										<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+									</c:otherwise>
+								</c:choose>	
+										
 									<!-- ${orderDetails.productBean.productName}</p> -->
 								</td>
 								<td style="padding-top: 60px">
 									<h5>x ${orderDetails.quantity}</h5>
 								</td>
 								<td style="padding-top: 60px">
-									<p>$&nbsp${orderDetails.productBean.price}</p>
+									<p>$&nbsp${orderDetails.realPrice}</p>
 								</td>
 							</tr>
-							<c:set value="${orderDetails.productBean.price*orderDetails.quantity}" var="sum" />
+							<c:set value="${orderDetails.realPrice*orderDetails.quantity}" var="sum" />
 							<c:set value="${sum + Subtotal}" var="Subtotal" />
 						</c:forEach>
 							<tr>

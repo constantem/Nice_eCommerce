@@ -249,28 +249,54 @@ public class CartController {
 		return "redirect:/user/myWishList";
 	}
 
-	// 刪除購物車內同商品的明細
-	@RequestMapping("/DeleteCart")
-	@ResponseBody
-	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("productid") Integer productid) {
-		// 用memberService取得memberid
-		Member mamber = memberService.findById(memberid);
-		// 取得mamber中的購物車(Cart)
-		CartBean cart = mamber.getCart();
-		// 取得cart中的CartProductBeanList
-		List<CartProductBean> list = cart.getCartProductBeanList();
-		// 用for迴圈去一行行讀資料
-		for (CartProductBean cartProductBean : list) {
-			// 取得整張table的product_id (因javaBean內宣告對應為ProductBean)
-			ProductBean product = cartProductBean.getProductBean();
-			// 用ProductBean去比對前端傳來的Product_id
-			if (productid.equals(product.getId())) {
-				// 用Product_id刪掉此筆資料
-				cartProductService.deleteByBean(cartProductBean);
-			}
+//	// 刪除購物車內同商品的明細
+//	@RequestMapping("/DeleteCart")
+//	@ResponseBody
+//	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("productid") Integer productid) {
+//		// 用memberService取得memberid
+//		Member mamber = memberService.findById(memberid);
+//		// 取得mamber中的購物車(Cart)
+//		CartBean cart = mamber.getCart();
+//		// 取得cart中的CartProductBeanList
+//		List<CartProductBean> list = cart.getCartProductBeanList();
+//		
+//		// 用for迴圈去一行行讀資料
+//		for (CartProductBean cartProductBean : list) {
+//			// 取得整張table的product_id (因javaBean內宣告對應為ProductBean)
+//			ProductBean product = cartProductBean.getProductBean();
+//			// 用ProductBean去比對前端傳來的Product_id
+//			if (productid.equals(product.getId())) {
+//				// 用Product_id刪掉此筆資料
+//				cartProductService.deleteByBean(cartProductBean);
+//			}
+//
+//		}
+//	}
+	
+	 // 刪除購物車內同商品的明細
+	 @RequestMapping("/DeleteCart")
+	 @ResponseBody
+	 public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("cartproductid") Integer cartproductid) {
+	  // 用memberService取得memberid
+	  Member mamber = memberService.findById(memberid);
+	  // 取得mamber中的購物車(Cart)
+	  CartBean cart = mamber.getCart();
+	  // 取得cart中的CartProductBeanList
+	  List<CartProductBean> list = cart.getCartProductBeanList();
+	  // 用for迴圈去一行行讀資料
+	  for (CartProductBean cartProductBean : list) {
+	   // 取得整張table的product_id (因javaBean內宣告對應為ProductBean)
+	   Integer CartProductId = cartProductBean.getCartProductId();
+	   // 用ProductBean去比對前端傳來的Product_id
+	   if (cartproductid.equals(CartProductId)) {
+	    // 用Product_id刪掉此筆資料
+	    cartProductService.deleteById(CartProductId);
+//	    cartProductService.deleteByBean(cartProductBean);
+	   }
 
-		}
-	}
+	  }
+	 }
+	
 
 	// 更新購物車數量
 	@RequestMapping("/updateIncreaseQuantity")

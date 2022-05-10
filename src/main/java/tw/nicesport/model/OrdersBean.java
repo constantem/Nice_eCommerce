@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -73,7 +74,10 @@ public class OrdersBean {
 	private String modifiedAt;
 //
 //	// 關聯 table
-	@OneToMany(mappedBy = "ordersBean")
+	@OneToMany(
+		cascade = CascadeType.ALL,	
+		mappedBy = "ordersBean"
+	)
 //	@JsonIgnore
 	private List<OrderDetailBean> orderDetail = new ArrayList<OrderDetailBean>();
 	// 多方不用連動

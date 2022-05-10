@@ -123,9 +123,21 @@ public class UserLoginController {
     @ResponseBody
     public Set<String> currentRole(Authentication authentication) {
     	if(authentication!=null) {
+    		// DB 紀錄的 roles (但如果是第三方登入的 roles 要加工)
         	Set<String> roles = authentication.getAuthorities().stream()
               	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
            	System.out.println("後端 user roles=======>|"+roles);
+           	
+           	// 加工第三方登入的 roles, 只取出其中的 ROLE_ 開頭的字
+           	Set<String> rolesTemp = new HashSet<>();
+           	if(roles.contains("SCOPE_openid")) {
+           		for(String role : roles) {
+           			if(role.startsWith("ROLE")) {
+           				rolesTemp.add(role);
+           			}
+           			roles = rolesTemp;
+           		}
+           	}
             return roles;
     	} else {
     		System.out.println("後端 user roles=======>|null");

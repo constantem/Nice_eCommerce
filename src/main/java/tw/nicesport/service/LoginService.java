@@ -69,6 +69,8 @@ public class LoginService {
 	
 	public Member findMemberByUsername(String username) throws Exception {
 		Optional<Member> memberOpt = memberDao.findByUsername(username);
+		System.out.println("findMemberByUsername 所使用的 username");
+		System.out.println(username);
 		Member member = memberOpt.orElseThrow(
 			() -> new Exception("查無 Member===>|"+username+"|的資訊.")
         );

@@ -91,9 +91,7 @@ background-color: rgb(199, 222, 238);
 <body>
 	<div id="app">
 		<!---------------------------------------------------載入上方列---------------------------------------------------------------------------- -->
-		<%@include file="topbar.jsp"%>
-		<!---------------------------------------------------載入左側列 --------------------------------------------------------------------->
-		<%@include file="leftbar.jsp"%>
+			<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 		<!---------------------------------------------------------------------- 中間大框框-------------------------------------------------------------------->
 		<p />
 		<section class="is-hero-bar">
@@ -329,8 +327,8 @@ background-color: rgb(199, 222, 238);
 					<form:label class="label" path="shippingFee">運費</form:label>
 
 					<div class="control">
-						<div style="text-align: right" class="displayable">NT$
-							${order.shippingFee}</div>
+						<div style="text-align: right" class="displayable">
+						NT$${order.shippingFee}</div>
 						<form:input id="shippingFee" class="input inputable"
 							hidden="hidden" type="text" path="shippingFee"
 							value="${order.shippingFee}" />

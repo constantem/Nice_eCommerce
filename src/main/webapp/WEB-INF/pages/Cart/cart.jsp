@@ -187,9 +187,8 @@
 								</td>
 								<td>
 									<a class="deleteCart" 
-										href="" data-memberid="${member.memberid}" data-productid="${cartProduct.productBean.id}" >
-										
-										
+										href="" data-memberid="${member.memberid}" data-cartproductid="${cartProduct.cartProductId}">
+																				
 										<i id="trash" class="bi bi-trash"></i>
 									</a>
 								</td>
@@ -485,7 +484,7 @@
 				url:$("#contextRoot").val() + "/DeleteCart",
 				data: {
 					memberid: $(this).data("memberid"),
-					productid: $(this).data("productid")
+					cartproductid: $(this).data("cartproductid")
 				},
 				success: function () {
 					deteteCart.closest("tr").remove();

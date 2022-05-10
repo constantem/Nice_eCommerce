@@ -252,7 +252,7 @@ public class CartController {
 	// 刪除購物車內同商品的明細
 	@RequestMapping("/DeleteCart")
 	@ResponseBody
-	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("productid") Integer productid) {
+	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("cartproductid") Integer cartproductid) {
 		// 用memberService取得memberid
 		Member mamber = memberService.findById(memberid);
 		// 取得mamber中的購物車(Cart)
@@ -262,11 +262,12 @@ public class CartController {
 		// 用for迴圈去一行行讀資料
 		for (CartProductBean cartProductBean : list) {
 			// 取得整張table的product_id (因javaBean內宣告對應為ProductBean)
-			ProductBean product = cartProductBean.getProductBean();
+			Integer CartProductId = cartProductBean.getCartProductId();
 			// 用ProductBean去比對前端傳來的Product_id
-			if (productid.equals(product.getId())) {
+			if (cartproductid.equals(CartProductId)) {
 				// 用Product_id刪掉此筆資料
-				cartProductService.deleteByBean(cartProductBean);
+				cartProductService.deleteById(CartProductId);
+//				cartProductService.deleteByBean(cartProductBean);
 			}
 
 		}

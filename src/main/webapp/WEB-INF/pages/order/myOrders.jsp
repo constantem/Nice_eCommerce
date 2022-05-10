@@ -143,10 +143,11 @@
 						<thead>
 							<tr>
 								<th scope="col">訂單</th>
+								<th scope="col"></th>
 								<th scope="col">總價</th>
-								<!-- <th scope="col">數量</th>
-								<th scope="col">小計</th> -->
+								<th scope="col"></th>
 								<th scope="col">下單時間</th>
+								<th scope="col"></th>
 								<th id="orderStatus" scope="col">訂單狀態</th>
 								<th scope="col"></th>
 								<th scope="col"></th>
@@ -166,11 +167,19 @@
 										</div>
 									</td>
 									<td>
+										<h5></h5>
+									</td>
+									<td>
 										<h5 id="">NT$ ${ordersList.totalPrice}</h5>
 									</td>
-									
+									<td>
+										<h5></h5>
+									</td>
 									<td>
 										<h5 id="">${ordersList.orderDate}</h5>
+									</td>
+									<td>
+										<h5></h5>
 									</td>
 									<c:choose>
    									 	<c:when test="${ordersList.orderStatus == 111}">
@@ -218,16 +227,6 @@
 								</tr>
 							</c:forEach>
 							<tr class="bottom_button">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-
-								<td></td>
-
 							</tr>
 							<!-- 		分頁頁數物件 -->
 
@@ -255,11 +254,21 @@
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
 										<a id="keepShopping" class="primary-btn"
 											href="${contextRoot}/FrontpageSeperate"><i
-											class="bi bi-cart3"></i>&nbsp 繼續購物</a>
+											class="bi bi-cart3"></i>&nbsp 前往購物</a>
 									</div>
 								</td>
 							</tr>

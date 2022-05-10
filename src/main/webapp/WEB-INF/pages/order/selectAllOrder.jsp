@@ -97,10 +97,6 @@
 			<table>
 				<thead>
 					<tr>
-					
-						<th class="checkbox-cell"><label class="checkbox"> <input
-								type="checkbox"> <span class="check"></span>
-						</label></th>
 						<th class="image-cell"></th>
 						<th>訂單編號</th>
 						<th>會員姓名</th>
@@ -116,13 +112,6 @@
 							<td class="checkbox-cell"><label class="checkbox"> <input
 									type="checkbox"> <span class="check"></span>
 							</label></td>
-							<td class="image-cell">
-								<div class="image">
-									<img
-										src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg"
-										class="rounded-full">
-								</div>
-							</td>
 							<td data-label="orderId">${OrdersBean.orderId}</td>
 							<td data-label="member_id">${OrdersBean.memberBean.username}</td>
 							<td data-label="orderDate">${OrdersBean.orderDate}</td>
@@ -159,10 +148,6 @@
 										<%-- onclick = "findById('${OrdersBean.order_id}')"> --%>
 										onclick="location.href='${contextRoot}/orders/OrderDetail?id=${OrdersBean.orderId}'">
 										<span class="icon"><i class="mdi mdi-eye"></i></span>檢視訂單明細
-									</button>
-									<button class="button small red --jb-modal"
-										data-target="sample-modal" type="button">
-										<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 									</button>
 								</div>
 							</td>

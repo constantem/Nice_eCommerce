@@ -113,7 +113,7 @@
 							<tr style="padding-top: 50px">
 								<td>
 									<a href="${contextRoot}/getOneProductShop${orderDetails.productBean.id}">
-										<img alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
+										<img  alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
 								</td>
 								<td style="padding-top: 60px">
 									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>

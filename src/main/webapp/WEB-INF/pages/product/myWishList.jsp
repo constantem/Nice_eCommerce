@@ -157,10 +157,10 @@
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<a href="${contextRoot}/getOneProductShop${pdWish.id}"><img class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt=""></a>
+											<img onerror="this.src='${contextRoot}/img/out.png'" class="wishImg1" src="${contextRoot}/ProductTempImg/${pdWish.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
-											<a href="${contextRoot}/getOneProductShop${pdWish.id}"><p class="productName" id="pdName1">${pdWish.productName}</p></a>
+											<p class="productName" id="pdName1">${pdWish.productName}</p>
 										</div>
 									</div>
 								</td>
@@ -176,6 +176,9 @@
 									<c:choose>
 										<c:when test="${pdWish.stock.quantity == 0}">
 											<a class="gray_btn quantityStatus" style="color: red;">補貨中</a>
+										</c:when>
+										<c:when test='${pdWish.productName==null}'>
+											<a class="gray_btn quantityStatus" style="color: red;">商品不存在</a>
 										</c:when>
 										<c:otherwise>
 											<a class="gray_btn quantityStatus addToCart" href="${contextRoot}/insertCartFromCartWishList?memberid=${member.memberid}&productid=${pdWish.id}&quantity=1">加入購物車</a>
@@ -360,6 +363,19 @@
 	
 	<script>
 
+		// $(window).load(function(){
+
+		// 	$(".productName").each(function(){
+
+		// 		if($(".productName").val()==null || $(".productName").val()==""){
+		// 			$(".addToCart").removeAttr("href").text("商品不存在")
+		// 		}else if($(".productName").val()!= ""){
+		// 			$(".addToCart").text("加入購物車")
+		// 		}
+		// 	})
+		// })
+
+
 		$(".deleteFavor").click(function(){
 			var deleteFavor = $(this);
 			$.ajax({
@@ -376,7 +392,10 @@
 			return false;
 		})
 
+	
+
 		$(".addToCart").click(function(){
+
 			Swal.fire({
 				title: '',
 				text: '',
@@ -390,6 +409,13 @@
 				showConfirmButton:false,		
 			})
 		})
+
+		
+
+		
+		
+
+	
 
 	</script>
 	

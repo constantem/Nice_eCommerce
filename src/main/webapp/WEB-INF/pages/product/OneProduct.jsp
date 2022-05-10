@@ -46,6 +46,8 @@
 <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6" />
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">	
 
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -146,7 +148,7 @@ figure {
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="pageTitle" class="title">商品詳細資訊</h1>
+				<h1 id="pageTitle" class="title"><i class="bi bi-info-square-fill"></i>&nbsp商品詳細資訊</h1>
 				<button class="button light">Button</button>
 			</div>
 		</section>

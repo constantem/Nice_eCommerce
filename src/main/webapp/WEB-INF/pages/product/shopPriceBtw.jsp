@@ -98,11 +98,11 @@ border-radius: 5px;
 	overflow: hidden;
 }
 
-button {
+/* button {
 	width: 8px;
 	height: 8px;
 	border-radius: 500px;
-}
+} */
 
 #btnPrice {
 	background-color: orange;
@@ -214,7 +214,7 @@ button {
 	overflow: hidden;
 }
 
-button {
+.btnAds {
 	width: 12px;
 	height: 12px;
 	border-radius: 150%;
@@ -277,10 +277,10 @@ button {
 			
 
 			<span id="buttons">
-				<button></button>
-				<button></button>
-				<button></button>
-				<button></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
 			</span>
 			
 		</div>
@@ -364,11 +364,11 @@ button {
 					<ul class="main-categories">
 
 						<li class="main-nav-list"><a data-toggle="collapse"
-							href="#beauttyProduct" aria-expanded="false"
-							aria-controls="beauttyProduct"><span
+							href="#beProduct" aria-expanded="false"
+							aria-controls="beProduct"><span
 								class="lnr lnr-arrow-right"></span>上衣<span class="number"></span></a>
-							<ul class="collapse" id="beauttyProduct" data-toggle="collapse"
-								aria-expanded="false" aria-controls="beauttyProduct">
+							<ul class="collapse" id="beProduct" data-toggle="collapse"
+								aria-expanded="false" aria-controls="beProduct">
 								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=排汗衫">排汗衫<span
 										class="number"></span></a></li>
 								<li class="main-nav-list child"><a href="${contextRoot}/FrontPageSearchBySubCategory?name=緊身衣">緊身衣<span

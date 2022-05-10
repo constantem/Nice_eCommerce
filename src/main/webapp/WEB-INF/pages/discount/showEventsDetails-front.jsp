@@ -287,7 +287,7 @@
 
                                                 </div>
                                             </div>
-                                            <p>本章優惠券僅限用於${announcement.title}之活動
+                                            <p>本章優惠券僅限用於<span style="color: #F75000;">${announcement.title}</span>之活動
                                                 <br>不適用於他項相關優惠活動，單次購物限用一張活動限定優惠券，數量有限，兌完為止。（此折扣代碼為Nice運動網提供，請在購物車/結帳頁內全站折價券入口輸入或選用)
                                             </p>
                                             <div class="br"></div>

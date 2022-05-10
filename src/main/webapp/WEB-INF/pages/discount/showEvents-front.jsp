@@ -175,8 +175,6 @@
                                                                 <h5>${announcement.discount.description}</h5>
                                                             </a>
                                                             <p>${announcement.description}</p>
-                                                            <a href="single-blog.html" class="white_bg_btn">View
-                                                                More</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +183,7 @@
                                         <!-- =====================================foreach活動(結束)================================= -->
 
                                         <!-- =====================================一篇活動(開始)================================= -->
-                                        <article class="row blog_item">
+                                        <!-- <article class="row blog_item">
                                             <div class="col-md-3">
                                                 <div class="blog_info text-right">
                                                     <div class="post_tag">
@@ -220,7 +218,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </article>
+                                        </article> -->
                                         <!-- =====================================一篇活動(結束)================================= -->
                                         
                                         <!-- ==================================頁面數字鈕(開始)============================== -->
@@ -415,14 +413,14 @@
 
                     </script>
 
-                    <script>
+                    <!-- <script>
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                             footer: '<a href="">Why do I have this issue?</a>'
                         })
-                    </script>
+                    </script> -->
 
 
 

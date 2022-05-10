@@ -23,6 +23,11 @@
 <!-- Site Title -->
 <title>登入</title>
 
+
+<!-- google font -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 <!--
 	CSS
 	============================================= -->
@@ -35,12 +40,66 @@
 <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
 <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 
+<!-- google icon -->
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+<style>
+
+	.login_form .form-group .forget-btn {
+ 	    color: #ffba00;
+	    border: 1px solid #ffba00;
+	    background: #fff;
+	}
+	
+	.login_form .form-group a.googleBtnStyle {
+		display: block;
+		margin-top: 0;
+		border: 1px solid #ffba00;
+	}
+	
+/* 	#googleSignInDiv { */
+/*       display: inline-block; */
+/*       background: white; */
+/*       color: #444; */
+/*       width: 190px; */
+/*       border-radius: 5px; */
+/*       border: thin solid #888; */
+/*       box-shadow: 1px 1px 1px grey; */
+/*       white-space: nowrap; */
+/*     } */
+	
+	.googleBtnStyle:hover {
+      cursor: pointer;
+    }
+	
+	span.icon {
+      background: url('${contextRoot}/resources/oauthLoginIcon/google/vector/btn_google_light_normal_ios.svg') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 0px;
+      padding-right: 42px;
+      font-size: 14px;
+/*       font-weight: bold; */
+      /* Use the Roboto font that is loaded in the <head> */
+/*       font-family: 'Roboto', sans-serif; */
+      color: #ffba00;
+    }
+  
+</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 crossorigin="anonymous"></script>
 <script>
 $(document).ready(function() {
-	//
+	// 自動輸入
 	$(".autoInputBtn").click(function() {
 		const numOneBased = $(this).data("num") ;
 		$.ajax({
@@ -51,6 +110,12 @@ $(document).ready(function() {
 				$("#password").val(userAndPass.password);
 			}
 		});
+	});
+	
+	// 第三方登入鈕
+	$("#googleSignInDiv").click(function () {
+		const url = $(this).data("url");
+		location.href = $("#contextRoot").val()+"/"+url;
 	});
 });
 </script>
@@ -102,7 +167,7 @@ $(document).ready(function() {
 					<div class="login_box_img">
 						<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/login.jpg" alt="">
 						<div class="hover">
-							<h4>還不是會員嗎?</h4>
+							<h4>想加入會員嗎？</h4>
 							<p>別再猶豫了，趕緊手刀</p>
 							<a class="primary-btn" href="${contextRoot}/member/register">
 								會員註冊
@@ -112,7 +177,7 @@ $(document).ready(function() {
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>已是會員</h3>
+						<h3>會員</h3>
 						<c:if test="${param.error!=null}">
 							<span style="color:red;">查無帳號或密碼</span>
 						</c:if>
@@ -138,16 +203,7 @@ $(document).ready(function() {
 									<label for="f-option2">記住登入</label>
 								</div>
 							</div>
-							
-							
-							<c:forEach items="${oauthAuthUrls}" var="oauthAuthUrl">
-							<div class="col-md-12 form-group">
-								<a href="${oauthAuthUrl.value}">
-									<button type="button" class="primary-btn">${oauthAuthUrl.key}(壞掉)</button>
-								</a>
-							</div>
-							</c:forEach>
-								
+									
 							<!-- 登入一鍵輸入 -->
 							<div class="col-md-12 form-group">
 								<button type="button"
@@ -174,12 +230,24 @@ $(document).ready(function() {
 								<button type="submit" value="submit" class="primary-btn">登入</button>
 							</div>	
 							
+							
+							<c:forEach items="${oauthAuthUrls}" var="oauthAuthUrl">
+								<c:if test="${oauthAuthUrl.key=='Google'}">
+									<div class="col-md-12 form-group">
+										<a class="googleBtnStyle"
+											href="${contextRoot}/${oauthAuthUrl.value}">
+											<span class="icon"></span>
+											<span class="buttonText">Google 登入</span>
+										</a>
+									</div>
+								</c:if>
+							</c:forEach>
 							</form>
 							
 							<!-- 忘記密碼 -->
 							<form class="row login_form" method="get" action="${contextRoot}/member/forget">
 								<div class="col-md-12 form-group">
-									<button type="submit" value="忘記密碼？" class="primary-btn">忘記密碼？</button>
+									<button type="submit" value="忘記密碼？" class="primary-btn forget-btn">忘記密碼？</button>
 								</div>		
 							</form>
 					</div>

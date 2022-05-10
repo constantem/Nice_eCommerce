@@ -156,7 +156,7 @@
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="functionTitle" align="center" class="title">商品上架系統</h1>
+				<h1 id="functionTitle" align="center" class="title"><i class="bi bi-bag-plus-fill"></i>&nbsp商品上架系統</h1>
 				<button class="button light">Button</button>
 			</div>
 		</section>
@@ -165,7 +165,7 @@
 
 			<div align="center">
 
-				<form id="insertForm" method="post" action="insertProduct.controller"
+				<form id="insertForm" method="post" action="${contextRoot}/insertProduct.controller"
 					enctype="multipart/form-data">
 					<div id="div1">
 
@@ -253,7 +253,7 @@
 								<label class="lb">商品照A</label>
 								<input id="img" name="imgUrl_A" class="input imgA" type="file" value="">
 								
-								</i><label class="lb">商品照B</label>
+								<label class="lb">商品照B</label>
 								<input id="img" name="imgUrl_B" class="input imgB" type="file" value="">
 
 								<label class="lb">商品照C</label>

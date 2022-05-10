@@ -115,7 +115,16 @@
 										<img onerror="this.src='${contextRoot}/img/out.png'" alt="picture" src="${contextRoot}/ProductTempImg/${orderDetails.productBean.imgUrl}" width="112" /></a>
 								</td>
 								<td style="padding-top: 60px">
-									<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+
+								<c:choose>
+									<c:when test="${orderDetails.productBean.productName==null}">
+										<p style="color: red;" >此商品已下架</p>
+									</c:when>
+									<c:otherwise>
+										<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+									</c:otherwise>
+								</c:choose>	
+										
 									<!-- ${orderDetails.productBean.productName}</p> -->
 								</td>
 								<td style="padding-top: 60px">

@@ -127,6 +127,7 @@ font-size: 90%;
 }
 
 #btnCreate{
+	border: none;
 	border-radius: 5px;
 	width: 100px;
 	height: 40px;
@@ -242,7 +243,7 @@ figure img {
 	overflow: hidden;
 }
 
-button {
+.btnAds{
 	width: 12px;
 	height: 12px;
 	border-radius: 150%;
@@ -257,14 +258,10 @@ button {
 #btnCart{
 width: 150px;
 height: 40px;
+border: none;
 }
 
-/* 
-.prodImg[src=""],img:not([src]){
 
-opacity:0;
-
-} */
 
 
 </style>
@@ -314,10 +311,10 @@ opacity:0;
 			
 
 			<span id="buttons">
-				<button></button>
-				<button></button>
-				<button></button>
-				<button></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
+				<button class="btnAds"></button>
 			</span>
 			
 		</div>

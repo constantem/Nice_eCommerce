@@ -46,14 +46,13 @@
 
 					<!-- Global site tag (gtag.js) - Google Analytics -->
 					<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
-					<script>
-						window.dataLayer = window.dataLayer || [];
-						function gtag() {
-							dataLayer.push(arguments);
-						}
-						gtag('js', new Date());
-						gtag('config', 'UA-130795909-1');
-					</script>
+					<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
+					<!-- <script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script> -->
+					<!-- <script src="sweetalert2.all.min.js"></script> -->
+					<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+					<script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
+
+
 				</head>
 				<style>
 					#showTitle {
@@ -62,6 +61,15 @@
 				</style>
 
 				<body>
+
+					<script>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							dataLayer.push(arguments);
+						}
+						gtag('js', new Date());
+						gtag('config', 'UA-130795909-1');
+					</script>
 
 					<div id="app">
 
@@ -176,19 +184,33 @@
 														<span class="icon"><i class="mdi mdi-pencil"></i></span>
 													</button>
 												</a>
-												<a onclick="return confirm('確定要刪掉人家嗎>w<')"
+												<button id="conformDelete" data-id="${discount.id}"
+													class="button small red" type="button">
+													<span class="icon"><i class="mdi mdi-trash-can"></i></span>
+												</button>
+												<!-- <a 
+													href="${contextRoot}/discount/deleteDiscount?id=${discount.id}">
+													<button id="conformDelete" class="button small red --jb-modal"
+														data-target="sample-modal" type="button">
+														<span class="icon"><i class="mdi mdi-trash-can"></i></span>
+													</button>
+												</a> -->
+												<!-- <a onclick="return confirm('確定刪除嗎?')"
 													href="${contextRoot}/discount/deleteDiscount?id=${discount.id}">
 													<button class="button small red --jb-modal"
 														data-target="sample-modal" type="button">
 														<span class="icon"><i class="mdi mdi-trash-can"></i></span>
 													</button>
-												</a>
+													</a> -->
 											</div>
 										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
+
+						<!-- <button id="conformDelete">test</button> -->
+
 						<div id="page" align="center">
 							<div class="table-pagination">
 								<div class="flex items-center ">
@@ -196,7 +218,8 @@
 										<c:choose>
 											<c:when test="${page.number != pageNumber-1}">
 												<div class="buttons">
-													<a href="${contextRoot}/staff/discount/viewDiscount?p=${pageNumber}">
+													<a
+														href="${contextRoot}/staff/discount/viewDiscount?p=${pageNumber}">
 														<button type="button"
 															class="button active">${pageNumber}</button></a>
 												</div>
@@ -226,34 +249,63 @@
 					<script type="text/javascript"
 						src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
 
+
+					<!-- <script>
+						$("#conformDelete").click(function () {
+							var discountId = $("#conformDelete").data("id");
+							Swal.fire({
+								icon: 'warning',
+								title: '確定刪除嗎?',
+								text: '刪除的資料不會再回來了，真的確定了嗎?',
+							}).then(function (result) {
+								if (result.isConfirmed) {
+									location.href = "${contextRoot}/discount/deleteDiscount?id=" + discountId;
+								}
+							});
+						})
+					</script> -->
 					<script>
-						!function (f, b, e, v, n, t, s) {
-							if (f.fbq)
-								return;
-							n = f.fbq = function () {
-								n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
-									.push(arguments)
-							};
-							if (!f._fbq)
-								f._fbq = n;
-							n.push = n;
-							n.loaded = !0;
-							n.version = '2.0';
-							n.queue = [];
-							t = b.createElement(e);
-							t.async = !0;
-							t.src = v;
-							s = b.getElementsByTagName(e)[0];
-							s.parentNode.insertBefore(t, s)
-						}(window, document, 'script',
-							'https://connect.facebook.net/en_US/fbevents.js');
-						fbq('init', '658339141622648');
-						fbq('track', 'PageView');
+						$("#conformDelete").click(function () {
+	
+							var discountId = $("#conformDelete").data("id");
+							// const swalWithBootstrapButtons = Swal.mixin({
+							// 	customClass: {
+							// 		confirmButton: 'btn btn-success',
+							// 		cancelButton: 'btn btn-danger',
+							// 		showConfirmButton: true,
+							// 		showCancelButton: true,
+							// 	},
+							// 	buttonsStyling: false
+							// })
+
+							Swal.fire({
+								title: 'Are you sure?',
+								text: "You won't be able to revert this!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Yes, delete it!'
+							}).then((result) => {
+								if (result.isConfirmed) {
+									Swal.fire(
+										'Deleted!',
+										'Your file has been deleted.',
+										'success',
+									)
+									location.href = "${contextRoot}/discount/deleteDiscount?id=" + discountId
+								}
+							})
+						})
 					</script>
+
+
 					<noscript>
 						<img height="1" width="1" style="display: none"
 							src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
 					</noscript>
+
+
 
 					<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 					<link rel="stylesheet"

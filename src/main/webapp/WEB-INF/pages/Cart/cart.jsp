@@ -143,11 +143,10 @@
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><img class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt=""></a>
+											<img onerror="this.src='${contextRoot}/img/out.png'" class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
-											<a href="${contextRoot}/getOneProductShop${cartProduct.productBean.id}"><p class="productName">${cartProduct.productBean.productName}</p></a>
-										
+											<p class="productName">${cartProduct.productBean.productName}</p>
 										</div>
 									</div>
 								</td>
@@ -186,9 +185,9 @@
 									
 								</td>
 								<td>
-									<a class="deleteCart" 
-										href="" data-memberid="${member.memberid}" data-cartproductid="${cartProduct.cartProductId}">
-																				
+									<a class="deleteCart" 																	
+										href="" data-memberid="${member.memberid}" data-cartproductid="${cartProduct.cartProductId}" >						
+							
 										<i id="trash" class="bi bi-trash"></i>
 									</a>
 								</td>
@@ -449,6 +448,11 @@
 		}
 					//前往結帳按鈕 送出表單
 					$("#checkOut").click(function() {
+
+						if($(".productName").val()){
+
+						}
+
 						$("#checkOutForm").submit();
 					});
 
@@ -495,8 +499,10 @@
 		varifyCart();
 		function varifyCart (){
 			var a = $(".cartPrice").text();
+			var b = $(".productName").text();
+		
 			if(a==null || a==""){
-				$("#checkOut").removeAttr("href","").text("無結帳商品").css("color","	#E0E0E0").click(function(){
+				$("#checkOut").removeAttr("href","").text("無結帳商品").css("color","#E0E0E0").click(function(){
 					Swal.fire({
 						icon: 'warning',
 						title: '目前購物車是空的喔!',

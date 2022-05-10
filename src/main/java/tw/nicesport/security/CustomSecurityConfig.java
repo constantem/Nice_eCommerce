@@ -2,6 +2,8 @@ package tw.nicesport.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,7 @@ import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClient
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
@@ -242,8 +245,26 @@ public class CustomSecurityConfig {
 //		    return authenticationManagerBean;
 //		}
 		
+//	    @Bean
+//	    public JwtAuthenticationFilter authenticationTokenFilterBean() {
+//	        return new JwtAuthenticationFilter();
+//	    }
+	    
+//	    @Bean
+//	    public PrincipalExtractor principalExtractor() {
+//	        return map -> {
+//	            System.out.println("Principal extracted.");
+//	            User user = new User();
+//	            user.setUsername((String)map.get("username"));
+//	            return user;
+//	        };
+//	    }
+	    
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
+	    	
+//	    	http.oauth2Login();  //equivalent to @EnableOAuth2Sso
+	    	// We've also annotated our configuration class with @EnableOAuthSso which converts our application into an OAuth client and creates the necessary components for it to behave as such.
 	    	
 			http
 				// 以下規定要被 "前台 security filter" 攔截的 url
@@ -257,11 +278,14 @@ public class CustomSecurityConfig {
 				.and()
 				
 				// 第三方驗證
-				.oauth2Login()
+				.oauth2Login() //equivalent to @EnableOAuth2Sso
 					.loginPage("/userLogin")
 					.failureUrl("/userLogin?error")           
 					.userInfoEndpoint()
 	            		.oidcUserService(oidcUserService);
+			
+//	        http
+//            	.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 	        
 	        }
 	    

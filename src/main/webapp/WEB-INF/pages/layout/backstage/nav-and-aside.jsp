@@ -325,7 +325,7 @@
   <div class="modal-background --jb-modal-close"></div>
   <div class="modal-card" style="width:300px">
     <header class="modal-card-head">
-      <p class="modal-card-title">(Demo Only)</p>
+      <p class="modal-card-title">(Dev Only)</p>
     </header>
     <section class="modal-card-body">
       <p>即將<b>登出</b>並前往前台</p>

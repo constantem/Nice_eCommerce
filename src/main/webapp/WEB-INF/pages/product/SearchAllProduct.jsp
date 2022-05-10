@@ -312,6 +312,7 @@
 	<script>
 
 		$(".delete").click(function(){
+			let deleteForm = $(this).closest("form");
 			Swal.fire({
 				title: '確定刪除??',
 				text: "刪除後商品資料無法回復",
@@ -319,22 +320,22 @@
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
-				confirmButtonText: '確定刪除!'
+				confirmButtonText: '確定刪除!',
+				cancelButtonText: '取消'
 				}).then((result) => {
 				if (result.isConfirmed) {
-					Swal.fire(
-					'刪除成功',
-					'資料已刪除',
-					'success'
-					)
-					setTimeout(deleteProduct,2000)
+					Swal.fire({
+					title:'刪除成功',
+					text: '資料已刪除',
+					icon:'success',
+					timer: 2000,
+					}).then(function () {
+						$(deleteForm).submit();
+					});
+					// setTimeout(deleteProduct,2000)
 				}
 			})
-		})
-
-		function deleteProduct(){
-			$("#deleteForm").submit();
-		}
+		});
 	</script>
 
 	<!-- ================================================================================ -->

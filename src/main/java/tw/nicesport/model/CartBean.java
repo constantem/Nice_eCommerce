@@ -52,7 +52,10 @@ public class CartBean implements Serializable {
 	private Member member;
 
 	// 對應購物車明細
-	@OneToMany(mappedBy = "cartBean")
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy = "cartBean"
+	)
 	private List<CartProductBean> cartProductBeanList = new ArrayList<CartProductBean>();
 
 	// 建構子

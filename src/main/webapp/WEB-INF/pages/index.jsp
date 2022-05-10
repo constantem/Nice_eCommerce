@@ -46,8 +46,10 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 </head>
 
-<body>
 
+
+<body>
+	
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -77,8 +79,8 @@
 						<div class="row single-slide align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">									
-									<h1>
-										<br>${discount.name}<br>${discount.description}</h1>
+									<h2>
+										${discount.name}<br>${discount.description}</h2>
 									<p>活動期間：${discount.startDate}~${discount.endDate}</p>
 									<div class="add-bag d-flex align-items-center">
 										<a class="add-btn" href="${contextRoot}/discount/showADs-front"><span class="lnr lnr-cross"></span></a>

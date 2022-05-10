@@ -288,9 +288,9 @@
 									<li><a href="#">小計 <span>NT$&nbsp;<span
 												id="sum">${sum-discountAmount}</span></span></a></li>
 									<li><a id="" href="#">運費 <span class="shipFee"
-											value="">NT$ 30</span> </a></li>
+											value="">NT$ 0</span> </a></li>
 									<li><a href="#">總價 <span>NT$&nbsp;<span
-												id="totalPrice">${sum + 30}</span></span></a></li>
+												id="totalPrice">${sum}</span></span></a></li>
 								</ul>
 								<div class="payment_item">
 <!-- 									<div class="radion_btn"> -->
@@ -316,7 +316,7 @@
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: '172.67' //設定刷的錢
+                value: "${(sum-discountAmount)*0.34}" //設定刷的錢
               }
             }]
           });
@@ -544,8 +544,8 @@
 						})
 
 						$("#shipCheckStore").click(function(){
-							$(".shipFee").text("NT$ 30");
-							$("#shippingFee").val(30);
+							$(".shipFee").text("NT$ 0");
+							$("#shippingFee").val(0);
 							if($("#shipCheckStore").prop('checked')){
 								$("#shipCheck711").prop('checked',false)
 								$("#shipCheckCat").prop('checked',false)

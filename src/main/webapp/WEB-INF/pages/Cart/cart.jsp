@@ -185,10 +185,9 @@
 									
 								</td>
 								<td>
-									<a class="deleteCart" 
-										href="" data-memberid="${member.memberid}" data-cartproductid="${cartProduct.cartProductId}" >
-										
-										
+									<a class="deleteCart" 																	
+										href="" data-memberid="${member.memberid}" data-cartproductid="${cartProduct.cartProductId}" >						
+							
 										<i id="trash" class="bi bi-trash"></i>
 									</a>
 								</td>

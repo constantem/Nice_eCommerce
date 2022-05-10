@@ -106,28 +106,36 @@ public class Member {
 
 	// 關聯 table
 	
-	@OneToMany(mappedBy = "memberBean")
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy = "memberBean"
+	)
 	@JsonIgnore
 	private List<OrdersBean> ordersBeanList = new ArrayList<OrdersBean>();
 	
-	@OneToMany(mappedBy="member") // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy="member"
+	) // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	private Set<CourseBooking> courseBookingSet = new HashSet<>();
 	
-
-	@OneToMany(mappedBy = "member")
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy = "member"
+	)
 	@JsonIgnore
 	private Set<ProductWishListBean> productMyWishListSet = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy="member")
+	@OneToOne(
+		cascade = CascadeType.ALL,
+		mappedBy="member"
+	)
 	private CartBean cart;
 
 	@OneToMany(
-		mappedBy="member",
-		cascade = {CascadeType.PERSIST,
-		           CascadeType.DETACH,
-		           CascadeType.MERGE,
-		           CascadeType.REFRESH}
+		cascade = CascadeType.ALL,
+		mappedBy="member"
 	)
 	private Set<MemberDiscountDetailBean> memberDiscountDetailBeanSet = new HashSet<>();
 	

@@ -91,7 +91,7 @@
 							<li class="nav-item isAuthenticatedAsUser">
 								<a class="nav-link" 
 									href="${contextRoot}/user/myWishList">
-									我的收藏
+									我的追蹤清單
 								</a>
 							</li>
 							<li class="nav-item isAuthenticatedAsUser">
@@ -181,7 +181,7 @@
 	// 前往後台的彈窗
 	$("#toBackstageBtn").click(function () {
 		Swal.fire({
-			title: "(Demo Only)",
+			title: "(Dev Only)",
 			html: "即將<span style='font-weight:bold;'>登出</b>並前往後台",
 			showConfirmButton: true,
 			confirmButtonText: "登出並前往",

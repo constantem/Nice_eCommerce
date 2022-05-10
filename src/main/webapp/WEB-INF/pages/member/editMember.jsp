@@ -233,7 +233,7 @@
 		
 		        <div class="field grouped">
 		          <div class="control">
-		            <button type="submit" class="button green">
+		            <button type="submit" id="btn1" class="button green">
 		              確認
 		            </button>
 		          </div>
@@ -331,6 +331,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
 	<!-- 一鍵清除 -->
 	<script type="text/javascript">
@@ -344,6 +345,20 @@
 			$("#email").attr("value","");
 			$("#address").attr("value","");
 		});
+	</script>
+	
+	<!-- 修改成功彈窗 -->
+	<script type="text/javascript">
+	document.getElementById('btn1').addEventListener('click',function(){
+		Swal.fire({
+		  icon: 'success',
+		  title: '修改成功',
+		  showConfirmButton: false,
+		  timer: 1500
+		})
+	})
+	
+	
 	</script>
 	
 	<noscript>

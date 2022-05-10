@@ -139,7 +139,7 @@
 			<div class="returning_customer">
 				<div class="check_title">
 					<h2>
-						你是忘記了還是害怕想起來? <a href="${contextRoot}/userLogin">要進來了喔</a>
+						<a href="${contextRoot}/userLogin">登入</a>
 					</h2>
 				</div>
 <!-- 				<p>如果你忘記了，那讓我們來新增你的記憶，如果你只是害怕想起來，那讓我們來幫助你吧!</p> -->
@@ -158,7 +158,7 @@
 <!-- 	                            <input type="checkbox" id="f-option" name="selector"> -->
 <!-- 	                            <label for="f-option">We will remember you</label> -->
 <!-- 	                        </div> -->
-	                        <a class="lost_pass" href="${contextRoot}/member/forget">忘記密碼?</a>
+<%-- 	                        <a class="lost_pass" href="${contextRoot}/member/forget">忘記密碼?</a> --%>
 <!-- 	                    </div> -->
 <%-- 	                </form> --%>
 			</div>

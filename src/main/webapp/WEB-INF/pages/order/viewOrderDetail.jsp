@@ -124,10 +124,19 @@ background-color: rgb(199, 222, 238);
 					<tbody>
 						<tr>
 												
-							<td><img alt="picture"
+							<td><img onerror="this.src='${contextRoot}/img/out.png'" alt="picture"
 								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
 								width="112" /></td>
-							<td id="productName" data-label="productName">${OrderDetail.productBean.productName}</td>
+							<td id="productName" data-label="productName">
+							<c:choose>
+									<c:when test="${orderDetails.productBean.productName==null}">
+										<p style="color: red;" >此商品已下架</p>
+									</c:when>
+									<c:otherwise>
+										<p><a href="/Nice_eCommerce/getOneProductShop${orderDetails.productBean.id}">${orderDetails.productBean.productName}</a></p>
+									</c:otherwise>
+								</c:choose>	
+							</td>
 							<td id="quantity" class="quantity" data-label="quantity">${OrderDetail.quantity}</td>
 							<td id="realPrice" class="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
 							<td id="totalPrice" data-label="totalPrice">${OrderDetail.quantity*OrderDetail.realPrice}</td>

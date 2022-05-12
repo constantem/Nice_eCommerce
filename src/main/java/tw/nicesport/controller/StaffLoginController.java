@@ -9,13 +9,18 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.nicesport.dto.UsernameAndPasswordWrapper;
 import tw.nicesport.model.Employee;
@@ -100,5 +105,18 @@ public class StaffLoginController {
 		String username = principal.getName();
 		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
 		return "forward:/staff/PunchCardSystemByEmployeeId?employeeid="+employee.getEmployee_id();
+	}
+	
+	//// 前往前台並員工登出 ////
+	@RequestMapping("/staffLogoutAndToFrontstage")
+	public String logoutAndTofrontstage(
+			RedirectAttributes redirectAttributes, 
+			@RequestParam(name="hasError",required = false) String hasError,
+			HttpServletRequest request) throws ServletException {
+		// 例外處理將訊息帶到首頁
+		redirectAttributes.addAttribute("hasError", hasError);
+		
+		request.logout();
+		return "redirect:/";
 	}
 }

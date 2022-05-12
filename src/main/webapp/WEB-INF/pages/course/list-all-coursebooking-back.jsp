@@ -10,12 +10,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>教練列表</title>
+<title>課程訂單列表</title>
 
-<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<!-- 原生 icon -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
-<!-- Tailwind is included -->
+<!-- 原生 css -->
 <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
 
 <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png"/>
@@ -35,81 +35,41 @@
 
 <script>
 $(document).ready(function () {
-	
-	// 請求 coach list
+	// 請求 course booking list
 	$.ajax({
 		method: "GET", // api query
-		url: $("#contextRoot").val() + "/api/coach",
-		success: function (coachs) {
-			$(coachs).each(function (index, coach) {
+		url: $("#contextRoot").val() + "/api/courseBooking",
+		success: function (courseBookingDtoList) {
+			$(courseBookingDtoList).each(function (index, courseBookingDto) {
 				// 樣板
 				const trTemplate = $("#tr-template");
 				
 				// 複製
 				const trClone = $( $(trTemplate).html() );
 				// 開始塞值
-				$("#fullName", trClone).text(coach.lastName+coach.firstName);
-				$("#nickname", trClone).text(coach.nickname);
-				$("#gender", trClone).text(coach.gender);
-				$("#phone", trClone).text(coach.phone);
-				$("#email", trClone).text(coach.email);
-				$("#address", trClone).text(coach.address);
-				$("#hireDate", trClone).find("small").text(coach.hireDate);
-				console.log("coach.modifiedAt");
-				console.log(coach.modifiedAt, typeof coach.modifiedAt);
-				console.log(coach.modifiedAt==null);
-				if(coach.modifiedAt==null) { // 從未編輯, 用 createdAt
-					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.createdAt);
+				$("#memberId", trClone).text(courseBookingDto.memberId);
+				$("#memberFullName", trClone).text(courseBookingDto.memberFullName);
+				$("#courseName", trClone).text(courseBookingDto.courseName);
+				$("#bookingStatus", trClone).text(courseBookingDto.bookingStatus);
+				if(courseBookingDto.modifiedAt==null) { // 從未編輯, 用 createdAt
+					$("#createdAtOrModifiedAt", trClone).find("small").text(courseBookingDto.createdAt);
 				} else { // 編輯過, 用 modifiedAt
-					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.modifiedAt);
-				}
-				// 塞 Base64 給 img
-				if(coach.profileBase64) {
-					$("#profileBase64", trClone).attr("src", "data:image/jpeg;base64, "+coach.profileBase64);
+					$("#createdAtOrModifiedAt", trClone).find("small").text(courseBookingDto.modifiedAt);
 				}
 				// 塞值給連結
-				$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/coach/detailPage/"+coach.id);
+// 				$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/courseBooking/detailPage/"+courseBookingDto.id);
 				// 塞id給deleteBtn
-				$("#deleteBtn", trClone).attr("data-id", coach.id); // jQuery 的 data setter 不能改變 html 的 data-* (因為 html DOM object attr 推出較晚), 只能改變 object 的 data, 若要改變 html 的 data-* 要用 attr
+				$("#deleteBtn", trClone).attr("data-id", courseBookingDto.id); // jQuery 的 data setter 不能改變 html 的 data-* (因為 html DOM object attr 推出較晚), 只能改變 object 的 data, 若要改變 html 的 data-* 要用 attr
 				// 插在樣板前面
 				$( trTemplate ).before( trClone );
 			})
 		}
 	}); // find all 請求結束
-	
-	// 以下動態生成出來的按鈕要動態綁定
-	/* local Modal open */
-	$("#templateContainer").on("click", ".--jb-modal-delete", function () {
-		const deleteBtn = this;
-		console.log(this);
-		console.log($(this));
-		// 取得按鈕上所標記要對應的彈窗div
-		const modalId = $(deleteBtn).data("target");
-		document.getElementById(modalId).classList.add('active'); // 彈窗彈出來 
-		document.documentElement.classList.add('clipped'); // 整個 html 標籤被 clipped
-		
-		// 取得按鈕上所標記的 coach 的 id
-		const id = $(deleteBtn).data("id");
-		console.log("id");
-		console.log(id);
-		$("#deleteConfirmBtn").click(function () {
-			$.ajax({
-				method: "DELETE",
-				url: $("#contextRoot").val()+"/api/coach/"+id,
-				success: function () {
-					window.location.href = $("#contextRoot").val()+"/staff/coach/listPage";
-				}
-			});
-		});
-		
-	});
-	
-}); // document ready 結束
+});
 </script>
+
 </head>
 <body>
-
-<input type="hidden" id="contextRoot" value="${contextRoot}">
 
 <div id="app">
 
@@ -121,7 +81,7 @@ $(document).ready(function () {
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>後台</li>
-      <li>教練列表</li>
+      <li>課程訂單列表</li>
     </ul>
     <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
       <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
@@ -134,7 +94,7 @@ $(document).ready(function () {
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      教練列表
+      課程訂單列表
     </h1>
     <button class="button light">Button</button>
   </div>
@@ -149,7 +109,7 @@ $(document).ready(function () {
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          教練
+          課程訂單
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -169,20 +129,16 @@ $(document).ready(function () {
                 <span class="check"></span>
               </label>
             </th>
-            <th class="image-cell"></th>
-            <th>姓名</th>
-            <th>暱稱</th>
-            <th>性別</th>
-            <th>電話</th>
-            <th>電子信箱</th>
-            <th>住址</th>
-            <th>起聘日期</th>
+            <th>會員編號</th>
+            <th>會員姓名</th>
+            <th>課程名稱</th>
+            <th>訂單狀態</th>
             <th>建檔/編輯日期</th>
             <th></th>
           </tr>
           </thead>
           
-          <!-- 表格內文(tr+td) -->
+          <!-- 表格內文(td) -->
           <tbody id="templateContainer">
 	          <template id="tr-template">
 		          <tr>
@@ -192,22 +148,11 @@ $(document).ready(function () {
 		                <span class="check"></span>
 		              </label>
 		            </td>
-		            <!-- 小圖 td -->
-		            <td class="image-cell">
-		              <div class="image">
-		                <img id="profileBase64" src="" class="rounded-full">
-		              </div>
-		            </td>
 		            <!-- 文字 td 開始 -->
-		            <td id="fullName"></td>
-		            <td id="nickname"></td>
-		            <td id="gender"></td>
-		            <td id="phone"></td>
-		            <td id="email"></td>
-		            <td id="address"></td>
-		            <td id="hireDate">
-		              <small class="text-gray-500"></small>
-		            </td>
+		            <td id="memberId"></td>
+		            <td id="memberFullName"></td>
+		            <td id="courseName"></td>
+		            <td id="bookingStatus"></td>
 		            <td id="createdAtOrModifiedAt">
 		              <small class="text-gray-500"></small>
 		            </td>
@@ -230,8 +175,6 @@ $(document).ready(function () {
 			  </template>
           </tbody>
         </table>
-        
-        <!-- 頁碼頁數 -->
         <div class="table-pagination">
           <div class="flex items-center justify-between">
             <div class="buttons">
@@ -242,7 +185,6 @@ $(document).ready(function () {
             <small>Page 1 of 3</small>
           </div>
         </div>
-        
       </div>
     </div>
 

@@ -118,7 +118,7 @@ public class Member {
 		mappedBy="member"
 	) // 不以上面的 PK 為了去關聯下面的 FK (但沒辦法填 PK)而去建 link table
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
-	private Set<CourseBooking> courseBookingSet = new HashSet<>();
+	private List<CourseBooking> courseBookingList = new ArrayList<>();
 	
 	@OneToMany(
 		cascade = CascadeType.ALL,
@@ -261,16 +261,16 @@ public class Member {
 
 	// 關聯 table 的 getter, setter
 	
-	public Set<CourseBooking> getCourseBookingSet() {
-		return courseBookingSet;
-	}
-
-	public void setCourseBookingSet(Set<CourseBooking> courseBookingSet) {
-		this.courseBookingSet = courseBookingSet;
-	}
-
 	public List<OrdersBean> getOrdersBeanList() {
 		return ordersBeanList;
+	}
+
+	public List<CourseBooking> getCourseBookingList() {
+		return courseBookingList;
+	}
+
+	public void setCourseBookingList(List<CourseBooking> courseBookingList) {
+		this.courseBookingList = courseBookingList;
 	}
 
 	public void setOrdersBeanList(List<OrdersBean> ordersBeanSet) {

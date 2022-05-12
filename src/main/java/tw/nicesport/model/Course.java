@@ -63,6 +63,9 @@ public class Course {
 	@NotBlank(message="不可空白")
 	private String courseName;
 	
+	@Column(name="courseDescription")
+	private String courseDescription;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd") // spring mvc 前端給後端, 後端的 LocalDate 變數若要接到, 要加, 不然接不到, 會是 null
 	@JsonFormat(pattern = "yyyy-MM-dd") // 前端 Stringify 要求的 String 格式(type="date")
 	@JsonSerialize(using = LocalDateSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
@@ -80,6 +83,9 @@ public class Course {
 	
 	@Column(name="courseStatus")
 	private Boolean courseStatus;
+	
+	@Column(name="remainingPlaces")
+	private Integer remainingPlaces;
 	
 	@Column(name="picture")
 	private byte[] picture;
@@ -176,6 +182,14 @@ public class Course {
 		this.courseName = courseName;
 	}
 
+	public String getCourseDescription() {
+		return courseDescription;
+	}
+
+	public void setCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+	}
+
 	public LocalDate getCourseStartDate() {
 		return courseStartDate;
 	}
@@ -250,6 +264,14 @@ public class Course {
 
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
+	}
+
+	public Integer getRemainingPlaces() {
+		return remainingPlaces;
+	}
+
+	public void setRemainingPlaces(Integer remainingPlaces) {
+		this.remainingPlaces = remainingPlaces;
 	}
 
 	// 外來鍵的 getter, setter

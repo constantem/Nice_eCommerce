@@ -14,6 +14,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,15 +23,19 @@ import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClient
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan("tw.nicesport")
 public class CustomSecurityConfig {
 
+	
 	/////////////////////////////////////////
 	//                                     //
 	//   spring security configuration 1   //
@@ -65,6 +70,14 @@ public class CustomSecurityConfig {
 //		public AuthenticationManager authenticationManagerBean() throws Exception {
 //			return super.authenticationManagerBean();
 //		}
+		
+	    @Autowired
+	    @Qualifier("customRequestCache")
+	    RequestCache myRequestCache;
+
+	    @Autowired
+	    @Qualifier("adminAccessDeniedHandler")
+	    AccessDeniedHandler myAccessDeniedHandler;
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
@@ -114,6 +127,15 @@ public class CustomSecurityConfig {
 				.and()
 				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
+			
+			// 拒訪處理
+	        http
+		        .requestCache()
+		            .requestCache(myRequestCache)
+		        .and()
+	        
+		        .exceptionHandling()
+		            .accessDeniedHandler(myAccessDeniedHandler);
 				
 		}
 		
@@ -140,6 +162,14 @@ public class CustomSecurityConfig {
 		@Autowired @Qualifier("employeeDetailsService")
 		private UserDetailsService employeeDetailsService;
 		
+	    @Autowired
+	    @Qualifier("customRequestCache")
+	    RequestCache myRequestCache;
+
+	    @Autowired
+	    @Qualifier("employeeAccessDeniedHandler")
+	    AccessDeniedHandler myAccessDeniedHandler;
+		
 	    public StaffSecurityConfig() {
 	        super();
 	    }
@@ -162,6 +192,11 @@ public class CustomSecurityConfig {
 //			return super.authenticationManagerBean();
 //		}
 		
+//	    @Override
+//	    public void configure(WebSecurity web) {
+//	    	web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/error", "/dist/**");
+//	    }
+		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
@@ -179,6 +214,9 @@ public class CustomSecurityConfig {
 					
 					// 以下 url 為登入相關, 不必被驗證
 					.antMatchers("/staffLogin*").permitAll() // 登入畫面
+					
+					// 以下 url 為登出相關, 不必被驗證
+					.antMatchers("/staffLogout*").permitAll() // 登入畫面
 					
 					// 以下 url 為前端請求, 不必被驗證
 					.antMatchers("/staff/role").permitAll() // 前端對後端的 role 請求不擋
@@ -211,6 +249,15 @@ public class CustomSecurityConfig {
 				.and()
 				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
+			
+			// 拒訪處理
+	        http
+		        .requestCache()
+		            .requestCache(myRequestCache)
+		        .and()
+	        
+		        .exceptionHandling()
+		            .accessDeniedHandler(myAccessDeniedHandler);
 				
 		}
 		
@@ -289,6 +336,8 @@ public class CustomSecurityConfig {
 	        
 	        }
 	    
+
+	    
 	}
 	
 	/////////////////////////////////////////
@@ -303,6 +352,14 @@ public class CustomSecurityConfig {
 
 		@Autowired @Qualifier("memberDetailsService")
 		private UserDetailsService memberDetailsService;
+		
+	    @Autowired
+	    @Qualifier("customRequestCache")
+	    RequestCache myRequestCache;
+
+	    @Autowired
+	    @Qualifier("userAccessDeniedHandler")
+	    AccessDeniedHandler myAccessDeniedHandler;
 		
 	    public MemberSecurityConfig() {
 	        super();
@@ -347,6 +404,10 @@ public class CustomSecurityConfig {
 					// 以下 url 為登入相關, 不必被驗證
 					.antMatchers("/userLogin*").permitAll()
 					
+					// 以下 url 為登入相關, 不必被驗證
+					.antMatchers("/userLogout*").permitAll()
+					
+					
 					// 以下 url 為前端請求, 不必被驗證
 					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求
 					
@@ -377,6 +438,15 @@ public class CustomSecurityConfig {
 				.and()
 				
 		        .csrf().disable(); // 若前端用 form 而非 form:form 但沒加 csrf
+			
+			// 拒訪處理
+	        http
+		        .requestCache()
+		            .requestCache(myRequestCache)
+		        .and()
+		        
+		        .exceptionHandling()
+		            .accessDeniedHandler(myAccessDeniedHandler);
 				
 		}
 		

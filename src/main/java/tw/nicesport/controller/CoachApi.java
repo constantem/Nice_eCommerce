@@ -21,20 +21,19 @@ import tw.nicesport.service.CoachService;
 import tw.nicesport.util.BytesUtils;
 
 @RestController // REST 寫法
-@RequestMapping("/api")
 public class CoachApi {
 	
 	@Autowired
 	private CoachService coachService;
 	
 	// 新增
-	@PostMapping("/coach")
+	@PostMapping("/api/coach")
 	public void insert(Coach coach) {
 		coachService.insert(coach);
 	}	
 
 	// 修改一筆
-	@PutMapping("/coach")
+	@PutMapping("/api/coach")
 	public String update(
 			@ModelAttribute("coach") Coach coach,
 			@RequestParam("profileFile") MultipartFile file) throws IOException {
@@ -61,7 +60,7 @@ public class CoachApi {
 	}
 	
 	// 查詢一筆
-	@GetMapping("/coach/{id}")
+	@GetMapping("/api/coach/{id}")
 	public Coach findOne(@PathVariable("id") Integer id) {
 		Coach coach = coachService.findById(id);
 		// bytes 轉 base64 String 處理
@@ -74,7 +73,7 @@ public class CoachApi {
 	}
 	
 	// 查詢全部
-	@GetMapping("/coach")
+	@GetMapping("/api/coach")
 	public List<Coach> findAll() {
 		List<Coach> coachs = coachService.findAll();
 		for(Coach coach : coachs) {
@@ -92,7 +91,7 @@ public class CoachApi {
 	}
 	
 	// 刪除一筆
-	@DeleteMapping("/coach/{id}")
+	@DeleteMapping("/api/coach/{id}")
 	public void deleteOne(@PathVariable("id") Integer id) {
 		coachService.deleteOne(id);
 	}

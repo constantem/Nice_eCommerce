@@ -249,23 +249,31 @@ public class CartController {
 		return "redirect:/user/myWishList";
 	}
 
-	// 刪除購物車內同商品的明細
+	// 刪除購物車內的明細
 	@RequestMapping("/DeleteCart")
 	@ResponseBody
 	public void DeleteCart(@RequestParam("memberid") Integer memberid, @RequestParam("cartproductid") Integer cartproductid) {
+		System.out.println("memberid====================================================="+memberid);
+		System.out.println("cartproductid====================================================="+cartproductid);
 		// 用memberService取得memberid
 		Member mamber = memberService.findById(memberid);
+		System.out.println("mamber====================================================="+mamber);
 		// 取得mamber中的購物車(Cart)
 		CartBean cart = mamber.getCart();
+		System.out.println("cart====================================================="+cart);
 		// 取得cart中的CartProductBeanList
 		List<CartProductBean> list = cart.getCartProductBeanList();
+		System.out.println("list第一個====================================================="+list.get(0));
 		// 用for迴圈去一行行讀資料
 		for (CartProductBean cartProductBean : list) {
-			// 取得整張table的product_id (因javaBean內宣告對應為ProductBean)
+			// 取得整張table的CartProductId
 			Integer CartProductId = cartProductBean.getCartProductId();
-			// 用ProductBean去比對前端傳來的Product_id
+			System.out.println("取得整張table的CartProductId====================================================="+CartProductId);
+			// 用CartProductId去比對前端傳來的cartproductid
 			if (cartproductid.equals(CartProductId)) {
-				// 用Product_id刪掉此筆資料
+				// 用CartProductId刪掉此筆資料
+				System.out.println("前台的cartproductid====================================================="+cartproductid);
+				System.out.println("後台的CartProductId====================================================="+CartProductId);
 				cartProductService.deleteById(CartProductId);
 //				cartProductService.deleteByBean(cartProductBean);
 			}

@@ -99,8 +99,8 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">照片</th>
-								<th scope="col">產品</th>
+								<th scope="col">產品照片</th>
+								<th scope="col">產品名稱</th>
 								<th scope="col">數量</th>
 								<th scope="col">產品單價</th>
 							</tr>

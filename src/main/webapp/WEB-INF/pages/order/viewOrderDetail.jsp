@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>標籤名</title>
+<title>Nice eCommerce Shopping Center</title>
 
 <!-- Tailwind is included -->
 <!--   <link rel="stylesheet" href="/WEB-INF/resources/css/main.css?v=1628755089081"> -->
@@ -100,7 +100,7 @@ background-color: rgb(199, 222, 238);
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">訂單資訊</h1>
-				<small class="text-gray-500"> 訂單編號：${order.orderStatus}
+				<small class="text-gray-500">
 					 </small> <a
 					href="${pageContext.request.contextPath}/staff/orders/viewAllOrders"><button
 						class="button light">返回訂單列表</button></a>
@@ -126,10 +126,19 @@ background-color: rgb(199, 222, 238);
 					<tbody>
 						<tr>
 												
-							<td><img alt="picture"
+							<td><img onerror="this.src='${contextRoot}/img/out.png'" alt="picture"
 								src="${contextRoot}/ProductTempImg/${OrderDetail.productBean.imgUrl}"
 								width="112" /></td>
-							<td id="productName" data-label="productName">${OrderDetail.productBean.productName}</td>
+							<td id="productName" data-label="productName">
+							<c:choose>
+									<c:when test="${OrderDetail.productBean.productName==null}">
+										<p style="color: red;" >此商品已下架</p>
+									</c:when>
+									<c:otherwise>
+										<p><a href="/Nice_eCommerce/getOneProductShop${OrderDetail.productBean.id}">${OrderDetail.productBean.productName}</a></p>
+									</c:otherwise>
+								</c:choose>	
+							</td>
 							<td id="quantity" class="quantity" data-label="quantity">${OrderDetail.quantity}</td>
 							<td id="realPrice" class="realPrice" data-label="realPrice">${OrderDetail.realPrice}</td>
 							<td id="totalPrice" data-label="totalPrice">${OrderDetail.quantity*OrderDetail.realPrice}</td>

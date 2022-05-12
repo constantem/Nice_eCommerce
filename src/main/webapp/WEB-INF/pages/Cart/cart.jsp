@@ -137,7 +137,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
 							<c:forEach items="${cartProductList}" var="cartProduct" >
 							<tr>
 								<td>
@@ -146,7 +145,7 @@
 											<img onerror="this.src='${contextRoot}/img/out.png'" class="cartImg" src="${contextRoot}/ProductTempImg/${cartProduct.productBean.imgUrl}" alt="">
 										</div>
 										<div class="media-body">
-											<p class="productName">${cartProduct.productBean.productName}</p>
+											<p  class="productName">${cartProduct.productBean.productName}</p>
 										</div>
 									</div>
 								</td>
@@ -195,23 +194,25 @@
 						</c:forEach>
 
 							<tr class="bottom_button">
-								<td><a class="gray_btn" href="#">更新購物車</a></td>
+								<td>
+								<div class="check_title">
+									<h2>
+										沒有優惠卷?? <a href="${contextRoot}/announcement/showEvents-front">點這裡新增優惠</a>
+									</h2>
+								</div>
+								</td>								
 								<td></td>
 								<td></td>
 								<td>
 									<div class="cupon_text d-flex align-items-center">
 										<input type="text" onchange="UseDiscount()" id="discountName" name="discountName" placeholder="優惠券代碼"> 
 										<a class="primary-btn" onclick="UseDiscount()" href="#">使用</a> 
-										<a class="gray_btn"	href="#">更新優惠券代碼</a>
+										<a style="color:rgb(255, 153, 0)" class="gray_btn"	href="#">更新優惠券代碼</a>
 									</div>
 								</td>
 							</tr>
 							<tr>
-							<div class="check_title">
-									<h2>
-										沒有優惠卷?? <a href="#">點這裡新增優惠</a>
-									</h2>
-							</div>
+							
 							<tr>
 								<td></td>	
 								<td></td>
@@ -259,8 +260,8 @@
 								<td></td>
 								<td>
 									<div class="checkout_btn_inner d-flex align-items-center">
-										<a id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a>
-										<a id="checkOut" class="primary-btn">前往結帳</a>
+										<a style="color:rgb(255, 153, 0)" id="keepShopping" class="gray_btn" href="${contextRoot}/FrontpageSeperate">繼續購物</a>
+										<a style="color:rgb(255, 255, 255)" id="checkOut" class="primary-btn">前往結帳</a>
 									</div>
 								</td>
 							</tr>
@@ -423,7 +424,12 @@
 					console.log(subTotal);
 
 					if(discountamount == ""){
-						alert("輸入錯誤或沒有此折扣碼 請檢查")
+						Swal.fire(
+  						'沒有查詢到這個折扣碼',
+  						'請再次確認是否輸入正確',
+  						'question'
+						)
+						// alert("輸入錯誤或沒有此折扣碼 請檢查")
 																	
 						$("#userdiscountAmount").html(
 							"<h5>NT$ 0</h5>");
@@ -431,7 +437,29 @@
 							"NT$"+subTotal);
 						$("#discountAmount").attr("value",0)
 						// $("#checkOutForm").attr(action,"${contextRoot}/checkOut?memberid=${member.memberid}");  //修改form表單傳送的路徑
-					}else{										
+					}else{
+						let timerInterval
+						Swal.fire({
+						title: '折價卷使用成功!',
+						html: '',
+						timer: 2000,
+						timerProgressBar: true,
+						didOpen: () => {
+							Swal.showLoading()
+							const b = Swal.getHtmlContainer().querySelector('b')
+							timerInterval = setInterval(() => {
+							b.textContent = Swal.getTimerLeft()
+							}, 100)
+						},
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+						}).then((result) => {
+						/* Read more about handling dismissals below */
+						if (result.dismiss === Swal.DismissReason.timer) {
+							console.log('I was closed by the timer')
+						}
+						})									
 						$("#userdiscountAmount").html(
 							"<h5>NT$"+discountamount+"</h5>");
 							//.text(要更改的"純文字")
@@ -480,7 +508,7 @@
 		}
 	</script>
 
-
+	<!-- 刪除購物車產品 -->
 	<script>
 		$(".deleteCart").click(function(){
 			var deteteCart = $(this);

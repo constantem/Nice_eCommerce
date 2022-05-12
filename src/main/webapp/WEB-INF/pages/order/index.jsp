@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">	
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MainPage</title>
+<title>Nice eCommerce Shopping Center</title>
 
 <!----------------------------- CSS------------------------------------------ -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>

@@ -53,7 +53,7 @@ public class PunchCardSystemController {
 		punchCardDao.delPunchCard(punchstatus, employeeid);
 		
 		punchCardSystemService.insertPunchCardSystem(punchCcard);
-			mav.getModel().put("PunchCardSystem", newPunchCard);
+		mav.getModel().put("PunchCardSystem", newPunchCard);
 				
 		mav.setViewName("employee/PunchCardSystem");
 		//System.out.println(newPunchCard);

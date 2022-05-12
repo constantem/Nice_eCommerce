@@ -1,5 +1,6 @@
 package tw.nicesport.controller;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import tw.nicesport.model.AnnouncementBean;
 import tw.nicesport.model.Discount;
+import tw.nicesport.service.AnnouncementService;
 import tw.nicesport.service.DiscountService;
 
 
@@ -25,6 +28,9 @@ public class IndexController {
 
 	@Autowired
 	private DiscountService discountService;
+	
+	@Autowired
+	private AnnouncementService announcementService;
 	
 	// 跳轉前台首頁用
 	@RequestMapping("/")
@@ -40,6 +46,18 @@ public class IndexController {
 		// 首頁優惠券輪播
 		List<Discount> discounts = discountService.findAll();
 		model.addAttribute("discounts", discounts);
+		
+		// 首頁優惠券圖片輪播
+		List<AnnouncementBean> announcements = announcementService.findAllAnnouncement();
+		// list中每個活動照片的 bytes 要轉 String
+				for(AnnouncementBean ann : announcements) {
+					if(ann.getEventPicture() != null) { // 
+						ann.setEventPictureBase64(
+								Base64.getEncoder().encodeToString( ann.getEventPicture() )
+						);
+					} 
+				}
+		model.addAttribute("announcements", announcements);
 		
 		/////////////// 首頁強制後台角色登出 /////////////////
 		if(authentication!=null) { // 沒登入時, authentication 為 null

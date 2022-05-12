@@ -181,6 +181,19 @@ public class UserLoginController {
 		return "forward:/user/myDiscountByMemberId?memberId="+member.getMemberid();
 	}
 	
+	// 前端活動頁面加入我的優惠券: 中間站
+	@RequestMapping("/user/addToMyDiscount")
+	public String showMyDiscount(
+			Principal principal, 
+			Model model,
+			@RequestParam("discountId") Integer discountId) throws Exception {
+		
+		// 用當下登入的會員帳號資訊取得 member id
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addToMyDiscountByMemberId?memberId="+member.getMemberid()+"&discountId="+discountId;
+	}
+	
 
 	// 前端商品加入追蹤清單: 中間站
 	@RequestMapping("/user/addMyWishList")

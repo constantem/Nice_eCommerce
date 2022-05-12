@@ -119,6 +119,7 @@
 #img1 {
 	margin-top: 10px;
 	margin-bottom: 15px;
+	
 }
 .lb{
 	margin-right: 500px;
@@ -291,7 +292,7 @@
 						<div class="field">
 							<label class="label">上架時間 </label>
 							<div class="control">
-								<input id="createdAt" name="createdAt" class="input" type="text"
+								<input readonly id="createdAt" name="createdAt" class="input" type="text"
 									value="">
 							</div>
 						</div>

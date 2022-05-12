@@ -252,7 +252,7 @@ figure img {
 }
 
 .red {
-	background: #84C1FF;
+	background: #babbbc;
 }
 
 #btnCart{
@@ -874,7 +874,7 @@ border: none;
 							<div class="single-related-product d-flex">
 								<a id="ref1" href="">
 								<!--商品照-->	
-								<img class="relimg" id="relImg1" src="" alt=""></a>
+								<img  class="relimg" id="relImg1" src="" alt=""></a>
 								<div class="desc">
 									<!--品名-->
 									<a id="pdName1" href="#" class="title">Black lace Heels</a>
@@ -1359,7 +1359,7 @@ border: none;
 								success:function(list){
 									console.log(list);
 									$.each(list,function(index,product){
-										if(index===6) {
+										if(index==6) {
 											return false;
 										}
 										$("#pdName"+(index+1)).text(product.productName);

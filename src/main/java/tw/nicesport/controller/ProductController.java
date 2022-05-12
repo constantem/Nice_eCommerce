@@ -440,28 +440,25 @@ public class ProductController {
 		public ModelAndView viewShopProductPriceBetween(ModelAndView mav,@RequestParam("color") String color) {
 		
 		List<ProductBean> prodList = pService.findByColor(color);
-		
 		List<ProductBean> prod = new ArrayList<>();
 		
-		if(prodList != null) {
 			for(int i =0;i<=prodList.size()-1;i++) {
 				prod.add(prodList.get(prodList.size()-1-i));
-			}
-		}else {
 			
-		}
+			}
 			mav.getModel().put("prod", prod);
 			mav.setViewName("/product/shopColor");
 			return mav;
 		}
 		
 		//依找商品供應商搜尋商品
+		
+		@GetMapping("/BackpageSearchBySupplier")
 		public ModelAndView searcProductBySupplier(ModelAndView mav,@RequestParam("supplier")String supplier) {
-			
 			List<ProductBean> prod = pService.findBySupplier(supplier);
 			
 			mav.getModel().put("prod", prod);
-			mav.setViewName("");
+			mav.setViewName("/product/SearchAllProductBrand");
 			return mav;
 		}
 		

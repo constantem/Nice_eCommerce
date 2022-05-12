@@ -225,7 +225,7 @@ border-radius: 5px;
 }
 
 .red {
-	background: #84C1FF;
+	background: #babbbc;
 }
 </style>
 
@@ -453,7 +453,7 @@ border-radius: 5px;
 
 						<form  id="colorForm" action="FrontpageSeperateSortByColor?color=${color}">
 							<ul>
-								<li class="filter-list"><input class="pixel-radio"
+								<li class="filter-list"><input checked=true class="pixel-radio"
 									type="radio" id="black" name="color" value="黑"><label
 									for="black">黑<span>(29)</span></label></li>
 								<li class="filter-list"><input class="pixel-radio"
@@ -527,7 +527,7 @@ border-radius: 5px;
 							<option value="2">顯示 10</option>
 						</select>
 					</div> -->
-					<div class="pageButton1">
+					<!-- <div class="pageButton1">
 						<div class="filter-bar d-flex flex-wrap align-items-center">
 							<div class="sorting">
 								<div class="pagination">
@@ -545,7 +545,9 @@ border-radius: 5px;
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
+					
 				</div>
 				<!-- End Filter Bar -->
 

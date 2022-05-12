@@ -21,6 +21,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
 <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -274,7 +276,7 @@ background-color: rgb(199, 222, 238);
 								data-bs-target="#exampleModal" data-bs-whatever="@mdo"
 								onclick="updateShipInformation()">
 								<%--onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-								<span class="icon"><i class="mdi-message-outline"></i></span>修改配送資訊
+								<span class="icon"><i class="bi bi-gift-fill"></i></span>&nbsp修改配送資訊
 							</button>
 							</div>
 						</div>
@@ -376,7 +378,7 @@ background-color: rgb(199, 222, 238);
 						data-bs-whatever="@mdo" >
 						<!-- onclick="updateShipInformation()"> -->
 						<%-- onclick="location.href='${contextRoot}/orders/OrderDetail/update?id=${OrdersBean.order_id}'"> --%>
-						<span class="icon"><i class="mdi-update"></i></span>商品出貨！！
+						<span class="icon"><i class="bi bi-truck"></i></span>&nbsp商品出貨！！
 					</button>
 					</div>
 				</div>

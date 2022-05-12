@@ -114,7 +114,24 @@ public class ProductWishListController {
 
 		return "redirect:/FrontpageSeperate";
 	}
-
+	
+	@GetMapping("/user/deleteWishFromShop")
+	public String removeWishLisrFromShop(@RequestParam("productId") Integer productId,
+			@RequestParam("memberId") Integer memberId) {
+		
+		Member member = memberService.findById(memberId);
+		
+		Set<ProductWishListBean> productMyWishListSet = member.getProductMyWishListSet();
+		for (ProductWishListBean productWishListBean : productMyWishListSet) {
+			Integer thisProductId = productWishListBean.getProductBean().getId();
+			if(thisProductId == productId) {
+				pmfService.deleteWishList(productId);
+			}
+		}
+		
+		return "redirect:/FrontpageSeperate";
+	}
+	
 	
 
 	// for ajax

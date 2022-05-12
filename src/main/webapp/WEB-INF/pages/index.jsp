@@ -47,7 +47,6 @@
 </head>
 
 
-
 <body>
 	
 	<!-- Start Header Area -->
@@ -75,23 +74,23 @@
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
 						<!-- single-slide -->
-						<c:forEach var="discount" items="${discounts}">
+						<c:forEach var="announcement" items="${announcements}">
 						<div class="row single-slide align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">									
-									<h2>
-										${discount.name}<br>${discount.description}</h2>
-									<p>活動期間：${discount.startDate}~${discount.endDate}</p>
+									<h2>${announcement.discount.name}</h2>
+									<h2>${announcement.discount.description}</h2>
+									<p>活動期間：${announcement.discount.startDate}~${announcement.discount.endDate}</p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href="${contextRoot}/discount/showADs-front"><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">GO AHEAD</span>
+										<a class="add-btn" href="${contextRoot}/announcement/showEvents-front"><span class="lnr lnr-location"></span></a>
+										<a href="${contextRoot}/announcement/showEvents-front"><span class="add-text text-uppercase">前往察看</span></a>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
 									<a href="${contextRoot}/announcement/showEvents-front">
-										<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/pika.png" alt=""></img>
+										<img class="img-fluid" src="data:image/png;base64,${announcement.eventPictureBase64}" alt=""></img>
 									</a>
 								</div>
 							</div>

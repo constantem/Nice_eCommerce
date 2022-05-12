@@ -30,5 +30,9 @@ public class MemberDiscountDetailService {
 		memberDiscountDetailDao.deleteById(id); 
 	}
 	
+	public MemberDiscountDetailBean insert(MemberDiscountDetailBean memberDiscountDetailBean) {
+		return memberDiscountDetailDao.save(memberDiscountDetailBean);
+	}
+	
 
 }

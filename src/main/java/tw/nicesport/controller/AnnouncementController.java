@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -174,9 +175,19 @@ public class AnnouncementController {
 		return "discount/showEvents-front";
 	}
 	
+	@GetMapping("/announcement/showEventsForLengh")
+	@ResponseBody
+	public List<AnnouncementBean> showAllEventsInFrontForLengh(){		
+		List<AnnouncementBean> announcements = announcementService.findAllAnnouncement();
+		// list中每個活動照片的 bytes 要轉 String
+	
+		return announcements;
+	}
+	
 	//跳轉到前台活動詳情頁面
 	@GetMapping("/announcement/showEventsDetails-front")
-	public ModelAndView showEvents(ModelAndView mav, @RequestParam(name = "id") Integer id) {
+	public ModelAndView showEvents(ModelAndView mav, 
+			@RequestParam(name = "id") Integer id) {
 		AnnouncementBean announcement = announcementService.findById(id);
 		// 此活動照片的 bytes 要轉 String
 		if(announcement.getEventPicture() != null) { 

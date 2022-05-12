@@ -90,10 +90,10 @@
                                         <div class="categories_details">
                                             <div class="categories_text">
                                                 <a href="${contextRoot}/FrontPageSearchBySubCategory?name=休閒鞋">
-                                                    <h5>新品到貨</h5>
+                                                    <h5>暢銷鞋款</h5>
                                                 </a>
                                                 <div class="border_line"></div>
-                                                <p>Enjoy your social life together</p>
+                                                <p>NMD,Air Max,are not included</p>
                                             </div>
                                         </div>
                                     </div>
@@ -104,10 +104,10 @@
                                         <div class="categories_details">
                                             <div class="categories_text">
                                                 <a href="${contextRoot}/FrontPageSearchBySubCategory?name=慢跑鞋">
-                                                    <h5>熱銷商品</h5>
+                                                    <h5>熱門品牌</h5>
                                                 </a>
                                                 <div class="border_line"></div>
-                                                <p>Be a part of politics</p>
+                                                <p>Be a part of new balance fans</p>
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                                     <h5>來根燕麥棒?</h5>
                                                 </a>
                                                 <div class="border_line"></div>
-                                                <p>Let the food be finished</p>
+                                                <p>Let the cereal bars be finished</p>
                                             </div>
                                         </div>
                                     </div>
@@ -150,8 +150,14 @@
                                                             <a href="#">Lifestyle</a>
                                                         </div> -->
                                                         <ul class="blog_meta list">
-                                                            <li><a href="#">低消${announcement.discount.conditionPrice}<i
-                                                                        class="lnr lnr-arrow-right-circle"></i></a>
+                                                            <li><a href="#">
+                                                                <c:if test="${announcement.discount.conditionPrice == null}">
+                                                                    此活動無門檻!!!
+														    	</c:if>
+                                                                <c:if test="${announcement.discount.conditionPrice != null}">
+                                                                    低消${announcement.discount.conditionPrice}元
+														    	</c:if>
+                                                                <i class="lnr lnr-bullhorn"></i></a>
                                                             </li>
                                                             <li><a href="#">活動到${announcement.discount.endDate}止<i
                                                                         class="lnr lnr-calendar-full"></i></a></li>
@@ -163,7 +169,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="blog_post">
-                                                        <img src="data:image/png;base64,${announcement.eventPictureBase64}" alt="">
+                                                        <img src="data:image/png;base64,${announcement.eventPictureBase64}" alt=""></img>
                                                         <!-- <ul>
                                                             <li><img id=""
                                                                 src="data:image/png;base64,${announcement.eventPictureBase64}"
@@ -222,7 +228,7 @@
                                         <!-- =====================================一篇活動(結束)================================= -->
                                         
                                         <!-- ==================================頁面數字鈕(開始)============================== -->
-                                        <nav class="blog-pagination justify-content-center d-flex">
+                                        <!-- <nav class="blog-pagination justify-content-center d-flex">
                                             <ul class="pagination">
                                                 <li class="page-item">
                                                     <a href="#" class="page-link" aria-label="Previous">
@@ -244,13 +250,13 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </nav>
+                                        </nav> -->
                                         <!-- ==================================頁面數字鈕(結束)============================== -->
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="blog_right_sidebar">
-                                        <aside class="single_sidebar_widget search_widget">
+                                        <!-- <aside class="single_sidebar_widget search_widget">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search Posts"
                                                     onfocus="this.placeholder = ''"
@@ -259,48 +265,40 @@
                                                     <button class="btn btn-default" type="button"><i
                                                             class="lnr lnr-magnifier"></i></button>
                                                 </span>
-                                            </div><!-- /input-group -->
+                                            </div>
                                             <div class="br"></div>
-                                        </aside>
+                                        </aside> -->
 
                                         <aside class="single_sidebar_widget popular_post_widget">
-                                            <h3 class="widget_title">您可能喜歡</h3>
+                                            <h3 class="widget_title">精選商品</h3>
                                             <div class="media post_item">
-                                                <img src="${contextRoot}/img/event/popular-post-1 .png" alt="post">
+                                                <img src="${contextRoot}/img/event/popular-post-1.jpg" alt="post">
                                                 <div class="media-body">
-                                                    <a href="blog-details.html">
-                                                        <h3>Space The Final Frontier</h3>
+                                                    <a href="#">
+                                                        <h3>Adidas Casual Shoes</h3>
                                                     </a>
-                                                    <p>02 Hours ago</p>
+                                                    <p>Adidas</p>
                                                 </div>
                                             </div>
                                             <div class="media post_item">
                                                 <img src="${contextRoot}/img/event/popular-post-2.png" alt="post">
                                                 <div class="media-body">
-                                                    <a href="blog-details.html">
-                                                        <h3>The Amazing Hubble</h3>
+                                                    <a href="#">
+                                                        <h3>Nike Air Force</h3>
                                                     </a>
-                                                    <p>02 Hours ago</p>
+                                                    <p>Nike</p>
                                                 </div>
                                             </div>
                                             <div class="media post_item">
                                                 <img src="${contextRoot}/img/event/popular-post-3.png" alt="post">
                                                 <div class="media-body">
-                                                    <a href="blog-details.html">
-                                                        <h3>Astronomy Or Astrology</h3>
+                                                    <a href="#">
+                                                        <h3>New Balance Running</h3>
                                                     </a>
-                                                    <p>03 Hours ago</p>
+                                                    <p>New Balance</p>
                                                 </div>
                                             </div>
-                                            <div class="media post_item">
-                                                <img src="${contextRoot}/img/event/popular-post-4.jpg" alt="post">
-                                                <div class="media-body">
-                                                    <a href="blog-details.html">
-                                                        <h3>Asteroids telescope</h3>
-                                                    </a>
-                                                    <p>01 Hours ago</p>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="br"></div>
                                         </aside>
                                         <aside class="single_sidebar_widget ads_widget">
@@ -330,12 +328,12 @@
                                             <div class="br"></div>
                                         </aside>
                                         <aside class="single-sidebar-widget tag_cloud_widget">
-                                            <h4 class="widget_title">Tag Clouds</h4>
+                                            <h4 class="widget_title">品牌、顏色</h4>
                                             <ul class="list">
-                                                <li><a href="#">Technology</a></li>
-                                                <li><a href="#">Fashion</a></li>
-                                                <li><a href="#">Architecture</a></li>
-                                                <li><a href="#">Fashion</a></li>
+                                                <li><a href="${contextRoot}/FrontpageSearchByKeyword?brand=Nike&brand=">Nike</a></li>
+                                                <li><a href="${contextRoot}/FrontpageSearchByKeyword?brand=Addidas&brand=">Adidas</a></li>
+                                                <li><a href="${contextRoot}/FrontpageSearchByKeyword?brand=Converse&brand=">Converse</a></li>
+                                                <li><a href="${contextRoot}/FrontpageSearchByKeyword?brand=New+Balance&brand=">New Balance</a></li>
                                                 <li><a href="#">Food</a></li>
                                                 <li><a href="#">Technology</a></li>
                                                 <li><a href="#">Lifestyle</a></li>
@@ -354,8 +352,8 @@
                     <!--================Blog Area =================-->
 
 
-                    <button id="btn">click</button>
-                    <button id="info">click</button>
+                    <!-- <button id="btn">click</button>
+                    <button id="info">click</button> -->
 
 
                     <script>
@@ -370,7 +368,6 @@
                         })
                     </script>
 
-                    <!-- swal("Oops", "Line 1.\n line2.", "error"); -->
                     <script>
 
                     </script>

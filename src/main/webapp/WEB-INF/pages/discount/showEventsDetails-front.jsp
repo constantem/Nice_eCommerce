@@ -34,10 +34,7 @@
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                        crossorigin="anonymous"></script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
                 </head>
 
@@ -82,7 +79,6 @@
                         transform: translate(-50%, -50%);
                         line-height: 40px;
                         letter-spacing: 5px;
-                        /* border: 1px solid #aaa; */
                         font-size: 30px
                     }
 
@@ -162,13 +158,19 @@
                                                     <a href="#">Lifestyle</a>
                                                 </div> -->
                                                 <ul class="blog_meta list">
-                                                    <li><a href="#">低消${announcement.discount.conditionPrice}元<i
-                                                                class="lnr lnr-user"></i></a></li>
+                                                    <li><a href="#">
+                                                        <c:if test="${announcement.discount.conditionPrice == null}">
+                                                            此活動無門檻!!!
+                                                        </c:if>
+                                                        <c:if test="${announcement.discount.conditionPrice != null}">
+                                                            低消${announcement.discount.conditionPrice}元
+                                                        </c:if>
+                                                        <i class="lnr lnr-bullhorn"></i></a></li>
                                                     <li><a href="#">活動到${announcement.discount.endDate}止<i
                                                                 class="lnr lnr-calendar-full"></i></a></li>
                                                     <li><a href="#">優惠券僅剩${announcement.discount.currentQuantity}張<i
                                                                 class="lnr lnr-eye"></i></a></li>
-                                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                                    <!-- <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li> -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -183,6 +185,12 @@
                                         <div class="row">
                                             <div
                                                 class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                                <!-- 第一頁隱藏顯示上一頁 -->
+                                                <c:if test="${announcement.id-1 == 0}">
+                                                    <!-- 不顯示 -->
+                                                </c:if>
+
+                                                <c:if test="${announcement.id-1 != 0}">
                                                 <div class="thumb">
                                                     <a
                                                         href="${contextRoot}/announcement/showEventsDetails-front?id=${announcement.id-1}"><img
@@ -195,11 +203,11 @@
                                                 </div>
                                                 <div class="detials">
                                                     <p>上一則活動</p>
-                                                    <a
-                                                        href="${contextRoot}/announcement/showEventsDetails-front?id=${announcement.id-1}">
-                                                        <h4>第${announcement.id-1}頁</h4>
+                                                    <a href="${contextRoot}/announcement/showEventsDetails-front?id=${announcement.id-1}">
+                                                    <h4>第${announcement.id-1}頁</h4>
                                                     </a>
                                                 </div>
+                                                </c:if>
                                             </div>
                                             <div
                                                 class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
@@ -207,7 +215,14 @@
                                                     <p>下一則活動</p>
                                                     <a
                                                         href="${contextRoot}/announcement/showEventsDetails-front?id=${announcement.id+1}">
-                                                        <h4>第${announcement.id+1}頁</h4>
+                                                        <h4>
+                                                            <c:if test= "${announcement.id == null}" >
+																<!-- 不顯示 -->
+                                                            </c:if>
+                                                            <c:if test="${announcement.id != null }">
+																第${announcement.id+1}頁
+                                                            </c:if> 
+                                                        </h4>
                                                     </a>
                                                 </div>
                                                 <div class="arrow">
@@ -268,22 +283,27 @@
                                                             ${announcement.discount.discountAmount}元
                                                         </c:if>
                                                         <c:if test="${announcement.discount.discountPercent!=null}">
-																<c:if test="${announcement.discount.discountPercent%10==0}">
-																	<fmt:formatNumber value="${announcement.discount.discountPercent/10}" maxFractionDigits="0"/>
-																	折
-																</c:if>
-																<c:if test="${announcement.discount.discountPercent%10!=0}">
-																	${announcement.discount.discountPercent}折
-																</c:if>
-														</c:if>
+                                                            <c:if test="${announcement.discount.discountPercent%10==0}">
+                                                                <fmt:formatNumber
+                                                                    value="${announcement.discount.discountPercent/10}"
+                                                                    maxFractionDigits="0" />
+                                                                折
+                                                            </c:if>
+                                                            <c:if test="${announcement.discount.discountPercent%10!=0}">
+                                                                ${announcement.discount.discountPercent}折
+                                                            </c:if>
+                                                        </c:if>
                                                     </div>
                                                     <!-- ========================================定額折扣或是比例折扣END======================================= -->
                                                     <!-- <a href="${contextRoot}/">
                                                         　　<div style="position:absolute;right:100px;bottom:-60px;width:-800px;
                                                                                  color:rgb(0, 0, 0);font-size:20px">詳細資訊</div>
                                                     </a> -->
-
-                                                    <div class="takeCoupon">立即領取</div>
+                                                    <a
+                                                        href="${contextRoot}/user/addToMyDiscount?discountId=${announcement.discount.id}">
+                                                        <div id="addToMyDiscountBtn" class="takeCoupon">立即領取</div>
+                                                    </a>
+                                                  
 
                                                 </div>
                                             </div>
@@ -414,7 +434,7 @@
 
 
                                         <aside class="single-sidebar-widget tag_cloud_widget">
-                                            <h4 class="widget_title">Tag Clouds</h4>
+                                            <h4 id="tag1" class="widget_title ">Tag Clouds</h4>
                                             <ul class="list">
                                                 <li><a href="#">Technology</a></li>
                                                 <li><a href="#">Fashion</a></li>
@@ -437,53 +457,119 @@
                     </section>
                     <!--================Blog Area =================-->
 
-                    <script>
-                        $(".takeCoupon").click(function () {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '領取成功',
-                                text: '優惠券已存入個人帳戶!',
-                                footer: '<a href="#">前往察看</a>'
-                            })
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                        crossorigin="anonymous"></script>
 
-                        })
+                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+                    <!-- <script>
+
+
+                        countEvent();
+
+                        function countEvent(){
+
+                            $.ajax({
+                                url:"${contextRoot}/announcement/showEventsForLengh",
+                                type:"get",
+                                // contentType:'application/json',
+                                success:function(announcements){
+                                    console.log(announcements)
+                                    // $.each(result, (index, value) => {
+                                    //     $("#tag1").text(value.username)
+
+                                    // })
+                                    alert("123")
+                                    var a = announcements.length
+
+                                    $("#tag1").text(a)
+                                }
+                            })
+                        }
+
+                    </script> -->
+
+
+
+                    <script>
+                        
+                        let addDiscountresult = "${addDiscountresult}";
+                        let announcementId = "${announcement.id}";
+                        // $("#addToMyDiscountBtn").click(function () {
+                        if (addDiscountresult == "優惠券沒了") {
+
+                            Swal.fire({
+                                title: "優惠券沒了, 下次請早",
+                                icon: "error",
+
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        } else if (addDiscountresult == "已領過") {
+                            Swal.fire({
+                                title: "你已經領過此優惠券",
+                                icon: "error",
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        } else if (addDiscountresult == "領取成功") {
+                            Swal.fire({
+                                title: "領取成功",
+                                icon: "success"
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        }
+                    // })
                     </script>
 
                     <SCRIPT language="javascript">
-                        var startDate = new Date();
-                        // var endDate = new Date(2022, 4, 31, 12, 25);
-                        var endDate = new Date("${announcement.discount.endDate}");
-                        var spantime = (endDate - startDate) / 1000;
-
-                        function getString(dt) {
-                            return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
-                        }
-
-                        function cal() {
-                            spantime--;
-                            var d = Math.floor(spantime / (24 * 3600));
-                            var h = Math.floor((spantime % (24 * 3600)) / 3600);
-                            var m = Math.floor((spantime % 3600) / (60));
-                            var s = Math.floor(spantime % 60);
-                            str = d + "天 " + h + "時 " + m + "分 " + s + "秒 ";
-                            document.getElementById("pad").innerHTML = str;
-
-                            // if (spantime > 0) {
-                            // 	$("#hour").text(h + (d * 24));
-                            // 	$("#min").text(m);
-                            // 	$("#sec").text(s);
-                            // } else { // 避免倒數變成負的
-                            // 	$("#hour").text(0);
-                            // 	$("#min").text(0);
-                            // 	$("#sec").text(0);
-                            // }
-
-                        }
-
                         window.onload = function () {
+                            let timer;
+                            var startDate = new Date();
+                            // var endDate = new Date(2022, 4, 31, 12, 25);
+                            var endDate = new Date("${announcement.discount.endDate}");
+
+
+
+                            var spantime = (endDate - startDate) / 1000;
+                            console.log(spantime)
+                            checkTime();
+                            function checkTime() {
+                                //    var a = dt.getDate();
+                                if (spantime < 0) { // 避免倒數變成負的
+                                    // alert(spantime);
+                                    $("#pad").text("活動已結束");
+                                    clearTimeout(timer);
+                                } else {
+                                    timer = setInterval(cal, 1000);
+                                }
+                            }
+
+
+
+                            function getString(dt) {
+                                return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
+                            }
+
+                            function cal() {
+                                spantime--;
+                                var d = Math.floor(spantime / (24 * 3600));
+                                var h = Math.floor((spantime % (24 * 3600)) / 3600);
+                                var m = Math.floor((spantime % 3600) / (60));
+                                var s = Math.floor(spantime % 60);
+                                str = d + "天 " + h + "時 " + m + "分 " + s + "秒 ";
+                                document.getElementById("pad").innerHTML = str;
+
+                            }
+
+
                             document.getElementById("start_pad").innerHTML = getString(startDate);
                             document.getElementById("end_pad").innerHTML = getString(endDate);
-                            setInterval(cal, 1000);
+
+                            
                         }
                     </SCRIPT>
 
@@ -504,7 +590,6 @@
                     <script src="${contextRoot}/resources/frontstage/js/jquery.countdown.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
-                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <!--gmaps Js-->
                     <script
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>

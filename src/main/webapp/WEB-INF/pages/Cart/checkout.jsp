@@ -316,7 +316,7 @@
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: "${(sum-discountAmount)*0.34}" //設定刷的錢
+                value: "1598.6" //設定刷的錢
               }
             }]
           });

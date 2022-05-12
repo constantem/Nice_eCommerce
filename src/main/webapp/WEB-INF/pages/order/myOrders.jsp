@@ -265,8 +265,8 @@
 								<td></td>
 								<td></td>
 								<td>
-									<div class="checkout_btn_inner d-flex align-items-center">
-										<a id="keepShopping" class="primary-btn"
+									<div style="padding-left: 100px" class="checkout_btn_inner d-flex align-items-center">
+										<a  id="keepShopping" class="primary-btn"
 											href="${contextRoot}/FrontpageSeperate"><i
 											class="bi bi-cart3"></i>&nbsp 前往購物</a>
 									</div>

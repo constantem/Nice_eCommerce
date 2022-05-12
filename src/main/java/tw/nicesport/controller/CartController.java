@@ -274,7 +274,7 @@ public class CartController {
 				// 用CartProductId刪掉此筆資料
 				System.out.println("前台的cartproductid====================================================="+cartproductid);
 				System.out.println("後台的CartProductId====================================================="+CartProductId);
-				cartProductService.deleteById(cartproductid);
+				cartProductService.deleteById(CartProductId);
 //				cartProductService.deleteByBean(cartProductBean);
 			}
 

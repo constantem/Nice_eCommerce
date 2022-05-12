@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>標籤名</title>
+<title>Nice eCommerce Shopping Center</title>
 
 <!-- Tailwind is included -->
 <!--   <link rel="stylesheet" href="/WEB-INF/resources/css/main.css?v=1628755089081"> -->
@@ -77,10 +77,8 @@
 </head>
 <body>
 	<div id="app">
-		<!---------------------------------------------------載入上方列---------------------------------------------------------------------------- -->
-		<%@include file="topbar.jsp"%>
-		<!---------------------------------------------------載入左側列 --------------------------------------------------------------------->
-		<%@include file="leftbar.jsp"%>
+		<!---------------------------------------------------載入上方與左側列---------------------------------------------------------------------------- -->
+		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 		<!---------------------------------------------------------------------- 中間大框框-------------------------------------------------------------------->
 		<p />
 		<section class="is-hero-bar">

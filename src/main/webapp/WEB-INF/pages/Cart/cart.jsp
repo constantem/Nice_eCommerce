@@ -425,8 +425,8 @@
 
 					if(discountamount == ""){
 						Swal.fire(
-  						'沒有這個折扣碼啊',
-  						'是不是想被打?',
+  						'沒有查詢到這個折扣碼',
+  						'請再次確認是否輸入正確',
   						'question'
 						)
 						// alert("輸入錯誤或沒有此折扣碼 請檢查")
@@ -440,8 +440,8 @@
 					}else{
 						let timerInterval
 						Swal.fire({
-						title: '才...才沒有想幫你折價呢...',
-						html: '†升天†下次再見唷†升天†',
+						title: '折價卷使用成功!',
+						html: '',
 						timer: 2000,
 						timerProgressBar: true,
 						didOpen: () => {

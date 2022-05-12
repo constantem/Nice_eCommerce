@@ -52,25 +52,28 @@
 	}
 	
 	.login_form .form-group a.googleBtnStyle {
-		display: block;
+		position: relative;
+		overflow: hidden;
+		display: block; 
 		margin-top: 0;
 		border: 1px solid #ffba00;
 	}
-	
-/* 	#googleSignInDiv { */
-/*       display: inline-block; */
-/*       background: white; */
-/*       color: #444; */
-/*       width: 190px; */
-/*       border-radius: 5px; */
-/*       border: thin solid #888; */
-/*       box-shadow: 1px 1px 1px grey; */
-/*       white-space: nowrap; */
-/*     } */
-	
-	.googleBtnStyle:hover {
-      cursor: pointer;
-    }
+	.login_form .form-group a.googleBtnStyle:before {
+    position: absolute;
+    left: -145px;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    background: #000;
+    opacity: 0;
+    transform: skew(40deg);
+    transition: all 0.3s ease 0s; }
+  .login_form .form-group a.googleBtnStyle:hover {
+    color: #fff; }
+    .login_form .form-group a.googleBtnStyle:hover:before {
+      left: 400px;
+      opacity: .3; }
 	
 	span.icon {
       background: url('${contextRoot}/resources/oauthLoginIcon/google/vector/btn_google_light_normal_ios.svg') transparent 5px 50% no-repeat;
@@ -86,9 +89,6 @@
       padding-left: 0px;
       padding-right: 42px;
       font-size: 14px;
-/*       font-weight: bold; */
-      /* Use the Roboto font that is loaded in the <head> */
-/*       font-family: 'Roboto', sans-serif; */
       color: #ffba00;
     }
   
@@ -235,7 +235,8 @@ $(document).ready(function() {
 								<c:if test="${oauthAuthUrl.key=='Google'}">
 									<div class="col-md-12 form-group">
 										<a class="googleBtnStyle"
-											href="${contextRoot}/${oauthAuthUrl.value}">
+											href="${contextRoot}/${oauthAuthUrl.value}"
+											style="height:40px;">
 											<span class="icon"></span>
 											<span class="buttonText">Google 登入</span>
 										</a>

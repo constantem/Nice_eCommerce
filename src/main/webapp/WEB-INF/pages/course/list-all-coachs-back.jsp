@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png"/>
 
-<!-- Scripts below are for demo only -->
+<!-- 原生 js -->
 <script type="text/javascript" 
 	src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"
 	defer>
@@ -34,48 +34,77 @@
 </script>
 
 <script>
-	$(document).ready(function () {
+$(document).ready(function () {
+	
+	// 請求 coach list
+	$.ajax({
+		method: "GET", // api query
+		url: $("#contextRoot").val() + "/api/coach",
+		success: function (coachs) {
+			$(coachs).each(function (index, coach) {
+				// 樣板
+				const trTemplate = $("#tr-template");
+				
+				// 複製
+				const trClone = $( $(trTemplate).html() );
+				// 開始塞值
+				$("#fullName", trClone).text(coach.lastName+coach.firstName);
+				$("#nickname", trClone).text(coach.nickname);
+				$("#gender", trClone).text(coach.gender);
+				$("#phone", trClone).text(coach.phone);
+				$("#email", trClone).text(coach.email);
+				$("#address", trClone).text(coach.address);
+				$("#hireDate", trClone).find("small").text(coach.hireDate);
+				console.log("coach.modifiedAt");
+				console.log(coach.modifiedAt, typeof coach.modifiedAt);
+				console.log(coach.modifiedAt==null);
+				if(coach.modifiedAt==null) { // 從未編輯, 用 createdAt
+					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.createdAt);
+				} else { // 編輯過, 用 modifiedAt
+					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.modifiedAt);
+				}
+				// 塞 Base64 給 img
+				if(coach.profileBase64) {
+					$("#profileBase64", trClone).attr("src", "data:image/jpeg;base64, "+coach.profileBase64);
+				}
+				// 塞值給連結
+				$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/coach/detailPage/"+coach.id);
+				// 塞id給deleteBtn
+				$("#deleteBtn", trClone).attr("data-id", coach.id); // jQuery 的 data setter 不能改變 html 的 data-* (因為 html DOM object attr 推出較晚), 只能改變 object 的 data, 若要改變 html 的 data-* 要用 attr
+				// 插在樣板前面
+				$( trTemplate ).before( trClone );
+			})
+		}
+	}); // find all 請求結束
+	
+	// 以下動態生成出來的按鈕要動態綁定
+	/* local Modal open */
+	$("#templateContainer").on("click", ".--jb-modal-delete", function () {
+		const deleteBtn = this;
+		console.log(this);
+		console.log($(this));
+		// 取得按鈕上所標記要對應的彈窗div
+		const modalId = $(deleteBtn).data("target");
+		document.getElementById(modalId).classList.add('active'); // 彈窗彈出來 
+		document.documentElement.classList.add('clipped'); // 整個 html 標籤被 clipped
 		
-		// 請求 coach list
-		$.ajax({
-			method: "GET", // api query
-			url: $("#contextRoot").val() + "/api/coach",
-			success: function (coachs) {
-				$(coachs).each(function (index, coach) {
-					// 樣板
-					const trTemplate = $("#tr-template");
-					
-					// 複製
-					const trClone = $( $(trTemplate).html() );
-					// 開始塞值
-					$("#fullName", trClone).text(coach.lastName+coach.firstName);
-					$("#nickname", trClone).text(coach.nickname);
-					$("#gender", trClone).text(coach.gender);
-					$("#phone", trClone).text(coach.phone);
-					$("#email", trClone).text(coach.email);
-					$("#address", trClone).text(coach.address);
-					$("#hireDate", trClone).find("small").text(coach.hireDate);
-					console.log("coach.modifiedAt");
-					console.log(coach.modifiedAt, typeof coach.modifiedAt);
-					console.log(coach.modifiedAt==null);
-					if(coach.modifiedAt==null) { // 從未編輯, 用 createdAt
-						$("#createdAtOrModifiedAt", trClone).find("small").text(coach.createdAt);
-					} else { // 編輯過, 用 modifiedAt
-						$("#createdAtOrModifiedAt", trClone).find("small").text(coach.modifiedAt);
-					}
-					// 塞 Base64 給 img
-					if(coach.profileBase64) {
-						$("#profileBase64", trClone).attr("src", "data:image/jpeg;base64, "+coach.profileBase64);
-					}
-					// 塞值給連結
-					$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/coach/detailPage/"+coach.id);
-					
-					// 插在樣板前面
-					$( trTemplate ).before( trClone );
-				})
-			}
+		// 取得按鈕上所標記的 coach 的 id
+		const id = $(deleteBtn).data("id");
+		console.log("id");
+		console.log(id);
+		$("#deleteConfirmBtn").click(function () {
+			$.ajax({
+				method: "DELETE",
+				url: $("#contextRoot").val()+"/api/coach/"+id,
+				success: function () {
+					window.location.href = $("#contextRoot").val()+"/staff/coach/listPage";
+				}
+			});
 		});
+		
 	});
+	
+}); // document ready 結束
 </script>
 </head>
 <body>
@@ -154,7 +183,7 @@
           </thead>
           
           <!-- 表格內文(tr+td) -->
-          <tbody>
+          <tbody id="templateContainer">
 	          <template id="tr-template">
 		          <tr>
 		            <td class="checkbox-cell">
@@ -189,7 +218,10 @@
 			                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
 			                </button>
 		                </a>
-		                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
+		                <!-- 有 jb-modal-forDeleteConfirm, 觸發客製彈窗 -->
+		                <button id="deleteBtn" type="button" class="button small red --jb-modal-delete" 
+		                	data-target="deleteConfirm-modal" 
+		                	data-id="">
 		                  <span class="icon"><i class="mdi mdi-trash-can"></i></span>
 		                </button>
 		              </div>
@@ -220,22 +252,23 @@
 <!-- 插入頁腳 -->
 <jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
-<!-- 彈窗1 -->
-<div id="sample-modal" class="modal">
-  <div class="modal-background --jb-modal-close"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Sample modal</p>
-    </header>
-    <section class="modal-card-body">
-      <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-      <p>This is sample modal</p>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button --jb-modal-close">Cancel</button>
-      <button class="button red --jb-modal-close">Confirm</button>
-    </footer>
-  </div>
+<!-- 刪除按鈕觸發彈窗 -->
+<div id="deleteConfirm-modal" class="modal">
+	<div class="modal-background --jb-modal-close"></div>
+	<div class="modal-card" style="width:300px">
+		<header class="modal-card-head">
+			<p class="modal-card-title">注意</p>
+		</header>
+		<section class="modal-card-body">
+			<p>
+				確定要<b>刪除</b>這筆資料嗎?
+			</p>
+		</section>
+		<footer class="modal-card-foot">
+			<button class="button --jb-modal-close">返回</button>
+			<button id="deleteConfirmBtn" class="button red --jb-modal-close">確認刪除</button>
+		</footer>
+	</div>
 </div>
 
 </div>

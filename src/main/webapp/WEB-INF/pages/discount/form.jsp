@@ -115,7 +115,7 @@
 						<section class="is-hero-bar">
 							<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 								<h1 id="showTitle" class="title">
-									新增你的活動
+									新增優惠券
 								</h1>
 								<button class="button light">Button</button>
 							</div>
@@ -193,6 +193,28 @@
 																		id="discountAmount" />
 																</td>
 															</tr>
+
+															<tr>
+																<th>優惠券發放數量</th>
+																<td data-label="initialQuantity">
+																	<form:input id="initialQuantity" name="initialQuantity"
+																		onchange="updateInitialQuantity()" type="number"
+																		path="initialQuantity" />
+																</td>
+															</tr>
+															<tr>
+																<th>優惠券當前數量</th>
+																<td data-label="currentQuantity">
+																	<input type="number" disabled
+																		value="${discount.currentQuantity}"
+																		id="currentQuantity" path="currentQuantity">
+																	<form:input type="hidden"
+																		value="${discount.initialQuantity}"
+																		id="currentQuantityForm"
+																		path="currentQuantity" />
+																</td>
+															</tr>
+
 															<tr>
 																<th>活動開始日</th>
 																<td data-label="startDate">
@@ -239,28 +261,13 @@
 							<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>
 
 							<script>
-								!function (f, b, e, v, n, t, s) {
-									if (f.fbq)
-										return;
-									n = f.fbq = function () {
-										n.callMethod ? n.callMethod.apply(n, arguments) : n.queue
-											.push(arguments)
-									};
-									if (!f._fbq)
-										f._fbq = n;
-									n.push = n;
-									n.loaded = !0;
-									n.version = '2.0';
-									n.queue = [];
-									t = b.createElement(e);
-									t.async = !0;
-									t.src = v;
-									s = b.getElementsByTagName(e)[0];
-									s.parentNode.insertBefore(t, s)
-								}(window, document, 'script',
-									'https://connect.facebook.net/en_US/fbevents.js');
-								fbq('init', '658339141622648');
-								fbq('track', 'PageView');
+								function updateInitialQuantity() {
+									var initialQuantity = $("#initialQuantity").val()
+									console.log(initialQuantity);
+									$("#currentQuantity").val(initialQuantity)
+									$("#currentQuantityForm").val(initialQuantity)
+								}
+	
 							</script>
 
 							<!-- =====================一鑑生成欄位內容(開始)==================== -->
@@ -273,6 +280,8 @@
 									$("#discountCategory").val("定額折扣");
 									$("#discountPercent").val("");
 									$("#discountAmount").val("150");
+									// $("#initialQuantity").val("20");
+									// $("#currentQuantity").val("20");
 									$("#startDate").val("2022-11-01");
 									$("#endDate").val("2022-11-11");
 
@@ -290,6 +299,8 @@
 									$("#discountCategory").val("");
 									$("#discountPercent").val("");
 									$("#discountAmount").val("");
+									$("#initialQuantity").val("");
+									$("#currentQuantity").val("");
 									$("#startDate").val("");
 									$("#endDate").val("");
 

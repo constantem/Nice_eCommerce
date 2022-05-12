@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tw.nicesport.dto.CourseBookingDto;
 import tw.nicesport.dto.UsernameAndPasswordWrapper;
 import tw.nicesport.model.Course;
 import tw.nicesport.model.CourseBooking;
@@ -146,16 +149,6 @@ public class UserLoginController {
 
     }
 	
-	// 前端我的訂單: 中間站
-    // 
-//    @RequestMapping("/user/memberUsername2")
-//    @ResponseBody
-//    public String currentUserName2(Principal principal) {
-//    	String username = principal.getName();
-//    	Member member = loginService.findMemberByUsername(username);
-//        return ;
-//    }
-    
 	// 前端我的購物車: 中間站
 	@RequestMapping("/user/myCart")
 	public String showMyCart(Principal principal, Model model) throws Exception {
@@ -186,6 +179,19 @@ public class UserLoginController {
 		String username = principal.getName();
 		Member member = loginService.findMemberByUsername(username);
 		return "forward:/user/myDiscountByMemberId?memberId="+member.getMemberid();
+	}
+	
+	// 前端活動頁面加入我的優惠券: 中間站
+	@RequestMapping("/user/addToMyDiscount")
+	public String showMyDiscount(
+			Principal principal, 
+			Model model,
+			@RequestParam("discountId") Integer discountId) throws Exception {
+		
+		// 用當下登入的會員帳號資訊取得 member id
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/addToMyDiscountByMemberId?memberId="+member.getMemberid()+"&discountId="+discountId;
 	}
 	
 
@@ -256,48 +262,38 @@ public class UserLoginController {
 	}
 	
 	// 前端我的課程: 中間站
-	@RequestMapping("/user/myCourses")
+	@RequestMapping("/user/myCoursebooking")
 	public String showMyCourse(Principal principal, Authentication authentication, Model model) throws Exception {
 		String username = principal.getName();
-		System.out.println("登入帳號===================>"+username);
-    	Set<String> roles = authentication.getAuthorities().stream()
-          	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-    	for(String role: roles) {
-    		System.out.println("登入腳色====================>"+role);
-    	}
-    	
 		Member member = loginService.findMemberByUsername(username);
-		System.out.println("登入會員編號===================>"+member.getMemberid());
-		return "forward:/user/myCoursesByMemberId?id="+member.getMemberid();
+		return "forward:/user/myCoursebookingByMemberId?id="+member.getMemberid();
 	}
 	
-	// 前端我的課程: 終點站
-	@RequestMapping("/user/myCoursesByMemberId")
-	public String showALLCoursesByMemberIdInFront(
-			@RequestParam("id") Integer memberId,
-			Model model) {	
-		
-		try {
-			Member member = memberService.findById(memberId);
-			Set<CourseBooking> courseBookingSet = member.getCourseBookingSet();
-			List<Course> courses = new ArrayList<>();
-			for(CourseBooking courseBooking : courseBookingSet) {
-				courses.add(courseBooking.getCourse());
-			}
-			model.addAttribute("courses", courses);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "course/list-all-courses-front";
+	// 前端報名課程表單: 中間站
+	@RequestMapping("/user/courseBookingForm")
+	public String showCourseBookingForm(
+			@RequestParam("courseId") Integer courseId,
+			Principal principal, 
+			Authentication authentication, 
+			Model model) throws Exception {
+		// find member id
+		String username = principal.getName();
+		Member member = loginService.findMemberByUsername(username);
+		return "forward:/user/courseBookingFormByMemberId?memberId="+member.getMemberid()+"&courseId="+courseId;
 	}
 	
 	//// 前往後台並會員登出 ////
-	@RequestMapping("/user/logoutAndToBackstage")
-	public String logoutAndToBackstage(HttpServletRequest request) throws ServletException {
+	@RequestMapping("/userLogoutAndToBackstage")
+	public String logoutAndToBackstage(
+			RedirectAttributes redirectAttributes, 
+			@RequestParam(name="hasError",required = false) String hasError,
+			HttpServletRequest request) throws ServletException {
+		
+		// 例外處理將訊息帶到首頁
+		redirectAttributes.addAttribute("hasError", hasError);
+		
 		request.logout();
-		return "redirect:/";
+		return "redirect:/backstage";
 	}
 	
 	////////////////////////////////////////////////////////////////////

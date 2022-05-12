@@ -42,23 +42,25 @@
     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 
 <!-- 自訂 JS -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function () {
-			$.ajax({
-				url: $("#contextRoot").val() + "/detail/data",
-				data: $("#courseId").val(),
-				success: function (course) {
-					// 教練名
-					const coachName = course.coach.lastName+course.coach.firstName;
-					$("#coach").val( coachName );
-					// 
-				}
-			});
-		});
-	</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous">
+</script>
+
+<script>
+$(document).ready(function () {
+	$.ajax({
+		url: $("#contextRoot").val() + "/detail/data",
+		data: $("#courseId").val(),
+		success: function (course) {
+			// 教練名
+			const coachName = course.coach.lastName+course.coach.firstName;
+			$("#coach").val( coachName );
+			// 
+		}
+	});
+});
+</script>
 
 </head>
 

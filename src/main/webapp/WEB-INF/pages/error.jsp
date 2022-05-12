@@ -6,11 +6,12 @@
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
+
 <head>
-<!-- Mobile Specific Meta -->
+	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+	<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -20,41 +21,26 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>忘記密碼</title>
-
+	<title>運動網</title>
 	<!--
 		CSS
 		============================================= -->
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
+	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function() {
-			$("#first").click(function() {
-				$.ajax({
-					url: $("#contextRoot").val() + "/userLoginAutoInputFirst",
-					success: function (member) {
-						$("#username").val(member.username);
-						$("#password").val(member.password);
-					}
-				});
-			});
-		});
-	</script>
 </head>
-<body>
 
-<!-- variable -->
-	<input type="hidden" id="contextRoot" value="${contextRoot}">
+
+
+<body>
 	
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -73,7 +59,7 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-	
+<!-- 	aaa -->
 	<!-- start banner Area -->
 	<section class="banner-area">
 		<div class="container">
@@ -81,58 +67,37 @@
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
 						<!-- single-slide -->
+						<c:forEach var="discount" items="${discounts}">
 						<div class="row single-slide align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+								<div class="banner-content">									
+									<h2>
+										${discount.name}<br>${discount.description}</h2>
+									<p>活動期間：${discount.startDate}~${discount.endDate}</p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
+										<a class="add-btn" href="${contextRoot}/discount/showADs-front"><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase">GO AHEAD</span>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
+									<a href="${contextRoot}/announcement/showEvents-front">
+										<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/pika.png" alt=""></img>
+									</a>
 								</div>
 							</div>
-						</div>
-						<!-- single-slide -->
-						<div class="row single-slide">
-							<div class="col-lg-5">
-								<div class="banner-content">
-									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="banner-img">
-									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
-								</div>
-							</div>
-						</div>
+						</div>	
+					</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- End banner Area -->
-	
-	安安在嗎
-	
-	
-	<!--================End Login Box Area =================-->
-	
+
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
-
 
 	<script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -142,6 +107,7 @@
 	<script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
+	<script src="${contextRoot}/resources/frontstage/js/countdown.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
 	<!--gmaps Js-->
@@ -149,4 +115,5 @@
 	<script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
 	<script src="${contextRoot}/resources/frontstage/js/main.js"></script>
 </body>
+
 </html>

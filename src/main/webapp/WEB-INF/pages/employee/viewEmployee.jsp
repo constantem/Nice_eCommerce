@@ -17,11 +17,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我頁標題(未更改)</title>
+  <title>員工管理系統</title>
 
   <!-- Tailwind is included -->
-  <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
-  <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
+  <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
+  <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css"> -->
+  <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/cssr.css">
   <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
@@ -47,7 +48,7 @@
 
 
 <!-- 自訂 link, script -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -114,7 +115,7 @@
 			<div class="col-md-4 col-md-offset-8">
 				
 				<button type="button" class="btn btn-primary btn-sm" id="emp_add_model_btn">新增</button>
-				<button type="button" class="btn btn-danger btn-sm" id="emp_delete_all_btn"onclick="deleteEmpList()">刪除</button>	
+				<button type="button" class="btn btn-danger btn-sm" id="emp_delete_all_btn" onclick="deleteEmpList()">刪除</button>	
 			</div>
 			
 			<div class="row">
@@ -123,7 +124,7 @@
 						<table id="noteTable" class="table table-hover table-sm" style="display:block; overflow-x: auto;white-space: nowrap;">
 						<!-- <thead> -->
 							<thead class="thead-dark">
-							<tr>
+							<tr >
 								<th><input type="checkbox" id="check_all" class="all">#</th>
 								<th>員工編號</th>
 								<th>姓名</th>
@@ -223,7 +224,6 @@
 							</div>
 						</div>
  
-							
 						<div class="form-group">
 							<label class="col-sm-2 control-label">名</label>
 							<div class="col-sm-10">
@@ -235,15 +235,10 @@
 	
 						<div class="form-group">
 							<label class="col-sm-2 control-label">性別</label>
-							<div class="col-sm-10">
-								<label class="radio-inline">
-									<input type="radio" name="gender" readonly id="gender_inquire_input"
-										value="M" checked>男
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="gender" readonly id="gender_inquire_input"
-										value="F">女
-								</label>
+							<div class="col-sm-10">  
+									<input type="text" style="outline:none;" name="gender" readonly class="form-control-static"
+									id="gender_inquire_input">
+								<span class="help-block"></span> 
 							</div>
 						</div>
 						<div class="form-group">
@@ -266,16 +261,9 @@
 	
 						<div class="form-group">
 							<label class="col-sm-2 control-label">地址</label>
-							<div class="col-sm-3">
-								<input class="form-control-static" style="outline:none;" name="address1"
-								readonly id="address1_inquire_select">				
-							</div>
-							<div class="col-sm-3">
-								<input class="form-control-static" style="outline:none;" name="address2"
-								readonly id="address2_inquire_select">	
-							</div>
+						  
 							<div class="col-sm-8">
-								<input type="text"style="outline:none;" name="address" readonly class="form-control-static"
+								<input type="text"style="outline:none;" name="address" size="30" readonly class="form-control-static"
 									id="address_inquire_input">
 								<span class="help-block"></span>
 							</div>
@@ -299,6 +287,9 @@
 							</div>
 						</div>
 					</form>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-success" data-dismiss="modal">關閉</button> 
 				</div>
 			</div>
 		</div>
@@ -378,21 +369,11 @@
 			  </div>
 
 			   <div class="form-group"> 
-			   	 <label class="col-sm-2 control-label">地址</label>
-			   	 <div class="col-sm-3">
-			    	<select class="form-control" name="address1" id="address1_add_select">
-
-					</select>
-			   	 </div>
-					<div class="col-sm-3">
-						<select class="form-control" name="address2" id="address2_add_select">
-	
-						</select>
-						</div> 
-						<div class="col-xs-push-3">
+			   	 <label class="col-sm-2 control-label">地址</label>			 
+					<div class="col-sm-10">
 							<input type="text" name="address" class="form-control" id="address_add_input"  >
 							<span class="help-block"></span>
-						  </div>
+					</div>
 			  </div>
 
 			<div class="form-group">
@@ -505,17 +486,9 @@
 
 			   <div class="form-group"> 
 			   	 <label class="col-sm-2 control-label">地址</label>
-			   	 <div class="col-sm-3">
-			    	<select class="form-control" name="address1" id="address1_update_select">
-
-					</select>
-			   	 </div>
-					<div class="col-sm-3">
-						<select class="form-control" name="address2" id="address2_update_select">
-	
-						</select>
-						</div>
-						<div class="col-xs-push-3">
+			   	 
+					 
+					<div class="col-sm-10">
 							<input type="text" name="address" class="form-control" id="address_update_input"  >
 							<span class="help-block"></span>
 						  </div>
@@ -536,6 +509,7 @@
 
 			  <input type="hidden" name="hireDate" class="form-control" id="hireDate_update_input">
 			  <input type="hidden" name="createdAt" class="form-control" id="createdAt_update_input">
+			  <input type="hidden" name="employee_id" class="form-control" id="employee_id_update_input">
 			
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">權限</label>
@@ -713,7 +687,7 @@ function fetchNotes(startPage) {
 	          // add table rows
 	          $.each(result.content, (index, value) => {
 				var gender = value.gender=='M'?'男':'女';
-				console.log(result)
+				
 				if(value.modifiedAt==null){
 					value.modifiedAt="";
 				}	
@@ -731,8 +705,8 @@ function fetchNotes(startPage) {
 									'<td>' + value.modifiedAt + '</td>' +
 									'<td>' + value.permission + '</td>' +
 									'<td><button class="button small green --jb-modal" id="inquireEmp_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="inquireEmp(this.value)" data-target="sample-modal-2" type="button"><span class="icon"><i class="mdi mdi-eye"></i></span></button></td>'+
-									'<td><button class="btn btn-primary btn-sm"id="edit_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="update(this.value)" ><span class="glyphicon glyphicon-pencil">編輯</span></button></td>'+
-									'<td><button class="btn btn-danger btn-sm"id="delete_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="deleteEmp(this.value)"><span class="glyphicon glyphicon-trash">刪除</span></button></td>'+
+									'<td><button class="btn btn-primary btn-sm"id="edit_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="update(this.value)" ><span class="mdi mdi-pencil">編輯</span></button></td>'+
+									'<td><button class="btn btn-danger btn-sm"id="delete_btn'+value.employee_id+'" value="'+value.employee_id+'" onclick="deleteEmp(this.value)"><span class="mdi mdi-trash-can">刪除</span></button></td>'+
 								'</tr>';
 	            $('#noteTable tbody').append(noteRow);
 	          });
@@ -765,60 +739,27 @@ function fetchNotes(startPage) {
     reset_form("#empAddModal form");
     //s$("")[0].reset();
     //彈出模態框
-       $("#empAddModal").modal(); 
+			Swal.fire({
+				icon: 'question',
+				title: '確定要進行新增員工資料?'
+				}).then((result) => {
+					
+					if (result.isConfirmed) {
+						$("#empAddModal").modal(); 
+					} 
+				})
+
+
+    //    $("#empAddModal").modal(); 
   });
 
 		//檢查表格中的數據
 		function validate_add_form(){
-			//檢查密碼
-			// 密碼長度須超過八個字 {8,}
-			// - 小寫字母 [a-z]
-			// - 大寫字母 [A-Z]
-			// - 數字 \d
-			// - 特殊符號 "#$%&'()*+,./:;<=>?@[]^_`{|}~-
-
-			var empPassword = $("#password_add_input").val();
-			var regex = /^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z]).*)/;
-			if(!regex.test(empPassword)){
-				show_validate_msg("#password_add_input","error","密碼長度須超過八個字,開頭必須是英文,不包含特殊符號")
+			if(!checkInput("add")){
 				return false;
-			}else{
-				show_validate_msg("#password_add_input", "success", "");
-			}
-			//拿到數據，使用正則表達式檢查
-			var empLastName = $("#lastName_add_input").val();
-			var empFirstName = $("#firstName_add_input").val(); 
-			//檢查名字
-			var regLastName =/(^[u\2E80-\u9FFF]{1,3})/;
-			var regFirstName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{1,5})/;
-			if(!regLastName.test(empLastName)&&!regFirstName.test(empFirstName)){
-				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
-				show_validate_msg("#lastName_add_input", "error", "姓必須是1-3位中文");
-				show_validate_msg("#firstName_add_input", "error", "名字必須是2-5位中文或6-16位英文");
-				return false;
-			}else{
-				show_validate_msg("#lastName_add_input", "success", "");
-				show_validate_msg("#firstName_add_input", "success", "");
-			}
-			//檢查信箱
-			var empEmail = $("#email_add_input").val();
-			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-			if(!regEmail.test(empEmail)){
-				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
-				show_validate_msg("#email_add_input", "error", "信箱格式不正確");
-				return false;
-			}else{
-				show_validate_msg("#email_add_input", "success", "");
-			}
-			var empPhone = $("#phone_add_input").val();
-			var regPhone =/^(09)[0-9]{8}$/;
-			if(!regPhone.test(empPhone)){
-				show_validate_msg("#phone_add_input","error","電話格式不正確")
-				return false;
-			}else{
-				show_validate_msg("#phone_add_input", "success", "");
 			}
 			return true;
+			
 		}
 		
 		//清除檢查錯誤時加的樣式
@@ -855,7 +796,7 @@ function fetchNotes(startPage) {
 // 					 alert(message);
 				  Swal.fire({
 				  icon: 'success',
-				  title: 'Your work has been saved',
+				  title: '新增成功',
 				  showConfirmButton: false,
 				  timer: 2000
 				})
@@ -880,10 +821,21 @@ function fetchNotes(startPage) {
    
 	//把員工的 id 傳遞給模態框的更新按鈕
 	function update(id) {
-
-			$("#empUpdateModal").modal({
-
-			}); 
+		
+			Swal.fire({
+				icon: 'question',
+				title: '確定要進行修改員工資料?',  
+				showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '確定',
+					cancelButtonText:'關閉'
+				}).then((result) => {
+					
+					if (result.isConfirmed) {
+						$("#empUpdateModal").modal()
+					} 
+				})
 
 				$("#button_updete").click(function () {					
 					var form = new FormData();
@@ -903,24 +855,25 @@ function fetchNotes(startPage) {
 								 $("#img_update_url").attr("src",map.filePath);
 								// alert("1233")
 								$("#img_update_input").val(map.fileName);
-								console.log(map.filePath)
+								
 		 
 							 } else {
 								 alert("失敗");
 							 }			                
 						 },
 					 });
-				})	
-
+				})	 
 			$.ajax({
 				url: "${contextRoot}/viewEmpId?employee_id=" + id,
 				type: "get",
 				contentType: 'application/json',
 				success: function (result) {
+					console.log(result);
 					var img = result.img;
-					var filePath="/Nice_eCommerce/upload/"+img
-					// alert(img)
-					// console.log("result:" + result);		
+					var filePath="";
+					if(img!=""&&img!=null){
+					 filePath="/Nice_eCommerce/upload/"+img
+					}
 					$("#password_update_input").val(result.password);
 					$("#lastName_update_input").val(result.lastName);
 					$("#firstName_update_input").val(result.firstName);
@@ -933,61 +886,24 @@ function fetchNotes(startPage) {
 					$("#img_update_input").val(result.img);
 					$("#hireDate_update_input").val(result.hireDate);
 					$("#createdAt_update_input").val(result.createdAt);
-					if(img!=""&&img!=null){
+					$("#employee_id_update_input").val(id); 
+					//if(img!=""&&img!=null){
 						$("#img_update_url").attr("src",filePath);
-					}
+					//}
 
-					//   點選更新，更新員工資訊			
-					$("#emp_update_btn").click(function () {
-			//檢查密碼
-			// 密碼長度須超過八個字 {8,}
-			// - 小寫字母 [a-z]
-			// - 大寫字母 [A-Z]
-			// - 數字 \d
-			// - 特殊符號 "#$%&'()*+,./:;<=>?@[]^_`{|}~-
-			var empPassword = $("#password_update_input").val();
-			var regex = /^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z]).*)/;
-			if(!regex.test(empPassword)){
-				show_validate_msg("#password_update_input","error","密碼長度須超過八個字,開頭必須是英文,不包含特殊符號")
+				
+				}
+			});
+		} 
+			//   點選更新，更新員工資訊			
+			$("#emp_update_btn").click(function () {
+				if(!checkInput("update")){
 				return false;
-			}else{
-				show_validate_msg("#password_update_input", "success", "");
 			}
-			//拿到數據，使用正則表達式檢查
-			var empLastName = $("#lastName_update_input").val();
-			var empFirstName = $("#firstName_update_input").val(); 
-			//檢查名字
-			var regLastName =/(^[u\2E80-\u9FFF]{1,3})/;
-			var regFirstName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{1,5})/;
-			if(!regLastName.test(empLastName)&&!regFirstName.test(empFirstName)){
-				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
-				show_validate_msg("#lastName_update_input", "error", "姓必須是1-3位中文");
-				show_validate_msg("#firstName_update_input", "error", "名字必須是2-5位中文或6-16位英文");
-				return false;
-			}else{
-				show_validate_msg("#lastName_update_input", "success", "");
-				show_validate_msg("#firstName_update_input", "success", "");
-			}
-			//檢查信箱
-// 			var empEmail = $("#email_update_input").val();
-// 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-// 			if(!regEmail.test(empEmail)){
-// 				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
-// 				show_validate_msg("#email_update_input", "error", "信箱格式不正確");
-// 				return false;
-// 			}else{
-// 				show_validate_msg("#email_update_input", "success", "");
-// 			}
-			//檢查電話
-			var empPhone = $("#phone_update_input").val();
-			var regPhone =/^(09)[0-9]{8}$/;
-			if(!regPhone.test(empPhone)){
-				show_validate_msg("#phone_update_input","error","電話格式不正確")
-				return false;
-			}else{
-				show_validate_msg("#phone_update_input", "success", "");
-			}
-						// 2、傳送 ajax 請求儲存更新的員工資料 
+
+			var id = $("#employee_id_update_input").val();
+						// 2、傳送 ajax 請求儲存更新的員工資料	
+						console.log(id);	 		
 						if(id!=""){
 							$.ajax({
 							url: "${contextRoot}/employee/editEmployee?employee_id=" + id,
@@ -996,7 +912,13 @@ function fetchNotes(startPage) {
 							type: "POST",
 							data: $("#empUpdateModal form").serialize(),
 							success: function (result) {
-								
+								Swal.fire({
+									icon: 'success',
+									title: '修改成功',
+									showConfirmButton: false,
+									timer: 2000
+								})
+
 								fetchNotes(0);
 								$("#empUpdateModal").modal("hide");
 								// to_page(currentPage);
@@ -1008,13 +930,21 @@ function fetchNotes(startPage) {
 						});					
 						}		
 					});
-				}
-			});
-		}
-			function deleteEmp(id) {
 
-				if (confirm("確定要刪除嗎")) {
-					$.ajax({
+			function deleteEmp(id) {
+					
+				Swal.fire({
+					title:'確定要刪除嗎?',
+					text: "您將無法還原此內容!",
+					icon: 'warning',	
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '確定送出',
+					cancelButtonText:'關閉'
+					}).then((result) => {
+					if (result.isConfirmed) {
+						$.ajax({
 						url: "${contextRoot}/employee/deleteEmployee?employee_id="+ id,
 						type: "GET",
 						contentType: 'application/json',
@@ -1022,10 +952,16 @@ function fetchNotes(startPage) {
 							fetchNotes(0);
 						}
 					});
-				}
-				$("#emp_delete_all_btn").click(function(){
-					alert("221")
-				});
+						Swal.fire(
+						'刪除成功!',
+						'您指定的資料已被刪除。',
+						'success'
+						)
+					}
+				})
+				// $("#emp_delete_all_btn").click(function(){
+				// 	alert("221")
+				// });
 			}
 				// 全選功能			
 				$("#check_all").click(function () {
@@ -1040,16 +976,37 @@ function fetchNotes(startPage) {
 				function deleteEmpList() {
 				//找到被勾選的checkbox
 				var emp_list ="";
-				var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
-
-					for (var i = 1; i < checkboxes.length; i++) {
+				var checkboxes = document.querySelectorAll('input[type=checkbox]:checked') 
+				console.log(checkboxes);
+					for (var i = 0; i < checkboxes.length; i++) {
+						if(checkboxes[i].id=="check_all"){
+							continue;
+						}
 						emp_list += "," + checkboxes[i].value;
-						//,123,456
+						//,123,456	
 						console.log(checkboxes[i].value);
 						// alert(checkboxes[i].value)
 				}
 
-				if (confirm("確定要刪除嗎")) {
+				if(checkboxes.length==0){
+					Swal.fire({
+						icon: 'error',
+						title: '錯誤',
+						text: '您沒有選擇要刪除的資料!'
+						})
+				}
+				else{
+					Swal.fire({
+					title:'確定要刪除嗎?',
+					text: "您將無法還原此內容!",
+					icon: 'warning',	
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '確定送出',
+					cancelButtonText:'關閉'
+					}).then((result) => {
+					if (result.isConfirmed) {
 					$.ajax({
 					url: "${contextRoot}/employee/deleteChoiceEmp",
 					data:{"employee_id" : [emp_list.substring(1)]},//123,456	
@@ -1060,14 +1017,35 @@ function fetchNotes(startPage) {
 						// p: ["123", "456", "789"]    =>    p=123&p=456&p=456
 						type: "GET",
 						success: function (result) {
-							console.log(emp_list.substring(1))
+					
+							// console.log(emp_list.substring(1))
 							$("#check_all").prop("checked",false);
 							fetchNotes(0);
 						}
 					});
+						Swal.fire(
+						'刪除成功!',
+						'您選擇的資料已被刪除。',
+						'success'
+						)
+					}
+				})
 				}
+				
+
+
+			
 			}	
 			function inquireEmp(id){
+				// Swal.fire({
+				// icon: 'question',
+				// title: '確定要檢視個人員工資料?'
+				// }).then((result) => {
+					
+				// 	if (result.isConfirmed) {
+				// 		$("#empInquireModal").modal()
+				// 	} 
+				// })
 				$("#empInquireModal").modal({
 			});
 			$('img').removeAttr('src');
@@ -1080,7 +1058,8 @@ function fetchNotes(startPage) {
 					var filePath="/Nice_eCommerce/upload/"+img
 					$("#lastName_inquire_input").val(result.lastName);
 					$("#firstName_inquire_input").val(result.firstName);
-					$("#empInquireModal input[name=gender]").val([result.gender]);
+					var gender = result.gender=='M'?'男':'女';
+					$("#empInquireModal input[name=gender]").val(gender);
 					$("#phone_inquire_input").val(result.phone);
 					$("#email_inquire_input").val(result.email);
 					$("#address_inquire_input").val(result.address);
@@ -1130,6 +1109,73 @@ function fetchNotes(startPage) {
 					$("#email_add_input").val("sulol0703@gmail.com");
 					$("#address_add_input").val("台北市中山區");
 				})
+
+
+				function checkInput(in_name) {
+			//檢查密碼
+			// 密碼長度須超過八個字 {8,}
+			// - 小寫字母 [a-z]
+			// - 大寫字母 [A-Z]
+			// - 數字 \d
+			// - 特殊符號 "#$%&'()*+,./:;<=>?@[]^_`{|}~-
+			var empPassword = $("#password_" + in_name + "_input").val();
+			var regex = /^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z]).*)/;
+			if(!regex.test(empPassword)){
+				show_validate_msg("#password_" + in_name + "_input","error","密碼長度須超過八個字,開頭必須是英文,不包含特殊符號")
+				return false;
+			}else{
+				show_validate_msg("#password_" + in_name + "_input", "success", "");
+			}
+			//拿到數據，使用正則表達式檢查
+			var empLastName = $("#lastName_" + in_name + "_input").val();
+			var empFirstName = $("#firstName_" + in_name + "_input").val(); 
+			//檢查名字
+			var regLastName =/(^[u\2E80-\u9FFF]{1,3})/;
+			var regFirstName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[u\2E80-\u9FFF]{1,5})/;
+			if(!regLastName.test(empLastName)&&!regFirstName.test(empFirstName)){
+				//先清除樣式，檢查如果有錯誤，會在輸入姓名的列表中顯示出檢查不合格的原因
+				show_validate_msg("#lastName_" + in_name + "_input", "error", "姓必須是1-3位中文");
+				show_validate_msg("#firstName_" + in_name + "_input", "error", "名字必須是2-5位中文或6-16位英文");
+				return false;
+			}else{
+				show_validate_msg("#lastName_" + in_name + "_input", "success", "");
+				show_validate_msg("#firstName_" + in_name + "_input", "success", "");
+			}
+			if(in_name == "add")
+			{
+				//檢查信箱
+			var empEmail = $("#email_add_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(empEmail)){
+				//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
+				show_validate_msg("#email_add_input", "error", "信箱格式不正確");
+				return false;
+			}else{
+				show_validate_msg("#email_add_input", "success", "");
+			}
+			}
+
+			//檢查信箱
+			// var empEmail = $("#email_update_input").val();
+			// var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			// if(!regEmail.test(empEmail)){
+			// 	//先清除樣式，如果有錯誤，會在輸入email的列表中顯示出檢查不合格的原因
+			// 	show_validate_msg("#email_update_input", "error", "信箱格式不正確");
+			// 	return false;
+			// }else{
+			// 	show_validate_msg("#email_update_input", "success", "");
+			// }
+			//檢查電話
+			var empPhone = $("#phone_" + in_name + "_input").val();
+			var regPhone =/^(09)[0-9]{8}$/;
+			if(!regPhone.test(empPhone)){
+				show_validate_msg("#phone_" + in_name + "_input","error","電話格式不正確")
+				return false;
+			}else{
+				show_validate_msg("#phone_" + in_name + "_input", "success", "");
+			}
+			return true;
+				}
 	</script>
   
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" /></noscript>

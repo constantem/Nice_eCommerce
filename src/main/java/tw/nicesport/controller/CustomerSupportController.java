@@ -59,7 +59,7 @@ public class CustomerSupportController {
 
 	// 純寄送email
 	@GetMapping("/message/sendMail")
-	public String mail(@RequestParam("id") Integer id) {
+	public String mail() {
 		mail.SendMail();
 		return "Success";
 	}

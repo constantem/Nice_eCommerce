@@ -82,8 +82,8 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<ul>
-					<li>Admin</li>
-					<li>Profile</li>
+					<li>歡迎加入會員:</li>
+					
 				</ul>
 				<a href="https://justboil.me/"
 					onclick="alert('Coming soon'); return false" target="_blank"
@@ -94,23 +94,23 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		</section>
 
 		<!-- 核心內容標題 -->
-		<section class="is-hero-bar">
-			<div
-				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 class="title">Profile</h1>
-				<button class="button light">Button</button>
-			</div>
-		</section>
+<!-- 		<section class="is-hero-bar"> -->
+<!-- 			<div -->
+<!-- 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"> -->
+<!-- 				<h1 class="title">Profile</h1> -->
+<!-- 				<button class="button light">Button</button> -->
+<!-- 			</div> -->
+<!-- 		</section> -->
 
 		<!-- 原核心內容的 section 開始 -->
 		<section class="section main-section">
 		  <div class="card mb-6">
-		    <header class="card-header">
-		      <p class="card-header-title">
-		        <span class="icon"><i class="mdi mdi-ballot"></i></span>
-		        歡迎加入會員:
-		      </p>
-		    </header>
+<!-- 		    <header class="card-header"> -->
+<!-- 		      <p class="card-header-title"> -->
+<!-- 		        <span class="icon"><i class="mdi mdi-ballot"></i></span> -->
+<!-- 		        歡迎加入會員: -->
+<!-- 		      </p> -->
+<!-- 		    </header> -->
 		    <div class="card-content">
 		
 		<form action="${contextRoot}/member/add" method="post">

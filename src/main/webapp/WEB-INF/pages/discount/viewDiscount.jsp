@@ -279,18 +279,18 @@
 							// })
 
 							Swal.fire({
-								title: 'Are you sure?',
-								text: "You won't be able to revert this!",
+								title: '確定刪除嗎?',
+								text: "刪除的資料不會再回來!",
 								icon: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#3085d6',
 								cancelButtonColor: '#d33',
-								confirmButtonText: 'Yes, delete it!'
+								confirmButtonText: 'Yes!'
 							}).then((result) => {
 								if (result.isConfirmed) {
 									Swal.fire(
-										'Deleted!',
-										'Your file has been deleted.',
+										'刪除成功!',
+										'資料已刪除',
 										'success',
 									)
 									location.href = "${contextRoot}/discount/deleteDiscount?id=" + discountId

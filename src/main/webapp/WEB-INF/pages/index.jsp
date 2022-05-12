@@ -4,14 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-
-
-
-<!-- 這個檔案是給你給你複製貼上用的, 請創一個 jsp 檔, 將此檔全部內容複製貼在該 jsp 檔 -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -46,10 +38,35 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 </head>
 
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous">
+</script>
 
+<!-- sweat alert 2 CDN -->	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+$(document).ready(function () {
+	if( $("#hasError").val() == "泛用錯誤" ) {
+		Swal.fire({
+			text: "抱歉，網頁發生錯誤。",
+			icon: "error",
+			confirmButtonText: "回首頁"
+		});
+	} else if( $("#hasError").val() == "userInBackstage" ) {
+		Swal.fire({
+			text: "前台權限登入中，切回前台。",
+			icon: "error",
+			confirmButtonText: "回首頁"
+		});
+	}
+});
+</script>
+  
 <body>
-	
+	<input type="hidden" id="hasError" value="${hasError}">
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -75,23 +92,23 @@
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
 						<!-- single-slide -->
-						<c:forEach var="discount" items="${discounts}">
+						<c:forEach var="announcement" items="${announcements}">
 						<div class="row single-slide align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">									
-									<h2>
-										${discount.name}<br>${discount.description}</h2>
-									<p>活動期間：${discount.startDate}~${discount.endDate}</p>
+									<h2>${announcement.discount.name}</h2>
+									<h2>${announcement.discount.description}</h2>
+									<p>活動期間：${announcement.discount.startDate}~${announcement.discount.endDate}</p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href="${contextRoot}/discount/showADs-front"><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">GO AHEAD</span>
+										<a class="add-btn" href="${contextRoot}/announcement/showEvents-front"><span class="lnr lnr-location"></span></a>
+										<a href="${contextRoot}/announcement/showEvents-front"><span class="add-text text-uppercase">前往察看</span></a>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
 									<a href="${contextRoot}/announcement/showEvents-front">
-										<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/pika.png" alt=""></img>
+										<img class="img-fluid" src="data:image/png;base64,${announcement.eventPictureBase64}" alt=""></img>
 									</a>
 								</div>
 							</div>

@@ -397,7 +397,6 @@ figure {
 			Swal.fire({
 			title: '確定修改?',
 			showDenyButton: true,
-			showCancelButton: true,
 			confirmButtonText: '儲存修改',
 			denyButtonText: `放棄修改`,
 			}).then((result) => {

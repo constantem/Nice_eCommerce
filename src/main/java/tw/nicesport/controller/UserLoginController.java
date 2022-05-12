@@ -211,6 +211,17 @@ public class UserLoginController {
 		return "forward:/user/addMyWishListFromShopByMemberId?memberId="+member.getMemberid()+"&productId="+productId;
 	}
 	
+	// 前端商城頁移除追蹤清單: 中間站
+		@RequestMapping("/user/deleteMyWishListFromShop")
+		public String deleteMyWishListFromShop(
+				@RequestParam("productId") Integer productId,
+				Principal principal, 
+				Model model) throws Exception {
+			String username = principal.getName();
+			Member member = loginService.findMemberByUsername(username);
+			return "forward:/user/deleteWishFromShop?memberId="+member.getMemberid()+"&productId="+productId;
+		}
+	
 	
 	// 前端商城加入購物車: 中間站 
 	@RequestMapping("/user/addMyCartFromShop")

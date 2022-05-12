@@ -560,7 +560,7 @@ figure {
 					enctype="multipart/form-data">
 
 					<div class="imgdiv">
-						<img id="img1" class="productImg"
+						<img onerror="this.src='${contextRoot}/img/banner/banner9-removebg.png'" id="img1" class="productImg"
 						src="">
 					</div>
 					
@@ -583,7 +583,7 @@ figure {
 					<hr>
 
 					<div class="imgdiv">
-						<img  id="img2" class="productImg"
+						<img onerror="this.src='${contextRoot}/img/banner/banner9-removebg.png'"  id="img2" class="productImg"
 						src="">
 					</div>
 
@@ -600,7 +600,7 @@ figure {
 					<hr>
 
 					<div class="imgdiv">
-						<img  id="img3" class="productImg"
+						<img onerror="this.src='${contextRoot}/img/banner/banner9-removebg.png'"  id="img3" class="productImg"
 						src="">
 					</div>
 
@@ -616,7 +616,7 @@ figure {
 					<hr>
 
 					<div class="imgdiv">
-						<img  id="img4" class="productImg"
+						<img onerror="this.src='${contextRoot}/img/banner/banner9-removebg.png'"  id="img4" class="productImg"
 						src="">
 					</div>
 
@@ -631,12 +631,12 @@ figure {
 			
 					<hr>
 					
-					<div class="field">
-						<label class="label">修改時間 </label>
-							<input id="" name="createdAt" class="input"
+					<div  class="field">
+<!-- 						<label  class="label">修改時間 </label> -->
+							<input hidden id="" name="createdAt" class="input"
 								type="hidden" value="">
 						<div class="control">
-							<input readonly id="" name="modifiedAt" class="input"
+							<input hidden readonly id="" name="modifiedAt" class="input"
 								type="text" value="">
 						</div>
 					</div>

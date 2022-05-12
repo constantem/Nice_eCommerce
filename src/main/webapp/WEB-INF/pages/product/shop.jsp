@@ -24,6 +24,8 @@
 <!-- Site Title -->
 <title>Nice eCommerce Shopping Center</title>
 
+
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <!--
@@ -231,7 +233,7 @@ button {
 }
 
 .red {
-	background: #84C1FF;
+	background: #babbbc;
 }
 
 </style>
@@ -263,7 +265,7 @@ button {
 		</div>
 	</header>
 
-	
+	<img src='/Nice_eCommerce_RealFinal/Nice_eCommerce/src/main/webapp/img/banner/banner9-removebg.png'>
 	
 	<!-- Start Banner Area -->
 
@@ -457,16 +459,16 @@ button {
 
 						<form id="colorForm" action="FrontpageSeperateSortByColor?color=${color}">
 							<ul>
-								<li class="filter-list"><input class="pixel-radio"
+								<li class="filter-list"><input checked=true class="pixel-radio btcolor"
 									type="radio" id="black" name="color" value="黑"><label
 									for="black">黑<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio"
+								<li class="filter-list"><input class="pixel-radio btcolor"
 									type="radio" id="balckleather" name="color" value="白"><label
 									for="balckleather">白<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio"
+								<li class="filter-list"><input class="pixel-radio btcolor"
 									type="radio" id="blackred" name="color" value="藍"><label
 									for="blackred">藍<span>(0)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio"
+								<li class="filter-list"><input class="pixel-radio btcolor"
 									type="radio" id="gold" name="color" value="綠"><label
 									for="gold">綠<span>(19)</span></label></li>
 
@@ -603,7 +605,7 @@ button {
 												<p class="hover-text">加入追蹤清單</p>
 											</a>
 
-											<a style="display:none" class="social-info removeWishList"  > 
+											<a style="display:none" class="social-info removeWishList" href="${contextRoot}/user/deleteMyWishListFromShop?productId=${prod.id}"  > 
 												<span style="color: #EA7500;" class="bi bi-heart-fill"></span>
 											   <p class="hover-text">取消追蹤清單</p>
 										   </a>
@@ -885,6 +887,24 @@ button {
 			}
 		});
 
+
+		
+		// $(".removeWishList").click(function(){
+		// 	var removeWishList = $(this);
+		// 	$.ajax({
+		// 		url:$("#contextRoot").val() + "/deleteOneWishAjax",
+		// 		data:{
+		// 			wishId:$(this).data("wishid")
+		// 		},
+		// 		type:"get",
+		// 		success:function(){
+		// 			// console.log(deleteFavor.closest("tr"));
+		// 		}
+		// 	});
+		// 	return false;
+		// })
+
+
 	</script>
 
 
@@ -939,8 +959,19 @@ button {
 			$("#priceForm").submit();
 		}
 
+
 		$("#btnColor").click(function(){
-			Swal.fire({
+
+			if($(".btcolor").val == null || $(".btcolor") == ""){
+
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Something went wrong!'
+					})
+
+			}else{
+				Swal.fire({
 				title: '',
 				text: '',
 				width:200,
@@ -952,7 +983,7 @@ button {
 				showConfirmButton:false,		
 			})
 			setTimeout("submitColorForm()",1000)
-
+			}
 		})
 
 		function submitColorForm(){

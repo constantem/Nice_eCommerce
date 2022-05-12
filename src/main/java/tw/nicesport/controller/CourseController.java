@@ -55,7 +55,7 @@ public class CourseController {
 	@Autowired
 	ServletContext servletContext; 
 	
-	@RequestMapping("/course/form")
+	@RequestMapping("/staff/course/form")
 	public String showCourseForm(Model model) {
 		model.addAttribute( "course", new Course() );
 		CoachsAndRoomsContainer crContainer = courseService.getAllCoachAndRoom();
@@ -203,7 +203,7 @@ public class CourseController {
 	}
 	
 	// 基本上被下面的 Page 取代
-//	@RequestMapping("/course/show/all")
+//	@RequestMapping("/staff/course/show/all")
 //	public String showAllCourse(Model model) {		
 //		List<Course> courses = courseService.queryAll();
 //		model.addAttribute("courses", courses);
@@ -211,14 +211,14 @@ public class CourseController {
 //		return "course/show-all-courses";
 //	}
 	
-	@RequestMapping("/course/show/all")
+	@RequestMapping("/staff/course/show/all")
 	public String showAllCourseByPage(
 			Model model,
 			@RequestParam(name="pageNumber",defaultValue="1") Integer pageNum,
 			@RequestParam(name="pageSize",defaultValue="10") Integer pageSize,
 			@RequestParam(name="direction",defaultValue="DESC") String direction,
-			@RequestParam(name="property",defaultValue="createdAt") String property) {
-	
+			@RequestParam(name="property",defaultValue="createdAt") String property) throws Exception {
+		
 		// 查詢
 		Page<Course> coursesForOnePage = courseService.queryAllByPage(pageNum, pageSize, direction, property);
 
@@ -327,15 +327,10 @@ public class CourseController {
 		Room room = courseService.getRoom(course.getRoomNo());
 		course.setCoach(coach);
 		course.setRoom(room);
-		boolean status = courseService.updateOne(course);
+		courseService.update(course);
 		
-		if(status) {
-			model.addAttribute("course", course);
-//			return "course/show-a-course";
-			return "redirect:/course/show/"+id;
-		}
-
-		return "course/update-failure";
+		model.addAttribute("course", course);
+		return "redirect:/course/show/"+id;
 	}
 	
 	@RequestMapping("/course/delete/{id}")
@@ -343,7 +338,6 @@ public class CourseController {
 			@PathVariable("id") Integer id,
 			Model model) {		
 		courseService.deleteById(id);
-		
 		List<Course> courses = courseService.queryAll();
 		model.addAttribute("courses", courses);
 		return "course/show-all-courses";
@@ -357,7 +351,7 @@ public class CourseController {
 	
 	// 前端課程
 	@RequestMapping("/course/list/all")
-	public String showAllCoursesInFront(Model model) {		
+	public String showAllCoursesInFront(Model model) {	
 		List<Course> courses = courseService.queryAll();
 		model.addAttribute("courses", courses);
 		return "course/list-all-courses-front";

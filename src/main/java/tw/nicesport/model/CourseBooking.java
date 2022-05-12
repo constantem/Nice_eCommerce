@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -35,6 +36,9 @@ public class CourseBooking {
 	@Column(name="bookingStatus")
 	private String bookingStatus;
 	
+	@Column(name="paymentStatus")
+	private String paymentStatus;
+	
 	@Column(name="createdAt", insertable = false, updatable = false)
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
@@ -45,6 +49,13 @@ public class CourseBooking {
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 	private LocalDateTime modifiedAt;
 
+	@PreUpdate // 用 SQL UPDATE 用 PrePersist 無效
+	void preUpate() {
+		if(this.id != null) {
+			modifiedAt = LocalDateTime.now();
+		}
+	}
+	
 	// 以上為欄位, 以下為其他 entity
 	
 	@ManyToOne 
@@ -76,6 +87,14 @@ public class CourseBooking {
 
 	public void setBookingStatus(String bookingStatus) {
 		this.bookingStatus = bookingStatus;
+	}
+
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public LocalDateTime getCreatedAt() {

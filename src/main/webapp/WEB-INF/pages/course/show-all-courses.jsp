@@ -25,6 +25,9 @@
 	.left{
 		justify-content:flex-start;
 	}
+	.remainingPlacesAlert {
+		color: red;
+	}
 </style>
 
 <!-- 網站頁籤 logo -->
@@ -49,6 +52,16 @@
 
 <script>
 	$(document).ready(function() {
+		console.log("$ roomCapacity");
+		console.log($(".roomCapacity"));
+		$(".remainingPlaces").each(function (index, remainingPlacesTd) {
+			if( $(remainingPlacesTd).text() <= 5 ) {
+				$(remainingPlacesTd).addClass("remainingPlacesAlert");
+			}
+			if( $(remainingPlacesTd).text() == 0 ) {
+				$(remainingPlacesTd).text("額滿")
+			}
+		});
 		
 		// 客製化彈窗擋住 global Modal open 
 		
@@ -62,12 +75,12 @@
 			document.documentElement.classList.add('clipped'); // 整個 html 標籤被 clipped
 			
 			// 取得按鈕上所標記的 course 的 id
-			const courseId = $(deleteBtn).data("id");
+			const id = $(deleteBtn).data("id");
 			$("#deleteConfirmBtn").click(function () {
 				$.ajax({
-					url: $("#contextRoot").val()+"/course/delete/"+courseId,
+					url: $("#contextRoot").val()+"/course/delete/"+id,
 					success: function () {
-						window.location.href = $("#contextRoot").val()+"/course/show/all";
+						window.location.href = $("#contextRoot").val()+"/staff/course/show/all";
 					}
 				});
 			});
@@ -127,7 +140,7 @@
 					showConfirmButton: true, // 不寫也預設 true
 					confirmButtonText: 'OK',
 				}).then(function () {
-					window.location.href= $("#contextRoot").val() + "/course/show/all" + "?pageNumber=" + "${thisPageNumberZeroBased+1}";
+					window.location.href= $("#contextRoot").val() + "/staff/course/show/all" + "?pageNumber=" + "${thisPageNumberZeroBased+1}";
 				});
 	
 			}); // 確認刪除情境結束
@@ -165,7 +178,7 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<h1 class="title">課程列表</h1>
-		<a class="button light" href="${contextRoot}/course/form">
+		<a class="button light" href="${contextRoot}/staff/course/form">
             		<span>新增課程</span>
           	</a>
 	</div>
@@ -211,6 +224,8 @@
 						<th>時段</th>
 						<th>教練</th>
 						<th>教室</th>
+						<th>教室容納人數</th>
+						<th>剩餘名額</th>
 						<th>價錢</th>
 						<th>建檔/編輯日期</th>
 						<th></th>
@@ -230,11 +245,11 @@
 							</td>
 							<td class="image-cell">
 								<div class="image">
-									<c:if test="${course.pictureBase64==null}">
+									<c:if test="${ empty course.pictureBase64 }">
 										<img class="rounded-full"
 											src="">
 									</c:if>
-									<c:if test="${course.pictureBase64!=null}">
+									<c:if test="${ not empty course.pictureBase64 }">
 										<img class="rounded-full"
 											src="data:image/jpeg;base64, ${course.pictureBase64}">
 									</c:if>
@@ -247,6 +262,8 @@
 							<td data-label="coursePeriod">${course.coursePeriod}</td>
 							<td data-label="coachName">${course.coach.lastName}${course.coach.firstName}</td>
 							<td data-label="roomNo">${course.room.roomNo}</td>
+							<td data-label="roomCapacity">${course.room.roomSizeType.roomCapacity}</td>
+							<td class="remainingPlaces" data-label="remainingPlaces">${course.remainingPlaces}</td>
 							<td data-label="coursePrice">${course.coursePrice}</td>
 							<td data-label="Created">
 								<small class="text-gray-500" title="Oct 25, 2021">
@@ -267,9 +284,8 @@
 							</td>
 							<td class="actions-cell">
 								<div class="buttons right nowrap">
-									<a href="${pageContext.request.contextPath}/course/show/${course.id}">
-										<button class="button small green"
-											data-target="sample-modal-2" type="button">
+									<a href="${contextRoot}/course/show/${course.id}">
+										<button type="button" class="button small green">
 											<span class="icon"><i class="mdi mdi-pencil"></i></span>
 										</button>
 									</a> 
@@ -292,12 +308,12 @@
 					<div class="buttons">
 						<c:forEach begin="1" end="${totalPages}" step="1" var="pageNumber1Based">
 							<!-- 主體是頁碼 button, 表單只是因為不想用 a + query string 的方式送 url -->
-							<form action="${contextRoot}/course/show/all">
+							<form action="${contextRoot}/staff/course/show/all">
 								<input type="hidden" name="pageNumber" value="${pageNumber1Based}">
 								<input type="hidden" name="pageSize" value="">
 								<input type="hidden" name="direction" value="">
 								<input type="hidden" name="property" value="">
-								<!-- 本頁的頁碼按鈕, 不讓按 -->
+								<!-- 本頁的頁碼按鈕, 不給按 -->
 								<c:if test="${pageNumber1Based == (thisPageNumberZeroBased+1)}">
 									<button type="button" class="button active">${pageNumber1Based}</button>
 								</c:if>
@@ -322,7 +338,7 @@
 <!-- 刪除按鈕觸發彈窗 -->
 <div id="deleteConfirm-modal" class="modal">
 	<div class="modal-background --jb-modal-close"></div>
-	<div class="modal-card">
+	<div class="modal-card" style="width:300px">
 		<header class="modal-card-head">
 			<p class="modal-card-title">注意</p>
 		</header>
@@ -341,7 +357,7 @@
 <!-- 刪除全部按鈕觸發彈窗 -->
 <div id="deleteAllConfirm-modal" class="modal">
 	<div class="modal-background --jb-modal-close"></div>
-	<div class="modal-card">
+	<div class="modal-card" style="width:300px">
 		<header class="modal-card-head">
 			<p class="modal-card-title">注意</p>
 		</header>

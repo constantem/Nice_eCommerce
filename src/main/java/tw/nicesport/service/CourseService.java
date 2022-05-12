@@ -127,15 +127,9 @@ public class CourseService {
 		return result.get();
 	}
 	
-	public boolean updateOne(Course course) {
+	public Course update(Course course) {
 		// 更新 course entity
-		Course courseResult = courseDao.save(course);
-		
-		if(courseResult!=null) {
-			return true;
-		} else {
-			return false;
-		}
+		return courseDao.save(course);
 	}
 	
 	public void deleteById(Integer id) {

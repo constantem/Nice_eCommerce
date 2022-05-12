@@ -6,6 +6,7 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <!-- short style in second head tag in body tag -->
+
 <head>
 	<style>
 		.hideIfNotAuthenticatedAsStaff {

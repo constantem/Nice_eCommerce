@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="tw.nicesport.model.ProductBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -30,17 +29,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <!--------------------------------------------------------------------------- -->
-
-
-
-<!-- Tailwind is included -->
-<link rel="stylesheet" href="css/main.css?v=1628755089081">	
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="js/main.js">
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-
-
 
 <!-- ajax -->
 <script
@@ -886,27 +874,9 @@ figure {
 			crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		<script src="sweetalert2.all.min.js"></script>	
 		<!------------------------------ JS------------------------------------------------ -->
 
 
-
-
-
-
-
-
-
-		<!-- Scripts below are for demo only -->
-		<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
-		<script type="text/javascript"
-			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-		<script type="text/javascript" src="js/chart.sample.min.js"></script>
-		<noscript>
-			<img height="1" width="1" style="display: none"
-				src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
-		</noscript>
-		<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 </body>
 
 </html>

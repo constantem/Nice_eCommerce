@@ -46,11 +46,13 @@ public class CustomOidcUserService extends OidcUserService {
     private void updateUser(GoogleOAuth2UserInfo userInfo) {
     	Optional<Member> memberOpt = memberDao.findByEmail(userInfo.getEmail());
     	Member member;
+    	// 已是會員
     	if(memberOpt.isPresent()) {
     		member = memberOpt.get();
             member.setEmail(userInfo.getEmail());
             member.setFirstname(userInfo.getName());
         	memberDao.save(member);
+        // 新會員
     	} else {
     		member = new Member();
             member.setEmail(userInfo.getEmail());

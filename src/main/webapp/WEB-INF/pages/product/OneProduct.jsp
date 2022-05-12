@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="tw.nicesport.model.ProductBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -19,31 +18,17 @@
 	rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.css" rel="stylesheet" />
 <link href="${contextRoot}/css/jquery-ui.theme.min.css" rel="stylesheet" />
-<link rel="apple-touch-icon" sizes="180x180"
-	href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16"
 	href="${contextRoot}/resources/backstage/favicon-16x16.png" />
 <!--------------------------------------------------------------------------- -->
 
-
-
-<!-- Tailwind is included -->
-<link rel="stylesheet" href="css/main.css?v=1628755089081">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="js/main.js">
-
-
-
 <!-- ajax -->
 <script
 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<link rel="icon" type="image/png" href="favicon.png" />
-<link rel="icon" type="image/x-icon" href="favicon.ico" />
-<link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6" />
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 <link rel="stylesheet"
@@ -438,28 +423,6 @@ figure {
 	<script src="${contextRoot}/resources/js/jquery-1.4.4.min.js"></script>
 	<script src="${contextRoot}/resources/js/jquery-ui.js"></script>
 	<!------------------------------ JS------------------------------------------------ -->
-
-
-
-
-
-
-
-
-
-	<!-- Scripts below are for demo only -->
-	<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<script type="text/javascript" src="js/chart.sample.min.js"></script>
-	<noscript>
-		<img height="1" width="1" style="display: none"
-			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
-	</noscript>
-	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-
-
-
 
 
 </body>

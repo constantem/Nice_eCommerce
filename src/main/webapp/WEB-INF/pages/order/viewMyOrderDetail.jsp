@@ -78,7 +78,7 @@
 						<div class="container">
 							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 								<div class="col-first">
-									<h1>†升天† 您的訂單已成立 †升天†</h1>
+									<h1>您的訂單明細</h1>
 									<nav class="d-flex align-items-center">
 										<a href="#">Home</a>
 										

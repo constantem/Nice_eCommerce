@@ -78,7 +78,7 @@
 						<div class="container">
 							<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 								<div class="col-first">
-									<h1>†升天† 您的訂單已成立 †升天†</h1>
+									<h1>您的訂單已成立</h1>
 									<nav class="d-flex align-items-center">
 										<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
 										<a href="single-product.html">您的訂單已成立</a>
@@ -92,7 +92,7 @@
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
 		<div class="container">
-			<h3 class="title_confirmation">†升天†     ~謝謝你的斗內~     †升天†</h3>
+			<h3 class="title_confirmation">謝謝您的訂購</h3>
 			<div class="order_details_table">
 				<h2>以下是您的訂單明細</h2>
 				

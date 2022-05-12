@@ -21,8 +21,9 @@ public class MemberJavaMail {
 //	private String customerEmail = "eeit140777@gmail.com"; // 收件者郵箱
 	private String subject = "這樣還可以忘記"; // 標題
 
-	private String txt = "<h3>重新設定您的密碼，請點擊以下的連結。您將會連到一個網頁，讓您設定新的密碼:</h3><br>"
-			+ "http://localhost:8333/Nice_eCommerce/member/changePasswordForm"; // 內容
+	private String txt = "<h3>重新設定您的密碼，請點擊以下的連結。您將會連到一個網頁，讓您設定新的密碼:</h3><br>";// 內容
+	private String linkTxt = "點擊連結";
+	private String linkPrefix = "http://localhost:8333/Nice_eCommerce/member/changePasswordForm";
 	
 	public void sendMail(String customerEmail, Integer memberId) {
 		// ---------------------------------------------------------連線設定
@@ -71,8 +72,7 @@ public class MemberJavaMail {
 			message.setSubject(subject);
 
 			// 內容/格式
-			message.setContent("<a href='"+txt+"?memberId="+memberId + "'>點擊連結</a>", "text/html;charset = UTF-8");
-
+			message.setContent(txt+"<a href='"+linkPrefix+"?memberId="+memberId + "'>"+linkTxt+"</a>", "text/html;charset = UTF-8");
 
 			// ---------------------------------------------------------Transport傳送Message
 			Transport transport = session.getTransport();

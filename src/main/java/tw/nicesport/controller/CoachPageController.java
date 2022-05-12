@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CoachPageController {
 
-	@RequestMapping("/coach/listPage")
+	@RequestMapping("/staff/coach/listPage")
 	public String showAllCoachs(Model model) {
 		model.addAttribute("activeLi", "coachList");
 		return "course/list-all-coachs-back";

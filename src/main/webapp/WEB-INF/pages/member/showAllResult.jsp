@@ -63,6 +63,19 @@
 </script>
 	
 </head>
+
+<style>
+#searchMem{
+
+font-size:120%;
+font-weight:bold;
+}
+
+
+
+</style>
+
+
 <body>
 
 	<div id="app">
@@ -75,8 +88,8 @@
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<ul>
-					<li>Admin</li>
-					<li>Profile</li>
+					<li>會員管理</li>
+					
 				</ul>
 				<a href="https://justboil.me/"
 					onclick="alert('Coming soon'); return false" target="_blank"
@@ -87,19 +100,14 @@
 		</section>
 
 		<!-- 核心內容標題 -->
-		<section class="is-hero-bar">
-			<div
-				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 class="title">Profile</h1>
-				<button class="button light">Button</button>
-			</div>
-		</section>
+		
 
 		<!-- 原核心內容的 section 開始 -->
 		
 		
 			<form action="${contextRoot}/member/findAllByNameLike">
-				查詢特定會員:<input type="text" name="specificUsername">
+			<label id="searchMem" >查詢特定會員:</label>
+				<input type="text" name="specificUsername">
 				<input type="submit" value="送出">
 			 
 			<action="${contextRoot}/staff/member/showAllResult">

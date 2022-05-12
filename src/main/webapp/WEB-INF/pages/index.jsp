@@ -4,14 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-
-
-
-<!-- 這個檔案是給你給你複製貼上用的, 請創一個 jsp 檔, 將此檔全部內容複製貼在該 jsp 檔 -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -46,9 +38,35 @@
 	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
 </head>
 
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous">
+</script>
 
+<!-- sweat alert 2 CDN -->	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function () {
+	if( $("#hasError").val() == "泛用錯誤" ) {
+		Swal.fire({
+			text: "抱歉，網頁發生錯誤。",
+			icon: "error",
+			confirmButtonText: "回首頁"
+		});
+	} else if( $("#hasError").val() == "userInBackstage" ) {
+		Swal.fire({
+			text: "前台權限登入中，切回前台。",
+			icon: "error",
+			confirmButtonText: "回首頁"
+		});
+	}
+});
+</script>
+  
 <body>
-	
+	<input type="hidden" id="hasError" value="${hasError}">
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">

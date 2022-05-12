@@ -229,7 +229,7 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<h1 class="title">課程</h1>
-		<a href="${pageContext.request.contextPath}/course/show/all"><button
+		<a href="${pageContext.request.contextPath}/staff/course/show/all"><button
 				class="button light">返回課程列表</button></a>
 	</div>
 </section>
@@ -286,7 +286,65 @@
 			    </div>
 			  </div>
 			</div>
+			
+			<hr class="forEdit displayNone">
+			
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-1-2 mb-6">
+			
+				<!-- input 輸入格0 -->
+				<form:input hidden="hidden" path="id"
+					value="${course.id}" />
+				
+				<!-- input 輸入格1 -->
+				<div class="field">
+					<form:label class="label" path="courseName">課名</form:label>
 
+					<div class="control">
+						<span class="forDisplay">${course.courseName}</span>
+						<form:input id="courseName" class="input forEdit displayNone"
+							type="text" path="courseName"
+							value="${course.courseName}" placeholder="例: 有氧舞蹈" />
+					</div>
+					<p class="help">*必填</p>
+					<p class="help">
+						<form:errors style="color: red;" path="courseName"
+							cssClass="error" />
+					</p>
+				</div>
+				
+				<!-- select 下拉選項1 -->
+				<div class="field">
+					<form:label class="label" path="coachId">教練</form:label>
+					<div class="control">
+						<div class="select">
+							<span class="forDisplay">${course.coach.lastName}${course.coach.firstName}</span>
+							<form:select class="forEdit displayNone" path="coachId">
+								<c:forEach items="${coachs}" var="coach">
+									<form:option
+										value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+				</div>
+
+				<!-- select 下拉選項2 -->
+				<div class="field">
+					<form:label class="label" path="roomNo">教室</form:label>
+					<div class="control">
+						<div class="select">
+							<span class="forDisplay">${course.room.roomNo}${course.room.roomName}</span>
+							<form:select class="forEdit displayNone" path="roomNo">
+								<c:forEach items="${rooms}" var="room">
+									<form:option 
+										value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		  </div>
 		</div>
 		
@@ -303,24 +361,17 @@
 				</div>
 			</header>
 			<div class="card-content">
-				<form:input hidden="hidden" path="id"
-					value="${course.id}" />
 
-				<!-- input 輸入格1 -->
+				<!-- input 輸入格3 -->
 				<div class="field">
-					<form:label class="label" path="courseName">課名</form:label>
-
+					<form:label class="label" path="courseDescription">課程概述</form:label>
 					<div class="control">
-						<span class="forDisplay">${course.courseName}</span>
-						<form:input id="courseName" class="input forEdit displayNone"
-							type="text" path="courseName"
-							value="${course.courseName}" placeholder="例: 有氧舞蹈" />
+						<span class="forDisplay">${course.courseDescription}</span>
+						<form:textarea id="courseDescription" class="textarea forEdit displayNone"
+							path="courseDescription"
+							value="${course.courseClassAmount}" placeholder="24" />
 					</div>
-					<p class="help">*必填</p>
-					<p class="help">
-						<form:errors style="color: red;" path="courseName"
-							cssClass="error" />
-					</p>
+					<form:errors path="courseDescription" />
 				</div>
 
 				<!-- input 輸入格2 -->
@@ -359,38 +410,6 @@
 							value="${course.coursePeriod}" placeholder="" />
 					</div>
 					<form:errors path="coursePeriod" />
-				</div>
-
-				<!-- select 下拉選項1 -->
-				<div class="field">
-					<form:label class="label" path="coachId">教練</form:label>
-					<div class="control">
-						<div class="select">
-							<span class="forDisplay">${course.coach.lastName}${course.coach.firstName}</span>
-							<form:select class="forEdit displayNone" path="coachId">
-								<c:forEach items="${coachs}" var="coach">
-									<form:option
-										value="${coach.id}">${coach.lastName}${coach.firstName}</form:option>
-								</c:forEach>
-							</form:select>
-						</div>
-					</div>
-				</div>
-
-				<!-- select 下拉選項2 -->
-				<div class="field">
-					<form:label class="label" path="roomNo">教室</form:label>
-					<div class="control">
-						<div class="select">
-							<span class="forDisplay">${course.room.roomNo}${course.room.roomName}</span>
-							<form:select class="forEdit displayNone" path="roomNo">
-								<c:forEach items="${rooms}" var="room">
-									<form:option 
-										value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
-								</c:forEach>
-							</form:select>
-						</div>
-					</div>
 				</div>
 
 				<!-- input 輸入格5 -->

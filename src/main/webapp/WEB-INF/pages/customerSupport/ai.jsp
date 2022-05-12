@@ -271,7 +271,7 @@ var qaList = [
         }
        } catch (err) {}
       }
-      return "然後呢？"; // 如果發生任何錯誤，就回答「然後呢？」來混過去。
+      return "我不太明白你的意思"; // 如果發生任何錯誤，就回答「然後呢？」來混過去。
     }
     
     $("#clear").click(function(){

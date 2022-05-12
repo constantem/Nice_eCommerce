@@ -49,12 +49,24 @@ public class EmployeeService {
 		return employeeDao.findAll();
 	}
 	
- 
-
+	public List<Employee> findAllEmpNot1001() {
+		for(Employee emp : employeeDao.findByEmployeeidNot(1001)) {
+			System.out.println("id====>"+emp.getEmployee_id());
+		}
+		return employeeDao.findByEmployeeidNot(1001);
+	}
+	
 	// 分頁功能
 	public Page<Employee> findByPage(Integer pageNumber , Integer size) {
 		Pageable pgb = PageRequest.of(pageNumber, size, Sort.Direction.ASC, "employeeid");
 		Page<Employee> page = employeeDao.findAll(pgb);
+		return page;
+	}
+	
+	// 分頁功能
+	public Page<Employee> findByPageNot1001(Integer pageNumber , Integer size) {
+		Pageable pgb = PageRequest.of(pageNumber, size, Sort.Direction.ASC, "employeeid");
+		Page<Employee> page = employeeDao.findByEmployeeidNot(1001,pgb);
 		return page;
 	}
 

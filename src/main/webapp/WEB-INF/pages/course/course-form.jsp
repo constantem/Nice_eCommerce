@@ -112,7 +112,7 @@
 									cancelButtonText: '回列表'
 								}).then(function (result) {
 									if(!result.isConfirmed) { // 不按 OK, 跳轉
-										window.location.href= $("#contextRoot").val() + "/course/show/all";
+										window.location.href= $("#contextRoot").val() + "/staff/course/show/all";
 									} 
 								});
 							} else if(message == "新增失敗") {
@@ -190,7 +190,7 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<h1 class="title">新增課程</h1>
-		<a class="button light" href="${contextRoot}/course/show/all">
+		<a class="button light" href="${contextRoot}/staff/course/show/all">
             		<span>回列表</span>
           	</a>
 	</div>
@@ -226,6 +226,19 @@
 					<div class="control">
 						<form:input class="input" type="text" id="courseName"
 							path="courseName" placeholder="例: 有氧舞蹈" />
+					</div>
+					<p class="help">*必填</p>
+					<form:errors style="color:red;" path="courseName" />
+				</div>
+				
+				<!-- input 輸入格2 -->
+				<div class="field">
+					<form:label class="label" path="courseDescription">課程概述</form:label>
+
+					<div class="control">
+						<form:textarea class="textarea"
+							id="courseDescription" path="courseDescription" 
+							placeholder="" />
 					</div>
 					<p class="help">*必填</p>
 					<form:errors style="color:red;" path="courseName" />

@@ -102,7 +102,7 @@
 							</li>
 							<li class="nav-item isAuthenticatedAsUser">
 								<a class="nav-link" 
-									href="${contextRoot}/user/myCourses">
+									href="${contextRoot}/user/myCoursebooking">
 									我的課程
 								</a>
 							</li>
@@ -189,7 +189,7 @@
 			cancelButtonText: "取消",
 		}).then(function (result) {
 			if(result.isConfirmed) {
-				location.href = "${contextRoot}/backstage";
+				location.href = "${contextRoot}/userLogoutAndToBackstage";
 			}
 		});
 	});

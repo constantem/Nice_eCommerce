@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.nicesport.model.AnnouncementBean;
@@ -36,7 +37,11 @@ public class IndexController {
 	public String showIndex(
 			Model model, 
 			Authentication authentication,
-			HttpServletRequest request) throws ServletException {
+			HttpServletRequest request,
+			@RequestParam(name="hasError",required = false) String hasError) throws ServletException {
+		
+		// 例外處理將訊息帶到首頁
+		model.addAttribute("hasError", hasError);
 		
 		// 首頁優惠券輪播
 		List<Discount> discounts = discountService.findAll();
@@ -71,8 +76,13 @@ public class IndexController {
 	// 跳轉前台首頁用
 	@RequestMapping("/backstage")
 	public String showBackstageHomePage(
+			Model model,
 			Authentication authentication,
-			HttpServletRequest request) throws ServletException {
+			HttpServletRequest request,
+			@RequestParam(name="hasError",required = false) String hasError) throws ServletException {
+		
+		// 例外處理將訊息帶到首頁
+		model.addAttribute("hasError", hasError);
 		
 		// 後台首頁強制前台角色登出
 		if(authentication!=null) { // 沒登入時, authentication 為 null

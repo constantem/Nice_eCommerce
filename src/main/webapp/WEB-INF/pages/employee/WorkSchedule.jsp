@@ -17,11 +17,12 @@
           <meta charset="utf-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>我頁標題(未更改)</title>
+          <title>排班系統</title>
 
           <!-- Tailwind is included -->
           <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
           <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
+          <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/cssr.css">
           <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
@@ -57,7 +58,7 @@
             }
           </style>
           <!-- 自訂 link, script -->
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+          <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -374,6 +375,7 @@
 
 
             function GetScheduleWork(result, theTable) {
+              console.log(result);
               $.ajax({
                 type: "GET",
                 url: "${contextRoot}/ScheduleType",
@@ -385,6 +387,76 @@
                   let theTr3;
                   $.each(result, (index, value) => {
                     new_empid = value.employee_id;
+
+                    
+                    if (value.day == ""){
+                    let emp_name = value.lastName + value.firstName; 
+
+                    let theTr3 = document.createElement("tr");
+                    let theTd = document.createElement("td");
+                    let theInput = document.createElement("input");
+                    let theBr = document.createElement("br");
+
+                    theInput.setAttribute("type", "text");
+                    theInput.setAttribute("readonly","ture");
+                    theInput.setAttribute("name", "employee_id");
+                    theInput.setAttribute("id", "employee_id");
+                    theInput.setAttribute("value", value.employee_id, theBr);
+
+                    theTd.appendChild(theInput);
+                    theTd.appendChild(theBr);
+
+                    theInput = document.createElement("input");
+                    theInput.setAttribute("type", "text");
+                    theInput.setAttribute("name", "emp_name");
+                    theInput.setAttribute("value", emp_name);
+                    theInput.setAttribute("disabled", "true");
+                    theTd.appendChild(theInput);
+
+                    theTr3.appendChild(theTd);
+
+                    $.ajax({
+                      type: "GET",
+                      url: "${contextRoot}/ScheduleType",
+                      contentType: 'application/json',
+                      success: function (resultType) {
+
+                        for (let i = 1; i <= dno; i++) {
+                          let theTd1 = document.createElement("td");
+                          let theSelect = document.createElement("select");
+                          theSelect.setAttribute("name", "work_id")
+                          theSelect.setAttribute("id", "work_id" + value.employee_id + "_" + i)
+                          //	theSelect.innerHTML += "<option value='0'>  </option>";
+
+                          $.each(resultType, (index, value) => {
+
+                            theSelect.innerHTML += "<option value='" + value.workid + "'>" + value.schedule + "</option>";
+
+                            theTd1.appendChild(theSelect);
+                            theTr3.appendChild(theTd1);
+                          })
+
+                        }
+
+                        theTable.appendChild(theTr3);
+                      }
+                    })
+
+                  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     //
                     if (new_empid != old_empid) { //前一筆的EMPID 與 下一筆不同(人不一樣),代表要換下一行 
@@ -446,7 +518,7 @@
 
 
             function NewScheduleWork(theTable) {
-
+              
               var cnt = 0;
 
               $.ajax({
@@ -456,6 +528,7 @@
                 success: function (result) {
                   let i = 1;
                   $.each(result, (index, value) => {
+                    console.log("id=====>"+value.employee_id);
                     let emp_name = value.lastName + value.firstName;
 
 
@@ -465,6 +538,7 @@
                     let theBr = document.createElement("br");
 
                     theInput.setAttribute("type", "text");
+                    theInput.setAttribute("readonly","ture");
                     theInput.setAttribute("name", "employee_id");
                     theInput.setAttribute("id", "employee_id");
                     theInput.setAttribute("value", value.employee_id, theBr);

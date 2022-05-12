@@ -263,7 +263,7 @@ $(document).ready(function() { // Document is ready
     <h1 class="title">
       教練
     </h1>
-    <a href="${contextRoot}/coach/listPage">
+    <a href="${contextRoot}/staff/coach/listPage">
     	<button class="button light">回列表</button>
     </a>
   </div>

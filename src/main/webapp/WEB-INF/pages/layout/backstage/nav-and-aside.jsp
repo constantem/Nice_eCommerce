@@ -5,6 +5,19 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
+<!-- short style in second head tag in body tag -->
+<head>
+	<style>
+		.hideIfNotAuthenticatedAsStaff {
+			display: none;
+		}
+		
+		.hideIfEmptyImg {
+			display: none;
+		}
+	</style>
+</head>
+
 <input id="contextRoot" type="hidden" value="${pageContext.request.contextPath}">
 <!-- 上導覽列開始 -->
 <nav id="navbar-main" class="navbar is-fixed-top">
@@ -28,8 +41,8 @@
       <div class="navbar-item dropdown has-divider has-user-avatar">
         <a class="navbar-link" 
         	href="#">
-          <div id="staffImgContainer" class="user-avatar">
-            <img id="navStaffImg" src="https://avatars.dicebear.com/v2/initials/john-doe.svg" onerror="this.onerror=null; this.remove();" alt="John Doe" class="rounded-full">
+          <div id="staffImgContainer" class="user-avatar isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
+            <img id="navStaffImg" src="" alt="John Doe" class="rounded-full">
           </div>
           <div id="navStaffNameContainer" class="is-user-name">
           	<span id="navStaffName">尚未登入</span>
@@ -47,20 +60,20 @@
           </a>
           
           <!-- 員工個人資料 -->
-          <a href="${contextRoot}/staff/myProfileByEmployeeId" 
-          	class="navbar-item active isAuthenticatedAsStaff">
+          <a  
+          	class="navbar-item active isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>個人資料</span>
           </a>
           
           <!-- (擺設用) -->
-          <a class="navbar-item isAuthenticatedAsStaff">
+          <a class="navbar-item isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-settings"></i></span>
             <span>設定</span>
           </a>
           
           <!-- (擺設用) -->
-          <a class="navbar-item isAuthenticatedAsStaff">
+          <a class="navbar-item isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
             <span class="icon"><i class="mdi mdi-email"></i></span>
             <span>信箱</span>
           </a>
@@ -71,7 +84,7 @@
           <form:form id="logoutForm" 
           	action="${contextRoot}/staffLogout" 
           	method="POST"
-          	cssClass="isAuthenticatedAsStaff">
+          	cssClass="isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
 			  <a class="navbar-item" href="#" onclick="document.getElementById('logoutForm').submit();">
 	            <span class="icon"><i class="mdi mdi-logout"></i></span>
 	            <span>登出</span>
@@ -79,18 +92,17 @@
 		  </form:form>
         </div>
       </div>
-      <a href="https://justboil.me/tailwind-admin-templates" class="navbar-item has-divider desktop-icon-only">
-        <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
-        <span>About</span>
-      </a>
-      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
+      <a href="https://github.com/constantem/Nice_eCommerce" class="navbar-item has-divider desktop-icon-only">
         <span class="icon"><i class="mdi mdi-github-circle"></i></span>
         <span>GitHub</span>
       </a>
-      <a title="Log out" class="navbar-item desktop-icon-only">
+      <div class="navbar-item isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
+      <a href="#" title="Log out" 
+      	class="desktop-icon-only --jb-modal" data-target="logout-modal">
         <span class="icon"><i class="mdi mdi-logout"></i></span>
-        <span>Log out</span>
+        <span>登出</span>
       </a>
+      </div>
       <!-- 加插連前台按鈕 -->
       <div class="navbar-item">
       	<button type="button" class="button blue --jb-modal" data-target="toFrontStage-modal">
@@ -218,14 +230,14 @@
       </li>
       
       <!-- 下拉式選單5: 課程管理系統 -->
-      <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList')}">class="active"</c:if> >
+      <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList') || (activeLi == 'courseBookingList')}">class="active"</c:if> >
         <a class="dropdown">
           <span class="icon"><i class="mdi mdi-view-list"></i></span>
           <span class="menu-item-label">課程管理</span>
           <span class="icon">
           	<i 
           		<c:choose>
-          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList')}">class="mdi mdi-minus"</c:when>
+          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList') || (activeLi == 'courseBookingList')}">class="mdi mdi-minus"</c:when>
           			<c:otherwise>class="mdi mdi-plus"</c:otherwise>
           		</c:choose>
           	></i>
@@ -233,18 +245,23 @@
         </a>
         <ul>
           <li <c:if test="${activeLi == 'courseForm'}">class="active"</c:if> >
-            <a href="${contextRoot}/course/form">
+            <a href="${contextRoot}/staff/course/form">
               <span>新增課程</span>
             </a>
           </li>
           <li <c:if test="${activeLi == 'courseList'}">class="active"</c:if> >
-            <a href="${contextRoot}/course/show/all">
+            <a href="${contextRoot}/staff/course/show/all">
               <span>課程列表</span>
             </a>
           </li>
           <li <c:if test="${activeLi == 'coachList'}">class="active"</c:if> >
-            <a href="${contextRoot}/coach/listPage">
+            <a href="${contextRoot}/staff/coach/listPage">
               <span>教練列表</span>
+            </a>
+          </li>
+          <li <c:if test="${activeLi == 'courseBookingList'}">class="active"</c:if> >
+            <a href="${contextRoot}/staff/courseBooking/listPage">
+              <span>課程訂單列表</span>
             </a>
           </li>
         </ul>
@@ -320,6 +337,23 @@
 </aside>
 <!-- 左導覽列結束 -->
 
+<!-- 確認登出彈窗 -->
+<div id="logout-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card" style="width:300px">
+    <header class="modal-card-head">
+      <p class="modal-card-title">登出</p>
+    </header>
+    <section class="modal-card-body">
+      <p>即將<b>登出</b></p>
+    </section>
+    <footer class="modal-card-foot">
+	  <button class="button blue --jb-modal-close" onclick="document.getElementById('logoutForm').submit();">登出</button>
+      <button class="button --jb-modal-close">取消</button>
+    </footer>
+  </div>
+</div>
+
 <!-- 前往前台彈窗 -->
 <div id="toFrontStage-modal" class="modal">
   <div class="modal-background --jb-modal-close"></div>
@@ -354,6 +388,7 @@
 		const protectedItems = document.querySelectorAll(".isAuthenticatedAsStaff");
 		const openedItems = document.querySelectorAll(".notAuthenticatedAsStaff");
 		
+		// 若後台角色登入
 		if(roles.includes("ROLE_EMPLOYEE")) { // admin 也有 ROLE_EMPLOYEE, 所以這樣寫就可以
 				
 			fetch("${contextRoot}/staff/fullName", {method: "GET"})
@@ -363,26 +398,42 @@
 			.then(function (profile) {
 				document.getElementById("navStaffName").textContent = profile.fullName;
 				if(profile.imgSrc != null) {
+					document.getElementById("navStaffImg").classList.remove("hideIfEmptyImg");
 					document.getElementById("navStaffImg").src = "${contextRoot}/upload/"+profile.imgSrc;
 				} else {
-					document.getElementById("navStaffImg").src = "";
+					document.getElementById("navStaffImg").classList.add("hideIfEmptyImg");
 				}
 				
 			});
 			
-			for (let elem of protectedItems) {
-			    elem.style.display = 'block';
-			}
-			for (let elem of openedItems) {
-			    elem.style.display = 'none';
-			}
+			// protected
+			protectedItems.forEach( (item)=>
+				// show
+				item.classList.remove("hideIfNotAuthenticatedAsStaff") 
+			); 
+			
+			// opened
+			openedItems.forEach( (item)=>
+				// show
+				item.classList.add("hideIfNotAuthenticatedAsStaff") 
+			); 
+			
+		// 若後台角色未登入
 		} else {
-			for (let elem of protectedItems) {
-			    elem.style.display = 'none';
-			}
-			for (let elem of openedItems) {
-			    elem.style.display = 'block';
-			}
+			
+			// 一定沒照片, 隱藏
+			document.getElementById("navStaffImg").classList.add("hideIfEmptyImg");
+			
+			// protected
+			protectedItems.forEach( (item)=>
+				// show
+				item.classList.add("hideIfNotAuthenticatedAsStaff") 
+			); 
+			// opened
+			openedItems.forEach( (item)=>
+				// show
+				item.classList.remove("hideIfNotAuthenticatedAsStaff")
+			); 
 		}
 	});
 

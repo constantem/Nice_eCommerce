@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -86,16 +87,18 @@ public class Coach {
 	@JsonSerialize(using = LocalDateTimeSerializer.class) // 讓 ObjectMapper (不論是自己 new 還是 ResponseBody 背後做) 可以將 LocalDate 轉 String
 	private LocalDateTime modifiedAt;
 	
+	@PreUpdate // 用 SQL UPDATE 用 PrePersist 無效
+	void preUpate() {
+		if(this.id != null) {
+			modifiedAt = LocalDateTime.now();
+		}
+	}
+	
 	// associated entity
 	
 	@OneToMany(
 		mappedBy="coach",
-		cascade= {
-			CascadeType.PERSIST,
-			CascadeType.DETACH,
-			CascadeType.MERGE,
-			CascadeType.REFRESH
-		}
+		cascade= CascadeType.ALL
 	)
 //	@JsonIgnore // OneToMany 必加, 或加 EAGER, 不然 courses 為 null, 轉 Json 出錯
 	@JsonIdentityReference(alwaysAsId = true) // 只顯示 id, List/Set 要加

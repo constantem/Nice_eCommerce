@@ -18,13 +18,9 @@ public class ErrorPageController implements ErrorController {
 
 	@RequestMapping("/error")
 	public String toIndexWithErrorMessage(
-			Authentication authentication,
 			ModelAndView mav,
 			RedirectAttributes redirectAttributes,
 			@RequestParam(name="hasError",required=false) String hasError) {
-		
-		System.out.println("=======後端 error controller hasError param=======");
-		System.out.println(hasError);
 		
 		if(hasError != null) {
 			if(hasError.equals("adminDeny") || hasError.equals("employeeDeny")) {

@@ -43,7 +43,7 @@ public class EmpPageController {
 	public ModelAndView viewEmployee(ModelAndView mav,
 			@RequestParam(name = "pn", defaultValue = "1") Integer pageNumber) {
 
-		Page<Employee> page = empService.findByPage(pageNumber,5);
+		Page<Employee> page = empService.findByPageNot1001(pageNumber,5);
 		mav.getModel().put("page", page);
 		mav.setViewName("employee/viewEmployee");
 

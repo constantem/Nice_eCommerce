@@ -24,7 +24,7 @@ public interface PunchCardSystemRepository extends JpaRepository<PunchCardSystem
 //			
 //			);
 	
-	@Query(value = "select * from PunchCardSystem where (( DATEPART(year, punchIn)  = :year and DATEPART(month, punchIn)  = :month) and DATEPART(day, punchIn)  =:day or (DATEPART(year, punchOut) = :year and DATEPART(month, punchOut) = :month and DATEPART(day, punchIn)  =:day )) and employee_id=:employeeid",nativeQuery=true)
+	@Query(value = "select * from PunchCardSystem where (( DATEPART(year, punchIn)  = :year and DATEPART(month, punchIn)  = :month) and DATEPART(day, punchIn)  =:day or (DATEPART(year, punchOut) = :year and DATEPART(month, punchOut) = :month and DATEPART(day, punchOut)  =:day )) and employee_id=:employeeid",nativeQuery=true)
 	List<PunchCardSystem> confirmPunch(
 			@Param ("year")String year,
 			@Param ("month")String month,

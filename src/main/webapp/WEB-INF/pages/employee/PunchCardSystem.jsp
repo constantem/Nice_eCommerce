@@ -15,11 +15,12 @@
           <meta charset="utf-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>我頁標題(未更改)</title>
+          <title>打卡系統</title>
 
           <!-- Tailwind is included -->
           <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
           <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css">
+          <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/cssr.css">
           <link rel="apple-touch-icon" sizes="180x180" href="${contextRoot}/resources/backstage/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="${contextRoot}/resources/backstage/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="${contextRoot}/resources/backstage/favicon-16x16.png" />
@@ -45,7 +46,7 @@
           <meta property="twitter:image:height" content="960">
         
           <!-- 自訂 link, script -->
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+          <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -156,14 +157,14 @@
               <header class="card-header">
                 <p class="card-header-title">
                   <span class="icon"><i class="mdi mdi-ballot"></i></span>
-                  刷卡作業
+                  網路刷卡作業
                 </p>
               </header>
               <div id="checkIn" class="card-content">
                 <form method="post">
 
                   <div class="field">
-                    <label class="label">刷卡作業</label>
+                    <label class="label">網路刷卡作業</label>
 
                     <div class="form-group">
                       <label class="col-sm-2 control-label">員工姓名</label>
@@ -193,7 +194,7 @@
                       <label class="col-sm-2 control-label">上/下班</label>
                       <div class="col-sm-10">
                         <label class="radio-inline">
-                          <input type="radio" name="punchstatus" id="punchStatusIn" value="in">上班
+                          <input type="radio" name="punchstatus" checked id="punchStatusIn" value="in">上班
                         </label>
                         <label class="radio-inline">
                           <input type="radio" name="punchstatus" id="punchStatusOut" value="out">下班
@@ -291,7 +292,10 @@
               var h=NowDate.getHours();
               var m=NowDate.getMinutes();
               var s=NowDate.getSeconds();
-              document.getElementById('showbox').innerHTML =yy+'年'+mm+'月'+dd+'日'+h+'時'+m+'分'+s+'秒';
+              var day_list = ['日', '一', '二', '三', '四', '五', '六'];
+              var week = NowDate.getDay();
+
+              document.getElementById('showbox').innerHTML =yy+'年'+mm+'月'+dd+'日'+' 星期'+day_list[week]+' '+h+'時'+m+'分'+s+'秒';
               setTimeout('ShowTime()',1000);
             }
               var NowDate=new Date();
@@ -304,43 +308,93 @@
               type:"GET",
               contentType:'application/json',
               success:function(result){
+               if(result.length >0 ){
               var schedule = result[0].scheduleType.schedule;
               var workid = result[0].scheduleType.workid;
               $("#showSchedule").val(schedule)
               $("#workid").val(workid) //藏起來並存到資料庫
+                 }
               }
             })
 
             $("#savePunch").click(function(){
-              //判斷是否已有資料
+              var showSchedule =  $("#showSchedule").val();
+            
+              if(showSchedule == ""){
+                    alert("無任何排班紀錄!!");
+                    return;
+              }else if(showSchedule =="休假"){
+                    alert("休假中，無須打卡!!");
+                    return;
+              }
+                //判斷是否已有資料
                 $.ajax({
                 url: "${contextRoot}/confirmPunch?year=" + yy + "&month=" + mm +"&day="+dd+"&employeeid="+employeeid,
                 type: "get",
                 contentType: 'application/json',
                 success: function (result) {
-                  var punchstatus = result[0].punchstatus
-                  // let punchstatus = result.punchStatus;
-                  // console.log("punchstatus:"+punchstatus)
-                  if(punchstatus=='in'|| punchstatus=='out'){
+                  console.log(result)
+                  if(result.length<2){           
+                    $.ajax({
+                    url:"${contextRoot}/savePunchCard",
+                    type:"POST",
+                    data: $("form").serialize(),
+                    success:function(result){
+                      Swal.fire({
+                      icon: 'success',
+                      title: '新增成功',
+                      showConfirmButton: false,
+                      timer: 2000
+				          })
+                }
+              })
+          }else{
+            $.each(result,(index,value)=>{
+              var punchstatus = value.punchstatus;
+              console.log(punchstatus)
+              if(punchstatus=='in'){
                 if(confirm('有重複打卡需要再次送出嗎?')){          
                   $.ajax({
                     url:"${contextRoot}/savePunchCard",
                     type:"POST",
                     data: $("form").serialize(),
-                    success:function(result){
+                    success:function(result){  
+                       Swal.fire({
+                      icon: 'success',
+                      title: '打卡成功',
+                      showConfirmButton: false,
+                      timer: 2000  
+				          })
+                }
+              })
+            }
+            else {
+            if(punchstatus=='out'){
+                if(confirm('有重複打卡需要再次送出嗎?')){          
+                  $.ajax({
+                    url:"${contextRoot}/savePunchCard",
+                    type:"POST",
+                    data: $("form").serialize(),
+                    success:function(result){  
+                       Swal.fire({
+                      icon: 'success',
+                      title: '打卡成功',
+                      showConfirmButton: false,
+                      timer: 2000
+				          })
                 }
               })
             }
           }
+          } 
+          } 
+         })
         }
-      })
-
-     })
-
+      }
+    })
+  })
             function findCard(){
-				$("#empInquireModal").modal({
-          
-			});
+		
               var NowDate=new Date();
               var yy=NowDate.getFullYear();
               var mm=NowDate.getMonth()+1;
@@ -351,7 +405,10 @@
 				type: "get",
 				contentType: 'application/json',
 				success: function (result) {  
+          if(result.length >0 ){ 
+            $("#empInquireModal").modal({
           
+        });
           $.each(result, (index, value) => {
             let punchstatus = value.punchstatus=='in'?'上班':'下班';
 
@@ -398,7 +455,10 @@
             theTr_titel.appendChild(theTdtime);
             thePunchTable.appendChild(theTr_titel);
             // $("#punchtable").innerHTML+=theTr_titel;     
-        })       
+        })     
+      }else{
+        alert("無任何打卡紀錄!");
+      }
 				}
 			});
 	};

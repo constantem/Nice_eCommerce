@@ -139,7 +139,7 @@ public class EmployeeController {
 	public Page<Employee> postEmployeeApi(@RequestParam(name = "page", defaultValue = "1") Integer pageNumber,
 			Integer size) {
 
-		Page<Employee> page = employeeService.findByPage(pageNumber, size);
+		Page<Employee> page = employeeService.findByPageNot1001(pageNumber, size);
 
 		return page;
 	}
@@ -190,11 +190,6 @@ public class EmployeeController {
 
 		} catch (Exception e) {
 		}
-//		System.out.print(request.getSession().getServletContext().getContextPath()+fileName);
-//		System.out.println("request.getSession():"+request.getSession());
-//		System.out.println("request..getServletContext():"+request.getServletContext());
-//		System.out.println("request.getContextPath():"+request.getContextPath());
-		
 		// 使用 HashMap 裝兩個物件  (key,value)<<<重點
 		Map<String,String> map = new HashMap<>();
 		map.put("fileName",fileName);
@@ -206,7 +201,7 @@ public class EmployeeController {
 	@ResponseBody
 	@GetMapping("/empname")
 	public List<Employee>EmpName(){
-		List<Employee>list = employeeService.findAllEmp();
+		List<Employee>list = employeeService.findAllEmpNot1001();
 		
 		return list;
 		

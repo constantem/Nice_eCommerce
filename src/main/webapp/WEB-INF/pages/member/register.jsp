@@ -50,6 +50,15 @@
 	href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
 <link rel="stylesheet"
 	href="${contextRoot}/resources/frontstage/css/main.css">
+<style type="text/css">
+.personal{
+	font-weight:bold;
+}	
+
+.personalJoin{
+margin:auto;
+}
+</style>
 </head>
 
 <body>
@@ -138,9 +147,9 @@
 		<div class="container">
 			<div class="returning_customer">
 				<div class="check_title">
-					<h2>
-						<a href="${contextRoot}/userLogin">登入</a>
-					</h2>
+					
+<%-- 		<a href="${contextRoot}/userLogin">登入</a> --%>
+				
 				</div>
 <!-- 				<p>如果你忘記了，那讓我們來新增你的記憶，如果你只是害怕想起來，那讓我們來幫助你吧!</p> -->
 <%-- 	                <form class="row contact_form" action="${contextRoot}/userLoginAuthenticate" method="post" novalidate="novalidate"> --%>
@@ -166,8 +175,10 @@
 			<!-- 註冊表單 -->
 			<div class="billing_details">
 				<div class="row">
-					<div class="col-lg-8">
-						<h3>加入我們</h3>
+					<div class="col-lg-8 personalJoin">
+					
+						<h3 class="personal">加入我們</h3>
+						
 						<form id="registerForm"
 							class="row contact_form"
 							action="${contextRoot}/member/registerAdd"

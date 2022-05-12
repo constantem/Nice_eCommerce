@@ -29,12 +29,12 @@
 <!-- 原生 icon -->
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script -->
+<!-- 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<!-- <script -->
+<!-- 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	 -->
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <style>
@@ -635,11 +635,11 @@ height: 80px;;
 	</div>
 
 	<!-- Scripts below are for demo only -->
-	<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous">
-	</script>
+<!-- 	<script -->
+<!-- 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" -->
+<!-- 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" -->
+<!-- 			crossorigin="anonymous"> -->
+<!-- 	</script> -->
  
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
@@ -708,8 +708,6 @@ height: 80px;;
 
 	<!------------------------------ JS------------------------------------------------ -->
 	<script src="${contextRoot}/resources/js/main.min.js?v=1628755089081"></script>
-	<script src="${contextRoot}/resources/js/chart.sample.js"></script>
-	<script src="${contextRoot}/resources/js/chart.sample.min.js"></script>
 	<script src="${contextRoot}/resources/js/main.js"></script>
 	<script src="${contextRoot}/resources/js/main.min.js"></script>
 	<script src="${contextRoot}/resources/js/jquery-3.6.0.js"></script>

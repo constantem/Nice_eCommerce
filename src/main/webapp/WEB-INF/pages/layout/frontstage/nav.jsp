@@ -57,7 +57,7 @@
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					 aria-expanded="false">實體健身房</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/course/list/all">課程一覽</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/info/course/list/all">課程一覽</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/blog.html">交通方式</a></li>
 					</ul>
 				</li>

@@ -176,6 +176,7 @@ public class MemberController {
 			@RequestParam("firstname") String firstname,
 			@RequestParam("phone") String phone,
 			@RequestParam("birthdate") String birthdate,
+			@RequestParam("gender") String gender,
 			@RequestParam("email") String email,
 			@RequestParam("address") String address,
 			@RequestParam(name = "id") Integer id) {
@@ -183,6 +184,7 @@ public class MemberController {
 		Member member = memberService.findById(id);
 		member.setLastname(lastname);
 		member.setFirstname(firstname);
+		member.setGender(gender);
 		member.setEmail(email);
 		member.setAddress(address);
 		member.setBirthdate(birthdate);

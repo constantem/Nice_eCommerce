@@ -51,6 +51,7 @@ $(document).ready(function () {
 				$("#memberFullName", trClone).text(courseBookingDto.memberFullName);
 				$("#courseName", trClone).text(courseBookingDto.courseName);
 				$("#bookingStatus", trClone).text(courseBookingDto.bookingStatus);
+				$("#paymentStatus", trClone).text(courseBookingDto.paymentStatus);
 				if(courseBookingDto.modifiedAt==null) { // 從未編輯, 用 createdAt
 					$("#createdAtOrModifiedAt", trClone).find("small").text(courseBookingDto.createdAt);
 				} else { // 編輯過, 用 modifiedAt
@@ -133,6 +134,7 @@ $(document).ready(function () {
             <th>會員姓名</th>
             <th>課程名稱</th>
             <th>訂單狀態</th>
+            <th>付款狀態</th>
             <th>建檔/編輯日期</th>
             <th></th>
           </tr>
@@ -153,6 +155,7 @@ $(document).ready(function () {
 		            <td id="memberFullName"></td>
 		            <td id="courseName"></td>
 		            <td id="bookingStatus"></td>
+		            <td id="paymentStatus"></td>
 		            <td id="createdAtOrModifiedAt">
 		              <small class="text-gray-500"></small>
 		            </td>

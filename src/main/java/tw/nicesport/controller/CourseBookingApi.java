@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.nicesport.dto.CourseBookingDto;
+import tw.nicesport.model.Course;
 import tw.nicesport.model.CourseBooking;
 import tw.nicesport.model.Member;
 import tw.nicesport.service.CourseBookingService;
+import tw.nicesport.service.CourseService;
 import tw.nicesport.service.MemberService;
 
 @RestController // REST 寫法
@@ -28,6 +30,9 @@ public class CourseBookingApi {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CourseService courseService;
 	
 	// 新增
 	@PostMapping("/api/courseBooking")
@@ -64,6 +69,7 @@ public class CourseBookingApi {
 			);
 			courseBookingDto.setCourseName(courseBooking.getCourse().getCourseName());
 			courseBookingDto.setBookingStatus(courseBooking.getBookingStatus());
+			courseBookingDto.setPaymentStatus(courseBooking.getPaymentStatus());
 			courseBookingDto.setCreatedAt(courseBooking.getCreatedAt());
 			courseBookingDto.setModifiedAt(courseBooking.getModifiedAt());
 			courseBookingDtoList.add(courseBookingDto);
@@ -130,6 +136,44 @@ public class CourseBookingApi {
 	@DeleteMapping("/api/courseBooking/{id}")
 	public void deleteOne(@PathVariable("id") Integer id) {
 		courseBookingService.deleteOne(id);
+	}
+	
+	// 查詢會員及課程, 包在 dto
+	@GetMapping("/api/courseBooking/member/{memberId}/course/{courseId}")
+	public CourseBookingDto memberAndCourse(
+			@PathVariable("memberId") Integer memberId,
+			@PathVariable("courseId") Integer courseId) {
+
+		// find member by id
+		Member member = memberService.findById(memberId);
+		
+		// find member by id
+		Course course = courseService.queryById(courseId);
+		
+		// set courseBookingDto list
+		CourseBookingDto courseBookingDto = new CourseBookingDto();
+		// member id
+		courseBookingDto.setMemberId(member.getMemberid());
+		// member full name
+		courseBookingDto.setMemberFullName(
+			Objects.toString( member.getLastname() , "")
+			+
+			Objects.toString( member.getFirstname() , "")
+		);
+		// course id
+		courseBookingDto.setCourseId(courseId);
+		// course name
+		courseBookingDto.setCourseName(course.getCourseName());
+		// coach name
+		courseBookingDto.setCoachFullName(
+			Objects.toString( course.getCoach().getLastName() , "")
+			+
+			Objects.toString( course.getCoach().getFirstName() , "")
+		);
+		// course price
+		courseBookingDto.setCoursePrice(course.getCoursePrice());
+
+		return courseBookingDto;
 	}
 	
 }

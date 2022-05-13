@@ -21,6 +21,7 @@ public class CourseBookingDto {
 	private String memberFullName;
 	private Integer courseId;
 	private String courseName;
+	private String coachFullName;
 	private String courseDescription;
 	private String coursePictureBase64;
 	private Integer coursePrice;
@@ -104,5 +105,17 @@ public class CourseBookingDto {
 	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
-	
+	public String getCourseDescription() {
+		return courseDescription;
+	}
+	public void setCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+	}
+	public String getCoachFullName() {
+		return coachFullName;
+	}
+	public void setCoachFullName(String coachFullName) {
+		this.coachFullName = coachFullName;
+	}
+
 }

@@ -61,7 +61,7 @@ $(document).ready(function () {
 			icon: "error",
 			confirmButtonText: "回首頁"
 		});
-	}
+	} 
 });
 </script>
   

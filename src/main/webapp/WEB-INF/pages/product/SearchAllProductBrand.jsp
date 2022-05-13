@@ -625,7 +625,11 @@ height: 80px;;
 
               <form>
 
+<<<<<<< HEAD
                 <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
+=======
+               <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
+>>>>>>> 1b183d788f552c6289eec1e599e9d95cbdc694c1
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
                 </div>

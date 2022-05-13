@@ -7,12 +7,14 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.nicesport.dto.CourseDto;
 import tw.nicesport.model.Coach;
 import tw.nicesport.model.Course;
 import tw.nicesport.service.CoachService;
+import tw.nicesport.service.CourseBookingService;
 import tw.nicesport.service.CourseService;
 
 @RestController // REST 寫法
@@ -21,11 +23,53 @@ public class CourseApi {
 	@Autowired
 	private CourseService courseService;
 	
-	// 查詢全部
+	@Autowired
+	private CourseBookingService courseBookingService;
+	
+	// 查詢全部(整併 by member id 功能)
 	@GetMapping("/api/course")
 	public List<CourseDto> findAll() {
+
+		// 正常查找 course list
 		List<Course> courses = courseService.queryAll();
+				
+		List<CourseDto> courseDtoList = toCourseDto(courses);
+
+		return courseDtoList;
+	}
+	
+	// 查詢全部(整併 by member id 功能)
+	@GetMapping("/api/course/member/{memberId}")
+	public List<CourseDto> findAllByMemberId(@PathVariable(name="memberId",required=false) Integer memberId) {
+
+		// 正常查找 course list
+		List<Course> courses = courseService.queryAll();
+				
+		// 找此 member 報名的課程
+		List<Integer> courseIdListByThisMember;
+		if(memberId!=null) {
+			courseIdListByThisMember = courseBookingService.findCourseListRegisteredByGivenMember(memberId);
+		} else {
+			courseIdListByThisMember = null;
+		}
+		System.out.println("courseIdListByThisMember");
+		System.out.println(courseIdListByThisMember);
 		
+		List<CourseDto> courseDtoList = toCourseDto(courses);
+
+		for(CourseDto courseDto : courseDtoList) {
+			courseDto.setIsRegisteredByThisMember(false);
+			if(
+					courseIdListByThisMember.contains( courseDto.getCourseId() )
+				) {
+				courseDto.setIsRegisteredByThisMember(true);
+			}
+		}
+		
+		return courseDtoList;
+	}
+	
+	private List<CourseDto> toCourseDto(List<Course> courses) {
 		// 轉 dto
 		List<CourseDto> courseDtoList = new ArrayList<>();
 		for(Course course : courses) {
@@ -56,6 +100,8 @@ public class CourseApi {
 			courseDto.setCoursePeriod( course.getCoursePeriod() );
 			// coursePrice
 			courseDto.setCoursePrice( course.getCoursePrice() );
+			// course remaining places
+			courseDto.setCourseRemainingPlaces( course.getRemainingPlaces() );
 			///////////////轉base64開始///////////////
 			// 課程圖片
 			if(course.getPicture()==null) { // null 不轉
@@ -77,6 +123,7 @@ public class CourseApi {
 			
 			courseDtoList.add(courseDto);
 		}
+		
 		return courseDtoList;
 	}
 }

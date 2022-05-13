@@ -19,7 +19,7 @@ public class MemberJavaMail {
 	private String userName = "eeit140777@gmail.com"; // 寄件者信箱
 	private String password = "jywyjehabdqrtrmq"; // 寄件者密碼
 //	private String customerEmail = "eeit140777@gmail.com"; // 收件者郵箱
-	private String subject = "這樣還可以忘記"; // 標題
+	private String subject = "Nice運動網會員密碼重置請求"; // 標題
 
 	private String txt = "<h3>重新設定您的密碼，請點擊以下的連結。您將會連到一個網頁，讓您設定新的密碼:</h3><br>";// 內容
 	private String linkTxt = "點擊連結";

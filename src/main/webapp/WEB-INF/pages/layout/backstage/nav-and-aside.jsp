@@ -43,7 +43,7 @@
         <a class="navbar-link" 
         	href="#">
           <div id="staffImgContainer" class="user-avatar isAuthenticatedAsStaff hideIfNotAuthenticatedAsStaff">
-            <img id="navStaffImg" src="" alt="John Doe" class="rounded-full">
+            <img id="navStaffImg" src="" alt="" class="rounded-full">
           </div>
           <div id="navStaffNameContainer" class="is-user-name">
           	<span id="navStaffName">尚未登入</span>
@@ -397,12 +397,19 @@
 				return response.json();
 			})
 			.then(function (profile) {
-				document.getElementById("navStaffName").textContent = profile.fullName;
-				if(profile.imgSrc != null) {
+				if(profile.fullName) {
+					document.getElementById("navStaffName").textContent = profile.fullName;
+				} else {
+					document.getElementById("navStaffName").textContent = "";
+				}
+				// 若有照片(的檔案)
+				if(profile.imgSrc) { // 不為 null, 已測試 imgSrc 若空, 為 null type (不是空字串或null string)
 					document.getElementById("navStaffImg").classList.remove("hideIfEmptyImg");
 					document.getElementById("navStaffImg").src = "${contextRoot}/upload/"+profile.imgSrc;
+				// 若無照片(的檔案)
 				} else {
 					document.getElementById("navStaffImg").classList.add("hideIfEmptyImg");
+					document.getElementById("navStaffImg").src = "";
 				}
 				
 			});
@@ -422,6 +429,8 @@
 		// 若後台角色未登入
 		} else {
 			
+			// 尚未登入狀態
+			document.getElementById("navStaffName").textContent = "尚未登入";
 			// 一定沒照片, 隱藏
 			document.getElementById("navStaffImg").classList.add("hideIfEmptyImg");
 			

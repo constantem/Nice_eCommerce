@@ -4,12 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-
-
-<!-- 這個檔案是給你給你複製貼上用的, 請創一個 jsp 檔, 將此檔全部內容複製貼在該 jsp 檔 -->
-
-
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -56,6 +50,17 @@ CSS
 		height:100%; 
 		object-fit: cover; 
 	}
+	
+	.disableIfRegistered {
+    	pointer-events: none;
+    	color: green !important;
+    	border-color: green !important;
+    }
+    
+    .aboutToFull {
+    	color: red;
+    }
+    
 </style>
 
 <!--jQuery CDN -->
@@ -67,12 +72,46 @@ CSS
 <script>
 $(document).ready(function () {
 	
-	// 請求 course list
+// 	$("#templateContainer").on("click", ".bookingFormLinkClass", function () {
+// 		Swal.fire({
+// 			text: "你已報名此課程"
+// 		});
+// 	});
+
+	// 報名錯誤訊息
+	if( $("#bookingErrorCourseName").val() ) {
+		Swal.fire({
+			text: "你已報名"+$("#bookingErrorCourseName").val()
+		}).then(function (result) {
+			if(result.isConfirmed) {
+				location.href=$("#contextRoot").val()+"/info/course/list/all";
+			}
+		});
+	}
+	
+	
+	// 請求並製造 course list
+	console.log("memberId");
+	console.log($("#memberId").val());
+	let getUrl;
+	if($("#memberId").val()) { // 若登入中, 則非 undefined
+		getUrl = $("#contextRoot").val() + "/api/course/member/" + $("#memberId").val();
+	} else { // 若非登入中, 則為 undefined
+		getUrl = $("#contextRoot").val() + "/api/course/";
+	}
+	console.log("getUrl");
+	console.log(getUrl);
 	$.ajax({
 		method: "GET", // api query
-		url: $("#contextRoot").val() + "/api/course",
+		url: getUrl,
 		success: function (courseDtoList) {
 			$(courseDtoList).each(function (index, courseDto) {
+				
+				// 若無餘額, 則下一筆
+				if(courseDto.courseRemainingPlaces == 0) {
+					return; // 等效於 continue, (cf return false 等效於 break)
+				}
+				
 				// 樣板
 				const articleTemplate = $("#article-template");
 				
@@ -99,14 +138,31 @@ $(document).ready(function () {
 				$("#coursePeriod", articleClone).text(courseDto.coursePeriod);
 				$("#coursePrice", articleClone).text(courseDto.coursePrice);
 
-				// 塞值給連結
-				$("#bookingFormLink", articleClone).attr("href", $("#contextRoot").val()+"/user/courseBookingForm?courseId="+courseDto.courseId);
-
+				// 若有會員登入，且此課程有報名了，則我要報名改已報名
+				console.log(courseDto.courseName);
+				console.log(courseDto.isRegisteredByThisMember);
+				if(courseDto.isRegisteredByThisMember) { // 為 true
+					$("#bookingFormLink", articleClone)
+						.addClass("disableIfRegistered")
+						.text("已報名");
+				// 若會員沒登入
+				} else { // 為 null 或 false
+					// 塞值給連結
+					$("#bookingFormLink", articleClone).attr("href", $("#contextRoot").val()+"/user/courseBookingForm?courseId="+courseDto.courseId);
+					// 即將額滿提醒
+					if(courseDto.courseRemainingPlaces <= 3) {
+						$("#warn", articleClone)
+							.text("(即將額滿)")
+							.addClass("aboutToFull");
+					}
+				}
+				
 				// 插在樣板前面
 				$( articleTemplate ).before( articleClone );
 			})
 		}
 	}); // find all 請求結束
+
 	
 }); // document ready 結束
 </script>
@@ -114,7 +170,10 @@ $(document).ready(function () {
 </head>
 
 <body>
-
+	<!-- 變數 -->
+	<input type="hidden" id="contextRoot" value="${contextRoot}">
+	<input type="hidden" id="memberId" value="${memberId}">
+	<input type="hidden" id="bookingErrorCourseName" value="${bookingErrorCourseName}">
     <!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -233,8 +292,8 @@ $(document).ready(function () {
 	                                            <h2 id="courseName"></h2>
 	                                        </a>
 	                                        <p id="courseDescription"></p>
-	                                        <a id="bookingFormLink" href="" class="white_bg_btn">
-	                                        	我要報名
+	                                        <a id="bookingFormLink" href="" class="white_bg_btn bookingFormLinkClass">
+	                                        	我要報名<span id="warn"></span>
 	                                        </a>
 	                                    </div>
 	                                </div>

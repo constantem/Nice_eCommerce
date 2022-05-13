@@ -46,7 +46,21 @@
 
 <script>
 $(document).ready(function () {
-
+	// 請求會員資訊與課程資訊
+	const memberAndCourseUrl = $("#contextRoot").val()+"/api/courseBooking/member/"+$("#memberId").val()+"/course/"+$("#courseId").val();
+	console.log(memberAndCourseUrl);
+	$.ajax({
+		method: "GET",
+		url: memberAndCourseUrl,
+		success: function (courseBookingDto) {
+			console.log(courseBookingDto.memberFullName);
+			$("#memberFullName").text(courseBookingDto.memberFullName);
+			$("#courseName").text(courseBookingDto.courseName);
+			$("#coachFullName").text(courseBookingDto.coachFullName);
+			$("#coursePrice").text(courseBookingDto.coursePrice);
+		}
+	});
+	
 });
 </script>
 
@@ -54,6 +68,7 @@ $(document).ready(function () {
 
 <body>
 
+	<input type="hidden" id="contextRoot" value="${contextRoot}">
     <!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -96,62 +111,29 @@ $(document).ready(function () {
                 <div class="row">
                     <div class="col-lg-6">
                         <h3>報名資訊</h3>
-                        <form id="courseBookingForm" modelAttribute="courseBookingDto"
+                        <form id="courseBookingForm" modelAttribute="courseBookingDtoForm"
                         	action="${contextRoot}/courseBooking/confirm" method="post" 
                         	class="row contact_form"  novalidate="novalidate">
                         	
                         	<!-- 隱藏 input 區 -->
-                        	<input type="hidden" name="memberId" value="${memberId}">
-                        	<input type="hidden" name="courseId" value="${courseId}">
+                        	<input type="hidden" id="memberId" name="memberId" value="${memberId}">
+                        	<input type="hidden" id="courseId" name="courseId" value="${courseId}">
                         	
+                        	<!-- 姓名 -->
                             <div class="col-md-6 form-group p_star">
-<%--                             	課程名稱: ${} --%>
-                                <input type="text" class="form-control" id="first" name="name">
-                                <span class="placeholder" data-placeholder="First name"></span>
+                                姓名：<span id="memberFullName"></span>
                             </div>
+                            <!-- 課程名稱 -->
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name">
-                                <span class="placeholder" data-placeholder="Last name"></span>
+                                課程名稱：<span id="courseName"></span>
                             </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="company" name="company" placeholder="Company name">
-                            </div>
+                            <!-- 教練姓名 -->
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number">
-                                <span class="placeholder" data-placeholder="Phone number"></span>
+                                教練姓名：<span id="coachFullName"></span>
                             </div>
+                            <!-- 價錢 -->
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="compemailany">
-                                <span class="placeholder" data-placeholder="Email Address"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">Country</option>
-                                    <option value="2">Country</option>
-                                    <option value="4">Country</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1">
-                                <span class="placeholder" data-placeholder="Address line 01"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add2" name="add2">
-                                <span class="placeholder" data-placeholder="Address line 02"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="city" name="city">
-                                <span class="placeholder" data-placeholder="Town/City"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">District</option>
-                                    <option value="2">District</option>
-                                    <option value="4">District</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
+                                價錢：<span id="coursePrice"></span>
                             </div>
                             <div class="col-md-12 form-group">
                                 <a class="primary-btn" href="javascript:void(0)" onclick="document.getElementById('courseBookingForm').submit();">報名</a>

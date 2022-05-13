@@ -502,8 +502,15 @@ height: 80px;;
 								<td data-label="productName">${prod.productName}</td>
 								<td data-label="productName">${prod.subCategory.name}</td>
 								<td data-label="City">${prod.supplier}</td>
-								<td data-label="City"><img alt="picture"
-									src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" /></td>
+								<td data-label="City">
+									<c:if test="${ not empty prod.imgUrl }">
+										<img alt="picture" src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" />
+									</c:if>
+									<c:if test="${ empty prod.imgUrl }">
+										<img alt="picture" src="" width="112" />
+									</c:if>
+									
+								</td>
 								<!-- 照片欄位 -->
 								<td data-label="Created">${prod.color}</td>
 								<td data-label="Created">${prod.size}</td>
@@ -581,7 +588,10 @@ height: 80px;;
 
               <form>
 
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 1b183d788f552c6289eec1e599e9d95cbdc694c1
                 <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
@@ -636,10 +646,17 @@ height: 80px;;
 
 	<!-- Scripts below are for demo only -->
 	<script
+<<<<<<< HEAD
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous">
   </script>
+=======
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous">
+	</script>
+>>>>>>> 1b183d788f552c6289eec1e599e9d95cbdc694c1
  
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>

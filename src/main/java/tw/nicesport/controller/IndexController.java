@@ -59,16 +59,17 @@ public class IndexController {
 				}
 		model.addAttribute("announcements", announcements);
 		
+		// 有例外處理後, 此處先去掉
 		/////////////// 首頁強制後台角色登出 /////////////////
-		if(authentication!=null) { // 沒登入時, authentication 為 null
-        	Set<String> roles = authentication.getAuthorities().stream()
-              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-
-            if(roles.contains("ROLE_EMPLOYEE")) { // 後台角色登入中, 包含 admin(也有 "ROLE_EMPLOYEE")
-            	request.logout(); // 登出後台角色, 以利前台再登入
-//            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
-            }
-    	}
+//		if(authentication!=null) { // 沒登入時, authentication 為 null
+//        	Set<String> roles = authentication.getAuthorities().stream()
+//              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+//
+//            if(roles.contains("ROLE_EMPLOYEE")) { // 後台角色登入中, 包含 admin(也有 "ROLE_EMPLOYEE")
+//            	request.logout(); // 登出後台角色, 以利前台再登入
+////            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
+//            }
+//    	}
 		
 		return "index";
 	}
@@ -84,16 +85,17 @@ public class IndexController {
 		// 例外處理將訊息帶到首頁
 		model.addAttribute("hasError", hasError);
 		
+		// 有例外處理後, 此處先去掉
 		// 後台首頁強制前台角色登出
-		if(authentication!=null) { // 沒登入時, authentication 為 null
-        	Set<String> roles = authentication.getAuthorities().stream()
-              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-
-            if(roles.contains("ROLE_USER")) { // 前台角色登入中
-            	request.logout(); // 登出前台角色, 以利後台再登入
-//            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
-            }
-    	}
+//		if(authentication!=null) { // 沒登入時, authentication 為 null
+//        	Set<String> roles = authentication.getAuthorities().stream()
+//              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+//
+//            if(roles.contains("ROLE_USER")) { // 前台角色登入中
+//            	request.logout(); // 登出前台角色, 以利後台再登入
+////            	new SecurityContextLogoutHandler().logout(request, null, null); // 法二
+//            }
+//    	}
 		
 		return "index-backstage";
 	}

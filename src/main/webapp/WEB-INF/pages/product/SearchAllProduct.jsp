@@ -34,7 +34,7 @@
 <!-- <script -->
 <!-- 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <style>

@@ -38,7 +38,6 @@
 				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					 aria-expanded="false">好康優惠</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/discount/showADs-front">優惠券一覽</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/announcement/showEvents-front">活動一覽</a></li>
 					</ul>
 				</li>

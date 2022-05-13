@@ -366,7 +366,7 @@
       <p>即將<b>登出</b>並前往前台</p>
     </section>
     <footer class="modal-card-foot">
-	  <button class="button blue --jb-modal-close" onclick="location.href='${contextRoot}/'">登出並前往</button>
+	  <button class="button blue --jb-modal-close" onclick="location.href='${contextRoot}/staffLogoutAndToFrontstage'">登出並前往</button>
       <button class="button --jb-modal-close">取消</button>
     </footer>
   </div>

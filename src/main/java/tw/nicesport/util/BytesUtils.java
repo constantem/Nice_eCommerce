@@ -2,6 +2,7 @@ package tw.nicesport.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,5 +30,9 @@ public class BytesUtils {
 		inStream.close();
 		
 		return bytes;
+	}
+	
+	public static String toBase64(byte[] bytes) {
+		return Base64.getEncoder().encodeToString(bytes);
 	}
 }

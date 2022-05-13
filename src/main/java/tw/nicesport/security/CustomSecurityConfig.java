@@ -35,7 +35,6 @@ import org.springframework.security.web.savedrequest.RequestCache;
 @ComponentScan("tw.nicesport")
 public class CustomSecurityConfig {
 
-	
 	/////////////////////////////////////////
 	//                                     //
 	//   spring security configuration 1   //
@@ -220,7 +219,7 @@ public class CustomSecurityConfig {
 					
 					// 以下 url 為前端請求, 不必被驗證
 					.antMatchers("/staff/role").permitAll() // 前端對後端的 role 請求不擋
-					.antMatchers("/staff/fullName").permitAll() // 測試用
+					.antMatchers("/staff/fullName").permitAll() // 前端對後端的個資的請求
 					
 					/////////////////////////////////////////////////////////////////////
 					// 其他符合 "/staff*/**" 的 url 需要被驗證, 且角色為 ADMIN 或 EMPLOYEE //
@@ -393,6 +392,7 @@ public class CustomSecurityConfig {
 					.antMatchers("/user*/**")
 					.antMatchers("/info*/**") // 前台不需登入驗證的 url
 					.antMatchers("/") // 前台首頁
+					.antMatchers("/img/**")
 				.and()
 				
 				// 以下規定被攔截的 url 是否要被驗證擋
@@ -404,9 +404,11 @@ public class CustomSecurityConfig {
 					// 以下 url 為登入相關, 不必被驗證
 					.antMatchers("/userLogin*").permitAll()
 					
-					// 以下 url 為登入相關, 不必被驗證
+					// 以下 url 為登出相關, 不必被驗證
 					.antMatchers("/userLogout*").permitAll()
 					
+					// 以下靜態資源相關, 不必被驗證
+					.antMatchers("/img/**").permitAll()
 					
 					// 以下 url 為前端請求, 不必被驗證
 					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求

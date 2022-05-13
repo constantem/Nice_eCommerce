@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,8 @@ public class ErrorPageController implements ErrorController {
 	public String toIndexWithErrorMessage(
 			ModelAndView mav,
 			RedirectAttributes redirectAttributes,
-			@RequestParam(name="hasError",required=false) String hasError) {
+			@RequestParam(name="hasError",required=false) String hasError,
+			HttpServletRequest request) {
 		
 		if(hasError != null) {
 			if(hasError.equals("adminDeny") || hasError.equals("employeeDeny")) {
@@ -29,7 +32,6 @@ public class ErrorPageController implements ErrorController {
 			}
 		}
 
-		
     	// 若沒登入
 		redirectAttributes.addAttribute("hasError","泛用錯誤");
 		return "redirect:/";

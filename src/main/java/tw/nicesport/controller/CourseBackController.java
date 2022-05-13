@@ -41,19 +41,17 @@ import tw.nicesport.model.Member;
 import tw.nicesport.model.Room;
 import tw.nicesport.service.CourseService;
 import tw.nicesport.service.MemberService;
+import tw.nicesport.util.BytesUtils;
 import tw.nicesport.util.RandomUtils;
 
 @Controller
-public class CourseController {
+public class CourseBackController {
 	
 	@Autowired
 	private CourseService courseService;
 	
 	@Autowired
 	private MemberService memberService;
-	
-	@Autowired
-	ServletContext servletContext; 
 	
 	@RequestMapping("/staff/course/form")
 	public String showCourseForm(Model model) {
@@ -74,7 +72,7 @@ public class CourseController {
 			@RequestParam("pictureFile") MultipartFile pictureFile) throws IOException {
 		
 		// MultipartFile 轉 bytes, 若 fileName 為 null 或空, 則 bytes 為 null
-		byte[] bytes = multipartFileToBytes(pictureFile);
+		byte[] bytes = BytesUtils.multipartFileToBytes(pictureFile);
 		course.setPicture(bytes);
 		
 		if(br.hasErrors()) {
@@ -94,54 +92,6 @@ public class CourseController {
 		} else {
 			return "新增失敗";
 		}
-	}
-	
-	// fileName 沒有則回傳 null
-	private byte[] multipartFileToBytes(
-			MultipartFile multipartFile) throws IOException {
-		
-		// 檔名
-		String fileName = multipartFile.getOriginalFilename();
-		System.out.println("fileName===>"+fileName);
-		
-		// 檔名為空
-		if(fileName == null || fileName.trim().isEmpty()) {
-			return null;
-		}
-		
-		// 從檔案變串流
-		InputStream inStream = multipartFile.getInputStream();
-		
-		// 從串流變 bytes
-		byte[] bytes = new byte[inStream.available()]; // 空的 bytes
-		inStream.read(bytes); // 從串流讀進 bytes
-		inStream.close();
-		
-		return bytes;
-	}
-	
-	private String toBase64(byte[] bytes) {
-		return Base64.getEncoder().encodeToString(bytes);
-	}
-	
-	private String upLoadImageAsTempFile(
-			@RequestParam("profileFile") MultipartFile profileFile) throws IllegalStateException, IOException {
-		
-		// 檔名
-		String fileName = profileFile.getOriginalFilename();
-		System.out.println("fileName===>"+fileName);
-		
-		// 暫存檔路徑
-		String tempSavedPath = 
-				servletContext.getRealPath("/") 
-				+ "resources/courseImg/" + fileName;
-		
-		// 串流變暫存檔
-		File tempSavedFile = new File(tempSavedPath);
-		profileFile.transferTo(tempSavedFile);
-		System.out.println("savedFile===>"+tempSavedFile);
-		
-		return fileName;
 	}
 	
 	@RequestMapping("/course/autoinput")
@@ -270,22 +220,6 @@ public class CourseController {
 		return "course/show-a-course";
 	}
 	
-	// 前台轉跳 course detail
-	@RequestMapping("/course/detail/{id}")
-	public String detailCourseJsp(
-		@PathVariable(name="id") Integer id,
-		Model model) {		
-		model.addAttribute("id",id);
-		return "course/detail-a-course-front";
-	}
-	
-	// 前台 course detail (用 Ajax) 
-	@RequestMapping("/course/detail/data")
-	@ResponseBody
-	public Course detailCourseJson(@RequestBody Integer id) {		
-		return courseService.queryById(id);
-	}
-
 	// 後台單一課程編輯
 	@RequestMapping("/course/update/{id}")
 	public String updateOneCourse(
@@ -296,7 +230,7 @@ public class CourseController {
 			Model model) throws IOException {	
 
 		// MultipartFile 轉 bytes, 若 fileName 為 null 或空, 則 bytes 為 null
-		byte[] bytes = multipartFileToBytes(pictureFile);
+		byte[] bytes = BytesUtils.multipartFileToBytes(pictureFile);
 		
 		// 若 input file 有值, 則用此新圖
 		if( bytes!=null )  {
@@ -348,13 +282,5 @@ public class CourseController {
 	public void deleteOneCourseAjax(@PathVariable("id") Integer id) {		
 		courseService.deleteById(id);
 	}
-	
-	// 前端課程
-	@RequestMapping("/course/list/all")
-	public String showAllCoursesInFront(Model model) {	
-		List<Course> courses = courseService.queryAll();
-		model.addAttribute("courses", courses);
-		return "course/list-all-courses-front";
-	}
-	
+		
 }

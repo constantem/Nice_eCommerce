@@ -27,6 +27,8 @@ public class CourseDto {
 	private Integer courseClassAmount;
 	private String coursePeriod;
 	private Integer coursePrice;
+	private Boolean isRegisteredByThisMember;
+	private Integer courseRemainingPlaces;
 	
 	public CourseDto() {
 	}
@@ -109,4 +111,17 @@ public class CourseDto {
 	public void setCoachProfileBase64(String coachProfileBase64) {
 		this.coachProfileBase64 = coachProfileBase64;
 	}
+	public Boolean getIsRegisteredByThisMember() {
+		return isRegisteredByThisMember;
+	}
+	public void setIsRegisteredByThisMember(Boolean isRegisteredByThisMember) {
+		this.isRegisteredByThisMember = isRegisteredByThisMember;
+	}
+	public Integer getCourseRemainingPlaces() {
+		return courseRemainingPlaces;
+	}
+	public void setCourseRemainingPlaces(Integer courseRemainingPlaces) {
+		this.courseRemainingPlaces = courseRemainingPlaces;
+	}
+	
 }

@@ -263,7 +263,10 @@ public class UserLoginController {
 	
 	// 前端我的課程: 中間站
 	@RequestMapping("/user/myCoursebooking")
-	public String showMyCourse(Principal principal, Authentication authentication, Model model) throws Exception {
+	public String showMyCourse(
+			Principal principal, 
+			Authentication authentication, 
+			Model model) throws Exception {
 		String username = principal.getName();
 		Member member = loginService.findMemberByUsername(username);
 		return "forward:/user/myCoursebookingByMemberId?id="+member.getMemberid();

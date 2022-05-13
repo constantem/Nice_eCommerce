@@ -95,7 +95,7 @@ $(document).ready(function () {
 			icon: "error",
 			confirmButtonText: "回後台首頁"
 		});
-	}
+	} 
 });
 </script>
   

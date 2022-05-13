@@ -80,15 +80,31 @@ public class StaffLoginController {
     @RequestMapping("/staff/fullName")
     @ResponseBody
     public Map<String,String> currentFullName(Principal principal) throws NumberFormatException, Exception {
-		String username = principal.getName();
+		
+    	// 若登出狀態(理論上不會, 因為必是確認登入狀態才呼叫此方法)
+    	if(principal==null) {
+    		Map<String,String> profile = new HashMap<>();
+    		profile.put("isStaff", "false");
+    		profile.put("fullName", null);
+    		profile.put("imgSrc", null);
+    		return profile;
+		} 
+    	
+    	// 若登入中
+    	String username = principal.getName();
 		Employee employee = loginService.findEmployeeByUsername(Integer.parseInt(username));
 		String fullName = 
 				Objects.requireNonNullElse(employee.getLastName(), "") +
 				Objects.requireNonNullElse(employee.getFirstName(), "");
 		Map<String,String> profile = new HashMap<>();
+		profile.put("isStaff", "true");
 		profile.put("fullName", fullName);
+		System.out.println("===================employee.getImg()=================");
+		System.out.println(employee.getImg());
 		profile.put("imgSrc", employee.getImg());
+		System.out.println(profile);
 		return profile;
+
     }
     
 	// 後端我(員工)的資料: 中間站

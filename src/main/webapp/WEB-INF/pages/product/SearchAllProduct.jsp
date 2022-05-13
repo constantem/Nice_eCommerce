@@ -581,7 +581,8 @@ height: 80px;;
 
               <form>
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="nikeLable">NIKE</label></a>
+                
+                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
                 </div>
@@ -591,11 +592,10 @@ height: 80px;;
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><img id="newBalance"  src="${contextRoot}/img/logo/new-balance.jpg"></a>
                 </div>
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="mYPROTEINLable">MYPROTEIN</label></a>
+                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><label id="mYPROTEINLable">MYPROTEIN</label></a>
                 <div class="mb-3"  style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><img id="mypro"  src="${contextRoot}/img/logo/MYPROTEIN.jpg"></a>
                 </div>
-
                 
               </form>
             </div>
@@ -635,11 +635,11 @@ height: 80px;;
 	</div>
 
 	<!-- Scripts below are for demo only -->
-<!-- 	<script -->
-<!-- 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" -->
-<!-- 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" -->
-<!-- 			crossorigin="anonymous"> -->
-<!-- 	</script> -->
+	<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous">
+  </script>
  
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>

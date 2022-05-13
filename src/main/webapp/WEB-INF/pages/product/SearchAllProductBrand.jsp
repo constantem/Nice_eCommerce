@@ -625,7 +625,7 @@ height: 80px;;
 
               <form>
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="nikeLable">NIKE</label></a>
+                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
                 </div>
@@ -635,7 +635,7 @@ height: 80px;;
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><img id="newBalance"  src="${contextRoot}/img/logo/new-balance.jpg"></a>
                 </div>
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="mYPROTEINLable">MYPROTEIN</label></a>
+                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><label id="mYPROTEINLable">MYPROTEIN</label></a>
                 <div class="mb-3"  style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><img id="mypro"  src="${contextRoot}/img/logo/MYPROTEIN.jpg"></a>
                 </div>

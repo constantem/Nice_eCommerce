@@ -83,8 +83,8 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<section class="is-title-bar">
 	  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 	    <ul>
-	      <li>後台</li>
-	      <li>新增會員</li>
+	      <li>管理系統</li>
+	      <li>會員管理</li>
 	    </ul>
 	  </div>
 	</section>

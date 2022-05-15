@@ -68,7 +68,17 @@
 	<div id="app">
 
 		<!-- 插入上導覽列與左導覽列 -->
-		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		<jsp:directive.include
+			file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>會員管理</li>
+				</ul>
+			</div>
+		</section>
 
 		<!-- 章節層級 -->
 		<section class="is-title-bar">
@@ -76,220 +86,200 @@
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<ul>
 					<li>修改會員資料</li>
-				
+
 				</ul>
-				<a href="https://justboil.me/"
-					onclick="alert('Coming soon'); return false" target="_blank"
-					class="button blue"> <span class="icon"><i
-						class="mdi mdi-credit-card-outline"></i></span> <span>Premium Demo</span>
-				</a>
+
 			</div>
 		</section>
 
 		<!-- 核心內容標題 -->
-		
+
 
 		<!-- 原核心內容的 section 開始 -->
-<!-- 		<section class="section main-section"> -->
-<!-- 		  <div class="card mb-6"> -->
-<!-- 		    <header class="card-header"> -->
-<!-- 		      <p class="card-header-title"> -->
-<!-- 		        <span class="icon"><i class="mdi mdi-ballot"></i></span> -->
-<!-- 		        修改會員 -->
-<!-- 		      </p> -->
-<!-- 		    </header> -->
-		    <div class="card-content">
-		    
-		      <form action="${contextRoot}/member/editMember?id=${member.memberid}" method="post">
-		      
-		      	<!-- 欄位1 -->
-		       <div class="field">
-		         <label class="label">編號</label>
-		
-		         <div class="control">
-		         	${member.memberid}
-				<input type="hidden" name="memberid" id="memberid" value="${member.memberid}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		
-		      	<!-- 欄位2 -->
-		       <div class="field">
-		         <label class="label">帳號</label>
-		
-		         <div class="control">
-		         	${member.username}
-				<input type="hidden" name="username" id="username" value="${member.username}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位3 -->
-		       <div class="field">
-		         <label class="label">密碼</label>
-		         <div class="control">
-		           <input class="input" type="text" name="password" id="password" value="${member.password}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位4 -->
-		       <div class="field">
-		         <label class="label">姓</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="lastname" id="lastname" value="${member.lastname}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位5 -->
-		       <div class="field">
-		         <label class="label">名</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="firstname" id="firstname" value="${member.firstname}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		          
-		      	<!-- 欄位6 -->
-		       <div class="field">
-		         <label class="label">生日</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="birthdate" id="birthdate" value="${member.birthdate}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位7 -->
-		       <div class="field">
-		         <label class="label">性別</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="gender" id="gender" value="${member.gender}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位8 -->
-		       <div class="field">
-		         <label class="label">電話</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="phone" id="phone" value="${member.phone}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位9 -->
-		       <div class="field">
-		         <label class="label">email</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="email" id="email" value="${member.email}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		      	<!-- 欄位10 -->
-		       <div class="field">
-		         <label class="label">住址</label>
-		
-		         <div class="control">
-		           <input class="input" type="text" name="address" id="address" value="${member.address}">
-		         </div>
-		         <p class="help">
-		           
-		         </p>
-		       </div>
-		       
-		        <hr>
-		
-		        <div class="field grouped">
-		          <div class="control">
-		            <button type="submit" id="btn1" class="button green">
-		              確認
-		            </button>
-		          </div>
-		          <div class="control">
-		            <button type="reset" class="button red" id="reset">
-		              清除
-		            </button>
-		          </div>
-		          <div class="field grouped">
-		          <div class="control">
-		            <button type="submit" class="button green">
-		              返回
-		            </button>
-		          </div>
-		        </div>
-		        </div>
-		      </form>
-		    </div>
-		  </div>
-		</section>
-		<!-- 原核心內容的 section 結束 -->
+		<!-- 		<section class="section main-section"> -->
+		<!-- 		  <div class="card mb-6"> -->
+		<!-- 		    <header class="card-header"> -->
+		<!-- 		      <p class="card-header-title"> -->
+		<!-- 		        <span class="icon"><i class="mdi mdi-ballot"></i></span> -->
+		<!-- 		        修改會員 -->
+		<!-- 		      </p> -->
+		<!-- 		    </header> -->
+		<div class="card-content">
 
-		<!-- 插入頁腳 -->
-		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
+			<form action="${contextRoot}/member/editMember?id=${member.memberid}"
+				method="post">
 
-		<div id="sample-modal" class="modal">
-			<div class="modal-background --jb-modal-close"></div>
-			<div class="modal-card">
-				<header class="modal-card-head">
-					<p class="modal-card-title">Sample modal</p>
-				</header>
-				<section class="modal-card-body">
-					<p>
-						Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-					</p>
-					<p>This is sample modal</p>
-				</section>
-				<footer class="modal-card-foot">
-					<button class="button --jb-modal-close">Cancel</button>
-					<button class="button red --jb-modal-close">Confirm</button>
-				</footer>
-			</div>
+				<!-- 欄位1 -->
+				<div class="field">
+					<label class="label">編號</label>
+
+					<div class="control">
+						${member.memberid} <input type="hidden" name="memberid"
+							id="memberid" value="${member.memberid}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位2 -->
+				<div class="field">
+					<label class="label">帳號</label>
+
+					<div class="control">
+						${member.username} <input type="hidden" name="username"
+							id="username" value="${member.username}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位3 -->
+				<div class="field">
+					<label class="label">密碼</label>
+					<div class="control">
+						<input class="input" type="text" name="password" id="password"
+							value="${member.password}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位4 -->
+				<div class="field">
+					<label class="label">姓</label>
+
+					<div class="control">
+						<input class="input" type="text" name="lastname" id="lastname"
+							value="${member.lastname}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位5 -->
+				<div class="field">
+					<label class="label">名</label>
+
+					<div class="control">
+						<input class="input" type="text" name="firstname" id="firstname"
+							value="${member.firstname}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位6 -->
+				<div class="field">
+					<label class="label">生日</label>
+
+					<div class="control">
+						<input class="input" type="text" name="birthdate" id="birthdate"
+							value="${member.birthdate}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位7 -->
+				<div class="field">
+					<label class="label">性別</label>
+
+					<div class="control">
+						<input class="input" type="text" name="gender" id="gender"
+							value="${member.gender}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位8 -->
+				<div class="field">
+					<label class="label">電話</label>
+
+					<div class="control">
+						<input class="input" type="text" name="phone" id="phone"
+							value="${member.phone}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位9 -->
+				<div class="field">
+					<label class="label">email</label>
+
+					<div class="control">
+						<input class="input" type="text" name="email" id="email"
+							value="${member.email}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<!-- 欄位10 -->
+				<div class="field">
+					<label class="label">住址</label>
+
+					<div class="control">
+						<input class="input" type="text" name="address" id="address"
+							value="${member.address}">
+					</div>
+					<p class="help"></p>
+				</div>
+
+				<hr>
+
+				<div class="field grouped">
+					<div class="control">
+						<button type="submit" id="btn1" class="button green">確認</button>
+					</div>
+					<div class="control">
+						<button type="reset" class="button red" id="reset">清除</button>
+					</div>
+					<div class="field grouped">
+						<div class="control">
+							<button type="submit" class="button green">返回</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
+	</div>
+	</section>
+	<!-- 原核心內容的 section 結束 -->
 
-		<div id="sample-modal-2" class="modal">
-			<div class="modal-background --jb-modal-close"></div>
-			<div class="modal-card">
-				<header class="modal-card-head">
-					<p class="modal-card-title">Sample modal</p>
-				</header>
-				<section class="modal-card-body">
-					<p>
-						Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-					</p>
-					<p>This is sample modal</p>
-				</section>
-				<footer class="modal-card-foot">
-					<button class="button --jb-modal-close">Cancel</button>
-					<button class="button blue --jb-modal-close">Confirm</button>
-				</footer>
-			</div>
+	<!-- 插入頁腳 -->
+	<jsp:directive.include
+		file="/WEB-INF/pages/layout/backstage/footer.jsp" />
+
+	<div id="sample-modal" class="modal">
+		<div class="modal-background --jb-modal-close"></div>
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Sample modal</p>
+			</header>
+			<section class="modal-card-body">
+				<p>
+					Lorem ipsum dolor sit amet <b>adipiscing elit</b>
+				</p>
+				<p>This is sample modal</p>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button --jb-modal-close">Cancel</button>
+				<button class="button red --jb-modal-close">Confirm</button>
+			</footer>
 		</div>
+	</div>
+
+	<div id="sample-modal-2" class="modal">
+		<div class="modal-background --jb-modal-close"></div>
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Sample modal</p>
+			</header>
+			<section class="modal-card-body">
+				<p>
+					Lorem ipsum dolor sit amet <b>adipiscing elit</b>
+				</p>
+				<p>This is sample modal</p>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button --jb-modal-close">Cancel</button>
+				<button class="button blue --jb-modal-close">Confirm</button>
+			</footer>
+		</div>
+	</div>
 
 	</div>
 
@@ -321,40 +311,38 @@
 		fbq('init', '658339141622648');
 		fbq('track', 'PageView');
 	</script>
-	
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	
+
 	<!-- 一鍵清除 -->
 	<script type="text/javascript">
-		$("#reset").click(function(){
-			$("#password").attr("value","");
-			$("#lastname").attr("value","");
-			$("#firstname").attr("value","");
-			$("#birthdate").attr("value","");
-			$("#gender").attr("value","");
-			$("#phone").attr("value","");
-			$("#email").attr("value","");
-			$("#address").attr("value","");
+		$("#reset").click(function() {
+			$("#password").attr("value", "");
+			$("#lastname").attr("value", "");
+			$("#firstname").attr("value", "");
+			$("#birthdate").attr("value", "");
+			$("#gender").attr("value", "");
+			$("#phone").attr("value", "");
+			$("#email").attr("value", "");
+			$("#address").attr("value", "");
 		});
 	</script>
-	
+
 	<!-- 修改成功彈窗 -->
 	<script type="text/javascript">
-	document.getElementById('btn1').addEventListener('click',function(){
-		Swal.fire({
-		  icon: 'success',
-		  title: '修改成功',
-		  showConfirmButton: false,
-		  timer: 1500
+		document.getElementById('btn1').addEventListener('click', function() {
+			Swal.fire({
+				icon : 'success',
+				title : '修改成功',
+				showConfirmButton : false,
+				timer : 1500
+			})
 		})
-	})
-	
-	
 	</script>
-	
+
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />

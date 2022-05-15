@@ -8,36 +8,36 @@
 <html lang="zxx" class="no-js">
 
 <head>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
-	<!-- Author Meta -->
-	<meta name="author" content="CodePixar">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>運動網</title>
-	<!--
-		CSS
-		============================================= -->
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.css" />
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-</head>
 
+<!-- Mobile Specific Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon-->
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
+<!-- Author Meta -->
+<meta name="author" content="CodePixar">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
+<meta charset="UTF-8">
+<!-- Site Title -->
+<title>運動網</title>
+<!--
+	CSS
+	============================================= -->
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.css" />
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/magnific-popup.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -64,7 +64,9 @@ $(document).ready(function () {
 	} 
 });
 </script>
-  
+	
+</head>
+
 <body>
 	<input type="hidden" id="hasError" value="${hasError}">
 	<!-- Start Header Area -->

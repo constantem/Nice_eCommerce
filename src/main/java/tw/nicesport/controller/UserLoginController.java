@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.security.core.Authentication;
@@ -39,6 +41,7 @@ import tw.nicesport.model.Course;
 import tw.nicesport.model.CourseBooking;
 import tw.nicesport.model.Employee;
 import tw.nicesport.model.Member;
+import tw.nicesport.security.AuthenticationFacade;
 import tw.nicesport.service.LoginService;
 import tw.nicesport.service.MemberService;
 
@@ -50,6 +53,11 @@ public class UserLoginController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private AuthenticationFacade authFacade;
+	
+	private static Logger logger = LoggerFactory.getLogger(UserLoginController.class);
 	
 	// 第三方登入所使用 dao
 	@Autowired
@@ -114,39 +122,39 @@ public class UserLoginController {
         return principal.getName();
     }
     
-    @RequestMapping("/user/memberId")
-    @ResponseBody
-    public Integer currentMemberId(Principal principal) throws Exception {
-        String username = principal.getName();
-		Member member = loginService.findMemberByUsername(username);
-		return member.getMemberid();
-    }
+    // 原本給前台商城用的, 後面有寫新的
+//    @RequestMapping("/user/memberId")
+//    @ResponseBody
+//    public Integer currentMemberId(Principal principal) throws Exception {
+//        String username = principal.getName();
+//		Member member = loginService.findMemberByUsername(username);
+//		return member.getMemberid();
+//    }
     
     @RequestMapping("/user/role")
     @ResponseBody
-    public Set<String> currentRole(Authentication authentication) {
-    	if(authentication!=null) {
-    		// DB 紀錄的 roles (但如果是第三方登入的 roles 要加工)
-        	Set<String> roles = authentication.getAuthorities().stream()
-              	     .map(r -> r.getAuthority()).collect(Collectors.toSet());
-           	System.out.println("後端 user roles=======>|"+roles);
-           	
-           	// 加工第三方登入的 roles, 只取出其中的 ROLE_ 開頭的字
-           	Set<String> rolesTemp = new HashSet<>();
-           	if(roles.contains("SCOPE_openid")) {
-           		for(String role : roles) {
-           			if(role.startsWith("ROLE")) {
-           				rolesTemp.add(role);
-           			}
-           			roles = rolesTemp;
-           		}
-           	}
-            return roles;
-    	} else {
-    		System.out.println("後端 user roles=======>|null");
+    public Set<String> currentRole() {
+    	
+    	// 若未登入
+    	if(!authFacade.isAuthenticated()) {
+    		logger.info("前端前台 ajax 請求 role, 後端發現未登入");
     		return new HashSet<>();
     	}
-
+    	
+    	// 若登入
+    	logger.info("前端前台 ajax 請求 role, 後端的 roles: |" + authFacade.getRoles() + "|");
+    	return authFacade.getRoles();
+    }
+    
+    @RequestMapping("/user/memberId")
+    @ResponseBody
+    public Integer currentMemberId() {
+    	// 若沒登入, 回傳 null
+    	// 若 USER 登入, 回傳 member id
+    	// 若 google 登入, 回傳 member id
+    	// 若 EMPLOYEE 登入, 回傳 null
+    	// 若 ADMIN 登入, 回傳 null
+    	return authFacade.getMemberId();
     }
 	
 	// 前端我的購物車: 中間站

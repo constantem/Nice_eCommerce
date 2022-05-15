@@ -57,7 +57,7 @@
 					 aria-expanded="false">實體健身房</a>
 					<ul class="dropdown-menu">
 						<li class="nav-item"><a class="nav-link" href="${contextRoot}/info/course/list/all">課程一覽</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextRoot}/resources/frontstage/blog.html">交通方式</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextRoot}/info/course/gymContact">交通方式</a></li>
 					</ul>
 				</li>
 				

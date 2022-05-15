@@ -84,6 +84,9 @@ public class Course {
 	@Column(name="courseStatus")
 	private Boolean courseStatus;
 	
+	@Column(name="totalPlaces")
+	private Integer totalPlaces;
+	
 	@Column(name="remainingPlaces")
 	private Integer remainingPlaces;
 	
@@ -103,8 +106,13 @@ public class Course {
 	@Column(name="modifiedAt")
 	private LocalDateTime modifiedAt;
 	
+	@PrePersist // 用 SQL UPDATE 用 PrePersist 無效
+	void prePersist() {
+		remainingPlaces = totalPlaces;
+	}
+	
 	@PreUpdate // 用 SQL UPDATE 用 PrePersist 無效
-	void preUpate() {
+	void preUpdate() {
 		if(this.id != null) {
 			modifiedAt = LocalDateTime.now();
 		}
@@ -316,6 +324,14 @@ public class Course {
 
 	public void setCourseBookingSet(Set<CourseBooking> courseBookingSet) {
 		this.courseBookingSet = courseBookingSet;
+	}
+	
+	public Integer getTotalPlaces() {
+		return totalPlaces;
+	}
+
+	public void setTotalPlaces(Integer totalPlaces) {
+		this.totalPlaces = totalPlaces;
 	}
 
 	// toString, 不可雙向(被 referenced 那方不可 access 外鍵那方)

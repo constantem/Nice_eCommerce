@@ -93,74 +93,41 @@ function confirm(){
 
 <body>
 
-<!-- Start Header Area -->
+	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
 			<!-- 插入上導覽列 -->
 			<jsp:directive.include file="/WEB-INF/pages/layout/frontstage/nav.jsp" />
 		</div>
-<!-- 		<div class="search_input" id="search_input_box"> -->
-<!-- 			<div class="container"> -->
-<%-- 				<form class="d-flex justify-content-between"> --%>
-<!-- 					<input type="text" class="form-control" id="search_input" placeholder="Search Here"> -->
-<!-- 					<button type="submit" class="btn"></button> -->
-<!-- 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span> -->
-<%-- 				</form> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
 	</header>
 	<!-- End Header Area -->
 
-	<!-- start banner Area -->
-	<section class="banner-area">
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
 		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-					<div class="active-banner-slider owl-carousel">
-						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
-							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="banner-img">
-									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
-								</div>
-							</div>
-						</div>
-						<!-- single-slide -->
-						<div class="row single-slide">
-							<div class="col-lg-5">
-								<div class="banner-content">
-									<h1>Nike New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="banner-img">
-									<img class="img-fluid" src="${contextRoot}/resources/frontstage/img/banner/banner-img.png" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>客服表單</h1>
+					<nav class="d-flex align-items-center">
+						<a href="">首頁<span class="lnr lnr-arrow-right"></span></a>
+						<a href="">客服中心<span class="lnr lnr-arrow-right"></span></a>
+						<a href="">客服表單</a>
+					</nav>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- End banner Area -->
+	<!-- End Banner Area -->
+
 	<div class="container">
 		<p />
 

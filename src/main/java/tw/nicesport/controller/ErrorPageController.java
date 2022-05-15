@@ -34,6 +34,6 @@ public class ErrorPageController implements ErrorController {
 
     	// 若沒登入
 		redirectAttributes.addAttribute("hasError","泛用錯誤");
-		return "redirect:/";
+		return "error";
 	}
 }

@@ -104,9 +104,9 @@ $(document).ready(function() {
           <div class="field spaced">
             <div class="control">
               <label class="checkbox">
-<!--               	<input type="checkbox" name="remember" value="1" checked> -->
+              	<input type="checkbox" name="remember" value="1">
                 <span class="check"></span>
-                <span class="control-label">記得密碼(施工中)</span>
+                <span class="control-label">記得密碼</span>
               </label>
             </div>
           </div>

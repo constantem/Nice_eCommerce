@@ -4,11 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
@@ -121,7 +116,11 @@ $(document).ready(function() { // Document is ready
 		Swal.fire({
 			text: "確認修改？",
 			showConfirmButton: true,
+			confirmButtonText: 'OK',
+			confirmButtonColor: 'rgb(16, 185, 129)',
 			showCancelButton: true,
+			cancelButtonText: "取消",
+			cancelButtonColor: 'rgb(239, 68, 68)',
 		}).then(function (result) {
 			if(result.isConfirmed) {
 				
@@ -136,6 +135,9 @@ $(document).ready(function() { // Document is ready
 						if(status=="修改成功") {
 							Swal.fire({
 								text: "修改成功",
+								showConfirmButton: true,
+								confirmButtonText: 'OK',
+								confirmButtonColor: 'rgb(16, 185, 129)',
 							}).then(function (result) {
 								if(result.isConfirmed) {
 									location.reload();
@@ -185,6 +187,9 @@ $(document).ready(function() { // Document is ready
 		if( !mimeType.match(/image.*/) ){
 			Swal.fire({
 				text: "請上傳照片！"
+				showConfirmButton: true,
+				confirmButtonText: 'OK',
+				confirmButtonColor: 'rgb(16, 185, 129)',
 			});
 			
 			// 上傳用的 input 清空

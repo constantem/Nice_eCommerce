@@ -57,6 +57,22 @@
 /*   			grid-template-columns:repeat( 2,minmax(0,1fr) ) */
 /*   		} */
 /*   	} */
+
+	.course-image-size {
+		width:20rem;
+		height:20rem;
+	}
+	.image img{
+		display:block;
+		height:auto;
+		max-width:100%;
+		width:100%
+	}
+	.image img.course-image {
+		width:100%;
+    	height:100%; 
+    	object-fit: contain; 
+	}
 </style>
 
 <!-- 套用原生 js, 原本放 body 最下面, 改到上面要加 defer(==document ready) -->
@@ -94,7 +110,11 @@
 			Swal.fire({
 				text: "確認修改？",
 				showConfirmButton: true,
+				confirmButtonText: 'OK',
+				confirmButtonColor: 'rgb(16, 185, 129)',
 				showCancelButton: true,
+				cancelButtonText: "取消",
+				cancelButtonColor: 'rgb(239, 68, 68)',
 			}).then(function (result) {
 				if(result.isConfirmed) {
 					$("#editCourseForm").submit();
@@ -151,7 +171,10 @@
 			const mimeType = inputFile.type;
 			if( !mimeType.match(/image.*/) ){
 				Swal.fire({
-					text: "請上傳照片！"
+					text: "請上傳照片！",
+					showConfirmButton: true,
+					confirmButtonText: 'OK',
+					confirmButtonColor: 'rgb(16, 185, 129)',
 				});
 				
 				// 上傳用的 input 清空
@@ -261,11 +284,11 @@
 			<!-- 原照片 base64, 原封不動再傳回後端, 除非被撤下 -->
 			<input type="hidden" id="pictureBase64ToBackend" name="pictureBase64" value="${course.pictureBase64}">
 		    <!-- 照片本體 -->
-		    <div class="forDisplay forImgDisplay forImgEdit image w-48 h-48 mx-auto imgDisplayNone">
-		      <img id="pictureOriginalDisplay" src="data:image/png;base64, ${course.pictureBase64}" alt="" class="rounded-full">
+		    <div class="forDisplay forImgDisplay forImgEdit image course-image-size mx-auto imgDisplayNone">
+		      <img id="pictureOriginalDisplay" class="course-image" src="data:image/png;base64, ${course.pictureBase64}" alt="">
 		    </div>
-		    <div class="forDisplay forImgDisplay forImgEdit forEdit image w-48 h-48 mx-auto imgDisplayNone displayNone">
-		      <img id="pictureUploadDisplay" src="data:image/png;base64, ${course.pictureBase64}" alt="" class="rounded-full">
+		    <div class="forDisplay forImgDisplay forImgEdit forEdit image course-image-size mx-auto imgDisplayNone displayNone">
+		      <img id="pictureUploadDisplay" class="course-image" src="data:image/png;base64, ${course.pictureBase64}" alt="">
 		    </div>
 			    
 			<hr class="forImgDisplay forEdit forImgEdit displayNone imgDisplayNone">
@@ -337,7 +360,10 @@
 							<form:select class="forEdit displayNone" path="roomNo">
 								<c:forEach items="${rooms}" var="room">
 									<form:option 
-										value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
+										data-capacity="${room.roomSizeType.roomCapacity}"
+										value="${room.roomNo}">
+										${room.roomNo}${room.roomName} 容納${room.roomSizeType.roomCapacity}人
+									</form:option>
 								</c:forEach>
 							</form:select>
 						</div>
@@ -401,15 +427,28 @@
 
 				<!-- input 輸入格4 -->
 				<div class="field">
-					<form:label class="label" path="coursePeriod">時段</form:label>
-
+					<form:label class="label" path="totalPlaces">規劃人數</form:label>
 					<div class="control">
-						<span class="forDisplay">${course.coursePeriod}</span>
-						<form:input id="coursePeriod" class="input forEdit displayNone"
-							type="text" path="coursePeriod"
-							value="${course.coursePeriod}" placeholder="" />
+						<div class="select">
+							<span class="forDisplay">${course.totalPlaces}</span>
+							<input disabled class="input forEdit displayNone" style="background: #ccc;"
+								name="totalPlaces" value="${course.totalPlaces}">
+							<input type="hidden" name="totalPlaces" value="${course.totalPlaces}">
+						</div>
 					</div>
-					<form:errors path="coursePeriod" />
+				</div>
+				
+				<!-- 剩餘人數不變 -->
+				<div class="field">
+					<form:label class="label" path="remainingPlaces">剩餘人數</form:label>
+					<div class="control">
+						<div class="select">
+							<span class="forDisplay">${course.remainingPlaces}</span>
+							<input disabled class="input forEdit displayNone" style="background: #ccc;"
+								name="remainingPlaces" value="${course.remainingPlaces}">
+							<input type="hidden" name="remainingPlaces" value="${course.remainingPlaces}">
+						</div>
+					</div>
 				</div>
 
 				<!-- input 輸入格5 -->

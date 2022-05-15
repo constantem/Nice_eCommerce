@@ -28,6 +28,38 @@
 	.remainingPlacesAlert {
 		color: red;
 	}
+	
+	/* 	local image-cell */
+	@media (min-width:1024px){
+		td.image-cell-course{
+			width:12rem
+		}
+	}
+	td.image-cell-course .image{
+		height:12rem;
+		margin-left:auto;
+		margin-right:auto;
+		width:12rem
+	}
+	@media (min-width:1024px){
+		td.image-cell-course .image{
+			height:12rem;
+			width:12rem
+		}
+	}
+	/* 	原 global img 設定 */
+	.image img{
+  		display:inline;
+/* 		height:auto; */
+/* 		max-width:100%; */
+/* 		width:100% */
+	}
+	/* 	local img 設定 */
+	.image img.course-image {
+		width:100%;
+    	height:100%; 
+    	object-fit: contain; 
+	}
 </style>
 
 <!-- 網站頁籤 logo -->
@@ -137,8 +169,9 @@
 				
 				Swal.fire({
 					title: '共刪除'+$(equivalentCheckBox).length + "筆",
-					showConfirmButton: true, // 不寫也預設 true
+					showConfirmButton: true,
 					confirmButtonText: 'OK',
+					confirmButtonColor: 'rgb(16, 185, 129)',
 				}).then(function () {
 					window.location.href= $("#contextRoot").val() + "/staff/course/show/all" + "?pageNumber=" + "${thisPageNumberZeroBased+1}";
 				});
@@ -179,8 +212,8 @@
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<h1 class="title">課程列表</h1>
 		<a class="button light" href="${contextRoot}/staff/course/form">
-            		<span>新增課程</span>
-          	</a>
+        	<span>新增課程</span>
+        </a>
 	</div>
 </section>
 
@@ -217,14 +250,13 @@
 					<tr>
 						<th class="checkbox-cell">
 						</th>
-						<th class="image-cell"></th>
 						<th>課名</th>
+						<th class="image-cell"></th>
 						<th>開課日期</th>
 						<th>堂數</th>
-						<th>時段</th>
 						<th>教練</th>
 						<th>教室</th>
-						<th>教室容納人數</th>
+						<th>規劃人數</th>
 						<th>剩餘名額</th>
 						<th>價錢</th>
 						<th>建檔/編輯日期</th>
@@ -243,26 +275,25 @@
 									<span class="check"></span>
 								</label>
 							</td>
-							<td class="image-cell">
+							<td data-label="courseName">${course.courseName}</td>
+							<td class="image-cell image-cell-course">
 								<div class="image">
 									<c:if test="${ empty course.pictureBase64 }">
-										<img class="rounded-full"
+										<img class=""
 											src="">
 									</c:if>
 									<c:if test="${ not empty course.pictureBase64 }">
-										<img class="rounded-full"
+										<img class="course-image"
 											src="data:image/jpeg;base64, ${course.pictureBase64}">
 									</c:if>
 
 								</div>
 							</td>
-							<td data-label="courseName">${course.courseName}</td>
 							<td data-label="courseStartDate">${course.courseStartDate}</td>
 							<td data-label="courseClassAmount">${course.courseClassAmount}</td>
-							<td data-label="coursePeriod">${course.coursePeriod}</td>
 							<td data-label="coachName">${course.coach.lastName}${course.coach.firstName}</td>
 							<td data-label="roomNo">${course.room.roomNo}</td>
-							<td data-label="roomCapacity">${course.room.roomSizeType.roomCapacity}</td>
+							<td class="totalPlaces" data-label="totalPlaces">${course.totalPlaces}</td>
 							<td class="remainingPlaces" data-label="remainingPlaces">${course.remainingPlaces}</td>
 							<td data-label="coursePrice">${course.coursePrice}</td>
 							<td data-label="Created">

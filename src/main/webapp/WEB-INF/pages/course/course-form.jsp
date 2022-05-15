@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -25,9 +26,26 @@
 
 <!-- local css -->
 <style>
+
 	.displayNone {
 		display:none;
 	}
+	.course-image-size {
+		width:30rem;
+		height:30rem;
+	}
+	.image img{
+		display:block;
+		height:auto;
+		max-width:100%;
+		width:100%
+	}
+	.image img.course-image {
+		width:100%;
+    	height:100%; 
+    	object-fit: contain; 
+	}
+
 </style>
 
 <!-- 套用原生 js, 原本放 body 最下面, 改到上面要加 defer(==document ready) -->
@@ -46,119 +64,141 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-	$(document).ready(function() {
-		
-		// 一鍵新增按鈕綁定 handler
-		$("#autoinput").click(function() {
-			$.ajax({
-				url : $("#contextRoot").val() + "/course/autoinput",
-				type : "GET",
-				// 	dataType: "json", // 要加, 回傳的東西才會是 JS object
-				success : function(autoInputMapObj) { // 拿到 JS object, 非 string
-					const courseAutoInput = JSON.parse(autoInputMapObj.course); // 但裡面的 Course instance 為 JSON string, 要轉為 JS object
-					$("#courseName").val(courseAutoInput.courseName);
-					$("#courseStartDate").val(courseAutoInput.courseStartDate);
-					$("#courseClassAmount").val(courseAutoInput.courseClassAmount);
-					$("#coursePrice").val(courseAutoInput.coursePrice);
+$(document).ready(function() {
+	
+	// 一鍵新增按鈕綁定 handler
+	$("#autoinput").click(function() {
+		$.ajax({
+			url : $("#contextRoot").val() + "/course/autoinput",
+			type : "GET",
+			// 	dataType: "json", // 要加, 回傳的東西才會是 JS object
+			success : function(autoInputMapObj) { // 拿到 JS object, 非 string
+				const courseAutoInput = JSON.parse(autoInputMapObj.course); // 但裡面的 Course instance 為 JSON string, 要轉為 JS object
+				$("#courseName").val(courseAutoInput.courseName);
+				$("#courseStartDate").val(courseAutoInput.courseStartDate);
+				$("#courseClassAmount").val(courseAutoInput.courseClassAmount);
+				$("#coursePrice").val(courseAutoInput.coursePrice);
 
-					const coachAutoSelected = JSON.parse(autoInputMapObj.coach);
-					$("#coachId")
-						.find("option[value="+coachAutoSelected.id+"]").prop("selected",true)
-						.siblings().prop("selected",false);
+				const coachAutoSelected = JSON.parse(autoInputMapObj.coach);
+				$("#coachId")
+					.find("option[value="+coachAutoSelected.id+"]").prop("selected",true)
+					.siblings().prop("selected",false);
 
-					const roomAutoSelected = JSON.parse(autoInputMapObj.room);
-					$("#roomNo")
-						.find("option[value="+roomAutoSelected.roomNo+"]").prop("selected",true)
-						.siblings().prop("selected",false);
-				}
-			});
-		});
-
-		// 確認按鈕綁定 handler
-		$("#submitBtn").click(function() {
-			Swal.fire({
-				title: '確認新增？',
-				showConfirmButton: true, // 不寫也預設 true
-				confirmButtonText: '新增',
-				showDenyButton: true,
-				denyButtonText: "取消",
-			}).then(function (result) {
-
-				if (result.isConfirmed) { // 選確認
-					
-					// 用 FormData 來傳
-					const theForm = $("#courseForm")[0]; // jquery object 為 collection, 要拿出第一個才是 DOM object
-					const dataFile = new FormData( theForm ); 
-					
-					$.ajax({
-						type: "POST",
-						url : $("#contextRoot").val() + "/course/create",
-				        processData: false, //防止 jquery 將 data 變成 query String
-				        contentType: false,
-				        cache: false,
-						data : dataFile,
-						success : function(message) {
-							console.log(message);
-							if (message == "驗證不通過") {
-								$("#formError").text("請重新輸入");
-							} else if (message == "新增成功") {
-								Swal.fire({
-									icon: 'success',
-									title: message,
-									showConfirmButton: true, // 不寫也預設 true
-									confirmButtonText: 'OK',
-									showCloseButton: true,
-									showCancelButton: true,
-									cancelButtonText: '回列表'
-								}).then(function (result) {
-									if(!result.isConfirmed) { // 不按 OK, 跳轉
-										window.location.href= $("#contextRoot").val() + "/staff/course/show/all";
-									} 
-								});
-							} else if(message == "新增失敗") {
-
-							}
-						}
-					}); // 新增 ajax 結束
-				} // "確認新增"情況結束
-			}) // 第一層 sweat alert 完全結束	
-		}); // 確認按鈕綁定 handler 結束
-		
-		// 綁定上傳按鈕的 change 事件處理函式
-		$("#pictureUploadInput").change( function () {
-			const theFile = $(this)[0].files[0];
-			const mimeType = theFile.type;
-			
-			if( !theFile.type.match(/image.*/) ){
-				Swal.fire({
-					text: "請上傳照片！"
-				});
-				
-				// 回復無照片狀態
-				cancelUploadedImg();
-				
-                return;
+				const roomAutoSelected = JSON.parse(autoInputMapObj.room);
+				$("#roomNo")
+					.find("option[value="+roomAutoSelected.roomNo+"]").prop("selected",true)
+					.siblings().prop("selected",false);
+				$("#roomNo").trigger("change");
 			}
-			
-			// 有照片狀態
-			$(".showIfImgExists").removeClass("displayNone");
-			$(this).text("重新上傳");
-			$('#pictureDisplay')[0].src = (window.URL ? URL : webkitURL).createObjectURL( theFile ); // firefox 用 window.URL, chrome 用 webkitURL
-			
-		}); // 綁定上傳按鈕的 change 事件處理函式結束
+		});
+	});
+
+	// 確認按鈕綁定 handler
+	$("#submitBtn").click(function() {
+		Swal.fire({
+			title: '確認新增？',
+			showConfirmButton: true, // 不寫也預設 true
+			confirmButtonText: '新增',
+			confirmButtonColor: 'rgb(16, 185, 129)',
+			showCancelButton: true,
+			cancelButtonText: "取消",
+			cancelButtonColor: 'rgb(239, 68, 68)',
+		}).then(function (result) {
+
+			if (result.isConfirmed) { // 選確認
+				
+				// 用 FormData 來傳
+				const theForm = $("#courseForm")[0]; // jquery object 為 collection, 要拿出第一個才是 DOM object
+				const dataFile = new FormData( theForm ); 
+				
+				$.ajax({
+					type: "POST",
+					url : $("#contextRoot").val() + "/course/create",
+			        processData: false, //防止 jquery 將 data 變成 query String
+			        contentType: false,
+			        cache: false,
+					data : dataFile,
+					success : function(message) {
+						console.log(message);
+						if (message == "驗證不通過") {
+							$("#formError").text("請重新輸入");
+						} else if (message == "新增成功") {
+							Swal.fire({
+								icon: 'success',
+								title: message,
+								showConfirmButton: true, // 不寫也預設 true
+								confirmButtonText: 'OK',
+								confirmButtonColor: 'rgb(16, 185, 129)',
+								showCancelButton: true,
+								cancelButtonText: '<span style="color:black;">回列表</span>',
+								cancelButtonColor: 'rgb(243, 244, 246)',
+							}).then(function (result) {
+								if(!result.isConfirmed) { // 不按 OK, 跳轉
+									window.location.href= $("#contextRoot").val() + "/staff/course/show/all";
+								} 
+							});
+						} else if(message == "新增失敗") {
+
+						}
+					}
+				}); // 新增 ajax 結束
+			} // "確認新增"情況結束
+		}) // 第一層 sweat alert 完全結束	
+	}); // 確認按鈕綁定 handler 結束
+	
+	// 綁定上傳按鈕的 change 事件處理函式
+	$("#pictureUploadInput").change( function () {
+		const theFile = $(this)[0].files[0];
+		const mimeType = theFile.type;
 		
-		// 綁定取消上傳按鈕的 click 事件處理函式
-		$("#uploadCancelBtn").click(cancelUploadedImg);
-		
-		// 回復無照片狀態及畫面的函式
-		function cancelUploadedImg() {
-			$('#pictureDisplay')[0].src = "";
-			$("#pictureUploadInput").val("");
-			$(".showIfImgExists").addClass("displayNone");
-			$("#pictureUploadBtn").text("上傳");
+		if( !theFile.type.match(/image.*/) ){
+			Swal.fire({
+				text: "請上傳照片！",
+				showConfirmButton: true, // 不寫也預設 true
+				confirmButtonText: 'OK',
+				confirmButtonColor: 'rgb(16, 185, 129)'
+			});
+			
+			// 回復無照片狀態
+			cancelUploadedImg();
+			
+               return;
 		}
 		
-	}); // document ready 結束
+		// 有照片狀態
+		$(".showIfImgExists").removeClass("displayNone");
+		$(this).text("重新上傳");
+		$('#pictureDisplay')[0].src = (window.URL ? URL : webkitURL).createObjectURL( theFile ); // firefox 用 window.URL, chrome 用 webkitURL
+		
+	}); // 綁定上傳按鈕的 change 事件處理函式結束
+	
+	// 綁定取消上傳按鈕的 click 事件處理函式
+	$("#uploadCancelBtn").click(cancelUploadedImg);
+	
+	// 回復無照片狀態及畫面的函式
+	function cancelUploadedImg() {
+		$('#pictureDisplay')[0].src = "";
+		$("#pictureUploadInput").val("");
+		$(".showIfImgExists").addClass("displayNone");
+		$("#pictureUploadBtn").text("上傳");
+	}
+	
+	// room 的 change 事件
+	$("#roomNo").change(function () {
+		const capacity = $("#roomNo option").filter(":selected").data("capacity");
+		$("#totalPlaces").empty(); // 清空 option
+		for(let i=capacity; i>=1; i--) {
+			console.log(i);
+			console.log($("<option></option>").val(i).text(i));
+			$("#totalPlaces")
+				.append( $("<option></option>").val(i).text(i) );
+		}
+		
+	});
+	
+	// total places 確定後, remaining places 也要確定, 這交給 entity 的 prePersist 做
+	
+}); // document ready 結束
 </script>
 
 
@@ -240,7 +280,6 @@
 							id="courseDescription" path="courseDescription" 
 							placeholder="" />
 					</div>
-					<p class="help">*必填</p>
 					<form:errors style="color:red;" path="courseName" />
 				</div>
 
@@ -266,17 +305,6 @@
 					<form:errors path="courseClassAmount" />
 				</div>
 
-				<!-- input 輸入格4 -->
-				<div class="field">
-					<form:label class="label" path="coursePeriod">時段</form:label>
-
-					<div class="control">
-						<form:input class="input" type="text" id="coursePeriod"
-							path="coursePeriod" placeholder="" />
-					</div>
-					<form:errors path="coursePeriod" />
-				</div>
-
 				<!-- select 下拉選項1 -->
 				<div class="field">
 					<form:label class="label" path="coachId">教練</form:label>
@@ -298,13 +326,33 @@
 						<div class="select">
 							<form:select id="roomNo" path="roomNo">
 								<c:forEach items="${rooms}" var="room">
-									<form:option value="${room.roomNo}">${room.roomNo}${room.roomName}</form:option>
+									<form:option 
+										data-capacity="${room.roomSizeType.roomCapacity}" 
+										value="${room.roomNo}">
+										${room.roomNo}${room.roomName} 容量${room.roomSizeType.roomCapacity}人
+									</form:option>
 								</c:forEach>
 							</form:select>
 						</div>
 					</div>
 				</div>
 
+				<!-- input 輸入格5 -->
+				<div class="field">
+					<form:label class="label" path="totalPlaces">規劃人數</form:label>
+
+					<div class="control">
+						<div class="select">
+							<form:select id="totalPlaces" path="totalPlaces">
+								<c:forEach var="i" begin="1" end="${rooms[0].roomSizeType.roomCapacity}" step="1" varStatus="status">	
+									<form:option value="${status.end+1-i}">${status.end+1-i}</form:option>	
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+					<form:errors path="totalPlaces" />
+				</div>
+				
 				<!-- input 輸入格5 -->
 				<div class="field">
 					<form:label class="label" path="coursePrice">價錢</form:label>
@@ -329,8 +377,8 @@
         </header>
         <div class="card-content">
           <!-- 照片顯示 -->
-          <div class="image w-48 h-48 mx-auto showIfImgExists displayNone">
-            <img id="pictureDisplay" src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
+          <div class="image course-image-size mx-auto showIfImgExists displayNone">
+            <img class="course-image" id="pictureDisplay" src="" alt="" class="">
           </div>
           <!-- 分隔線 -->
           <hr class="showIfImgExists displayNone">
@@ -382,26 +430,6 @@
 
 <!-- 插入頁腳 -->
 <jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
-
-<!-- 彈窗: 客製"確認新增" -->
-<div id="sample-modal-insertConfirm" class="modal">
-	<div class="modal-background --jb-modal-close"></div>
-	<div class="modal-card">
-		<header class="modal-card-head">
-			<p class="modal-card-title">Sample modal</p>
-		</header>
-		<section class="modal-card-body">
-			<p>
-				Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-			</p>
-			<p>This is sample modal</p>
-		</section>
-		<footer class="modal-card-foot">
-			<button class="button --jb-modal-close">Cancel</button>
-			<button class="button blue --jb-modal-close">Confirm</button>
-		</footer>
-	</div>
-</div>
 
 </div>
 

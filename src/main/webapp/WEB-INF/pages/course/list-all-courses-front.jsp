@@ -22,7 +22,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Karma Shop</title>
+<title>課程一覽</title>
 
 <!--
 CSS
@@ -72,16 +72,13 @@ CSS
 <script>
 $(document).ready(function () {
 	
-// 	$("#templateContainer").on("click", ".bookingFormLinkClass", function () {
-// 		Swal.fire({
-// 			text: "你已報名此課程"
-// 		});
-// 	});
-
 	// 報名錯誤訊息
 	if( $("#bookingErrorCourseName").val() ) {
 		Swal.fire({
-			text: "你已報名"+$("#bookingErrorCourseName").val()
+			text: "你已報名"+$("#bookingErrorCourseName").val(),
+			showConfirmButton: true,
+			confirmButtonText: 'OK',
+			confirmButtonColor: 'rgb(16, 185, 129)',
 		}).then(function (result) {
 			if(result.isConfirmed) {
 				location.href=$("#contextRoot").val()+"/info/course/list/all";
@@ -89,81 +86,85 @@ $(document).ready(function () {
 		});
 	}
 	
+	// 請求 current member id
+	let getCoursesUrl; // 請求 course list 的 url, 由有沒有登入 USER 來決定
+	$.ajax({
+		url: $("#contextRoot").val() + "/user/memberId",
+		success: function (memberId) {
+			if(memberId) { // 若 USER 登入中, 有 member id
+				getCoursesUrl = $("#contextRoot").val() + "/api/course/member/" + memberId;
+			} else { // 若非 USER 登入中, 為 null
+				getCoursesUrl = $("#contextRoot").val() + "/api/course/";
+			}
+			generateCourseList(getCoursesUrl);
+		}
+	});
 	
 	// 請求並製造 course list
-	console.log("memberId");
-	console.log($("#memberId").val());
-	let getUrl;
-	if($("#memberId").val()) { // 若登入中, 則非 undefined
-		getUrl = $("#contextRoot").val() + "/api/course/member/" + $("#memberId").val();
-	} else { // 若非登入中, 則為 undefined
-		getUrl = $("#contextRoot").val() + "/api/course/";
-	}
-	console.log("getUrl");
-	console.log(getUrl);
-	$.ajax({
-		method: "GET", // api query
-		url: getUrl,
-		success: function (courseDtoList) {
-			$(courseDtoList).each(function (index, courseDto) {
-				
-				// 若無餘額, 則下一筆
-				if(courseDto.courseRemainingPlaces == 0) {
-					return; // 等效於 continue, (cf return false 等效於 break)
-				}
-				
-				// 樣板
-				const articleTemplate = $("#article-template");
-				
-				// 複製
-				const articleClone = $( $(articleTemplate).html() );
-				// 開始塞值
-				$("#courseId", articleClone).text(courseDto.courseId);
-				$("#courseName", articleClone).text(courseDto.courseName);
-				if(courseDto.coursePictureBase64) {
-					$("#coursePictureBase64", articleClone).attr("src",
-						"data:image/jpeg;base64, "+courseDto.coursePictureBase64
-					);
-				}
-				$("#coachFullName", articleClone).text(courseDto.coachFullName);
-				if(courseDto.coursePictureBase64) {
-					$("#coachProfileBase64", articleClone).attr("src",
-						"data:image/jpeg;base64, "+courseDto.coachProfileBase64
-					);
-				}
-				$("#roomName", articleClone).text(courseDto.roomName);
-				$("#courseDescription", articleClone).text(courseDto.courseDescription);
-				$("#courseStartDate", articleClone).text(courseDto.courseStartDate);
-				$("#courseClassAmount", articleClone).text(courseDto.courseClassAmount);
-				$("#coursePeriod", articleClone).text(courseDto.coursePeriod);
-				$("#coursePrice", articleClone).text(courseDto.coursePrice);
-
-				// 若有會員登入，且此課程有報名了，則我要報名改已報名
-				console.log(courseDto.courseName);
-				console.log(courseDto.isRegisteredByThisMember);
-				if(courseDto.isRegisteredByThisMember) { // 為 true
-					$("#bookingFormLink", articleClone)
-						.addClass("disableIfRegistered")
-						.text("已報名");
-				// 若會員沒登入
-				} else { // 為 null 或 false
-					// 塞值給連結
-					$("#bookingFormLink", articleClone).attr("href", $("#contextRoot").val()+"/user/courseBookingForm?courseId="+courseDto.courseId);
-					// 即將額滿提醒
-					if(courseDto.courseRemainingPlaces <= 3) {
-						$("#warn", articleClone)
-							.text("(即將額滿)")
-							.addClass("aboutToFull");
+	function generateCourseList(getCoursesUrl) {
+		$.ajax({
+			method: "GET", // api query
+			url: getCoursesUrl,
+			success: function (courseDtoList) {
+				$(courseDtoList).each(function (index, courseDto) {
+					
+					// 若無餘額, 則下一筆
+					if(courseDto.courseRemainingPlaces == 0) {
+						return; // 等效於 continue, (cf return false 等效於 break)
 					}
-				}
-				
-				// 插在樣板前面
-				$( articleTemplate ).before( articleClone );
-			})
-		}
-	}); // find all 請求結束
+					
+					// 樣板
+					const articleTemplate = $("#article-template");
+					
+					// 複製
+					const articleClone = $( $(articleTemplate).html() );
+					// 開始塞值
+					$("#courseId", articleClone).text(courseDto.courseId);
+					$("#courseName", articleClone).text(courseDto.courseName);
+					if(courseDto.coursePictureBase64) {
+						$("#coursePictureBase64", articleClone).attr("src",
+							"data:image/jpeg;base64, "+courseDto.coursePictureBase64
+						);
+					}
+					$("#coachFullName", articleClone).text(courseDto.coachFullName);
+					if(courseDto.coursePictureBase64) {
+						$("#coachProfileBase64", articleClone).attr("src",
+							"data:image/jpeg;base64, "+courseDto.coachProfileBase64
+						);
+					}
+					$("#roomName", articleClone).text(courseDto.roomName);
+					$("#courseDescription", articleClone).text(courseDto.courseDescription);
+					$("#courseStartDate", articleClone).text(courseDto.courseStartDate);
+					$("#courseClassAmount", articleClone).text(courseDto.courseClassAmount);
+					$("#coursePeriod", articleClone).text(courseDto.coursePeriod);
+					$("#coursePrice", articleClone).text(courseDto.coursePrice);
 
-	
+					// 若有會員登入，且此課程有報名了，則我要報名改已報名
+					console.log(courseDto.courseName);
+					console.log(courseDto.isRegisteredByThisMember);
+					if(courseDto.isRegisteredByThisMember) { // 為 true
+						$("#bookingFormLink", articleClone)
+							.addClass("disableIfRegistered")
+							.text("已報名");
+					// 若會員沒登入
+					} else { // 為 null 或 false
+						// 塞值給連結
+						$("#bookingFormLink", articleClone).attr("href", $("#contextRoot").val()+"/user/courseBookingForm?courseId="+courseDto.courseId);
+						// 即將額滿提醒
+						if(courseDto.courseRemainingPlaces <= 3) {
+							$("#warn", articleClone)
+								.text("(即將額滿)")
+								.addClass("aboutToFull");
+						}
+					}
+					
+					// 插在樣板前面
+					$( articleTemplate ).before( articleClone );
+				})
+			}
+		}); // find all 請求結束
+	} // generate course list function 結束
+
 }); // document ready 結束
 </script>
 

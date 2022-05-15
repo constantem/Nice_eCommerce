@@ -265,7 +265,7 @@ button {
 		</div>
 	</header>
 
-	<img src='/Nice_eCommerce_RealFinal/Nice_eCommerce/src/main/webapp/img/banner/banner9-removebg.png'>
+<!-- 	<img src='/Nice_eCommerce_RealFinal/Nice_eCommerce/src/main/webapp/img/banner/banner9-removebg.png'> -->
 	
 	<!-- Start Banner Area -->
 

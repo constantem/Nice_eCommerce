@@ -412,7 +412,8 @@ public class CustomSecurityConfig {
 					
 					// 以下 url 為前端請求, 不必被驗證
 					.antMatchers("/user/role").permitAll() // 前端對後端的 role 請求
-					
+					.antMatchers("/user/memberId").permitAll() // 前端對後端的 member id 請求(未登入下也會請求, 會得 null)
+
 					///////////////////////////////////////////////////////
 					// 其他符合 "/user*/**" 的 url 需要被驗證, 且角色為 USER //
 					///////////////////////////////////////////////////////

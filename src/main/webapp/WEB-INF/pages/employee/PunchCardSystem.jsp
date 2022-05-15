@@ -79,8 +79,8 @@
             <section class="is-title-bar">
               <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
                 <ul>
-                  <li>後台</li>
-                  <li>打卡</li>
+                  <li>管理系統</li>
+                  <li>打卡管理</li>
                 </ul>
             
               </div>
@@ -90,7 +90,7 @@
             <section class="is-hero-bar">
               <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
                 <h1 class="title">
-                  打卡系統
+                  員工打卡系統
                 </h1>
         
               </div>

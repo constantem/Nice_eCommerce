@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -15,7 +16,8 @@
 <title>商品列表</title>
 
 <!----------------------------- 原生 CSS------------------------------------------ -->
-<link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
+<link rel="stylesheet"
+	href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
 <link rel="icon" type="image/png" sizes="32x32"
 	href="${contextRoot}/resources/backstage/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16"
@@ -34,7 +36,7 @@
 <!-- <script -->
 <!-- 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <style>
@@ -47,399 +49,431 @@
 }
 
 .blink {
-    animation-duration: 1s;
-    animation-name: blink;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-}
-@keyframes blink {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    80% {
-        opacity: 1;
-    }
-    81% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
+	animation-duration: 1s;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
 }
 
+@
+keyframes blink {from { opacity:1;
+	
+}
+
+to {
+	opacity: 0;
+}
+
+}
+@
+keyframes blink { 0% {
+	opacity: 1;
+}
+
+80
+%
+{
+opacity
+:
+1;
+}
+81
+%
+{
+opacity
+:
+0;
+}
+100
+%
+{
+opacity
+:
+0;
+}
+}
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1055;
-  display: none;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  outline: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1055;
+	display: none;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	outline: 0;
 }
 
 .modal-dialog {
-  position: relative;
-  width: auto;
-  margin: 0.5rem;
-  pointer-events: none;
+	position: relative;
+	width: auto;
+	margin: 0.5rem;
+	pointer-events: none;
 }
+
 .modal.fade .modal-dialog {
-  transition: transform 0.3s ease-out;
-  transform: translate(0, -50px);
+	transition: transform 0.3s ease-out;
+	transform: translate(0, -50px);
 }
-@media (prefers-reduced-motion: reduce) {
-  .modal.fade .modal-dialog {
-    transition: none;
-  }
+
+@media ( prefers-reduced-motion : reduce) {
+	.modal.fade .modal-dialog {
+		transition: none;
+	}
 }
+
 .modal.show .modal-dialog {
-  transform: none;
+	transform: none;
 }
+
 .modal.modal-static .modal-dialog {
-  transform: scale(1.02);
+	transform: scale(1.02);
 }
 
 .modal-dialog-scrollable {
-  height: calc(100% - 1rem);
+	height: calc(100% - 1rem);
 }
+
 .modal-dialog-scrollable .modal-content {
-  max-height: 100%;
-  overflow: hidden;
+	max-height: 100%;
+	overflow: hidden;
 }
+
 .modal-dialog-scrollable .modal-body {
-  overflow-y: auto;
+	overflow-y: auto;
 }
 
 .modal-dialog-centered {
-  display: flex;
-  align-items: center;
-  min-height: calc(100% - 1rem);
+	display: flex;
+	align-items: center;
+	min-height: calc(100% - 1rem);
 }
 
 .modal-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  pointer-events: auto;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  outline: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	pointer-events: auto;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 0.3rem;
+	outline: 0;
 }
 
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1050;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1050;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
 }
+
 .modal-backdrop.fade {
-  opacity: 0;
+	opacity: 0;
 }
+
 .modal-backdrop.show {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 
 .modal-header {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: calc(0.3rem - 1px);
-  border-top-right-radius: calc(0.3rem - 1px);
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 1rem;
+	border-bottom: 1px solid #dee2e6;
+	border-top-left-radius: calc(0.3rem - 1px);
+	border-top-right-radius: calc(0.3rem - 1px);
 }
+
 .modal-header .btn-close {
-  padding: 0.5rem 0.5rem;
-  margin: -0.5rem -0.5rem -0.5rem auto;
+	padding: 0.5rem 0.5rem;
+	margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
 .modal-title {
-  margin-bottom: 0;
-  line-height: 1.5;
+	margin-bottom: 0;
+	line-height: 1.5;
 }
 
 .modal-body {
-  position: relative;
-  flex: 1 1 auto;
-  padding: 1rem;
+	position: relative;
+	flex: 1 1 auto;
+	padding: 1rem;
 }
 
 .modal-footer {
-  display: flex;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem;
-  border-top: 1px solid #dee2e6;
-  border-bottom-right-radius: calc(0.3rem - 1px);
-  border-bottom-left-radius: calc(0.3rem - 1px);
-}
-.modal-footer > * {
-  margin: 0.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0.75rem;
+	border-top: 1px solid #dee2e6;
+	border-bottom-right-radius: calc(0.3rem - 1px);
+	border-bottom-left-radius: calc(0.3rem - 1px);
 }
 
-@media (min-width: 576px) {
-  .modal-dialog {
-    max-width: 500px;
-    margin: 1.75rem auto;
-  }
-
-  .modal-dialog-scrollable {
-    height: calc(100% - 3.5rem);
-  }
-
-  .modal-dialog-centered {
-    min-height: calc(100% - 3.5rem);
-  }
-
-  .modal-sm {
-    max-width: 300px;
-  }
+.modal-footer>* {
+	margin: 0.25rem;
 }
-@media (min-width: 992px) {
-  .modal-lg,
-.modal-xl {
-    max-width: 800px;
-  }
+
+@media ( min-width : 576px) {
+	.modal-dialog {
+		max-width: 500px;
+		margin: 1.75rem auto;
+	}
+	.modal-dialog-scrollable {
+		height: calc(100% - 3.5rem);
+	}
+	.modal-dialog-centered {
+		min-height: calc(100% - 3.5rem);
+	}
+	.modal-sm {
+		max-width: 300px;
+	}
 }
-@media (min-width: 1200px) {
-  .modal-xl {
-    max-width: 1140px;
-  }
+
+@media ( min-width : 992px) {
+	.modal-lg, .modal-xl {
+		max-width: 800px;
+	}
 }
+
+@media ( min-width : 1200px) {
+	.modal-xl {
+		max-width: 1140px;
+	}
+}
+
 .modal-fullscreen {
-  width: 100vw;
-  max-width: none;
-  height: 100%;
-  margin: 0;
+	width: 100vw;
+	max-width: none;
+	height: 100%;
+	margin: 0;
 }
+
 .modal-fullscreen .modal-content {
-  height: 100%;
-  border: 0;
-  border-radius: 0;
+	height: 100%;
+	border: 0;
+	border-radius: 0;
 }
+
 .modal-fullscreen .modal-header {
-  border-radius: 0;
+	border-radius: 0;
 }
+
 .modal-fullscreen .modal-body {
-  overflow-y: auto;
+	overflow-y: auto;
 }
+
 .modal-fullscreen .modal-footer {
-  border-radius: 0;
+	border-radius: 0;
 }
 
-@media (max-width: 575.98px) {
-  .modal-fullscreen-sm-down {
-    width: 100vw;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-  .modal-fullscreen-sm-down .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-  .modal-fullscreen-sm-down .modal-header {
-    border-radius: 0;
-  }
-  .modal-fullscreen-sm-down .modal-body {
-    overflow-y: auto;
-  }
-  .modal-fullscreen-sm-down .modal-footer {
-    border-radius: 0;
-  }
-}
-@media (max-width: 767.98px) {
-  .modal-fullscreen-md-down {
-    width: 100vw;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-  .modal-fullscreen-md-down .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-  .modal-fullscreen-md-down .modal-header {
-    border-radius: 0;
-  }
-  .modal-fullscreen-md-down .modal-body {
-    overflow-y: auto;
-  }
-  .modal-fullscreen-md-down .modal-footer {
-    border-radius: 0;
-  }
-}
-@media (max-width: 991.98px) {
-  .modal-fullscreen-lg-down {
-    width: 100vw;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-  .modal-fullscreen-lg-down .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-  .modal-fullscreen-lg-down .modal-header {
-    border-radius: 0;
-  }
-  .modal-fullscreen-lg-down .modal-body {
-    overflow-y: auto;
-  }
-  .modal-fullscreen-lg-down .modal-footer {
-    border-radius: 0;
-  }
-}
-@media (max-width: 1199.98px) {
-  .modal-fullscreen-xl-down {
-    width: 100vw;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-  .modal-fullscreen-xl-down .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-  .modal-fullscreen-xl-down .modal-header {
-    border-radius: 0;
-  }
-  .modal-fullscreen-xl-down .modal-body {
-    overflow-y: auto;
-  }
-  .modal-fullscreen-xl-down .modal-footer {
-    border-radius: 0;
-  }
-}
-@media (max-width: 1399.98px) {
-  .modal-fullscreen-xxl-down {
-    width: 100vw;
-    max-width: none;
-    height: 100%;
-    margin: 0;
-  }
-  .modal-fullscreen-xxl-down .modal-content {
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-  }
-  .modal-fullscreen-xxl-down .modal-header {
-    border-radius: 0;
-  }
-  .modal-fullscreen-xxl-down .modal-body {
-    overflow-y: auto;
-  }
-  .modal-fullscreen-xxl-down .modal-footer {
-    border-radius: 0;
-  }
+@media ( max-width : 575.98px) {
+	.modal-fullscreen-sm-down {
+		width: 100vw;
+		max-width: none;
+		height: 100%;
+		margin: 0;
+	}
+	.modal-fullscreen-sm-down .modal-content {
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+	}
+	.modal-fullscreen-sm-down .modal-header {
+		border-radius: 0;
+	}
+	.modal-fullscreen-sm-down .modal-body {
+		overflow-y: auto;
+	}
+	.modal-fullscreen-sm-down .modal-footer {
+		border-radius: 0;
+	}
 }
 
-
-.modTitle{
-font-weight: bold;
-font-size: x-large;
-
+@media ( max-width : 767.98px) {
+	.modal-fullscreen-md-down {
+		width: 100vw;
+		max-width: none;
+		height: 100%;
+		margin: 0;
+	}
+	.modal-fullscreen-md-down .modal-content {
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+	}
+	.modal-fullscreen-md-down .modal-header {
+		border-radius: 0;
+	}
+	.modal-fullscreen-md-down .modal-body {
+		overflow-y: auto;
+	}
+	.modal-fullscreen-md-down .modal-footer {
+		border-radius: 0;
+	}
 }
 
-#supplierBtn{
-  background-color:			#8E8E8E;
-  /* font-weight: bold; */
-  color:white;
-}
-#supplierBtn:hover{
-  background-color:		#6C6C6C;
-  transition: 0.5s;
-}
-
-
-
-#mypro{
-display: block;
-width: 120px;
-height: 90px;
-}
-
-#mYPROTEINLable{
-  float: right;
-  margin-right: 120px;
-  margin-top: 30px;
-  font-size: large;
-  font-weight: bold;
-  color: rgb(233, 163, 0);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+@media ( max-width : 991.98px) {
+	.modal-fullscreen-lg-down {
+		width: 100vw;
+		max-width: none;
+		height: 100%;
+		margin: 0;
+	}
+	.modal-fullscreen-lg-down .modal-content {
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+	}
+	.modal-fullscreen-lg-down .modal-header {
+		border-radius: 0;
+	}
+	.modal-fullscreen-lg-down .modal-body {
+		overflow-y: auto;
+	}
+	.modal-fullscreen-lg-down .modal-footer {
+		border-radius: 0;
+	}
 }
 
-#nike{
-display: block;
-width: 100px;
-height: 90px;
-margin-left: 20px;
+@media ( max-width : 1199.98px) {
+	.modal-fullscreen-xl-down {
+		width: 100vw;
+		max-width: none;
+		height: 100%;
+		margin: 0;
+	}
+	.modal-fullscreen-xl-down .modal-content {
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+	}
+	.modal-fullscreen-xl-down .modal-header {
+		border-radius: 0;
+	}
+	.modal-fullscreen-xl-down .modal-body {
+		overflow-y: auto;
+	}
+	.modal-fullscreen-xl-down .modal-footer {
+		border-radius: 0;
+	}
 }
 
-#nikeLable{
-  float: right;
-  margin-right: 180px;
-  margin-top: 35px;
-  font-size: large;
-  font-weight: bold;
-  color: rgb(233, 163, 0);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+@media ( max-width : 1399.98px) {
+	.modal-fullscreen-xxl-down {
+		width: 100vw;
+		max-width: none;
+		height: 100%;
+		margin: 0;
+	}
+	.modal-fullscreen-xxl-down .modal-content {
+		height: 100%;
+		border: 0;
+		border-radius: 0;
+	}
+	.modal-fullscreen-xxl-down .modal-header {
+		border-radius: 0;
+	}
+	.modal-fullscreen-xxl-down .modal-body {
+		overflow-y: auto;
+	}
+	.modal-fullscreen-xxl-down .modal-footer {
+		border-radius: 0;
+	}
 }
 
-#newBalanceLable{
-  float: right;
-  margin-right: 110px;
-  margin-top: 30px;
-  font-size: large;
-  font-weight: bold;
-  color: rgb(233, 163, 0);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.modTitle {
+	font-weight: bold;
+	font-size: x-large;
 }
 
-#newBalanceLable:hover{
-  color: 	#EAC100;
-  transition: 0.5s;
+#supplierBtn {
+	background-color: #8E8E8E;
+	/* font-weight: bold; */
+	color: white;
 }
 
-#nikeLable:hover{
-  color: 	#EAC100;
-  transition: 0.5s;
+#supplierBtn:hover {
+	background-color: #6C6C6C;
+	transition: 0.5s;
 }
 
-#mYPROTEINLable:hover{
-  color: 	#EAC100;
-  transition: 0.5s;
+#mypro {
+	display: block;
+	width: 120px;
+	height: 90px;
 }
 
-#newBalance{
-display: block;
-width: 110px;
-height: 80px;;
+#mYPROTEINLable {
+	float: right;
+	margin-right: 120px;
+	margin-top: 30px;
+	font-size: large;
+	font-weight: bold;
+	color: rgb(233, 163, 0);
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+		'Lucida Sans', Arial, sans-serif;
+}
+
+#nike {
+	display: block;
+	width: 100px;
+	height: 90px;
+	margin-left: 20px;
+}
+
+#nikeLable {
+	float: right;
+	margin-right: 180px;
+	margin-top: 35px;
+	font-size: large;
+	font-weight: bold;
+	color: rgb(233, 163, 0);
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+		'Lucida Sans', Arial, sans-serif;
+}
+
+#newBalanceLable {
+	float: right;
+	margin-right: 110px;
+	margin-top: 30px;
+	font-size: large;
+	font-weight: bold;
+	color: rgb(233, 163, 0);
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+		'Lucida Sans', Arial, sans-serif;
+}
+
+#newBalanceLable:hover {
+	color: #EAC100;
+	transition: 0.5s;
+}
+
+#nikeLable:hover {
+	color: #EAC100;
+	transition: 0.5s;
+}
+
+#mYPROTEINLable:hover {
+	color: #EAC100;
+	transition: 0.5s;
+}
+
+#newBalance {
+	display: block;
+	width: 110px;
+	height: 80px;;
 }
 </style>
 
@@ -451,7 +485,18 @@ height: 80px;;
 	<div id="app">
 
 		<!-- 插入上導覽列與左導覽列 -->
-		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		<jsp:directive.include
+			file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>商品管理</li>
+				</ul>
+			</div>
+		</section>
 
 
 
@@ -466,8 +511,10 @@ height: 80px;;
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="functionTitle"  class="title" >商品列表</h1>
-        <button type="button" id="supplierBtn" class="button light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">品牌分類查詢</button>
+				<h1 id="functionTitle" class="title">商品列表</h1>
+				<button type="button" id="supplierBtn" class="button light"
+					data-bs-toggle="modal" data-bs-target="#exampleModal"
+					data-bs-whatever="@fat">品牌分類查詢</button>
 			</div>
 		</section>
 
@@ -502,15 +549,14 @@ height: 80px;;
 								<td data-label="productName">${prod.productName}</td>
 								<td data-label="productName">${prod.subCategory.name}</td>
 								<td data-label="City">${prod.supplier}</td>
-								<td data-label="City">
-									<c:if test="${ not empty prod.imgUrl }">
-										<img alt="picture" src="${contextRoot}/ProductTempImg/${prod.imgUrl}" width="112" />
-									</c:if>
-									<c:if test="${ empty prod.imgUrl }">
+								<td data-label="City"><c:if
+										test="${ not empty prod.imgUrl }">
+										<img alt="picture"
+											src="${contextRoot}/ProductTempImg/${prod.imgUrl}"
+											width="112" />
+									</c:if> <c:if test="${ empty prod.imgUrl }">
 										<img alt="picture" src="" width="112" />
-									</c:if>
-									
-								</td>
+									</c:if></td>
 								<!-- 照片欄位 -->
 								<td data-label="Created">${prod.color}</td>
 								<td data-label="Created">${prod.size}</td>
@@ -534,7 +580,7 @@ height: 80px;;
 										<!-- 刪除 -->
 										<form id="deleteForm" method="get"
 											action="/Nice_eCommerce/deleteOneProduct${prod.id}">
-											<button  id="delete"
+											<button id="delete"
 												class="button small red --jb-modal delete"
 												data-target="sample-modal" type="button">
 												<span class="icon"><i class="mdi mdi-trash-can"></i></span>
@@ -572,49 +618,53 @@ height: 80px;;
 
 
 
-      <!--======================================================================================================================-->
-
-     
+			<!--======================================================================================================================-->
 
 
-      <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content" style="width:450px ;">
-            <div class="modal-header">
-              <h5 class="modal-title modTitle" id="exampleModalLabel">現有品牌</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
 
-              <form>
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
-                <div class="mb-3" style="display: block; width: 120px;">
-                  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
-                </div>
-                
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="newBalanceLable">New Balance</label></a>
-                <div class="mb-3"  style="display: block;width: 120px;" >
-                  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><img id="newBalance"  src="${contextRoot}/img/logo/new-balance.jpg"></a>
-                </div>
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="width: 450px;">
+						<div class="modal-header">
+							<h5 class="modal-title modTitle" id="exampleModalLabel">現有品牌</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
 
-                <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><label id="mYPROTEINLable">MYPROTEIN</label></a>
-                <div class="mb-3"  style="display: block; width: 120px;">
-                  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><img id="mypro"  src="${contextRoot}/img/logo/MYPROTEIN.jpg"></a>
-                </div>
-                
-              </form>
-            </div>
+							<form>
 
-            <div class="modal-footer">
-              <button type="button" class="button light" data-bs-dismiss="modal">返回</button>
-            </div>
+								<a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
 
-          </div>
-        </div>
-      </div>
+								<div class="mb-3" style="display: block; width: 120px;">
+								  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
+								</div>
+								
+								<a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><label id="newBalanceLable">New Balance</label></a>
+								<div class="mb-3"  style="display: block;width: 120px;" >
+								  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=New Balance"><img id="newBalance"  src="${contextRoot}/img/logo/new-balance.jpg"></a>
+								</div>
+				
+								<a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><label id="mYPROTEINLable">MYPROTEIN</label></a>
+								<div class="mb-3"  style="display: block; width: 120px;">
+								  <a href="${contextRoot}/BackpageSearchBySupplier?supplier=MYPROTEIN"><img id="mypro"  src="${contextRoot}/img/logo/MYPROTEIN.jpg"></a>
+								</div>
 
-   
+							</form>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="button light"
+								data-bs-dismiss="modal">返回</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
 
 
 
@@ -641,15 +691,15 @@ height: 80px;;
 	</div>
 
 	<!-- Scripts below are for demo only -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 
 
 
 
- 
+
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script

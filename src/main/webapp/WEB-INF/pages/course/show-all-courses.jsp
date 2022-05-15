@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>首頁</title>
+<title>課程管理</title>
 
 <!-- 使用原生 https://materialdesignicons.com/ 的 icon-->
 <link rel="stylesheet"
@@ -197,13 +197,10 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
-			<li>後台</li>
-			<li>課程管理系統</li>
-			<li>課程列表</li>
+			<li>管理系統</li>
+			<li>課程管理</li>
 		</ul>
-		<a href="#" class="button blue"> <span class="icon"><i
-				class="mdi mdi-credit-card-outline"></i></span> <span>施工中</span>
-		</a>
+
 	</div>
 </section>
 

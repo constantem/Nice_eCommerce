@@ -236,14 +236,11 @@
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
-			<li>後台</li>
-			<li>課程管理系統</li>
-			<li>課程列表</li>
-			<li>課程</li>
+			<li>管理系統</li>
+			<li>課程管理</li>
+
 		</ul>
-		<a href="#" class="button blue"> <span class="icon"><i
-				class="mdi mdi-credit-card-outline"></i></span> <span>施工中</span>
-		</a>
+
 	</div>
 </section>
 
@@ -251,7 +248,7 @@
 <section class="is-hero-bar">
 	<div
 		class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-		<h1 class="title">課程</h1>
+		<h1 class="title">課程資訊</h1>
 		<a href="${pageContext.request.contextPath}/staff/course/show/all"><button
 				class="button light">返回課程列表</button></a>
 	</div>

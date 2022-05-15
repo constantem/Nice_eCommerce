@@ -8,15 +8,14 @@
 				<div class="single-footer-widget">
 					<h6>認識我們</h6>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-						magna aliqua.
+					
 					</p>
 				</div>
 			</div>
 			<div class="col-lg-4  col-md-6 col-sm-6">
 				<div class="single-footer-widget">
-					<h6>Newsletter</h6>
-					<p>Stay update with our latest</p>
+					<h6>最新消息</h6>
+					<p>關注Nice 運動網的最新動態</p>
 					<div class="" id="mc_embed_signup">
 
 						<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
@@ -24,7 +23,7 @@
 
 							<div class="d-flex flex-row">
 
-								<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+								<input class="form-control" name="EMAIL" placeholder="電子郵件" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
 								 required="" type="email">
 
 
@@ -44,7 +43,7 @@
 			</div>
 			<div class="col-lg-3  col-md-6 col-sm-6">
 				<div class="single-footer-widget mail-chimp">
-					<h6 class="mb-20">Instragram Feed</h6>
+					<h6 class="mb-20">Instragram</h6>
 					<ul class="instafeed d-flex flex-wrap">
 						<li><img src="${contextRoot}/resources/frontstage/img/i1.jpg" alt=""></li>
 						<li><img src="${contextRoot}/resources/frontstage/img/i2.jpg" alt=""></li>
@@ -59,8 +58,8 @@
 			</div>
 			<div class="col-lg-2 col-md-6 col-sm-6">
 				<div class="single-footer-widget">
-					<h6>Follow Us</h6>
-					<p>Let us be social</p>
+					<h6>追蹤我們</h6>
+					<p></p>
 					<div class="footer-social d-flex align-items-center">
 						<a href="#"><i class="fa fa-facebook"></i></a>
 						<a href="#"><i class="fa fa-twitter"></i></a>

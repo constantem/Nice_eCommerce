@@ -75,11 +75,7 @@
 									<li>後台</li>
 									<li>活動列表</li>
 								</ul>
-								<a href="https://justboil.me/" onclick="alert('Coming soon'); return false"
-									target="_blank" class="button blue">
-									<span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
-									<span>Premium Demo</span>
-								</a>
+						
 							</div>
 						</section>
 
@@ -89,7 +85,7 @@
 								<h1 id="showTitle" class="title">
 									活動列表
 								</h1>
-								<button class="button light">Button</button>
+							
 							</div>
 						</section>
 

@@ -49,49 +49,19 @@
 }
 
 .blink {
-	animation-duration: 1s;
-	animation-name: blink;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
 }
-
-@
-keyframes blink {from { opacity:1;
-	
-}
-
-to {
-	opacity: 0;
-}
-
-}
-@
-keyframes blink { 0% {
-	opacity: 1;
-}
-
-80
-%
-{
-opacity
-:
-1;
-}
-81
-%
-{
-opacity
-:
-0;
-}
-100
-%
-{
-opacity
-:
-0;
-}
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 .modal {
 	position: fixed;

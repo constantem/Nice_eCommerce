@@ -24,78 +24,169 @@
                     <title>活動詳情</title>
 
                     <!--
-		CSS
-		============================================= -->
+                    CSS
+                    ============================================= -->
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.css" />
+                    <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/ion.rangeSlider.skinFlat.css" />
                     <link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+                    <style>
+                        .coupon {
+                            position: relative;
+                            width: 280px;
+                            height: 120px;
+                            margin: 30px auto;
+                            background-image: radial-gradient(circle at 1px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px), radial-gradient(circle at 80px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px);
+                            /* 優惠券長度 */
+                            background-size: 200px 18px;
+                            background-position: 0 0, 200px 0;
+                            background-repeat-x: no-repeat;
+                            font-size: 40px;
+                            color: #fff;
+                            font-weight: bold;
+                            line-height: 160px;
+                            padding-left: 60px;
+                            box-sizing: border-box;
+                            cursor: pointer;
+                        }
+    
+                        /* 優惠券上的白色虛線 */
+                        .coupon::before {
+                            position: absolute;
+                            content: "";
+                            left: 170px;
+                            top: 0;
+                            bottom: 0;
+                            width: 0;
+                            border-left: 1px dashed #fff;
+                        }
+    
+                        .takeCoupon {
+                            position: absolute;
+                            color: black;
+                            font-size: 15px;
+                            width: 90px;
+                            top: 50%;
+                            right: -12%;
+                            transform: translate(-50%, -50%);
+                            line-height: 40px;
+                            letter-spacing: 5px;
+                            font-size: 30px
+                        }
+    
+                        .coupon::after {
+                            position: absolute;
+                            /* content: "立即領取"; */
+                            color: black;
+                            font-size: 26px;
+                            width: 70px;
+                            top: 50%;
+                            right: -6%;
+                            transform: translate(-50%, -50%);
+                            line-height: 40px;
+                            letter-spacing: 5px;
+                        }
+                    </style>
+
+                    <!-- 自增 jquery cdn -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                        crossorigin="anonymous"></script>
+
+                    <!-- 自增 sweet alert -->
+                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                    <script>
+                    $(document).ready(function () {
+                        let addDiscountresult = "${addDiscountresult}";
+                        let announcementId = "${announcement.id}";
+                        // $("#addToMyDiscountBtn").click(function () {
+                        if (addDiscountresult == "優惠券沒了") {
+
+                            Swal.fire({
+                                title: "優惠券沒了, 下次請早",
+                                icon: "error",
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        } else if (addDiscountresult == "已領過") {
+                            Swal.fire({
+                                title: "你已經領過此優惠券",
+                                icon: "error",
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        } else if (addDiscountresult == "領取成功") {
+                            Swal.fire({
+                                title: "領取成功",
+                                icon: "success"
+                            }).then(function () {
+                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
+                            });
+                        }
+                    });
+
+                    // })
+                    </script>
+
+                    <SCRIPT language="javascript">
+                    $(document).ready(function () {
+                        window.onload = function () {
+                            let timer;
+                            var startDate = new Date();
+                            // var endDate = new Date(2022, 4, 31, 12, 25);
+                            var endDate = new Date("${announcement.discount.endDate}");
+
+
+
+                            var spantime = (endDate - startDate) / 1000;
+                            console.log(spantime)
+                            checkTime();
+                            function checkTime() {
+                                //    var a = dt.getDate();
+                                if (spantime < 0) { // 避免倒數變成負的
+                                    // alert(spantime);
+                                    $("#pad").text("活動已結束");
+                                    clearTimeout(timer);
+                                } else {
+                                    timer = setInterval(cal, 1000);
+                                }
+                            }
+
+
+
+                            function getString(dt) {
+                                return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
+                            }
+
+                            function cal() {
+                                spantime--;
+                                var d = Math.floor(spantime / (24 * 3600));
+                                var h = Math.floor((spantime % (24 * 3600)) / 3600);
+                                var m = Math.floor((spantime % 3600) / (60));
+                                var s = Math.floor(spantime % 60);
+                                str = d + "天 " + h + "時 " + m + "分 " + s + "秒 ";
+                                document.getElementById("pad").innerHTML = str;
+
+                            }
+
+
+                            document.getElementById("start_pad").innerHTML = getString(startDate);
+                            document.getElementById("end_pad").innerHTML = getString(endDate);
+
+                            
+                        }
+                    });
+                    </SCRIPT>
 
                 </head>
-
-                <style>
-                    .coupon {
-                        position: relative;
-                        width: 280px;
-                        height: 120px;
-                        margin: 30px auto;
-                        background-image: radial-gradient(circle at 1px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px), radial-gradient(circle at 80px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px);
-                        /* 優惠券長度 */
-                        background-size: 200px 18px;
-                        background-position: 0 0, 200px 0;
-                        background-repeat-x: no-repeat;
-                        font-size: 40px;
-                        color: #fff;
-                        font-weight: bold;
-                        line-height: 160px;
-                        padding-left: 60px;
-                        box-sizing: border-box;
-                        cursor: pointer;
-                    }
-
-                    /* 優惠券上的白色虛線 */
-                    .coupon::before {
-                        position: absolute;
-                        content: "";
-                        left: 170px;
-                        top: 0;
-                        bottom: 0;
-                        width: 0;
-                        border-left: 1px dashed #fff;
-                    }
-
-                    .takeCoupon {
-                        position: absolute;
-                        color: black;
-                        font-size: 15px;
-                        width: 90px;
-                        top: 50%;
-                        right: -12%;
-                        transform: translate(-50%, -50%);
-                        line-height: 40px;
-                        letter-spacing: 5px;
-                        font-size: 30px
-                    }
-
-                    .coupon::after {
-                        position: absolute;
-                        /* content: "立即領取"; */
-                        color: black;
-                        font-size: 26px;
-                        width: 70px;
-                        top: 50%;
-                        right: -6%;
-                        transform: translate(-50%, -50%);
-                        line-height: 40px;
-                        letter-spacing: 5px;
-                    }
-                </style>
-
 
                 <body>
                     <!-- 為了讓body內也能使用contextRoot的值 -->
@@ -457,144 +548,27 @@
                     </section>
                     <!--================Blog Area =================-->
 
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                        crossorigin="anonymous"></script>
-
-                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-                    <!-- <script>
-
-
-                        countEvent();
-
-                        function countEvent(){
-
-                            $.ajax({
-                                url:"${contextRoot}/announcement/showEventsForLengh",
-                                type:"get",
-                                // contentType:'application/json',
-                                success:function(announcements){
-                                    console.log(announcements)
-                                    // $.each(result, (index, value) => {
-                                    //     $("#tag1").text(value.username)
-
-                                    // })
-                                    alert("123")
-                                    var a = announcements.length
-
-                                    $("#tag1").text(a)
-                                }
-                            })
-                        }
-
-                    </script> -->
-
-
-
-                    <script>
-                        
-                        let addDiscountresult = "${addDiscountresult}";
-                        let announcementId = "${announcement.id}";
-                        // $("#addToMyDiscountBtn").click(function () {
-                        if (addDiscountresult == "優惠券沒了") {
-
-                            Swal.fire({
-                                title: "優惠券沒了, 下次請早",
-                                icon: "error",
-
-                            }).then(function () {
-                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
-                            });
-                        } else if (addDiscountresult == "已領過") {
-                            Swal.fire({
-                                title: "你已經領過此優惠券",
-                                icon: "error",
-                            }).then(function () {
-                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
-                            });
-                        } else if (addDiscountresult == "領取成功") {
-                            Swal.fire({
-                                title: "領取成功",
-                                icon: "success"
-                            }).then(function () {
-                                location.href = "${contextRoot}/announcement/showEventsDetails-front?id=" + announcementId;
-                            });
-                        }
-                    // })
-                    </script>
-
-                    <SCRIPT language="javascript">
-                        window.onload = function () {
-                            let timer;
-                            var startDate = new Date();
-                            // var endDate = new Date(2022, 4, 31, 12, 25);
-                            var endDate = new Date("${announcement.discount.endDate}");
-
-
-
-                            var spantime = (endDate - startDate) / 1000;
-                            console.log(spantime)
-                            checkTime();
-                            function checkTime() {
-                                //    var a = dt.getDate();
-                                if (spantime < 0) { // 避免倒數變成負的
-                                    // alert(spantime);
-                                    $("#pad").text("活動已結束");
-                                    clearTimeout(timer);
-                                } else {
-                                    timer = setInterval(cal, 1000);
-                                }
-                            }
-
-
-
-                            function getString(dt) {
-                                return dt.getFullYear() + "年" + (dt.getMonth() + 1) + "月" + dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
-                            }
-
-                            function cal() {
-                                spantime--;
-                                var d = Math.floor(spantime / (24 * 3600));
-                                var h = Math.floor((spantime % (24 * 3600)) / 3600);
-                                var m = Math.floor((spantime % 3600) / (60));
-                                var s = Math.floor(spantime % 60);
-                                str = d + "天 " + h + "時 " + m + "分 " + s + "秒 ";
-                                document.getElementById("pad").innerHTML = str;
-
-                            }
-
-
-                            document.getElementById("start_pad").innerHTML = getString(startDate);
-                            document.getElementById("end_pad").innerHTML = getString(endDate);
-
-                            
-                        }
-                    </SCRIPT>
-
-
                     <!-- 插入頁腳 -->
                     <jsp:directive.include file="/WEB-INF/pages/layout/frontstage/footer.jsp" />
 
-
+                    <!-- 原生 js -->
                     <script src="${contextRoot}/resources/frontstage/js/vendor/jquery-2.2.4.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-                        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-                        crossorigin="anonymous"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+                     crossorigin="anonymous"></script>
                     <script src="${contextRoot}/resources/frontstage/js/vendor/bootstrap.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.ajaxchimp.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.nice-select.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.sticky.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/nouislider.min.js"></script>
-                    <script src="${contextRoot}/resources/frontstage/js/jquery.countdown.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/jquery.magnific-popup.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/owl.carousel.min.js"></script>
                     <!--gmaps Js-->
-                    <script
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
                     <script src="${contextRoot}/resources/frontstage/js/gmaps.min.js"></script>
                     <script src="${contextRoot}/resources/frontstage/js/main.js"></script>
+
+
+
                 </body>
 
                 </html>

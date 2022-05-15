@@ -92,8 +92,19 @@ public class AnnouncementController {
 	public ModelAndView viewMessages(ModelAndView mav, @RequestParam(name="p", defaultValue = "1") Integer pageNumber) {
 		Page<AnnouncementBean> page = announcementService.findByPage(pageNumber);
 //		List<AnnouncementBean> announcements = page.getContent();
+		
+		List<AnnouncementBean> announcements = announcementService.findAllAnnouncement();
+		// list中每個活動照片的 bytes 要轉 String
+		for(AnnouncementBean ann : announcements) {
+			if(ann.getEventPicture() != null) { // 
+				ann.setEventPictureBase64(
+						Base64.getEncoder().encodeToString( ann.getEventPicture() )
+				);
+			} 
+		}
+		
 		mav.getModel().put("page", page);
-//		mav.getModel().put("announcements", announcements);
+		mav.getModel().put("announcements", announcements);
 		mav.setViewName("/announcement/viewAnnouncement");
 		
 		return mav;

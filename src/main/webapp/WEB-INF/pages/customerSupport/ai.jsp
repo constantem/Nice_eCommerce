@@ -247,7 +247,7 @@ var qaList = [
     function answer() { // 回答問題
       setTimeout(function () { // 停頓 1 到 3 秒再回答問題 (因為若回答太快就不像人了，人打字需要時間)
         append(">> "+getAnswer());
-      }, 1000+random(10000));
+      }, 1000+random(1000));
     }
     
     function getAnswer() {

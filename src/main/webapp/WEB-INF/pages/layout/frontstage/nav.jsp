@@ -146,7 +146,7 @@
 			<!-- 加插連後台按鈕 -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="nav-item">
-					<button type="button" id="toBackstageBtn" class="genric-btn primary circle">後台</button>
+					<button type="button" id="toBackstageBtn" class="genric-btn primary circle">管理系統</button>
 <%-- 					<a  href="${contextRoot}/backstage" class="genric-btn primary circle">後台</a> --%>
 				</li>
 			</ul>
@@ -181,7 +181,7 @@
 	$("#toBackstageBtn").click(function () {
 		Swal.fire({
 			title: "(Dev Only)",
-			html: "即將<span style='font-weight:bold;'>登出</b>並前往後台",
+			html: "即將<span style='font-weight:bold;'>登出</b>並前往管理系統",
 			showConfirmButton: true,
 			confirmButtonText: "登出並前往",
 			showCancelButton: true,

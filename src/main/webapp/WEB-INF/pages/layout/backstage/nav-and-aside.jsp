@@ -107,7 +107,7 @@
       <!-- 加插連前台按鈕 -->
       <div class="navbar-item">
       	<button type="button" class="button blue --jb-modal" data-target="toFrontStage-modal">
-      		前台
+      		運動網
       	</button>
       </div>
 
@@ -120,7 +120,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      Nice運動網 <b class="font-black">後台</b>
+      Nice運動網 <b class="font-black">管理系統</b>
     </div>
   </div>
   <div class="menu is-menu-main">
@@ -129,7 +129,7 @@
       <li class="--set-active-index-html">
         <a href="${contextRoot}/backstage">
           <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-          <span class="menu-item-label">後台首頁</span>
+          <span class="menu-item-label">儀表板</span>
         </a>
       </li>
     </ul>
@@ -363,7 +363,7 @@
       <p class="modal-card-title">(Dev Only)</p>
     </header>
     <section class="modal-card-body">
-      <p>即將<b>登出</b>並前往前台</p>
+      <p>即將<b>登出</b>並前往運動網</p>
     </section>
     <footer class="modal-card-foot">
 	  <button class="button blue --jb-modal-close" onclick="location.href='${contextRoot}/staffLogoutAndToFrontstage'">登出並前往</button>

@@ -75,7 +75,7 @@ public class MemberController {
 //		===================================================
 		
 		memberService.save(member);		
-		mav.setViewName("member/insertSuccess");
+		mav.setViewName("redirect:/staff/member/showAllResult");
 
 		return mav;
 	}

@@ -141,7 +141,6 @@
 									<th>當前優惠券數量</th>
 									<th>活動開始日</th>
 									<th>活動結束日</th>
-									<th>建立日期</th>
 									<th>修改/刪除</th>
 								</tr>
 							</thead>
@@ -169,9 +168,6 @@
 										<td data-label="currentQuantity">${discount.currentQuantity}</td>
 										<td data-label="startDate">${discount.startDate}</td>
 										<td data-label="endDate">${discount.endDate}</td>
-										<td data-label="Created">
-											<small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
-										</td>
 										<td class="actions-cell">
 											<div class="buttons right nowrap">
 												<a href="${contextRoot}/discount/showEditDiscount?id=${discount.id}">

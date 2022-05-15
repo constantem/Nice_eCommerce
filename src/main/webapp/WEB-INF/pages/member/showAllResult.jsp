@@ -83,17 +83,24 @@ font-weight:bold;
 		<!-- 插入上導覽列與左導覽列 -->
 		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
-		<!-- 章節層級 -->
-		<section class="is-title-bar">
-			<div
-				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<ul>
-					<li>會員管理</li>
-					
-				</ul>
-			
-			</div>
-		</section>
+	<!-- 層級 -->
+	<section class="is-title-bar">
+	  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+	    <ul>
+	      <li>後台</li>
+	      <li>會員列表</li>
+	    </ul>
+	  </div>
+	</section>
+
+	<!-- 標題 -->
+	<section class="is-hero-bar">
+	  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+	    <h1 class="title">
+	      會員列表
+	    </h1>
+	  </div>
+	</section>
 
 		<!-- 核心內容標題 -->
 		

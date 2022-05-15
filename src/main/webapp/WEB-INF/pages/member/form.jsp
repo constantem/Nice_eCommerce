@@ -29,6 +29,8 @@
 <script
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <meta property="og:url"
@@ -77,17 +79,24 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<!-- 插入上導覽列與左導覽列 -->
 		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 
-		<!-- 章節層級 -->
-		<section class="is-title-bar">
-			<div
-				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<ul>
-					<li>歡迎加入會員:</li>
-					
-				</ul>
-			
-			</div>
-		</section>
+	<!-- 層級 -->
+	<section class="is-title-bar">
+	  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+	    <ul>
+	      <li>後台</li>
+	      <li>新增會員</li>
+	    </ul>
+	  </div>
+	</section>
+
+	<!-- 標題 -->
+	<section class="is-hero-bar">
+	  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+	    <h1 class="title">
+	      新增會員
+	    </h1>
+	  </div>
+	</section>
 
 		<!-- 核心內容標題 -->
 <!-- 		<section class="is-hero-bar"> -->
@@ -101,15 +110,15 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<!-- 原核心內容的 section 開始 -->
 		<section class="section main-section">
 		  <div class="card mb-6">
-<!-- 		    <header class="card-header"> -->
-<!-- 		      <p class="card-header-title"> -->
-<!-- 		        <span class="icon"><i class="mdi mdi-ballot"></i></span> -->
-<!-- 		        歡迎加入會員: -->
-<!-- 		      </p> -->
-<!-- 		    </header> -->
+		    <header class="card-header">
+		      <p class="card-header-title">
+		        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+		        歡迎加入會員:
+		      </p>
+		    </header>
 		    <div class="card-content">
 		
-		<form action="${contextRoot}/member/add" method="post">
+		<form id="formMember" action="${contextRoot}/member/add" method="post">
 			
 			<!-- 欄位1 -->
 			<div class="field">
@@ -197,7 +206,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 				
 				<div class="field grouped">
 		          <div class="control">
-		            <button type="submit" class="button green">申請</button>
+		            <button id="btnSubmit" type="button" class="button green">申請</button>
 		            <button type="button" class="button red" id="check">一鍵輸入</button>
 		          </div>	
 		        </div>		
@@ -235,7 +244,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Scripts below are for demo only -->
 	<script type="text/javascript"
 		src="${contextRoot}/resources/backstage/js/main.min.js?v=1628755089081"></script>
-
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		!function(f, b, e, v, n, t, s) {
 			if (f.fbq)
@@ -261,6 +270,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		fbq('track', 'PageView');
 	</script>
 	
+	<!-- 一鍵輸入 -->
 	<script>
 	
 		$("#check").click(function() {
@@ -277,6 +287,28 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
 	</script>
 	
+	<script type="text/javascript">
+	
+		
+		
+		$("#btnSubmit").click(function(){
+			Swal.fire(
+			  '新增成功!',
+			  '',
+			  'success'
+			).then(function (result) {
+				if(result.isConfirmed) {
+					$("#formMember").submit();
+				}
+			});	
+		});
+	
+
+		
+		
+	</script>
+
+	
 	<noscript>
 		<img height="1" width="1" style="display: none"
 			src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1" />
@@ -285,6 +317,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 	<link rel="stylesheet"
 		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
 	
 </body>
 </html>

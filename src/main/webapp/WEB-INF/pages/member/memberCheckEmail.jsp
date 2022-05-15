@@ -79,11 +79,11 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>查詢密碼</h1>
+					<h1>忘記密碼？</h1>
 					<nav class="d-flex align-items-center">
 						<a href="">首頁<span class="lnr lnr-arrow-right"></span></a>
 						<a href="">註冊/登入<span class="lnr lnr-arrow-right"></span></a>
-						<a href="">查詢密碼</a>
+						<a href="">忘記密碼？</a>
 					</nav>
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 			<h3>請輸入註冊信箱</h3>
 			<form id="checkEmailForm" 
 				class="row contact_form"
-				action="${contextRoot}/member/sendMail" method="get" novalidate="novalidate">
+				novalidate="novalidate">
 <!-- 			<div class="col-md-12 form-group"> -->
 				
 <!-- 				<input type="text" class="form-control" id="username" name="username" placeholder="帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = '帳號'"> -->
@@ -104,7 +104,7 @@
 
 			<div class="col-md-12 form-group">
 				
-				<input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="註冊信箱" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'">
+				<input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="註冊信箱" onfocus="this.placeholder = ''" onblur="this.placeholder = '密碼'" onkeypress="return event.keyCode!=13">
 			</div>
 			<div class="col-md-12 form-group">
 				<button type="button" value="確認" class="primary-btn" id="forget">確認</button>

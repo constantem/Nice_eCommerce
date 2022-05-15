@@ -81,6 +81,15 @@
 		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
 		<!---------------------------------------------------------------------- 中間大框框-------------------------------------------------------------------->
 		<p />
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>訂單管理</li>
+				</ul>
+			</div>
+		</section>
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">

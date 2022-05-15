@@ -37,6 +37,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
 	crossorigin="anonymous">
+	
 </script>
 
 </head>
@@ -55,12 +56,11 @@
 	margin-top: 20px;
 	filter: drop-shadow(7px 7px 7px #a1a0a0);
 	border-radius: 15px;
-	
 }
 
- #photoLabel{
+#photoLabel {
 	color: red;
-} 
+}
 
 #btn1 {
 	margin-left: 150px;
@@ -95,14 +95,12 @@
 #img1 {
 	margin-top: 10px;
 	margin-bottom: 15px;
-	
 }
-.lb{
+
+.lb {
 	margin-right: 500px;
-	color: #2894FF	;
-
+	color: #2894FF;
 }
-
 </style>
 
 <body>
@@ -117,8 +115,19 @@
 	<div id="app">
 
 
-			<!-- 插入上導覽列與左導覽列 -->
-			<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		<!-- 插入上導覽列與左導覽列 -->
+		<jsp:directive.include
+			file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>商品管理</li>
+				</ul>
+			</div>
+		</section>
 
 
 
@@ -132,8 +141,10 @@
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="functionTitle" align="center" class="title"><i class="bi bi-bag-plus-fill"></i>&nbsp商品上架系統</h1>
-				
+				<h1 id="functionTitle" align="center" class="title">
+					<i class="bi bi-bag-plus-fill"></i>&nbsp商品上架系統
+				</h1>
+
 			</div>
 		</section>
 
@@ -141,7 +152,8 @@
 
 			<div align="center">
 
-				<form id="insertForm" method="post" action="${contextRoot}/insertProduct.controller"
+				<form id="insertForm" method="post"
+					action="${contextRoot}/insertProduct.controller"
 					enctype="multipart/form-data">
 					<div id="div1">
 
@@ -218,25 +230,21 @@
 						</div>
 
 						<div class="field">
-							<label  class="label">商品照片</label>
-							<label id="photoLabel">(最少選擇兩張商品照)</label>
+							<label class="label">商品照片</label> <label id="photoLabel">(最少選擇兩張商品照)</label>
 							<div class="control">
 								<span class="imgTag"><i class="bi bi-images"></i>&nbsp
-									商品主圖</span>
-							    <input id="img1" name="img" class="input" type="file" value="">
+									商品主圖</span> <input id="img1" name="img" class="input" type="file"
+									value="">
 
 								<hr>
-								<label class="lb">商品照A</label>
-								<input id="img" name="imgUrl_A" class="input imgA" type="file" value="">
-								
-								<label class="lb">商品照B</label>
-								<input id="img" name="imgUrl_B" class="input imgB" type="file" value="">
-
-								<label class="lb">商品照C</label>
-								<input id="img" name="imgUrl_C" class="input imgC" type="file" value="">
-
-								<label class="lb">商品照D</label>
-								<input id="img" name="imgUrl_D" class="input imgD" type="file" value="">
+								<label class="lb">商品照A</label> <input id="img" name="imgUrl_A"
+									class="input imgA" type="file" value=""> <label
+									class="lb">商品照B</label> <input id="img" name="imgUrl_B"
+									class="input imgB" type="file" value=""> <label
+									class="lb">商品照C</label> <input id="img" name="imgUrl_C"
+									class="input imgC" type="file" value=""> <label
+									class="lb">商品照D</label> <input id="img" name="imgUrl_D"
+									class="input imgD" type="file" value="">
 							</div>
 						</div>
 
@@ -259,16 +267,16 @@
 						<div class="field">
 							<label class="label">商品描述</label>
 							<div class="control">
-								<textarea id="productDiscription" name="productDiscription" class="textarea"
-									placeholder="輸入商品描述"></textarea>
+								<textarea id="productDiscription" name="productDiscription"
+									class="textarea" placeholder="輸入商品描述"></textarea>
 							</div>
 						</div>
 
 						<div class="field">
 							<label class="label">上架時間 </label>
 							<div class="control">
-								<input readonly id="createdAt" name="createdAt" class="input" type="text"
-									value="">
+								<input readonly id="createdAt" name="createdAt" class="input"
+									type="text" value="">
 							</div>
 						</div>
 
@@ -277,7 +285,10 @@
 
 							<div class="field grouped">
 								<div class="control">
-									</i><button id="btn1" type="button" class="button green"><i class="bi bi-upload"></i>&nbsp上架</button>
+									</i>
+									<button id="btn1" type="button" class="button green">
+										<i class="bi bi-upload"></i>&nbsp上架
+									</button>
 								</div>
 								<div class="control">
 									<button id="btnreset" type="reset" class="button red">重置</button>
@@ -307,13 +318,13 @@
 						<i class="bi bi-plus-circle-dotted"></i>&nbsp 輸入欲新增子類別名稱:
 					</p>
 
-<!-- 					<div class="select"> -->
-<!-- 						<select  id="categorySelect" name="category_id"> -->
-<!-- 						</select> -->
-<!-- 					</div> -->
+					<!-- 					<div class="select"> -->
+					<!-- 						<select  id="categorySelect" name="category_id"> -->
+					<!-- 						</select> -->
+					<!-- 					</div> -->
 
-					<input id="createSubcategory" name="name"
-						class="input" type="text" value="">
+					<input id="createSubcategory" name="name" class="input" type="text"
+						value="">
 				</div>
 			</form>
 			<!--========================== addSubCategory Dialog==========================  -->
@@ -366,16 +377,21 @@
 		crossorigin="anonymous"></script>
 
 	<script>
-		$("#InputData").on("click", function() {
-			$("#productName").attr("value", "New Balance鞋")
-			$("#supplier").attr("value", "New Balance")
-			$("#color").attr("value", "灰")
-			$("#size").attr("value", "US9")
-			$("#weight").attr("value", "234g")
-			$("#price").attr("value", "2350")
-			$("#quantity").attr("value", "0")
-			$("#productDiscription").attr("value","997H是經典997的次世代進化型號，為追求獨特風格的人群而生，將90年代經典鞋款大膽重塑，向永恆長青傳統致敬。 此款為復古慢跑鞋")
-		})
+		$("#InputData")
+				.on(
+						"click",
+						function() {
+							$("#productName").attr("value", "New Balance鞋")
+							$("#supplier").attr("value", "New Balance")
+							$("#color").attr("value", "灰")
+							$("#size").attr("value", "US9")
+							$("#weight").attr("value", "234g")
+							$("#price").attr("value", "2350")
+							$("#quantity").attr("value", "0")
+							$("#productDiscription")
+									.attr("value",
+											"997H是經典997的次世代進化型號，為追求獨特風格的人群而生，將90年代經典鞋款大膽重塑，向永恆長青傳統致敬。 此款為復古慢跑鞋")
+						})
 
 		$("#btnreset").on("click", function() {
 			$("#Name").attr("value", "")
@@ -400,62 +416,62 @@
 		// 		)		
 		// 	setTimeout(insert,1800)	
 		// })
-		function insert () {
-				$("#insertForm").submit()
-    			}
+		function insert() {
+			$("#insertForm").submit()
+		}
 
-
-		$("#btn1").click(function(){
-			if($("#productName").val()=="" || $("#productName").val()==null){
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: '商品名稱不可空白',
-					showConfirmButton: false,
-					timer: 2000
+		$("#btn1").click(
+				function() {
+					if ($("#productName").val() == ""
+							|| $("#productName").val() == null) {
+						Swal.fire({
+							position : 'center',
+							icon : 'error',
+							title : '商品名稱不可空白',
+							showConfirmButton : false,
+							timer : 2000
+						})
+					} else if ($("#price").val() == ""
+							|| $("#price").val() == null) {
+						Swal.fire({
+							position : 'center',
+							icon : 'error',
+							title : '商品價格不可空白',
+							showConfirmButton : false,
+							timer : 2000
+						})
+					} else if ($("#quantity").val() == ""
+							|| $("#quantity").val() == null) {
+						Swal.fire({
+							position : 'center',
+							icon : 'error',
+							title : '商品庫存數量不可空白',
+							showConfirmButton : false,
+							timer : 2000
+						})
+					} else if ($("#img1").val() == ""
+							|| $("#img1").val() == null) {
+						Swal.fire({
+							position : 'center',
+							icon : 'error',
+							title : '商品照不可空白',
+							showConfirmButton : false,
+							timer : 2000
+						})
+					} else if ($(".imgA").val() == ""
+							|| $(".imgA").val() == null) {
+						Swal.fire({
+							position : 'center',
+							icon : 'error',
+							title : '至少選擇二張商品照片',
+							showConfirmButton : false,
+							timer : 2000
+						})
+					} else {
+						Swal.fire('新增成功!', '', 'success')
+						setTimeout("insert()", 1500)
+					}
 				})
-			}else if($("#price").val()=="" || $("#price").val()==null){
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: '商品價格不可空白',
-					showConfirmButton: false,
-					timer: 2000
-				})
-			}else if($("#quantity").val()=="" || $("#quantity").val()==null){
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: '商品庫存數量不可空白',
-					showConfirmButton: false,
-					timer: 2000
-				})
-			}else if($("#img1").val()=="" || $("#img1").val()==null){
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: '商品照不可空白',
-					showConfirmButton: false,
-					timer: 2000
-				})
-			}else if($(".imgA").val()=="" || $(".imgA").val()==null){
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: '至少選擇二張商品照片',
-					showConfirmButton: false,
-					timer: 2000
-				})
-			}
-			else{
-				Swal.fire(
-				'新增成功!',
-				'',
-				'success'
-				)		
-			setTimeout("insert()",1500)	
-			}
-		})		
 	</script>
 
 
@@ -568,31 +584,29 @@
 			});
 		}
 
-
 		// vaPhoto();
 		// function vaPhoto(){
 
 		// 	if($(".imgA").val() == "" || $(".imgA").val()== null ){
-				
+
 		// 	}else{
 		// 		$("#photoLabel").attr("hidden","hidden")
 		// 	}
 		// }
 
-		$(".imgA").change(function(){
-			if($(".imgA").val() == "" || $(".imgA").val()== null
-			 &&$("#img1").val()=="" || $("#img1").val()==null
-			){
-				
-			}else{
-				$("#photoLabel").text("");
-			}
-		})
+		$(".imgA").change(
+				function() {
+					if ($(".imgA").val() == "" || $(".imgA").val() == null
+							&& $("#img1").val() == ""
+							|| $("#img1").val() == null) {
 
-	
+					} else {
+						$("#photoLabel").text("");
+					}
+				})
 	</script>
 
-	
+
 
 
 

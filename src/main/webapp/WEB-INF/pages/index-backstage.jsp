@@ -46,6 +46,21 @@
 	grid-template-columns:repeat(4,minmax(0,1fr))
 	}
 }
+.card{
+  background-color:	#F0F0F0;
+}
+
+.card:hover{
+  filter: drop-shadow(3px 3px 3px #7B7B7B);
+  transition: 0.5s;
+}
+.cardContent:hover{
+color:orange;
+transition: 0.5s;
+
+}
+
+
 </style>
 
 <!-- 原生 js -->
@@ -112,15 +127,15 @@ $(document).ready(function () {
       <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <ul>
           <li>運動網</li>
-          <li>後台首頁</li>
+   
         </ul>
       </div>
     </section>
 
     <section class="is-hero-bar">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <h1 class="title">
-          後台首頁
+        <h1 class="title"><i class="mdi mdi-desktop-mac"></i>
+          儀表板
         </h1>
       </div>
     </section>
@@ -138,6 +153,24 @@ $(document).ready(function () {
             </p>
           </header>
           <div class="card-content">
+            <ul class="menu-list">
+         
+      <!-- 下拉式選單1: 會員管理系統 -->
+      <li>
+           </ul>
+        
+        <ul>
+          <li>
+            <a href="${contextRoot}/staff/member/form">
+              <span class="cardContent">新增會員</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/staff/member/showAllResult">
+              <span class="cardContent">會員列表</span>
+            </a>
+          </li>
+        </ul>
           </div>
         </div>
         
@@ -145,11 +178,33 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-              優惠券管理
+              <span class="icon"><i class="bi bi-megaphone-fill"></i></span>
+              活動及優惠券管理
             </p>
           </header>
           <div class="card-content">
+		        <ul>
+				  <li>
+		            <a href="${contextRoot}/staff/announcement/addAnnouncement">
+		              <span class="cardContent">新增活動</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="${contextRoot}/staff/announcement/viewAnnouncement">
+		              <span class="cardContent">活動列表</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="${contextRoot}/staff/discount/form">
+		              <span class="cardContent">新增優惠券</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="${contextRoot}/staff/discount/viewDiscount">
+		              <span class="cardContent">優惠券列表</span>
+		            </a>
+		          </li>
+		        </ul>
           </div>
         </div>
         
@@ -157,11 +212,29 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              <span class="icon"><i class="bi bi-cart4"></i></span>
               商品管理
             </p>
           </header>
           <div class="card-content">
+        <ul>
+          <li>
+            <a href="${contextRoot}/staff/insertPdpage.controller">
+              <span class="cardContent">新增商品</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/staff/pageSeperate">
+              <span class="cardContent">商品列表</span>
+            </a>
+          </li>
+          <li>
+            <a href="${contextRoot}/staff/searchProductAds.controller">
+              <span class="cardContent">商品廣告輪播配置</span>
+            </a>
+          </li>
+        </ul>
+      </li>
           </div>
         </div>
 
@@ -169,11 +242,18 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              <span class="icon"><i class="bi bi-file-earmark-break-fill"></i></span>
               訂單管理
             </p>
           </header>
           <div class="card-content">
+        <ul>
+          <li>
+            <a href="${contextRoot}/staff/orders/viewAllOrders">
+              <span class="cardContent">訂單列表</span>
+            </a>
+          </li>
+        </ul>
           </div>
         </div>
 
@@ -181,11 +261,39 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              <span class="icon"><i class="bi bi-calendar-range"></i></span>
               課程管理
             </p>
           </header>
           <div class="card-content">
+          	<i 
+          		<c:choose>
+          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList') || (activeLi == 'courseBookingList')}">class="mdi mdi-minus"</c:when>
+          		</c:choose>
+          	></i>
+        <ul>
+          <li <c:if test="${activeLi == 'courseForm'}">class="active"</c:if> >
+            <a href="${contextRoot}/staff/course/form">
+              <span class="cardContent">新增課程</span>
+            </a>
+          </li>
+          <li <c:if test="${activeLi == 'courseList'}">class="active"</c:if> >
+            <a href="${contextRoot}/staff/course/show/all">
+              <span class="cardContent">課程列表</span>
+            </a>
+          </li>
+          <li <c:if test="${activeLi == 'coachList'}">class="active"</c:if> >
+            <a href="${contextRoot}/staff/coach/listPage">
+              <span class="cardContent">教練列表</span>
+            </a>
+          </li>
+          <li <c:if test="${activeLi == 'courseBookingList'}">class="active"</c:if> >
+            <a href="${contextRoot}/staff/courseBooking/listPage">
+              <span class="cardContent">課程訂單列表</span>
+            </a>
+          </li>
+        </ul>
+
           </div>
         </div>
 
@@ -193,11 +301,30 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              <span class="icon"><i class="bi bi-person-badge-fill"></i></span>
               員工管理
             </p>
           </header>
           <div class="card-content">
+	        <ul>
+	          <li>
+	            <a href="${contextRoot}/admin/employee/viewEmployee">
+	              <span class="cardContent">員工列表</span>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="${contextRoot}/admin/employee/WorkSchedule">
+	              <span class="cardContent">排班系統</span>
+	            </a>
+	          </li>
+	           <li>
+	            <a href="${contextRoot}/staff/PunchCardSystem">
+	              <span class="cardContent">打卡系統</span>
+	            </a>
+	          </li>
+	        </ul>
+
+          
           </div>
         </div>
 
@@ -205,34 +332,32 @@ $(document).ready(function () {
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              <span class="icon"><i class="bi bi-telephone-fill"></i></span>
               客服系統
             </p>
           </header>
-          <div class="card-content">
+		          <div class="card-content">
+		        <ul>
+		          <li>
+		            <a href="${contextRoot}/staff/message/selectAll">
+		              <span class="cardContent">客服管理</span>
+		            </a>
+		          </li>
+		        </ul>
+
           </div>
         </div>   
         
         <!-- 管理系統8 -->
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-              活動管理
-            </p>
-          </header>
-          <div class="card-content">
-          </div>
-        </div>
-      </div>
 
+        </div>
     </section>
 	<!-- 原核心內容的 section 結束 -->
 
 	<!-- 插入頁腳 -->
 	<jsp:directive.include file="/WEB-INF/pages/layout/backstage/footer.jsp" />
 
-  </div>
+
 
 </body>
 

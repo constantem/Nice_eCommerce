@@ -7,6 +7,10 @@
 
 <!-- short style in second head tag in body tag -->
 
+<!-- bootstrap icon -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
 <head>
 	<style>
 		.hideIfNotAuthenticatedAsStaff {
@@ -16,6 +20,11 @@
 		.hideIfEmptyImg {
 			display: none;
 		}
+    #logoImg{
+      display: block;
+      float: left;
+      margin-right: 8px;
+    }
 	</style>
 </head>
 
@@ -120,7 +129,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      Nice運動網 <b class="font-black">後台</b>
+     <span><img id="logoImg" width="25px" height="25px" src="${contextRoot}/resources/backstage/apple-touch-icon-removebg-preview.png"> Nice運動網 </span><b class="font-black">後台</b>
     </div>
   </div>
   <div class="menu is-menu-main">
@@ -129,7 +138,7 @@
       <li class="--set-active-index-html">
         <a href="${contextRoot}/backstage">
           <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-          <span class="menu-item-label">後台首頁</span>
+          <span class="menu-item-label">儀表板</span>
         </a>
       </li>
     </ul>
@@ -139,7 +148,7 @@
       <!-- 下拉式選單1: 會員管理系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-person-circle"></i></span>
           <span class="menu-item-label">會員管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
@@ -160,7 +169,7 @@
       <!-- 下拉式選單2: 優惠券管理系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-megaphone-fill"></i></span>
           <span class="menu-item-label">活動及優惠券管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
@@ -191,7 +200,7 @@
       <!-- 下拉式選單3: 商品管理系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-cart4"></i></span>
           <span class="menu-item-label">商品管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
@@ -217,7 +226,7 @@
       <!-- 下拉式選單4: 訂單管理系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-file-earmark-break-fill"></i></span>
           <span class="menu-item-label">訂單管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
@@ -233,7 +242,7 @@
       <!-- 下拉式選單5: 課程管理系統 -->
       <li <c:if test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList') || (activeLi == 'courseBookingList')}">class="active"</c:if> >
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-calendar-range"></i></span>
           <span class="menu-item-label">課程管理</span>
           <span class="icon">
           	<i 
@@ -271,7 +280,7 @@
       <!-- 下拉式選單6: 員工管理系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-person-badge-fill"></i></span>
           <span class="menu-item-label">員工管理</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>
@@ -297,7 +306,7 @@
       <!-- 下拉式選單7: 客服系統 -->
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="icon"><i class="bi bi-telephone-fill"></i></span>
           <span class="menu-item-label">客服系統</span>
           <span class="icon"><i class="mdi mdi-plus"></i></span>
         </a>

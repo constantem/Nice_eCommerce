@@ -239,8 +239,8 @@ $(document).ready(function() { // Document is ready
 <body>
 
 <!-- page controller 帶來的資料 -->
-<input id="coachId" value="${id}">
-<input id="contextRoot" value="${contextRoot}">
+<input type="hidden" id="coachId" value="${id}">
+<input type="hidden" id="contextRoot" value="${contextRoot}">
 
 <div id="app">
 
@@ -251,14 +251,9 @@ $(document).ready(function() { // Document is ready
 <section class="is-title-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
-      <li>後台</li>
-      <li>教練列表</li>
-      <li>教練</li>
+      <li>管理系統</li>
+      <li>教練管理</li>
     </ul>
-    <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
-      <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
-      <span>Premium Demo</span>
-    </a>
   </div>
 </section>
 
@@ -266,7 +261,7 @@ $(document).ready(function() { // Document is ready
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      教練
+      教練資訊
     </h1>
     <a href="${contextRoot}/staff/coach/listPage">
     	<button class="button light">回列表</button>

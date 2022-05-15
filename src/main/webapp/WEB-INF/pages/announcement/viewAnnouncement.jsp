@@ -72,8 +72,8 @@
 						<section class="is-title-bar">
 							<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 								<ul>
-									<li>後台</li>
-									<li>活動列表</li>
+									<li>管理系統</li>
+									<li>活動管理</li>
 								</ul>
 						
 							</div>

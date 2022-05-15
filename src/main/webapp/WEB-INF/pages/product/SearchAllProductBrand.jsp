@@ -463,6 +463,16 @@ height: 80px;;
 
 		<!-- 插入上導覽列與左導覽列 -->
 		<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>商品管理</li>
+				</ul>
+			</div>
+		</section>
 
 
 
@@ -592,8 +602,6 @@ height: 80px;;
               <form>
 
                 <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
-
-               <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
 
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>

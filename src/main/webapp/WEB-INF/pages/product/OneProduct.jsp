@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -32,7 +33,7 @@
 <link rel="stylesheet"
 	href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">	
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -81,36 +82,42 @@ figure {
 	float: right;
 }
 
-#imgFile{
+#imgFile {
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
+
 #imgFile1 {
 	margin-top: 10px;
 }
+
 #imgFile2 {
 	margin-top: 10px;
 }
+
 #imgFile3 {
 	margin-top: 10px;
 }
+
 #imgFile4 {
 	margin-top: 10px;
 }
+
 .imgTag {
 	margin-right: 400px;
 	color: #2894FF;
 }
 
-#saveChange{
+#saveChange {
 	margin-left: 250px;
 	width: 90px;
 	background-color: #2894FF;
 	border: none;
 }
-#saveChange:hover{
+
+#saveChange:hover {
 	background-color: #0873dd;
-	transition:0.3s;	
+	transition: 0.3s;
 }
 </style>
 
@@ -124,8 +131,19 @@ figure {
 	<!--主要外層Div -->
 	<div id="app">
 
-			<!-- 插入上導覽列與左導覽列 -->
-			<jsp:directive.include file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+		<!-- 插入上導覽列與左導覽列 -->
+		<jsp:directive.include
+			file="/WEB-INF/pages/layout/backstage/nav-and-aside.jsp" />
+			
+		<section class="is-title-bar">
+			<div
+				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+				<ul>
+					<li>管理系統</li>
+					<li>商品管理</li>
+				</ul>
+			</div>
+		</section>
 
 
 
@@ -133,7 +151,9 @@ figure {
 		<section class="is-hero-bar">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-				<h1 id="pageTitle" class="title"><i class="bi bi-info-square-fill"></i>&nbsp商品詳細資訊</h1>
+				<h1 id="pageTitle" class="title">
+					<i class="bi bi-info-square-fill"></i>&nbsp商品詳細資訊
+				</h1>
 				<button class="button light">Button</button>
 			</div>
 		</section>
@@ -155,36 +175,41 @@ figure {
 			<div class="card-content">
 				<label class="label">商品圖片</label>
 				<div class="image mx-auto">
-				
-					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}" alt="picture" id="productImg">
-						
+
+					<img src="${contextRoot}/ProductTempImg/${pdVal.imgUrl}"
+						alt="picture" id="productImg">
+
 					<figure>
-						<img  onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"
+							src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_A}">
 					</figure>
 
 					<figure>
-						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"
+							src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_B}">
 					</figure>
 
 					<figure>
-						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"
+							src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_C}">
 					</figure>
 
 					<figure>
-						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳" src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_D}">
+						<img onerror="this.style.display='none'" alt="&nbsp圖片未上傳"
+							src="${contextRoot}/ProductTempImg/${pdVal.imgUrl_D}">
 					</figure>
 
 				</div>
 			</div>
 
-			<form  id="editForm" action="${contextRoot}/editProduct" method="post"
+			<form id="editForm" action="${contextRoot}/editProduct" method="post"
 				enctype="multipart/form-data">
 
 				<div class="field">
 					<!-- 					<label class="label">商品編號</label> -->
 					<div class="control">
-						<input name="id" type="text" readonly
-							value="${id}" class="input is-static">
+						<input name="id" type="text" readonly value="${id}"
+							class="input is-static">
 					</div>
 					<input type="hidden" name="id" value="${pdVal.id}">
 				</div>
@@ -192,31 +217,34 @@ figure {
 				<div class="field">
 					<label class="label">變更商品照片</label>
 					<div class="control">
-					
-						<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp 商品主圖</span> 
-						<input id="imgFile" name="imgFile" class="input" type="file" value="">
-						
+
+						<span class="imgTag"><i class="bi bi-camera-fill"></i>&nbsp
+							商品主圖</span> <input id="imgFile" name="imgFile" class="input" type="file"
+							value="">
+
 						<hr>
-	
+
 						<input id="imgFile1" name="imgFile1" class="input" type="file"
-													value="">
-						<input id="imgFile2" name="imgFile2" class="input" type="file"
-													value="">
-						<input id="imgFile3" name="imgFile3" class="input" type="file"
-													value="">
-						<input id="imgFile4" name="imgFile4" class="input" type="file"
-													value="">
+							value=""> <input id="imgFile2" name="imgFile2"
+							class="input" type="file" value=""> <input id="imgFile3"
+							name="imgFile3" class="input" type="file" value=""> <input
+							id="imgFile4" name="imgFile4" class="input" type="file" value="">
 
 					</div>
 				</div>
 				<!-- 為保留原圖片 -->
-<%-- 			<input id="img" type="hidden" name="img" class="input" type="text" value="${pdVal.img}"> --%>
-					
-				<input id="imgUrl"  type="hidden" name="imgUrl" class="input" type="text" value="${pdVal.imgUrl}">
-				<input id="imgUrl_A" type="hidden" name="imgUrl_A" class="input" type="text" value="${pdVal.imgUrl_A}">
-				<input id="imgUrl_B" type="hidden" name="imgUrl_B" class="input" type="text"value="${pdVal.imgUrl_B}">
-				<input id="imgUrl_C"type="hidden" name="imgUrl_C" class="input" type="text" value="${pdVal.imgUrl_C}">
-				<input id="imgUrl_D"type="hidden" name="imgUrl_D" class="input" type="text" value="${pdVal.imgUrl_D}">
+				<%-- 			<input id="img" type="hidden" name="img" class="input" type="text" value="${pdVal.img}"> --%>
+
+				<input id="imgUrl" type="hidden" name="imgUrl" class="input"
+					type="text" value="${pdVal.imgUrl}"> <input id="imgUrl_A"
+					type="hidden" name="imgUrl_A" class="input" type="text"
+					value="${pdVal.imgUrl_A}"> <input id="imgUrl_B"
+					type="hidden" name="imgUrl_B" class="input" type="text"
+					value="${pdVal.imgUrl_B}"> <input id="imgUrl_C"
+					type="hidden" name="imgUrl_C" class="input" type="text"
+					value="${pdVal.imgUrl_C}"> <input id="imgUrl_D"
+					type="hidden" name="imgUrl_D" class="input" type="text"
+					value="${pdVal.imgUrl_D}">
 
 				<div class="field">
 					<label class="label">商品名稱</label>
@@ -297,8 +325,7 @@ figure {
 					<label class="label">修改時間 </label>
 					<div class="control">
 						<input id="modifiedAt" name="modifiedAt" class="input" type="text"
-							value="">
-						<input id="" name="createdAt" class="input"
+							value=""> <input id="" name="createdAt" class="input"
 							type="hidden" value="${pdVal.createdAt}">
 					</div>
 				</div>
@@ -306,7 +333,8 @@ figure {
 				<div class="field">
 					<div class="control">
 						<button id="saveChange" type="button" class="button green">
-							<i class="bi bi-pencil-square"></i>&nbsp修改</button>
+							<i class="bi bi-pencil-square"></i>&nbsp修改
+						</button>
 					</div>
 				</div>
 			</form>

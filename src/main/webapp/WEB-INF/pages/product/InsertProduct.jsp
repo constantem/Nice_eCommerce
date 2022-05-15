@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nice_eCommerce_InsertProductPage</title>
+<title>商品上架</title>
 
 
 <!----------------------------- CSS------------------------------------------ -->
@@ -133,7 +133,7 @@
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 id="functionTitle" align="center" class="title"><i class="bi bi-bag-plus-fill"></i>&nbsp商品上架系統</h1>
-				<button class="button light">Button</button>
+				
 			</div>
 		</section>
 

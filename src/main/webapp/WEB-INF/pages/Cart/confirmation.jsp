@@ -9,8 +9,7 @@
 				<!-- Mobile Specific Meta -->
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 				<!-- Favicon-->
-				<link rel="shortcut icon" href="/favicon.ico/">
-				<link rel="bookmark" href="/favicon.ico/">
+				
 				<!-- Author Meta -->
 				<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 				<meta name="author" content="CodePixar">
@@ -21,7 +20,7 @@
 				<!-- meta character set -->
 				<meta charset="UTF-8">
 				<!-- Site Title -->
-				<title>Nice eCommerce Shopping Center</title>
+				<title>訂單成立</title>
 
 				<link rel="stylesheet"
 					href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -38,8 +37,7 @@
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css" />
 				<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css" />
-				<link rel="icon" type="image/png" sizes="32x32"
-					href="${contextRoot}/resources/backstage/favicon1-32x32.png" />
+				<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 			</head>
 			<style>
 				.cartImg {

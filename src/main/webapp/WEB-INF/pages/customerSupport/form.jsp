@@ -21,7 +21,7 @@ function confirm(){
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+	<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -31,7 +31,7 @@ function confirm(){
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>運動網</title>
+	<title>客服表單</title>
 	<!--
 		CSS
 		============================================= -->

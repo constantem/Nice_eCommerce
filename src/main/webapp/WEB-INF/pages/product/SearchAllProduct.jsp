@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nice_eCommerce_SearchAllProductPage</title>
+<title>商品列表</title>
 
 <!----------------------------- 原生 CSS------------------------------------------ -->
 <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081">
@@ -34,7 +34,7 @@
 <!-- <script -->
 <!-- 	src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 <meta name="description" content="Admin One - free Tailwind dashboard">
 
 <style>
@@ -588,10 +588,6 @@ height: 80px;;
 
               <form>
 
-<<<<<<< HEAD
-                
-=======
->>>>>>> 1b183d788f552c6289eec1e599e9d95cbdc694c1
                 <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><label id="nikeLable">NIKE</label></a>
                 <div class="mb-3" style="display: block; width: 120px;">
                   <a href="${contextRoot}/BackpageSearchBySupplier?supplier=nike"><img id="nike"  src="${contextRoot}/img/logo/nike.jfif"></a>
@@ -645,18 +641,14 @@ height: 80px;;
 	</div>
 
 	<!-- Scripts below are for demo only -->
-	<script
-<<<<<<< HEAD
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous">
-  </script>
-=======
+		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous">
-	</script>
->>>>>>> 1b183d788f552c6289eec1e599e9d95cbdc694c1
+			crossorigin="anonymous"></script>
+
+
+
+
  
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>

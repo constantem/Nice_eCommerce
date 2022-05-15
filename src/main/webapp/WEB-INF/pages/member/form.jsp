@@ -85,11 +85,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 					<li>歡迎加入會員:</li>
 					
 				</ul>
-				<a href="https://justboil.me/"
-					onclick="alert('Coming soon'); return false" target="_blank"
-					class="button blue"> <span class="icon"><i
-						class="mdi mdi-credit-card-outline"></i></span> <span>Premium Demo</span>
-				</a>
+			
 			</div>
 		</section>
 

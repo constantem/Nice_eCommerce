@@ -91,11 +91,7 @@ font-weight:bold;
 					<li>會員管理</li>
 					
 				</ul>
-				<a href="https://justboil.me/"
-					onclick="alert('Coming soon'); return false" target="_blank"
-					class="button blue"> <span class="icon"><i
-						class="mdi mdi-credit-card-outline"></i></span> <span>Premium Demo</span>
-				</a>
+			
 			</div>
 		</section>
 

@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我頁標題(未更改)</title>
+<title>客服管理列表</title>
 <!-- Tailwind is included -->
 <!-- <link rel="stylesheet" href="${contextRoot}/resources/backstage/css/main.css?v=1628755089081"> -->
 <link rel="stylesheet"
@@ -89,14 +89,10 @@ td, input {
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<ul>
-					<li>Admin</li>
-					<li>Profile</li>
+					<li>後台</li>
+					<li>客服系統</li>
 				</ul>
-				<a href="https://justboil.me/"
-					onclick="alert('Coming soon'); return false" target="_blank"
-					class="button blue"> <span class="icon"><i
-						class="mdi mdi-credit-card-outline"></i></span> <span>Premium Demo</span>
-				</a>
+			
 			</div>
 		</section>
 
@@ -105,7 +101,7 @@ td, input {
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 				<h1 class="title">查詢全部資料</h1>
-				<button id="buttonalert" type="button" class="button light">Button</button>
+				
 			</div>
 		</section>
 

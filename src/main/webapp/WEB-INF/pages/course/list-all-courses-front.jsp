@@ -68,7 +68,8 @@ CSS
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous">
 </script>
-
+<!-- sweat alert 2 CDN -->	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function () {
 	
@@ -200,8 +201,8 @@ $(document).ready(function () {
                 <div class="col-first">
                     <h1>課程一覽</h1>
                     <nav class="d-flex align-items-center">
-                        <a href="${contextRoot}/resources/frontstage/index.html">首頁<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="${contextRoot}/resources/frontstage/category.html">課程一覽</a>
+                        <a href="">首頁<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="">課程一覽</a>
                     </nav>
                 </div>
             </div>

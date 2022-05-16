@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.nicesport.dto.CoachListForOnePage;
 import tw.nicesport.model.Coach;
 import tw.nicesport.service.CoachService;
 import tw.nicesport.util.BytesUtils;
@@ -88,6 +90,28 @@ public class CoachApi {
 			);
 		}
 		return coachs;
+	}
+	
+	// 查詢全部, by page
+	@GetMapping("/api/coach/page/{pageNum}")
+	public CoachListForOnePage findAllByPageNum(@PathVariable("pageNum") Integer pageNumber) {
+		Page<Coach> coachsPage = coachService.findAll(pageNumber);
+		List<Coach> coachs = coachsPage.getContent();
+		for(Coach coach : coachs) {
+			// null 不轉
+			if(coach.getProfile()==null) {
+				coach.setProfileBase64(null);
+				continue;
+			} 
+			// 非 null 才轉
+			coach.setProfileBase64(
+				Base64.getEncoder().encodeToString( coach.getProfile() )
+			);
+		}
+		CoachListForOnePage coachListForOnePage = new CoachListForOnePage();
+		coachListForOnePage.setCoachs(coachs);
+		coachListForOnePage.setTotalPages(coachsPage.getNumber());
+		return coachListForOnePage;
 	}
 	
 	// 刪除一筆

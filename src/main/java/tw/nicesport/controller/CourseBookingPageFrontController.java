@@ -69,37 +69,15 @@ public class CourseBookingPageFrontController {
 		return "course/form-coursebooking";
 	}
 	
-	// 前台報名送出
-	@RequestMapping("/courseBooking/confirm")
+	// 前台報名送出新增後, 轉跳
+	@RequestMapping("/courseBooking/successPage")
 	public String addCourseBookingByMemberId(
-			@ModelAttribute("courseBookingDtoForm") CourseBookingDto courseBookingDto,
+			@RequestParam("courseBookingId") Integer courseBookingId,
 			Model model
 		) {
-		System.out.println(courseBookingDto.getMemberId());
-		System.out.println(courseBookingDto.getCourseId());
-		Member member = memberService.findById( courseBookingDto.getMemberId() );
-		Course course = courseService.queryById( courseBookingDto.getCourseId() );
-		
-		// 更新剩餘名額
-		course.setRemainingPlaces( course.getRemainingPlaces()-1 );
-		Course courseUpdated = courseService.update(course);
-		
-		// 製作新資料
-		CourseBooking courseBooking = new CourseBooking();
-		courseBooking.setMember(member);
-		member.getCourseBookingList().add(courseBooking);
-		courseBooking.setCourse(courseUpdated);
-		courseUpdated.getCourseBookingSet().add(courseBooking);
-		
-		// 後端初始化
-		courseBooking.setBookingStatus("有效");
-		courseBooking.setPaymentStatus("未付款");
-		
-		// 新增此新資料
-		CourseBooking courseBookingInserted = courseBookingService.insert(courseBooking);
-		
+
 		// 將新增的 id 傳給下一動
-		model.addAttribute( "courseBookingId", courseBookingInserted.getId() );
+		model.addAttribute( "courseBookingId", courseBookingId );
 		return "course/success-coursebooking";
 	}
 	

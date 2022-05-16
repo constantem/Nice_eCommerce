@@ -11,7 +11,7 @@
 <!-- Mobile Specific Meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon-->
-<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 <!-- Author Meta -->
 <meta name="author" content="CodePixar">
 <!-- Meta Description -->
@@ -23,21 +23,56 @@
 <!-- Site Title -->
 <title>報名成功</title>
 
-	<!--
-		CSS
-		============================================= -->
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
-	<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+<!--
+	CSS
+	============================================= -->
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/linearicons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/owl.carousel.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/themify-icons.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/font-awesome.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nice-select.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/nouislider.min.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/bootstrap.css">
+<link rel="stylesheet" href="${contextRoot}/resources/frontstage/css/main.css">
+	
+<style>
+	.order_d_inner .details_item .list li a span.result-display {
+		color: black;
+	}
+</style>
+	
+<!-- jQuery CDN -->	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous">
+</script>
+
+<!-- sweat alert 2 CDN -->	
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
+<script>
+$(document).ready(function () {
+	$.ajax({
+		method: "GET",
+		url: $("#contextRoot").val()+"/api/courseBooking/"+$("#courseBookingId").val(),
+		success: function (courseBookingDto) {
+			$("#memberFullName").text(courseBookingDto.memberFullName);
+			$("#courseName").text(courseBookingDto.courseName);
+			$("#coachFullName").text(courseBookingDto.coachFullName);
+			$("#coursePrice").text(courseBookingDto.coursePrice);
+			$("#createdAt").text(courseBookingDto.createdAt);
+		}
+	});
+});
+</script>
+	
 </head>
 
 <body>
 
+	<input type="hidden" id="contextRoot" value="${contextRoot}">
+	<!-- 新增後的 courseBooking id -->
+	<input type="hidden" id="courseBookingId" value="${courseBookingId}">
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -79,118 +114,29 @@
 			<div class="row order_d_inner">
 				<div class="col-lg-4">
 					<div class="details_item">
-						<h4>Order Info</h4>
+						<h4>會員資訊</h4>
 						<ul class="list">
-							<li><a href="#"><span>Order number</span> : 60235</a></li>
-							<li><a href="#"><span>Date</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Total</span> : USD 2210</a></li>
-							<li><a href="#"><span>Payment method</span> : Check payments</a></li>
+							<li><a href="#"><span>姓名</span> : <span id="memberFullName" class="result-display"></span></a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="details_item">
-						<h4>Billing Address</h4>
+						<h4>課程資訊</h4>
 						<ul class="list">
-							<li><a href="#"><span>Street</span> : 56/8</a></li>
-							<li><a href="#"><span>City</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Country</span> : United States</a></li>
-							<li><a href="#"><span>Postcode </span> : 36952</a></li>
+							<li><a href="#"><span>課程名稱</span> : <span id="courseName" class="result-display"></span></a></li>
+							<li><a href="#"><span>教練姓名</span> : <span id="coachFullName" class="result-display"></span></a></li>
+							<li><a href="#"><span>報名時間</span> : <span id="createdAt" class="result-display"></span></a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="details_item">
-						<h4>Shipping Address</h4>
+						<h4>繳費資訊</h4>
 						<ul class="list">
-							<li><a href="#"><span>Street</span> : 56/8</a></li>
-							<li><a href="#"><span>City</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Country</span> : United States</a></li>
-							<li><a href="#"><span>Postcode </span> : 36952</a></li>
+							<li><a href="#"><span>費用</span> : <span id="coursePrice" class="result-display"></span></a></li>
 						</ul>
 					</div>
-				</div>
-			</div>
-			<div class="order_details_table">
-				<h2>Order Details</h2>
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Product</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Subtotal</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>$2160.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Shipping</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>Flat rate: $50.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Total</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>$2210.00</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>

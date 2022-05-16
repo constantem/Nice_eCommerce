@@ -61,6 +61,21 @@ CSS
     	color: red;
     }
     
+    .categories_post {
+  position: relative;
+  text-align: center;
+  cursor: pointer; 
+   width: 350px; 
+   height: 213.887px; 
+  }
+    
+    .categories_post img {
+/*    	    position: absolute; */
+        width:100%;
+        height:100%; 
+        object-fit: cover;    
+    }
+    
 </style>
 
 <!--jQuery CDN -->
@@ -78,8 +93,10 @@ $(document).ready(function () {
 		Swal.fire({
 			text: "你已報名"+$("#bookingErrorCourseName").val(),
 			showConfirmButton: true,
-			confirmButtonText: 'OK',
-			confirmButtonColor: 'rgb(16, 185, 129)',
+			buttonsStyling: false,
+			customClass: {
+				confirmButton: 'genric-btn success'
+			},
 		}).then(function (result) {
 			if(result.isConfirmed) {
 				location.href=$("#contextRoot").val()+"/info/course/list/all";
@@ -97,12 +114,12 @@ $(document).ready(function () {
 			} else { // 若非 USER 登入中, 為 null
 				getCoursesUrl = $("#contextRoot").val() + "/api/course/";
 			}
-			generateCourseList(getCoursesUrl);
+			requestCourseList(getCoursesUrl);
 		}
 	});
 	
 	// 請求並製造 course list
-	function generateCourseList(getCoursesUrl) {
+	function requestCourseList(getCoursesUrl) {
 		$.ajax({
 			method: "GET", // api query
 			url: getCoursesUrl,
@@ -166,6 +183,95 @@ $(document).ready(function () {
 		}); // find all 請求結束
 	} // generate course list function 結束
 
+	// 搜尋input的change事件處理
+	$("#courseNameSearchBtn").click(function () {
+		
+		// 請求 current member id
+		let getCoursesByNameUrl; // 請求 course list 的 url, 由有沒有登入 USER 來決定
+		$.ajax({
+			url: $("#contextRoot").val() + "/user/memberId",
+			success: function (memberId) {
+				if(memberId) { // 若 USER 登入中, 有 member id
+					getCoursesByNameUrl = $("#contextRoot").val() + "/api/course/member/" + memberId + "/name/" + $("#courseNameSearchInput").val();
+				} else { // 若非 USER 登入中, 為 null
+					getCoursesByNameUrl = $("#contextRoot").val() + "/api/course/name/" + $("#courseNameSearchInput").val();
+				}
+				requestCourseListByName(getCoursesByNameUrl);
+			}
+		});
+	});
+	
+	function requestCourseListByName(getCoursesByNameUrl) {
+		
+		$.ajax({
+			method: "GET", // api query
+			url: getCoursesByNameUrl,
+			success: function (courseDtoList) {
+				console.log(courseDtoList);
+				
+				// 先清除舊有 article
+				$("#templateContainer article").not('#article-template article').remove();
+				// 重新生城 article
+				
+				$(courseDtoList).each(function (index, courseDto) {
+				
+					// 若無餘額, 則下一筆
+					if(courseDto.courseRemainingPlaces == 0) {
+						return; // 等效於 continue, (cf return false 等效於 break)
+					}
+					
+					// 樣板
+					const articleTemplate = $("#article-template");
+					
+					// 複製
+					const articleClone = $( $(articleTemplate).html() );
+					// 開始塞值
+					$("#courseId", articleClone).text(courseDto.courseId);
+					$("#courseName", articleClone).text(courseDto.courseName);
+					if(courseDto.coursePictureBase64) {
+						$("#coursePictureBase64", articleClone).attr("src",
+							"data:image/jpeg;base64, "+courseDto.coursePictureBase64
+						);
+					}
+					$("#coachFullName", articleClone).text(courseDto.coachFullName);
+					if(courseDto.coursePictureBase64) {
+						$("#coachProfileBase64", articleClone).attr("src",
+							"data:image/jpeg;base64, "+courseDto.coachProfileBase64
+						);
+					}
+					$("#roomName", articleClone).text(courseDto.roomName);
+					$("#courseDescription", articleClone).text(courseDto.courseDescription);
+					$("#courseStartDate", articleClone).text(courseDto.courseStartDate);
+					$("#courseClassAmount", articleClone).text(courseDto.courseClassAmount);
+					$("#coursePeriod", articleClone).text(courseDto.coursePeriod);
+					$("#coursePrice", articleClone).text(courseDto.coursePrice);
+
+					// 若有會員登入，且此課程有報名了，則我要報名改已報名
+					console.log(courseDto.courseName);
+					console.log(courseDto.isRegisteredByThisMember);
+					if(courseDto.isRegisteredByThisMember) { // 為 true
+						$("#bookingFormLink", articleClone)
+							.addClass("disableIfRegistered")
+							.text("已報名");
+					// 若會員沒登入
+					} else { // 為 null 或 false
+						// 塞值給連結
+						$("#bookingFormLink", articleClone).attr("href", $("#contextRoot").val()+"/user/courseBookingForm?courseId="+courseDto.courseId);
+						// 即將額滿提醒
+						if(courseDto.courseRemainingPlaces <= 3) {
+							$("#warn", articleClone)
+								.text("(即將額滿)")
+								.addClass("aboutToFull");
+						}
+					}
+					
+					// 插在樣板前面
+					$( articleTemplate ).before( articleClone );
+				}); // for each 結束
+			}
+		});
+	}
+	
 }); // document ready 結束
 </script>
 
@@ -216,10 +322,10 @@ $(document).ready(function () {
             <div class="row">
                 <div class="col-lg-4">
                     <div class="categories_post">
-                        <img src="${contextRoot}/resources/frontstage/img/blog/cat-post/cat-post-3.jpg" alt="post">
+                        <img src="${contextRoot}/resources/frontstageCourseImage/ox.jpg" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="${contextRoot}/resources/frontstage/blog-details.html">
+                                <a href="">
                                     <h5>有氧</h5>
                                 </a>
                                 <div class="border_line"></div>
@@ -230,10 +336,10 @@ $(document).ready(function () {
                 </div>
                 <div class="col-lg-4">
                     <div class="categories_post">
-                        <img src="${contextRoot}/resources/frontstage/img/blog/cat-post/cat-post-2.jpg" alt="post">
+                        <img src="${contextRoot}/resources/frontstageCourseImage/yoga_1.jpg" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="${contextRoot}/resources/frontstage/blog-details.html">
+                                <a href="">
                                     <h5>瑜珈</h5>
                                 </a>
                                 <div class="border_line"></div>
@@ -244,10 +350,10 @@ $(document).ready(function () {
                 </div>
                 <div class="col-lg-4">
                     <div class="categories_post">
-                        <img src="${contextRoot}/resources/frontstage/img/blog/cat-post/cat-post-1.jpg" alt="post">
+                        <img src="${contextRoot}/resources/frontstageCourseImage/stretch.png" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="${contextRoot}/resources/frontstage/blog-details.html">
+                                <a href="">
                                     <h5>伸展</h5>
                                 </a>
                                 <div class="border_line"></div>
@@ -295,8 +401,9 @@ $(document).ready(function () {
 	                                        </a>
 	                                        <p id="courseDescription"></p>
 	                                        <a id="bookingFormLink" href="" class="white_bg_btn bookingFormLinkClass">
-	                                        	我要報名<span id="warn"></span>
+	                                        	我要報名
 	                                        </a>
+	                                        <span id="warn"></span>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -312,11 +419,7 @@ $(document).ready(function () {
                                         </span>
                                     </a>
                                 </li>
-                                <li class="page-item"><a href="#" class="page-link">01</a></li>
-                                <li class="page-item active"><a href="#" class="page-link">02</a></li>
-                                <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                <li class="page-item"><a href="#" class="page-link">04</a></li>
-                                <li class="page-item"><a href="#" class="page-link">09</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">01</a></li>
                                 <li class="page-item">
                                     <a href="#" class="page-link" aria-label="Next">
                                         <span aria-hidden="true">
@@ -335,12 +438,12 @@ $(document).ready(function () {
                     	<!-- 搜尋 -->
                         <aside class="single_sidebar_widget search_widget">
                             <div class="input-group">
-                                <input type="text" class="form-control" 
+                                <input id="courseNameSearchInput" type="text" class="form-control" 
                                 	placeholder="搜尋課程" 
                                 	onfocus="this.placeholder = ''" 
                                 	onblur="this.placeholder = '搜尋課程'">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
+                                    <button id="courseNameSearchBtn" class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
                                 </span>
                             </div><!-- /input-group -->
                             <div class="br"></div>
@@ -351,44 +454,20 @@ $(document).ready(function () {
                             <ul class="list cat-list">
                                 <li>
                                     <a href="#" class="d-flex justify-content-between">
-                                        <p>Technology</p>
-                                        <p>7</p>
+                                        <p>有氧</p>
+                                        <p>6</p>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="d-flex justify-content-between">
-                                        <p>Lifestyle</p>
-                                        <p>4</p>
+                                        <p>瑜珈</p>
+                                        <p>3</p>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="d-flex justify-content-between">
-                                        <p>Fashion</p>
-                                        <p>9</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Art</p>
-                                        <p>9</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Food</p>
-                                        <p>5</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Architecture</p>
-                                        <p>9</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Adventure</p>
-                                        <p>4</p>
+                                        <p>伸展</p>
+                                        <p>2</p>
                                     </a>
                                 </li>
                             </ul>

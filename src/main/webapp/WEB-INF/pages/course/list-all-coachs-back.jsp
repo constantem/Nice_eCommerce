@@ -36,73 +36,79 @@
 <script>
 $(document).ready(function () {
 	
-	// 請求 coach list
-	$.ajax({
-		method: "GET", // api query
-		url: $("#contextRoot").val() + "/api/coach",
-		success: function (coachs) {
-			$(coachs).each(function (index, coach) {
-				// 樣板
-				const trTemplate = $("#tr-template");
-				
-				// 複製
-				const trClone = $( $(trTemplate).html() );
-				// 開始塞值
-				$("#fullName", trClone).text(coach.lastName+coach.firstName);
-				$("#nickname", trClone).text(coach.nickname);
-				$("#gender", trClone).text(coach.gender);
-				$("#phone", trClone).text(coach.phone);
-				$("#email", trClone).text(coach.email);
-				$("#address", trClone).text(coach.address);
-				$("#hireDate", trClone).find("small").text(coach.hireDate);
-				console.log("coach.modifiedAt");
-				console.log(coach.modifiedAt, typeof coach.modifiedAt);
-				console.log(coach.modifiedAt==null);
-				if(coach.modifiedAt==null) { // 從未編輯, 用 createdAt
-					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.createdAt);
-				} else { // 編輯過, 用 modifiedAt
-					$("#createdAtOrModifiedAt", trClone).find("small").text(coach.modifiedAt);
-				}
-				// 塞 Base64 給 img
-				if(coach.profileBase64) {
-					$("#profileBase64", trClone).attr("src", "data:image/jpeg;base64, "+coach.profileBase64);
-				}
-				// 塞值給連結
-				$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/coach/detailPage/"+coach.id);
-				// 塞id給deleteBtn
-				$("#deleteBtn", trClone).attr("data-id", coach.id); // jQuery 的 data setter 不能改變 html 的 data-* (因為 html DOM object attr 推出較晚), 只能改變 object 的 data, 若要改變 html 的 data-* 要用 attr
-				// 插在樣板前面
-				$( trTemplate ).before( trClone );
-			})
-		}
-	}); // find all 請求結束
+	generateCoachList();
 	
-	// 以下動態生成出來的按鈕要動態綁定
-	/* local Modal open */
-	$("#templateContainer").on("click", ".--jb-modal-delete", function () {
-		const deleteBtn = this;
-		console.log(this);
-		console.log($(this));
-		// 取得按鈕上所標記要對應的彈窗div
-		const modalId = $(deleteBtn).data("target");
-		document.getElementById(modalId).classList.add('active'); // 彈窗彈出來 
-		document.documentElement.classList.add('clipped'); // 整個 html 標籤被 clipped
+	function generateCoachList() {
+		// 請求 coach list
+		$.ajax({
+			method: "GET", // api query
+			url: $("#contextRoot").val() + "/api/coach",
+			success: function (coachs) {
+				$(coachs).each(function (index, coach) {
+					// 樣板
+					const trTemplate = $("#tr-template");
+					
+					// 複製
+					const trClone = $( $(trTemplate).html() );
+					// 開始塞值
+					$("#fullName", trClone).text(coach.lastName+coach.firstName);
+					$("#nickname", trClone).text(coach.nickname);
+					$("#gender", trClone).text(coach.gender);
+					$("#phone", trClone).text(coach.phone);
+					$("#email", trClone).text(coach.email);
+					$("#address", trClone).text(coach.address);
+					$("#hireDate", trClone).find("small").text(coach.hireDate);
+					console.log("coach.modifiedAt");
+					console.log(coach.modifiedAt, typeof coach.modifiedAt);
+					console.log(coach.modifiedAt==null);
+					if(coach.modifiedAt==null) { // 從未編輯, 用 createdAt
+						$("#createdAtOrModifiedAt", trClone).find("small").text(coach.createdAt);
+					} else { // 編輯過, 用 modifiedAt
+						$("#createdAtOrModifiedAt", trClone).find("small").text(coach.modifiedAt);
+					}
+					// 塞 Base64 給 img
+					if(coach.profileBase64) {
+						$("#profileBase64", trClone).attr("src", "data:image/jpeg;base64, "+coach.profileBase64);
+					}
+					// 塞值給連結
+					$("#editAnchor", trClone).attr("href", $("#contextRoot").val()+"/coach/detailPage/"+coach.id);
+					// 塞id給deleteBtn
+					$("#deleteBtn", trClone).attr("data-id", coach.id); // jQuery 的 data setter 不能改變 html 的 data-* (因為 html DOM object attr 推出較晚), 只能改變 object 的 data, 若要改變 html 的 data-* 要用 attr
+					// 插在樣板前面
+					$( trTemplate ).before( trClone );
+				})
+			}
+		}); // find all 請求結束
 		
-		// 取得按鈕上所標記的 coach 的 id
-		const id = $(deleteBtn).data("id");
-		console.log("id");
-		console.log(id);
-		$("#deleteConfirmBtn").click(function () {
-			$.ajax({
-				method: "DELETE",
-				url: $("#contextRoot").val()+"/api/coach/"+id,
-				success: function () {
-					window.location.href = $("#contextRoot").val()+"/staff/coach/listPage";
-				}
+		// 以下動態生成出來的按鈕要動態綁定
+		/* local Modal open */
+		$("#templateContainer").on("click", ".--jb-modal-delete", function () {
+			const deleteBtn = this;
+			console.log(this);
+			console.log($(this));
+			// 取得按鈕上所標記要對應的彈窗div
+			const modalId = $(deleteBtn).data("target");
+			document.getElementById(modalId).classList.add('active'); // 彈窗彈出來 
+			document.documentElement.classList.add('clipped'); // 整個 html 標籤被 clipped
+			
+			// 取得按鈕上所標記的 coach 的 id
+			const id = $(deleteBtn).data("id");
+			console.log("id");
+			console.log(id);
+			$("#deleteConfirmBtn").click(function () {
+				$.ajax({
+					method: "DELETE",
+					url: $("#contextRoot").val()+"/api/coach/"+id,
+					success: function () {
+						window.location.href = $("#contextRoot").val()+"/staff/coach/listPage";
+					}
+				});
 			});
 		});
-		
-	});
+	}
+
+	
+
 	
 }); // document ready 結束
 </script>
@@ -233,10 +239,8 @@ $(document).ready(function () {
           <div class="flex items-center justify-between">
             <div class="buttons">
               <button type="button" class="button active">1</button>
-              <button type="button" class="button">2</button>
-              <button type="button" class="button">3</button>
             </div>
-            <small>Page 1 of 3</small>
+            <small>第1頁，共1頁</small>
           </div>
         </div>
         

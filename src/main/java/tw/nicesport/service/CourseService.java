@@ -100,6 +100,10 @@ public class CourseService {
 		return courseDao.findAll(pageable);
 	}
 	
+	public List<Course> findByCourseNameContaining(String courseName) {
+		return courseDao.findByCourseNameContaining(courseName);
+	}
+	
 	public CoachsAndRoomsContainer getAllCoachAndRoom() {
 		
 		List<Coach> coachs = coachDao.findAll();

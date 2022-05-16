@@ -69,6 +69,51 @@ public class CourseApi {
 		return courseDtoList;
 	}
 	
+	@GetMapping("/api/course/name/{courseName}")
+	public List<CourseDto> findByName(@PathVariable(name="courseName",required=false) String courseName) {
+
+		// 正常查找 course list by course name
+		String courseNameTrim = courseName.trim();
+		List<Course> courses = courseService.findByCourseNameContaining(courseNameTrim);
+		System.out.println(courses);
+		List<CourseDto> courseDtoList = toCourseDto(courses);
+		return courseDtoList;
+	}
+	
+	// 查詢全部(整併 by member id 功能)
+	@GetMapping("/api/course/member/{memberId}/name/{courseName}")
+	public List<CourseDto> findAllByMemberId(
+			@PathVariable(name="memberId",required=false) Integer memberId,
+			@PathVariable(name="courseName",required=false) String courseName) {
+
+		// 正常查找 course list
+		String courseNameTrim = courseName.trim();
+		List<Course> courses = courseService.findByCourseNameContaining(courseNameTrim);
+				
+		// 找此 member 報名的課程
+		List<Integer> courseIdListByThisMember;
+		if(memberId!=null) {
+			courseIdListByThisMember = courseBookingService.findCourseListRegisteredByGivenMember(memberId);
+		} else {
+			courseIdListByThisMember = null;
+		}
+		System.out.println("courseIdListByThisMember");
+		System.out.println(courseIdListByThisMember);
+		
+		List<CourseDto> courseDtoList = toCourseDto(courses);
+
+		for(CourseDto courseDto : courseDtoList) {
+			courseDto.setIsRegisteredByThisMember(false);
+			if(
+					courseIdListByThisMember.contains( courseDto.getCourseId() )
+				) {
+				courseDto.setIsRegisteredByThisMember(true);
+			}
+		}
+		
+		return courseDtoList;
+	}
+	
 	private List<CourseDto> toCourseDto(List<Course> courses) {
 		// 轉 dto
 		List<CourseDto> courseDtoList = new ArrayList<>();

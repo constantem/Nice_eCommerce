@@ -403,6 +403,25 @@
 			$("#quantity").attr("value", "")
 		})
 	</script>
+
+<script>
+	$(window).scroll(function(){
+		//最後一頁scrollTop=body-window，50是預留空間
+		last=$("body").height()-$(window).height()-50
+		if($(window).scrollTop()>=last){
+			$("#productName").attr("value", "Nike Air Zoom Tempo")
+							$("#supplier").attr("value", "Nike ")
+							$("#color").attr("value", "黑")
+							$("#size").attr("value", "US9")
+							$("#weight").attr("value", "234g")
+							$("#price").attr("value", "3290")
+							$("#quantity").attr("value", "100")
+							$("#productDiscription")
+									.attr("value",
+											"這款疾速跑鞋不僅能輕鬆通過比賽日的考驗，也是例行訓練不可或缺的良伴支撐貼合設計搭配柔軟緩震系統，締造耐得住長距離的舒適腳感，以及方便隨時加快節奏的輕盈度")
+		}
+	})
+</script>
 	<!-- ================================================================================ -->
 
 	<!--sweetalert 新增商品-->

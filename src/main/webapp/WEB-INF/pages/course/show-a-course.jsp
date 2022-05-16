@@ -238,9 +238,7 @@
 		<ul>
 			<li>管理系統</li>
 			<li>課程管理</li>
-
 		</ul>
-
 	</div>
 </section>
 

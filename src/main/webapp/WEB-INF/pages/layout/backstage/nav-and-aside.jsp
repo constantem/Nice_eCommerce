@@ -328,24 +328,24 @@
     
     <p class="menu-label">About</p>
     <ul class="menu-list">
-      <li>
+      <!-- <li>
         <a href="https://tailwindcss.com/docs/installation" class="has-icon">
           <span class="icon"><i class="mdi mdi-help-circle"></i></span>
           <span class="menu-item-label">後台樣式官網</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="https://github.com/constantem/Nice_eCommerce" class="has-icon">
           <span class="icon"><i class="mdi mdi-github-circle"></i></span>
-          <span class="menu-item-label">本組GitHub</span>
+          <span class="menu-item-label">GitHub</span>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="https://drive.google.com/drive/folders/1lWzF6pWIafRzq4-vXgjpKAoj32DKLIblㄖㄛ" class="has-icon">
           <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
           <span class="menu-item-label">本組sql檔雲端</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </aside>

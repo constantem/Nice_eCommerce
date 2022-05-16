@@ -225,11 +225,14 @@
 						<button type="submit" id="btn1" class="button green">確認</button>
 					</div>
 					<div class="control">
+						<button type="reset" class="button green" id="edit">修改</button>
+					</div>
+					<div class="control">
 						<button type="reset" class="button red" id="reset">清除</button>
 					</div>
 					<div class="field grouped">
 						<div class="control">
-							<button type="submit" class="button green">返回</button>
+							<button type="submit" class="button red">返回</button>
 						</div>
 					</div>
 				</div>
@@ -329,6 +332,20 @@
 			$("#email").attr("value", "");
 			$("#address").attr("value", "");
 		});
+	
+	$("#edit").click(function() {
+			$("#password").attr("value", "aaa123zzz");
+			$("#lastname").attr("value", "李");
+			$("#firstname").attr("value", "傑瑞");
+			$("#birthdate").attr("value", "1995-01-06");
+			$("#gender").attr("value", "男");
+			$("#phone").attr("value", "0925666666");
+			$("#email").attr("value", "eeit140777@gmail.com");
+			$("#address").attr("value", "台中市烏日區公園路401號");
+		});
+	
+	
+	
 	</script>
 
 	<!-- 修改成功彈窗 -->

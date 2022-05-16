@@ -266,28 +266,24 @@ $(document).ready(function () {
             </p>
           </header>
           <div class="card-content">
-          	<i 
-          		<c:choose>
-          			<c:when test="${(activeLi == 'courseForm') || (activeLi == 'courseList') || (activeLi == 'coachList') || (activeLi == 'courseBookingList')}">class="mdi mdi-minus"</c:when>
-          		</c:choose>
-          	></i>
+          	<i></i>
         <ul>
-          <li <c:if test="${activeLi == 'courseForm'}">class="active"</c:if> >
+          <li>
             <a href="${contextRoot}/staff/course/form">
               <span class="cardContent">新增課程</span>
             </a>
           </li>
-          <li <c:if test="${activeLi == 'courseList'}">class="active"</c:if> >
+          <li>
             <a href="${contextRoot}/staff/course/show/all">
               <span class="cardContent">課程列表</span>
             </a>
           </li>
-          <li <c:if test="${activeLi == 'coachList'}">class="active"</c:if> >
+          <li>
             <a href="${contextRoot}/staff/coach/listPage">
               <span class="cardContent">教練列表</span>
             </a>
           </li>
-          <li <c:if test="${activeLi == 'courseBookingList'}">class="active"</c:if> >
+          <li>
             <a href="${contextRoot}/staff/courseBooking/listPage">
               <span class="cardContent">課程訂單列表</span>
             </a>

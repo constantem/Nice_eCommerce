@@ -379,7 +379,7 @@
       <p>即將<b>登出</b>並前往運動網</p>
     </section>
     <footer class="modal-card-foot">
-	  <button class="button blue --jb-modal-close" onclick="location.href='${contextRoot}/staffLogoutAndToFrontstage'">登出並前往</button>
+	  <button class="button green --jb-modal-close" onclick="location.href='${contextRoot}/staffLogoutAndToFrontstage'">登出並前往</button>
       <button class="button --jb-modal-close">取消</button>
     </footer>
   </div>
@@ -461,26 +461,3 @@
 	});
 
 </script>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
-<!-- 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" -->
-<!-- 	crossorigin="anonymous"> -->
-<!-- </script> -->
-<!-- 
-<script>
-
-	$.ajax({
-		url: $("#contextRoot").val() + "/staff/role",
-		success: function (roles) {
-			console.log("staff roles 後端 ========>|" + roles);
-			if(roles.includes("ROLE_EMPLOYEE")||roles.includes("ROLE_ADMIN")) {
-				$(".isAuthenticatedAsStaff").show();
-				$(".notAuthenticatedAsStaff").hide();
-			} else {
-				$(".isAuthenticatedAsStaff").hide();
-				$(".notAuthenticatedAsStaff").show();
-			}
-		}
-	});
-
-</script>
- -->

@@ -11,7 +11,7 @@
 <!-- Mobile Specific Meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon-->
-<link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+<link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
 <!-- Author Meta -->
 <meta name="author" content="CodePixar">
 <!-- Meta Description -->
@@ -21,7 +21,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Karma Shop</title>
+<title>課程報名</title>
 
 <style>
 </style>
@@ -48,7 +48,6 @@
 $(document).ready(function () {
 	// 請求會員資訊與課程資訊
 	const memberAndCourseUrl = $("#contextRoot").val()+"/api/courseBooking/member/"+$("#memberId").val()+"/course/"+$("#courseId").val();
-	console.log(memberAndCourseUrl);
 	$.ajax({
 		method: "GET",
 		url: memberAndCourseUrl,
@@ -61,6 +60,21 @@ $(document).ready(function () {
 		}
 	});
 	
+	// 報名按鈕綁定事件處理, 報名課程(新增課程訂單)
+	console.log(new FormData( $("#courseBookingForm")[0] ));
+	$("#bookingBtn").click(function () {
+		$.ajax({
+			method: "POST",
+			url: $("#contextRoot").val()+"/api/courseBooking",
+			data: new FormData( $("#courseBookingForm")[0] ),
+			processData: false,
+			contentType: false,
+			success: function (courseBookingId) {
+				location.href = $("#contextRoot").val() + "/courseBooking/successPage"+"?courseBookingId="+courseBookingId;
+			}
+		});
+	}); // 報名按鈕綁定事件處理結束
+
 });
 </script>
 
@@ -111,8 +125,7 @@ $(document).ready(function () {
                 <div class="row">
                     <div class="col-lg-6">
                         <h3>報名資訊</h3>
-                        <form id="courseBookingForm" modelAttribute="courseBookingDtoForm"
-                        	action="${contextRoot}/courseBooking/confirm" method="post" 
+                        <form id="courseBookingForm" 
                         	class="row contact_form"  novalidate="novalidate">
                         	
                         	<!-- 隱藏 input 區 -->
@@ -136,7 +149,8 @@ $(document).ready(function () {
                                 價錢：<span id="coursePrice"></span>
                             </div>
                             <div class="col-md-12 form-group">
-                                <a class="primary-btn" href="javascript:void(0)" onclick="document.getElementById('courseBookingForm').submit();">報名</a>
+                            	<button id="bookingBtn" type="button" class="primary-btn">報名</button>
+<!--                                 <a id="bookingBtn" class="primary-btn" href="javascript:void(0)">報名</a> -->
                             </div>
                         </form>
                     </div>

@@ -11,7 +11,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="${contextRoot}/resources/frontstage/img/fav.png">
+    <link rel="shortcut icon" href="${contextRoot}/resources/frontstageLogo/favicon.png">
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -21,7 +21,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>課程資訊</title>
     <!--
 			CSS
 			============================================= -->
@@ -87,9 +87,9 @@ $(document).ready(function () {
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>課程</h1>
+                    <h1>課程資訊</h1>
                     <nav class="d-flex align-items-center">
-                        <a href="${contextRoot}/resources/frontstage/index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="${contextRoot}/resources/frontstage/index.html">首頁<span class="lnr lnr-arrow-right"></span></a>
                         <a href="${contextRoot}/resources/frontstage/category.html">課程資訊</a>
                     </nav>
                 </div>

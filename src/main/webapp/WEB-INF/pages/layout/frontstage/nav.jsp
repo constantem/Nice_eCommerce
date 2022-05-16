@@ -9,7 +9,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <!----------------------------------------------------->	
 
-
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <input id="contextRoot" type="hidden" value="${pageContext.request.contextPath}">
@@ -186,6 +185,11 @@
 			confirmButtonText: "登出並前往",
 			showCancelButton: true,
 			cancelButtonText: "取消",
+			buttonsStyling: false,
+			customClass: {
+				confirmButton: 'genric-btn success',
+				cancelButton: 'genric-btn default'
+			},
 		}).then(function (result) {
 			if(result.isConfirmed) {
 				location.href = "${contextRoot}/userLogoutAndToBackstage";

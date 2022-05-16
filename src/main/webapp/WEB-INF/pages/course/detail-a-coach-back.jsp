@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>教練</title>
+<title>教練資訊</title>
 
 <!-- 使用原生 https://materialdesignicons.com/ 的 icon-->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
@@ -186,7 +186,7 @@ $(document).ready(function() { // Document is ready
 		const mimeType = inputFile.type;
 		if( !mimeType.match(/image.*/) ){
 			Swal.fire({
-				text: "請上傳照片！"
+				text: "請上傳照片！",
 				showConfirmButton: true,
 				confirmButtonText: 'OK',
 				confirmButtonColor: 'rgb(16, 185, 129)',
@@ -334,7 +334,6 @@ $(document).ready(function() { // Document is ready
 						<input id="lastNameInput" class="input forEdit displayNone"
 							type="text" name="lastName" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 				
 				<!-- input 輸入格2 -->
@@ -358,7 +357,6 @@ $(document).ready(function() { // Document is ready
 						<input id="nicknameInput" class="input forEdit displayNone"
 							type="text" name="nickname" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 
 			</div>
@@ -389,7 +387,6 @@ $(document).ready(function() { // Document is ready
 						<input id="genderInput" class="input forEdit displayNone"
 							type="text" name="gender" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 				
 				<!-- input 輸入格5 -->
@@ -401,7 +398,6 @@ $(document).ready(function() { // Document is ready
 						<input id="phoneInput" class="input forEdit displayNone"
 							type="text" name="phone" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 				
 				<!-- input 輸入格6 -->
@@ -413,7 +409,6 @@ $(document).ready(function() { // Document is ready
 						<input id="emailInput" class="input forEdit displayNone"
 							type="text" name="email" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 				
 				<!-- input 輸入格7 -->
@@ -425,7 +420,6 @@ $(document).ready(function() { // Document is ready
 						<input id="addressInput" class="input forEdit displayNone"
 							type="text" name="address" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 				
 				<!-- input 輸入格8 -->
@@ -437,7 +431,6 @@ $(document).ready(function() { // Document is ready
 						<input id="hireDateInput" class="input forEdit displayNone"
 							type="text" name="hireDate" value=""/>
 					</div>
-					<p class="help">*必填</p>
 				</div>
 
 				<hr class="forEdit displayNone">

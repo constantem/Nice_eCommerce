@@ -78,6 +78,8 @@ $(document).ready(function() {
 				$("#courseStartDate").val(courseAutoInput.courseStartDate);
 				$("#courseClassAmount").val(courseAutoInput.courseClassAmount);
 				$("#coursePrice").val(courseAutoInput.coursePrice);
+				$("#courseDescription").val(courseAutoInput.courseDescription);
+				
 
 				const coachAutoSelected = JSON.parse(autoInputMapObj.coach);
 				$("#coachId")

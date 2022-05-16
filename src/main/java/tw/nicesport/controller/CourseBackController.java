@@ -120,6 +120,10 @@ public class CourseBackController {
 			courseNameArray[   RandomUtils.getRandomIndex(courseNameArray.length)   ]
 		);
 		
+		courseForAutoInput.setCourseDescription(
+			"沃辛頓說：「知道你自己不可妥協的是什麼是關鍵，可能是周日與家人一起吃烤肉，每週下班後喝雞尾酒，或週五晚上吃外賣，然後看看你能實際投入多少時間進行鍛煉，以及何時進行。例如，如果你有被拉去參加最後一分鐘的晚間會議的傾向，就不要把鍛煉安排在下午6點。一旦你確定了，就開始制定計劃，你的鍛煉計劃應該與你的生活相輔相成，而不是相反，否則你將無法堅持下去。」"
+		);
+		
 		courseForAutoInput.setCourseStartDate(
 				RandomUtils.getRandomDate(2020, 2022)
 		);
